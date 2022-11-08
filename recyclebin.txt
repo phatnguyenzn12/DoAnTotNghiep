@@ -1,0 +1,301 @@
+    import {filter} from '/js/data-table.js';
+    let filter1 = new filter({
+        search: 0,
+        record: 10,
+    }, js_$('#datatable'),'/admin/user/list-data/:search/:record/');
+    filter1.listData();
+    filter1.search(js_$('#kt_datatable_search_query'));
+
+
+    export class filter {
+    objFilter
+    element
+    _url
+    _url_define
+    constructor(objFilter, element, _url) {
+        this.element = element
+        this.objFilter = objFilter
+        this._url = _url
+        this._url_define = _url
+    }
+    saveobj(object) {
+        this.objFilter = object
+    }
+    showList(elm) {
+        this.element = elm
+    }
+    //==================================================>
+    get() {
+        for (const key in this.objFilter) {
+            // console.log(key,this.objFilter[key]);
+            // console.log(this._url_define.replace(`:${key}`, this.objFilter[key]));
+            this._url_define = this._url_define.replace(`:${key}`, this.objFilter[key])
+            console.log(this._url_define);
+            this._url = this._url_define
+        }
+        console.log(this._url);
+        axios.get(this._url)
+            .then(
+                (res) => {
+                    this.element.innerHTML = res.data
+                    this.panigate()
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error.message)
+                    alert(error.message)
+                }
+            )
+    }
+    //==================================================>
+    listData() {
+        this.get()
+    }
+    search(event) {
+        event.oninput = (a) => {
+            this.objFilter.search = a.target.value == '' ? 0 : a.target.value
+            this.get()
+        }
+    }
+    select(){
+        js_$('#option-num')
+    }
+    panigate() {
+        js_$$('[pageSelection]').forEach(
+            (a) => {
+                a.onclick = (b) => {
+                    b.classList.add('active')
+                    if (this._url.includes('?')) {
+                        let arr = this._url.split("?");
+                        this._url = arr[0] + '?page=';
+                        this._url += b.target.getAttribute('pageSelection')
+                    }else{
+                        this._url += "?page=" + b.target.getAttribute('pageSelection')
+                    }
+                    for (const key in this.objFilter) {
+                        this._url = this._url.replace(`:${key}`, this.objFilter[key])
+                    }
+                    axios.get(this._url)
+                        .then(
+                            (res) => {
+                                this.element.innerHTML = res.data
+                                this.panigate()
+                            }
+                        )
+                        .catch(
+                            (error) => {
+                                console.log(error.message)
+                                alert(error.message)
+                            }
+                        )
+                }
+            }
+        )
+    }
+}
+
+
+
+
+export class filter {
+    objFilter;element;_url;_urlDefine
+    constructor(objFilter, element, _url) {
+        this.element = element
+        this.objFilter = objFilter
+        this._url = _url
+        this._urlDefine = _url
+    }
+    saveobj(object) {
+        this.objFilter = object
+    }
+    showList(elm) {
+        this.element = elm
+    }
+    //==================================================>
+    get() {
+        for (const key in this.objFilter) {
+            this._url = this._url.replace(`:${key}`, this.objFilter[key])
+        }
+        console.log(this._url);
+        axios.get(this._url)
+            .then(
+                (res) => {
+                    console.log(res.data.data,res.data.data.data);
+                    this.element.innerHTML = res.data
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error.message)
+                    alert(error.message)
+                }
+            )
+    }
+    //==================================================>
+    search() {
+        js_$('[filter-search]').oninput = (a) => {
+            this.objFilter.search = a.target.value == '' ? 0 : a.target.value
+            this._url = this._urlDefine
+            this.get()
+        }
+    }
+    select() {
+        js_$('[filter-record]').onchange = (a) => {
+            this.objFilter.record = a.target.value == '' ? 0 : a.target.value
+            this._url = this._urlDefine
+            this.get()
+        }
+    }
+    panigate() {
+        js_$$('[filter-page]').forEach(
+            (a) => {
+                a.onclick = (b) => {
+                    console.log(b);
+                    b.target.classList.add('active')
+                    this._url = this._urlDefine
+                    this._url += "?page=" + b.target.getAttribute('filter-page')
+                    this.get()
+                }
+            }
+        )
+    }
+}
+
+
+        // import {startLoader,endLoader} from '/js/loader.js';
+        // const objFilter = {
+        //     search: 0,
+        //     record: 10,
+        // }
+        // function _url(search, record) {
+        //     return `/admin/user/list-data/${search}/${record}`;
+        // }
+        // axios.get(_url(objFilter.search, objFilter.record))
+        //     .then(
+        //         (res) => {
+        //             showHtml(res.data.data)
+        //         }
+        //     )
+        //     .catch(
+        //         (error) => {
+        //             console.log(error.message)
+        //             alert(error.message)
+        //         }
+        //     )
+        // js_$('[filter-search]').oninput = (a) => {
+        //     objFilter.search = a.target.value == '' ? 0 : a.target.value
+        //     axios.get(_url(objFilter.search, objFilter.record))
+        //         .then(
+        //             (res) => {
+        //                 showHtml(res.data.data)
+        //             }
+        //         )
+        //         .catch(
+        //             (error) => {
+        //                 console.log(error.message)
+        //                 alert(error.message)
+        //             }
+        //         )
+        // }
+        // js_$('[filter-record]').onchange = (a) => {
+        //     startLoader()
+        //     objFilter.record = a.target.value == '' ? 0 : a.target.value
+        //     axios.get(_url(objFilter.search, objFilter.record))
+        //         .then(
+        //             (res) => {
+        //                 showHtml(res.data.data)
+        //                 endLoader()
+        //             }
+        //         )
+        //         .catch(
+        //             (error) => {
+        //                 console.log(error.message)
+        //                 alert(error.message)
+        //             }
+        //         )
+        // }
+
+        // function showHtml(data) {
+        //     showPanigate(data)
+        //     let html = data.data.map(val => {
+        //         return `     <tr>
+        //         <td col="name">${val.name}</td><td><a class="btn btn-light btn-sm">
+        //             <i class="flaticon2-pen text-warning"></i></a>
+
+        //         <a class="btn btn-light  btn-sm">
+        //             <i class="flaticon2-trash text-danger"></i></a></td></tr>`
+        //     }).join(',');
+        //     $('[show-list]').html(html)
+        // }
+
+        // function showPanigate(data) {
+        //     let htmlPage = data.links.map(
+        //         (val) => {
+        //             return `<a filter-page="${val.url}" class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 ${val.active == true? 'active':''}">${val.label.includes('e') == true ? `<i class="ki ki-bold-arrow-${val.label.includes('l') == true?'back':'next'} icon-xs text-success"></i>`: val.label}</a>`
+        //         }
+        //     ).join('')
+        //     $('[show-page]').html(htmlPage)
+        //     js_$('[page-start]').setAttribute('filter-page', data.first_page_url)
+        //     js_$('[page-end]').setAttribute('filter-page', data.last_page_url)
+        //     $('[show-number]').html(`
+        //         Displaying ${data.to} of ${data.total} records
+        //     `)
+
+        //     js_$$('[filter-page]').forEach(element => {
+        //         element.onclick = (a) => {
+        //             console.log(a.target.getAttribute('filter-page'));
+        //             if (a.target.getAttribute('filter-page') != 'null' && a.target.getAttribute('filter-page') != null) {
+        //                 startLoader()
+        //                 axios.get(a.target.getAttribute('filter-page'))
+        //                     .then(
+        //                         (res) => {
+        //                             console.log(res.data);
+        //                             showHtml(res.data.data)
+        //                             endLoader()
+        //                         }
+        //                     )
+        //                     .catch(
+        //                         (error) => {
+        //                             console.log(error.message)
+        //                             alert(error.message)
+        //                         }
+        //                     )
+        //             }
+        //         }
+        //     });
+        // }
+
+
+
+
+
+                CateCourse::factory()
+            ->has(
+                Course::factory()->count(2)
+                    ->has(
+                        Chapter::factory()->count(4)
+                            ->has(
+                                Lesson::factory()->count(5)
+                                    ->has(
+                                        LessonVideo::factory()->count(1)
+                                    )
+                                    ->has(
+                                        CommentLesson::factory(2)
+                                            ->state(function (array $attributes, Lesson $Lesson, User $user) {
+                                                return ['user_id' => 1, 'lesson_id' => $Lesson->id];
+                                            })
+                                    )
+                            )
+                    )
+                    // ->has(
+                    //     CommentCourse::factory()->count(2)
+                    // )
+                    // ->has(
+                    //     VoteCourse::factory()->count(2)
+                    // )
+                    ->hasAttached(
+                        User::factory(2)
+                    )
+            )
+            ->create();
