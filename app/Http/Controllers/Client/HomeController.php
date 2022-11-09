@@ -16,7 +16,7 @@ class HomeController extends Controller
             $courses = $courses->whereNotIn('id',$courses_id);
         }
         $courses =  $courses->get();
-
+// dd($courses->toArray());
         $courses->transform(
             function (Course $course) {
                 return [
