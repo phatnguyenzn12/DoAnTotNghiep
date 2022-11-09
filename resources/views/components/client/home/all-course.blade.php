@@ -1,6 +1,6 @@
 <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
     <h2 class="text-2xl font-semibold"> Khóa học mới </h2>
-    <a href="#" class="text-blue-500 sm:block hidden"> See all </a>
+    <a href="#" class="text-blue-500 sm:block hidden"> Xem tất cả </a>
 </div>
 
 <div class="mt-3">
