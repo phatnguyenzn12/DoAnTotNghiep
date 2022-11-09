@@ -9,7 +9,12 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::select('*')->paginate(5);
+        $courses = Course::select('*');
+        if(auth()->user()){
+            $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
+            $courses = $courses->whereNotIn('id',$courses_id);
+        }
+        $courses =  $courses->paginate(5);
         return view('screens.client.course.list',compact('courses'));
     }
 
@@ -17,6 +22,5 @@ class CourseController extends Controller
     {
         $comments = $course->commentCourses()->get();
         return view('screens.client.course.intro', compact('course', 'comments'));
-        
     }
 }

@@ -9,5 +9,7 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
             'slug' => '.*',
             'course' => '\d+'
         ]);
+
+        Route::get('list','index')->name('list');
     }
 );
