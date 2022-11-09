@@ -12,14 +12,14 @@
                         <a href="index.html"> <i class="icon-feather-home"></i> </a>
                     </li>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
                     <li class="active">
-                        <a href="#">Shopping Cart </a>
+                        <a href="#"> Giỏ hàng </a>
                     </li>
                 </ul>
             </div>
-            <div class="md:text-2xl text-base font-semibold mt-6 md:mb-24"> Shopping Cart </div>
+            <div class="md:text-2xl text-base font-semibold mt-6 md:mb-24"> Giỏ hàng </div>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
             <div class="bg-white rounded-md shadow-md">
 
                 <h3 class="border-b font-semibold px-5 py-4 text-base text-gray-500">
-                    Giỏ hàng của bạn ({{ $carts ? $carts->count() : 0 }} sản phẩm)
+                    Giỏ hàng của bạn ({{ $carts ? $carts->count() : 0 }} Khóa học)
                 </h3>
 
                 <div class="divide-y">
