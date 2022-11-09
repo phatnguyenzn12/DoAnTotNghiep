@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -15,9 +16,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::all();
-        // dd($banners);
-        return view('screens.admin.banner.list', compact('banners'));
+        $index = Banner::all();
+        // dd($index);
+        return view('screens.admin.banner.list', compact('index'));
     }
 
     /**
@@ -38,10 +39,15 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        $banners = new Banner();
-        $banners->fill($request->all());
-        $banners->save();
-        return redirect()->back()->with('success', 'Thêm mới thành công');
+        $store = new Banner();
+        if($request->hasFile('image')){
+            $imgPath = $request->file('image')->store('Banners');
+            $imgPath = str_replace('public/', '', $imgPath);
+            $store->image = $imgPath;
+        }
+        $store->fill($request->all());
+        $store->save();
+        return redirect()->route('admin.banner.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -63,7 +69,11 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit = Banner::find($id);
+        if(!$edit){
+            return back();
+        }
+        return view('screens.admin.banner.update', compact('edit'));
     }
 
     /**
@@ -75,7 +85,20 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update = Banner::find($id);
+        if(!$update){
+            return back();
+        }
+        if($request->hasFile('image')){
+            Storage::delete($update->image);
+
+            $imgPath = $request->file('image')->store('Banners');
+            $imgPath = str_replace('public/', '', $imgPath);
+            $update->image = $imgPath;
+        }
+        $update->fill($request->all());
+        $update->save();
+        return redirect()->route('admin.banner.index')->with('success', 'sửa thành công');
     }
 
     /**
@@ -86,6 +109,13 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = Banner::find($id);
+        if(!empty($destroy->image)){
+            $imgPath = str_replace('storage/', 'public/', $destroy->image);
+            Storage::delete($imgPath);
+        }
+        $destroy->delete();
+        
+        return redirect()->route('admin.banner.index')->with('success', 'Xoá thành công');
     }
 }

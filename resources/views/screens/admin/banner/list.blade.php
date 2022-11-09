@@ -10,7 +10,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Remote Datasource
+                        <h3 class="card-label">Danh sách banners
                             <span class="d-block text-muted pt-2 font-size-sm">Sorting &amp; pagination remote
                                 datasource</span>
                         </h3>
@@ -90,7 +90,7 @@
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="#" class="btn btn-primary font-weight-bolder">
+                        <a href="{{route('admin.banner.create')}}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -165,8 +165,8 @@
                                 <tr>
                                     <th>Tiêu đề</th>
                                     <th>nội dung</th>
+                                    <th>hình ảnh</th>
                                     <th>kiểu banner</th>
-                                    <th>Thông tin đối tượng</th>
                                     <th>status</th>
                                 </tr>
                             </thead>
