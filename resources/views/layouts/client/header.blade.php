@@ -16,65 +16,18 @@
     <nav class="header_menu">
         <ul>
             <li>
-                <a href="#" aria-expanded="false"> Courses</a>
+                <a href="#" aria-expanded="false"> Danh mục khoá học</a>
                 <div uk-drop="mode: click" class="category-dropdown uk-drop">
                     <ul>
                         <li> <a href="courses.html">
                                 <ion-icon name="newspaper-outline" class="is-icon"></ion-icon> Web
                                 Development
                             </a></li>
-                        <li> <a href="courses.html">
-                                <ion-icon name="leaf-outline" class="is-icon"></ion-icon> Mobile App
-                            </a> </li>
-                        <li> <a href="courses.html">
-                                <ion-icon name="briefcase-outline" class="is-icon"></ion-icon> Business
-                            </a> </li>
-                        <li> <a href="courses.html">
-                                <ion-icon name="color-palette-outline" class="is-icon"></ion-icon> Desings
-                            </a></li>
-                        <li> <a href="courses.html">
-                                <ion-icon name="megaphone-outline" class="is-icon"></ion-icon> Marketing
-                            </a></li>
-                        <li> <a href="courses.html">
-                                <ion-icon name="camera-outline" class="is-icon"></ion-icon> Photography
-                            </a> </li>
-                        <li> <a href="courses.html">
-                                <ion-icon name="accessibility-outline" class="is-icon"></ion-icon> Life
-                                Style
-                            </a> </li>
                     </ul>
                 </div>
 
             </li>
-            <li> <a href="categories.html" class="active"> Categories </a></li>
-            <li> <a href="episodes.html"> Episode </a></li>
-            <li> <a href="books.html"> Book </a></li>
-            <li> <a href="blog.html"> Blog</a></li>
-            <li> <a href="#" aria-expanded="false">Pages</a>
-                <div uk-drop="mode: click" class="menu-dropdown uk-drop">
-                    <ul>
-                        <li> <a href="pages-pricing.html"> Pricing</a></li>
-                        <li> <a href="pages-faq.html"> Faq </a></li>
-                        <li> <a href="pages-help.html"> Help </a></li>
-                        <li> <a href="pages-terms.html"> Terms </a></li>
-                        <li> <a href="pages-setting.html"> Setting </a></li>
-                        <li> <a href="#" aria-expanded="false"> Development </a>
-                            <div class="menu-dropdown uk-drop"
-                                uk-drop="mode: click;pos:right-top;animation: uk-animation-slide-right-small">
-                                <ul>
-                                    <li><a href="development-elements.html"> Elements </a></li>
-                                    <li><a href="development-components.html"> Compounents </a></li>
-                                    <li><a href="development-plugins.html"> Plugins </a></li>
-                                    <li><a href="development-icons.html"> Icons </a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li> <a href="pages-cart.html"> Shopping cart </a></li>
-                        <li> <a href="pages-payment-info.html"> Payment methods </a></li>
-                        <li> <a href="pages-account-info.html"> Account info </a></li>
-                    </ul>
-                </div>
-            </li>
+            <li> <a href="categories.html" class="active"> Khoá học ưu đãi </a></li>
         </ul>
     </nav>
 
@@ -277,26 +230,6 @@
                         Tài khoản của tôi
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <ion-icon name="settings-outline" class="is-icon"></ion-icon>
-                        Cài đặt
-                    </a>
-                </li>
-                <li>
-                    <hr>
-                </li>
-                <li>
-                    <a href="#" id="night-mode" class="btn-night-mode"
-                        onclick="UIkit.notification({ message: 'Hmm...  <strong> Night mode </strong> feature is not available yet. ' , pos: 'bottom-right'  })">
-                        <ion-icon name="moon-outline" class="is-icon"></ion-icon>
-                        Night mode
-                        <span class="btn-night-mode-switch">
-                            <span class="uk-switch-button"></span>
-                        </span>
-                    </a>
-                </li>
-
                 <li>
                     <a href="{{ route('auth.logout') }}">
                         <ion-icon name="log-out-outline" class="is-icon"></ion-icon>

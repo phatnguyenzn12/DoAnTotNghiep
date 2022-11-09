@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
@@ -14,7 +15,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $banners = Banner::all();
+        // dd($banners);
+        return view('screens.admin.banner.list', compact('banners'));
     }
 
     /**
@@ -24,7 +27,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.admin.banner.add');
     }
 
     /**
@@ -35,7 +38,10 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $banners = new Banner();
+        $banners->fill($request->all());
+        $banners->save();
+        return redirect()->back()->with('success', 'Thêm mới thành công');
     }
 
     /**

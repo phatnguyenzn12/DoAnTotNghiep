@@ -28,7 +28,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => $request->password
             ])
-            && $request->{'g-recaptcha-response'} != null
+            // && $request->{'g-recaptcha-response'} != null
         ) {
 
             $user = User::where('id', Auth::user()->id)->first();
