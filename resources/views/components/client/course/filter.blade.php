@@ -125,12 +125,12 @@
             </div>
             <br>
             <div class="radio">
-                <input id="radio-3" name="radio" type="radio" onclick="filterSort(this)" value="id">
+                <input id="radio-3" name="radio" type="radio" onclick="filterSort(this)" value="id_desc">
                 <label for="radio-3"><span class="radio-label"></span> Khóa học mới đến cũ </label>
             </div>
             <br>
             <div class="radio">
-                <input id="radio-4" name="radio" type="radio" onclick="filterSort(this)" value="id">
+                <input id="radio-4" name="radio" type="radio" onclick="filterSort(this)" value="id_asc">
                 <label for="radio-4"><span class="radio-label"></span> Khóa học cũ đến mới </label>
             </div>
         </form>
@@ -144,7 +144,7 @@
     filter = {
         price: 0,
         title: 0,
-        sort: '',
+        sort: 0,
         cate: 0,
     }
 
@@ -160,7 +160,7 @@
     }
 
     function filterSort(a) {
-        filter.price = a.value
+        filter.sort = a.value
         showAxios(filter.price, filter.title, filter.cate, filter.sort)
     }
 
@@ -175,7 +175,7 @@
                     price: price,
                     title: title,
                     cate: cate,
-                    sort: sort,
+                    id: sort,
                 }
             })
             .then(

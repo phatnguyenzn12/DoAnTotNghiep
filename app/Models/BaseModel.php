@@ -7,23 +7,45 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class BaseModel extends Model
-{
+{ 
     use HasFactory;
 
 
-    function scopeOrderByIdDESC($query, Request $request)
+    function scopeSortData($query, Request $request)
     {
-        if ($request->has('id')) {
-            $query = $query->orderBy($request->id, 'DESC');
+        if ($request->id == 'id_desc') {
+            $query = $query->orderBy('id', 'DESC');
+        }elseif($request->id == 'id_asc'){
+            $query = $query->orderBy('id', 'ASC');
         }
+        
         return $query;
     }
 
-    function scopeOrderByIdASC($query, Request $request)
+    function scopePrice($query, Request $request)
     {
-        if ($request->has('id')) {
-            $query = $query->orderBy($request->id, 'ASC');
+        if ($request->price != 0 && $request->has('price')) {
+            $query->where('price', '<', $request->price);
         }
+
+        return $query;
+    }
+
+    function scopeTitle($query, Request $request)
+    {
+        if ($request->has('title') && $request->title != 0) {
+            $query->where('title', 'LIKE', '%' . $request->title . '%');
+        }
+
+        return $query;
+    }
+
+    function scopeCateCourse($query, Request $request)
+    {
+        if ($request->has('cate') && $request->cate != 0) {
+            $query->where('cate_course_id', $request->cate );
+        }
+
         return $query;
     }
 }

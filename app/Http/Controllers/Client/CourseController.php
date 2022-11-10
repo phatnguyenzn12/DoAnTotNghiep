@@ -11,6 +11,7 @@ class CourseController extends Controller
 {
     public function index()
     {
+        
         $cateCourses = CateCourse::get();
         return view('screens.client.course.list',compact('cateCourses'));
     }
@@ -32,6 +33,7 @@ class CourseController extends Controller
             ->price($request)
             ->title($request)
             ->cateCourse($request)
+            ->sortData($request)
             ->paginate(5);
 
         $html = view('components.client.course.course-list', compact('courses'))->render();
