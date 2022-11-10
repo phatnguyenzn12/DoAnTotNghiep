@@ -66,17 +66,32 @@
             </nav>
 
             <div class="flex space-x-3">
-                @if ($course->users()->get()->contains(auth()->user()->id))
-                    <a href="{{ route('client.lesson.index', $course->id) }}"
-                        class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white"> Vào học
-                    </a>
+                @if (auth()->user())
+                    @if ($course->users()->get()->contains(auth()->user()->id) && auth()->user())
+                        <a href="{{ route('client.lesson.index', $course->id) }}"
+                            class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white"> Vào học
+                        </a>
+                    @else
+                        <a href="#" class="flex items-center justify-center h-9 px-6 rounded-md bg-gray-100"> Lưu khóa
+                            học
+                        </a>
+                        <form action="{{ route('client.order.addToCart', $course->id) }}" method="post">
+                            @csrf
+                            <button type="submit"
+                                class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white">Thêm vào
+                                giỏ
+                                hàng</button>
+                        </form>
+                    @endif
                 @else
-                    <a href="#" class="flex items-center justify-center h-9 px-6 rounded-md bg-gray-100"> Lưu khóa học
+                    <a href="#" class="flex items-center justify-center h-9 px-6 rounded-md bg-gray-100"> Lưu khóa
+                        học
                     </a>
                     <form action="{{ route('client.order.addToCart', $course->id) }}" method="post">
                         @csrf
                         <button type="submit"
-                            class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white">Thêm vào giỏ
+                            class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white">Thêm vào
+                            giỏ
                             hàng</button>
                     </form>
                 @endif

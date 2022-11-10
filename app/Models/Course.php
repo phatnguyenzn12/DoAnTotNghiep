@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Course extends BaseModel
 {
     use HasFactory;
     protected $fillable = [
@@ -25,13 +24,7 @@ class Course extends Model
         'current_price'
     ];
 
-    public function getCurrentPriceAttribute()
-    {
-        $price = $this->discount > 0
-            ? $this->price - ($this->price * ($this->discount / 100))
-            : $this->price;
-        return $price;
-    }
+    ////////////////////////////////////////////////////////////////
 
     public function chapters()
     {
@@ -65,6 +58,14 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class,OwnerCourse::class);
+        return $this->belongsToMany(User::class, OwnerCourse::class);
+    }
+
+    public function getCurrentPriceAttribute()
+    {
+        $price = $this->discount > 0
+            ? $this->price - ($this->price * ($this->discount / 100))
+            : $this->price;
+        return $price;
     }
 }

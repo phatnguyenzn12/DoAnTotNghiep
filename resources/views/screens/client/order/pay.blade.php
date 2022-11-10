@@ -165,7 +165,7 @@
                         <ul class="border-b border-t my-3 py-3 text-sm">
                             <li class="flex justify-between align-center"><span class="mr-2" total> Tổng giá tiền: </li>
                             <li class="flex justify-between align-center"><span class="mr-2">giảm giá:
-                                    50%</span><span><span class="text-right">—</span></span></li>
+                                    50%
                         </ul>
 
                         <h3 class="font-semibold text-center my-6 text-2xl" total_discount></h3>

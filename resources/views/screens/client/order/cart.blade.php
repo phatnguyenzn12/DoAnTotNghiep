@@ -12,14 +12,14 @@
                         <a href="index.html"> <i class="icon-feather-home"></i> </a>
                     </li>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
                     <li class="active">
-                        <a href="#">Shopping Cart </a>
+                        <a href="#"> Giỏ hàng </a>
                     </li>
                 </ul>
             </div>
-            <div class="md:text-2xl text-base font-semibold mt-6 md:mb-24"> Shopping Cart </div>
+            <div class="md:text-2xl text-base font-semibold mt-6 md:mb-24"> Giỏ hàng </div>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
             <div class="bg-white rounded-md shadow-md">
 
                 <h3 class="border-b font-semibold px-5 py-4 text-base text-gray-500">
-                    Giỏ hàng của bạn ({{ $carts ? $carts->count() : 0 }} sản phẩm)
+                    Giỏ hàng của bạn ({{ $carts ? $carts->count() : 0 }} Khóa học)
                 </h3>
 
                 <div class="divide-y">
@@ -56,12 +56,13 @@
                                         class="md:text-lg font-semibold line-clamp-2 mb-2">{{ $cart->title }}</a>
                                     <div class="flex items-center mt-7 space-x-2 text-sm font-medium">
                                         <div> Advance levels </div>
-                                        <div class="md:block hidden">·</div>
-                                        <div class="flex items-center"> 13 Hourse </div>
                                     </div>
                                 </div>
                                 <h5 class="font-semibold text-black text-xl"> {{ $cart->current_price }} đ</h5>
-                                <h5 class="absolute bottom-9 font-semibold right-4 text-blue text-blue-500"> Remove </h5>
+                                <h5 class="absolute bottom-9 right-4 text-red-500 text-xl"
+                                    onclick="remove(this,'{{ route('client.order.cartRemove', $cart->id) }}')">
+                                    <ion-icon name="trash"></ion-icon>
+                                </h5>
                             </div>
                         @empty
                             <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
@@ -78,8 +79,7 @@
                         <div class="flex justify-between px-6">
                             @if (auth()->user())
                                 <div class="px-6 pb-5">
-                                    <button form="pay"
-                                        class="button">
+                                    <button form="pay" class="button">
                                         Đi tới thanh toán </button>
                                     <div class="flex items-center justify-center mt-4 space-x-1.5">
                                         <p class="font-medium"> hoặc </p> <a hf="#"
@@ -87,9 +87,8 @@
                                     </div>
                                 </div>
                             @else
-                            <button form="pay"
-                                        class="button">
-                                        Tiếp tục mua hàng </button>
+                                <button form="pay" class="button">
+                                    Tiếp tục mua hàng </button>
                             @endif
                             <h5 class="font-semibold text-black text-xl" total> 0 đ </h5>
                         </div>
@@ -102,6 +101,9 @@
     @endsection
 
     @section('js-links')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+            integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @endsection
     @push('js-handles')
         <script>
@@ -115,6 +117,20 @@
                         js_$('[total]').innerHTML = $i
                     }
                 });
+            }
+
+            function remove(a, url) {
+                axios.delete(url)
+                    .then(
+                        res => {
+                            a.parentElement.remove()
+                        }
+                    )
+                    .catch(
+                        res => {
+                            console.log(res);
+                        }
+                    )
             }
         </script>
     @endpush
