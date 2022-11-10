@@ -22,6 +22,7 @@ class LessonController extends Controller
 
     public function show(Lesson $lesson)
     {
+
         $data = view('components.client.lesson.video', compact('lesson'))->render();
         return response()->json($data, 201);
     }

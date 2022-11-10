@@ -15,8 +15,9 @@
                                  <a href="#" class="flex justify-between">
 
                                      <div class="">
-                                         <span>Bài {{ $key2 + 1 }}: {{ $lesson->title }}</span>
-
+                                        <a href="{{route('client.lesson.show', $lesson->id)}}">
+                                            <span>Bài {{ $key2 + 1 }}: {{ $lesson->title }}</span>
+                                        </a>
                                          <div class="">
                                              @if ($lesson->lesson_type == 'video')
                                                  <ion-icon name="logo-youtube"></ion-icon>
@@ -47,4 +48,5 @@
          @endforeach
 
      </ul>
+
  </div>

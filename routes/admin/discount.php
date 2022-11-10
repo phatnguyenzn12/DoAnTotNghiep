@@ -14,7 +14,7 @@ Route::prefix('admin/discount')->name('admin.discount.')->middleware('role:admin
          Route::get('create', 'create')->name('create');
          Route::post('store', 'store')->name('store');
          Route::get('edit-discount/{id}', 'edit')->name('edit');
-         Route::put('update-discount/{id}', 'update')->name('update');
+         Route::post('update-discount/{id}', 'update')->name('update');
          Route::get('delete/{id}', 'destroy')->name('delete');
      }
  );
