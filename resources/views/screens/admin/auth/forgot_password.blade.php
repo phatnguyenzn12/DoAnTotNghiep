@@ -7,7 +7,7 @@
     <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-3" show-success>
         <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method="post">
             @csrf
-            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Lấy lại mật khẩu </h1>
+            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Lấy lại mật khẩu Admin </h1>
 
             <div>
                 <label class="mb-0" for="email"> Địa chỉ Email </label>

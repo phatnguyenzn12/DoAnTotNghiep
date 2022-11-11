@@ -6,6 +6,11 @@
     @if (session('successful'))
         <span class="text-danger">bạn đăng nhập thành công</span>
     @endif
-    {{ Auth::user()->email }}
+    @if(Auth::guard('admin')->check())
+    {{ Auth::guard('admin')->user()->email }}
     <h1>Admin</h1>
+    @else
+    {{ Auth::guard('mentor')->user()->email }}
+    <h1>Mentor</h1>
+    @endif
 @endsection
