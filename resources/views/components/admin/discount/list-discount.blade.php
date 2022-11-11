@@ -48,11 +48,11 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Bắt đầu</span>
-                        <span class="text-dark font-weight-bolder font-weight-bold">{{$discount->start_time}}</span>
+                        <span id="date" class="text-dark font-weight-bolder font-weight-bold">{{date('d/m/Y', strtotime($discount->start_time));}}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Kết thúc</span>
-                        <span class="text-dark font-weight-bolder font-weight-bold">{{$discount->end_time}}</span>
+                        <span class="text-dark font-weight-bolder font-weight-bold">{{date('d/m/Y', strtotime($discount->end_time));}}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Trạng thái</span>
@@ -66,3 +66,10 @@
         <!--end:: Card-->
     </div>
 @endforeach
+{{-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $('#date').datepicker({
+    format: 'mm/dd/yy'
+});
+</script> --}}

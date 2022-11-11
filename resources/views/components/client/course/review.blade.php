@@ -138,19 +138,32 @@
 
             <div style="display: inline-block">
                 <div class="drop_content">
-                    <span class="time-ago">{{ $i->created_at }}</span>
-                    <p> <strong>{{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}</strong>
-                        <br><i class="fa-solid fa-bullhorn"></i>
-                        <span class="text-link">{{ $i->comment }} </span>
-                    </p>
+                    <div style="display:inline-flex">
+                        <div>
+                            <img src="/frontend/assets/images/avatars/avatar-1.jpg" alt=""
+                                class="rounded-full shadow w-20 h-20">
+                        </div>
+                        <div style="margin-left: 20px">
+                            <strong>{{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}</strong> <br>
+                            <span class="time-ago text-gray-300">Nhận xét
+                                vào:{{ date('d/m/Y', strtotime($i->created_at)) }}</span>
+
+                        </div>
+                    </div>
+                    <div >
+                        @for ($j = 0; $j < 5; $j++)
+                            @if ($j < $i->vote)
+                                <ion-icon style="font-size: 18px" name="star" class="text-yellow-300"></ion-icon>
+                            @else
+                                <ion-icon style="font-size: 18px" name="star" class="text-gray-300"></ion-icon>
+                            @endif
+                        @endfor
+                    </div>
+                    <br><i class="fa-solid fa-bullhorn"></i>
+                    <span style="font-size: 15px" class="text-gray-500">{{ $i->comment }} </span>
+
                 </div>
-                @for ($j = 0; $j < 5; $j++)
-                    @if ($j < $i->vote)
-                        <ion-icon name="star" class="text-yellow-300"></ion-icon>
-                    @else
-                        <ion-icon name="star" class="text-gray-300"></ion-icon>
-                    @endif
-                @endfor
+
             </div>
         </div>
     @endforeach
