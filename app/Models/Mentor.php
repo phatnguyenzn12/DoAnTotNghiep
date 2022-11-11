@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class Mentor extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -20,15 +18,17 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $table = "users";
+    protected $table = 'mentors';
+    protected $guard = 'mentor';
+    
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
         'avatar',
         'number_phone',
-        'social_id',
-        'social_type'
+        'is_active',
     ];
 
     /**
@@ -50,29 +50,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function courses() {
-        return $this->belongsToMany(Course::class,OwnerCourse::class);
-    }
-
-    public function orders() {
-        return $this->hasMany(Order::class,'user_id','id');
-    }
-
-    public function discountCodes() {
-        return $this->hasMany(DisscountCode::class,'user_id','id');
-    }
-
-    public function carts() {
-        return $this->belongsToMany(Course::class,Cart::class);
-    }
-
-
-    function scopeName($query, Request $request)
+    public function loadList()
     {
-        if ($request->has('name') && $request->name != 0) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
-        }
+        $query = DB::table($this->table)
+                ->select($this->fillable);
+        $list = $query->get();
+        return $list;
+    }
 
-        return $query;
+    public function saveNew($data)
+    {
+        $res = DB::table($this->table)->insertGetId($data);
+        return $res;
+    }
+
+    public function actived($id,$status, $params=null){
+        if ($status == 1) {
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>0]);
+        }
+        else{
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>1]);
+        }
+        
+        return $res;
+    }
+
+    public function loadOne($id)
+    {
+        $query = DB::table($this->table)->where('id', '=', $id);
+        $obj = $query->first();
+        return $obj;
     }
 }

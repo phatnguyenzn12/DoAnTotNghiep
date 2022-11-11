@@ -10,6 +10,9 @@ class DiscountCode extends Model
     use HasFactory;
     protected $table = 'discount_codes';
     protected $fillable = [
+        'title',
+        'content',
+        'status',
         'code',
         'discount',
         'content',

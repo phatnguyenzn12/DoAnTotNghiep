@@ -10,24 +10,26 @@ Route::controller(HomeController::class)->group(
     }
 );
 
-Route::middleware(['role:admin|manager|teacher'])->group(
-    function () {
-        Route::get('admin', function () {
-            return view('screens.admin.home');
-        })->name('admin');
-    }
-);
+Route::get('admin', function () {
+    return view('screens.admin.home');
+})->name('admin');
+// Route::middleware(['role:admin|manager|teacher'])->group(
+//     function () {
+//         Route::get('admin', function () {
+//             return view('screens.admin.home');
+//         })->name('admin');
+//     }
+// );
 
 Route::prefix('/')->name('auth.')->controller(AuthController::class)->group(
     function () {
+        Route::match(['get', 'post'], '/register', 'register')->name('register');
         Route::get('/login', 'login')->name('login');
-        Route::get('/register', 'register')->name('register');
-        Route::get('/logout', 'logout')->name('logout');
-        Route::get('/forgot-password','forgotPassword')->name('forgotPassword');
-        Route::get('/change-password','changePassword')->name('changePassword');
         Route::post('/handle-login', 'handleLogin')->name('handleLogin');
-        Route::post('/handle-register', 'handleRegister')->name('handleRegister');
-        Route::post('/handle-change-password','handleChangePassword')->name('handleChangePassword');
+        Route::get('/actived/{id}/{token}', 'actived')->name('actived');
+        Route::get('/logout', 'logout')->name('logout');
+        Route::match(['get', 'post'], '/forgot-password', 'forgotPassword')->name('forgotPassword');
+        Route::match(['get', 'post'],'/handleChangePassword/{id}/{token}', 'handleChangePassword')->name('handleChangePassword');
     }
 );
 

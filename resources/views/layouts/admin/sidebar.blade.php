@@ -35,7 +35,11 @@
                 </a>
             </li>
             <li class="menu-item" aria-haspopup="true">
-                <a href="{{route('auth.logout')}}" class="menu-link">
+                @if(Auth::guard('admin')->check() == true)
+                <a href="{{route('admin.logout')}}" class="menu-link">
+                @else
+                <a href="{{route('mentor.logout')}}" class="menu-link">
+                @endif
                     <span class="svg-icon menu-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Navigation\Sign-out.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24"/>
