@@ -8,7 +8,7 @@
     <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
         <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method="post">
             @csrf
-            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Đổi mật khẩu mới</h1>
+            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Đổi mật khẩu mới Admin</h1>
             <div>
                 <label class="mb-0"> Mật khẩu mới </label>
                 <input type="password" name="password" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
