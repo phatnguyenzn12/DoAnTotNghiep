@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -61,5 +62,15 @@ class User extends Authenticatable
 
     public function carts() {
         return $this->belongsToMany(Course::class,Cart::class);
+    }
+
+
+    function scopeName($query, Request $request)
+    {
+        if ($request->has('name') && $request->name != 0) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        }
+
+        return $query;
     }
 }

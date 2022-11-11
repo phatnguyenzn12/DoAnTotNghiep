@@ -11,9 +11,8 @@ class CourseController extends Controller
 {
     public function index()
     {
-        
         $cateCourses = CateCourse::get();
-        return view('screens.client.course.list',compact('cateCourses'));
+        return view('screens.client.course.list', compact('cateCourses'));
     }
 
     public function show($slug, Course $course)
@@ -25,10 +24,12 @@ class CourseController extends Controller
     public function filterCourse(Request $request)
     {
         $courses = Course::select('*');
+
         if (auth()->user()) {
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
             $courses = $courses->whereNotIn('id', $courses_id);
         }
+
         $courses = $courses
             ->price($request)
             ->title($request)
@@ -36,8 +37,10 @@ class CourseController extends Controller
             ->sortData($request)
             ->paginate(5);
 
-        $html = view('components.client.course.course-list', compact('courses'))->render();
+        $passedDown = [
+            'data' => $courses
+        ];
 
-        return response()->json($html, 200);
+        return response()->json($passedDown, 200);
     }
 }

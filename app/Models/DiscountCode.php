@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DisscountCode extends Model
+class DiscountCode extends Model
 {
     use HasFactory;
-    protected $table = 'disscount_codes';
+    protected $table = 'discount_codes';
     protected $fillable = [
         'code',
         'discount',
+        'content',
         'start_time',
         'end_time',
+        'title',
+        'slug',
+        'status',
     ];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Course;
+use App\Models\DiscountCode;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -44,8 +45,15 @@ class OrderController extends Controller
         return view('screens.client.order.pay', compact('courses'));
     }
 
+    public function checkCode(Request $request)
+    {
+        $data = DiscountCode::where('code', $request->code)->first();
+        return response()->json($data);
+    }
+
     public function handlePay(Request $request)
     {
+
         $courses = Course::whereIn('id', $request->course_id)->get();
 
         $courses->transform(
@@ -56,6 +64,11 @@ class OrderController extends Controller
         );
 
         $total_price = $courses->sum('price');
+
+        if ($request->code != null) {
+            $discount = DiscountCode::where('code', $request->code)->first()->discount;
+            $total_price = $total_price - ($total_price * ($discount / 100));
+        }
 
         $order = Order::create([
             'user_id' => auth()->user()->id,
