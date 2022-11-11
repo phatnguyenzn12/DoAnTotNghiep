@@ -10,7 +10,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Danh sách banners
+                        <h3 class="card-label">Remote Datasource
                             <span class="d-block text-muted pt-2 font-size-sm">Sorting &amp; pagination remote
                                 datasource</span>
                         </h3>
@@ -90,7 +90,7 @@
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{route('admin.banner.create')}}" class="btn btn-primary font-weight-bolder">
+                        <a href="#" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -159,22 +159,8 @@
                     <!--end::Search Form-->
                     <!--end: Search Form-->
                     <!--begin: Datatable-->
-                    <div id="datatable">
-                        <table class="table table-separate table-head-custom table-checkable">
-                            <thead>
-                                <tr>
-                                    <th>Tiêu đề</th>
-                                    <th>nội dung</th>
-                                    <th>hình ảnh</th>
-                                    <th>kiểu banner</th>
-                                    <th>status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @include('components.admin.banner.body-table')
-                            </tbody>
-                        </table>
-                        @include('components.admin.pagination')
+                    <div id="datatable" data-table>
+                        @include('components.admin.catecourse.list-catecourse')
                     </div>
                     <!--end: Datatable-->
                 </div>
@@ -189,4 +175,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
+    <script type="module">
+
+import { filter } from '/js/data-table.js'
+const filter1 = new filter(
+    {
+        search: 0,
+        record: 10,
+    },'/admin/user/list-data',
+    (data) => {
+        return data.data.map(val => {
+            return `<tr>
+                <td col="name">${val.name}</td><td><a class="btn btn-light btn-sm">
+                    <i class="flaticon2-pen text-warning"></i></a>
+                <a class="btn btn-light btn-sm" href="delete/${val.id}">
+                    <i class="flaticon2-trash text-danger"></i></a></td></tr>`
+                    }).join(',');
+    },
+    (data) => {
+        return data.links.map(
+            (val) => {
+                return `<a filter-page="${val.url}" class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 ${val.active == true ? 'active' : ''}">
+            ${val.label.includes('e') == true ? `<i class="ki ki-bold-arrow-${val.label.includes('l') == true ? 'back' : 'next'} icon-xs text-success"></i>` : val.label}
+            </a>`
+            }
+        ).join('')
+    },
+)
+filter1.get()
+filter1.filterSearch()
+filter1.filterRecord() 
+
+    </script>
 @endpush

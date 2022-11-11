@@ -22,25 +22,20 @@ class OrderController extends Controller
     }
 
     //ngăn chăn id khóa học đã mua
-    function addToCart(Course $course)
+    public function addToCart(Request $request, Course $course)
     {
-        Cart::firstOrCreate(
-            [
-                'user_id' =>  auth()->user()->id,
-                'course_id' => $course->id
-            ],
-            [
-                'user_id' =>  auth()->user()->id,
-                'course_id' => $course->id
-            ],
-        );
-
+        $carts = auth()->user()->load('carts')->carts;
+        if ($carts->contains('id', $course->id)) {
+            return back()->with('error', 'Sản phẩm đã tồn tại trong giỏ');
+        }
+        auth()->user()->load(['carts'])->carts()->attach(['course_id' => $course->id]);
         return redirect()->back()->with('success', 'Thêm giỏ hàng thành công');
     }
 
-    function removeCart($id)
+    public function removeCart($id)
     {
         Cart::destroy($id);
+        return response()->json('remove success', 200);
     }
 
     public function pay(Request $course)
@@ -71,11 +66,11 @@ class OrderController extends Controller
         $order->orderDetails()->attach($courses->toArray());
 
         auth()->user()->load('courses')
-        ->courses()
-        ->attach($request->course_id);
+            ->courses()
+            ->attach($request->course_id);
 
         Cart::destroy($request->course_id);
 
-        return redirect()->route('client.order.cartList')->with('success','Bạn mua các khóa học thành công');
+        return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }
 }
