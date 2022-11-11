@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DisscountCode;
 use Illuminate\Http\Request;
 
 class DiscountCodeController extends Controller
@@ -14,7 +15,8 @@ class DiscountCodeController extends Controller
      */
     public function index()
     {
-        //
+        $discounts = DisscountCode::all();
+        return view('screens.admin.discount.list', compact('discounts'));
     }
 
     /**
@@ -24,7 +26,7 @@ class DiscountCodeController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.admin.discount.add');
     }
 
     /**
@@ -35,7 +37,15 @@ class DiscountCodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DisscountCode::create(
+            array_merge(
+                $request->all()
+            )
+        );
+
+        return redirect()
+            ->back()
+            ->with('success', 'thêm mã giảm thành công');
     }
 
     /**
@@ -57,7 +67,8 @@ class DiscountCodeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $discount = DisscountCode::findOrFail($id);
+        return view('screens.admin.discount.update', compact('discount'));
     }
 
     /**
@@ -69,7 +80,18 @@ class DiscountCodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $discount = DisscountCode::findOrFail($id);
+        $discount->title = $request->title;
+        $discount->content = $request->content;
+        $discount->code = $request->code;
+        $discount->discount = $request->discount;
+        $discount->status = $request->status;
+        $discount->start_time = $request->start_time;
+        $discount->end_time = $request->end_time;
+        $discount->save();
+        return redirect()
+            ->back()
+            ->with('success', 'sửa mã giảm thành công');
     }
 
     /**
@@ -80,6 +102,7 @@ class DiscountCodeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = DisscountCode::destroy($id);
+        return redirect()->back()->with('success', 'Xoa thành công');
     }
 }
