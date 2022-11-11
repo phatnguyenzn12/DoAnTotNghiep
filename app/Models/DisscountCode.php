@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class DisscountCode extends Model
 {
     use HasFactory;
-    protected $table = 'disscount_codes';
+    protected $table = 'discount_codes';
     protected $fillable = [
+        'title',
+        'content',
+        'status',
         'code',
         'discount',
         'start_time',
