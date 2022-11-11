@@ -15,5 +15,6 @@ Route::prefix('admin/banner')->name('admin.banner.')->controller(BannerControlle
          Route::post('store', 'store')->name('store');
          Route::get('edit-banner/{id}', 'edit')->name('edit');
          Route::post('update-banner/{id}', 'update')->name('update');
+         Route::delete('delete/{id}', 'destroy')->name('delete');
      }
  );
