@@ -95,7 +95,7 @@ class User extends Authenticatable
         $res = DB::table($this->table)->where('id', $id)->update(['password'=>$password,'remember_token'=>null]);
         return $res;
     }
-
+    
     public function loadOne($id)
     {
         $query = DB::table($this->table)->where('id', '=', $id);
