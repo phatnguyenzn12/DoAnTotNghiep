@@ -23,7 +23,7 @@
                                     placeholder="Nhập tiêu đề">
                             </div>
                             {{-- @error('title')
-                                    <p class="text-danger">{{ $message }}</p>    
+                                    <p class="text-danger">{{ $message }}</p>
                                 @enderror --}}
                             <div class="form-group">
                                 <label>Đường dẫn
@@ -65,7 +65,7 @@
                             <div class="form-group">
                                 <label>Ảnh slide</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input file-image" name="image"
+                                    <input type="file" class="custom-file-input file-image" name="file"
                                         accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>

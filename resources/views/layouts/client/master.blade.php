@@ -35,7 +35,7 @@
 <body>
     @include('_alert')
 
-    <div id="wrapper" class="horizontal" data-loading>
+    <div id="wrapper" class="horizontal">
 
         <!--  Header  -->
 

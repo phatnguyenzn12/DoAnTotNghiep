@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasMany(DisscountCode::class,'user_id','id');
     }
 
+    public function carts() {
+        return $this->belongsToMany(Course::class,Cart::class);
+    }
+
+
     function scopeName($query, Request $request)
     {
         if ($request->has('name') && $request->name != 0) {
@@ -71,9 +76,6 @@ class User extends Authenticatable
         return $query;
     }
   
-    public function carts() {
-        return $this->belongsToMany(Course::class,Cart::class);
-    }
     public function saveNew($data)
     {
         $res = DB::table($this->table)->insertGetId($data);

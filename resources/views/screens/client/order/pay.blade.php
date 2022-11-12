@@ -125,7 +125,8 @@
                             <i class="icon-feather-chevron-left mr-1"></i>
                             <span class="md:block hidden">Trở về giỏ hàng</span><span class="md:hidden block">Back</span>
                         </a>
-                        <button form="payment" class="bg-blue-600 text-white flex font-medium items-center justify-center py-3 rounded-md hover:text-white">
+                        <button form="payment"
+                            class="bg-blue-600 text-white flex font-medium items-center justify-center py-3 rounded-md hover:text-white">
                             <span class="md:block hidden"> Thanh toán </span><span class="md:hidden block">Review</span>
                             <i class="icon-feather-chevron-right ml-1"></i>
                         </button>
@@ -141,7 +142,7 @@
 
                         <div class="font-semibold px-5 pb-3 text-lg text-center"> Tóm tắt đơn hàng </div>
 
-                        <form action="{{route('client.order.handlePay')}}" method="post" id="payment">
+                        <form action="{{ route('client.order.handlePay') }}" method="post" id="payment">
                             @csrf
                             @foreach ($courses as $course)
                                 <div>
@@ -155,29 +156,32 @@
                                                     class="line-clamp-2">{{ $course->title }}</a></h6>
                                             <div class="flex justify-between mt-1"><span
                                                     class="font-medium text-sm text-blue-500">{{ $course->cateCourse->name }}</span><span
-                                                    class="font-bold mt-0.5" products>{{ $course->current_Price }}</span></div>
+                                                    class="font-bold mt-0.5" products>{{ $course->current_Price }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
+                            <input class="form-control with-border" type="text" name="code" placeholder="Nhập code" input-code hidden>
                         </form>
 
                         <ul class="border-b border-t my-3 py-3 text-sm">
-                            <li class="flex justify-between align-center"><span class="mr-2" total> Tổng giá tiền: </li>
-                            <li class="flex justify-between align-center"><span class="mr-2">giảm giá:
-                                    50%
+                            <li class="flex justify-between align-center"><span class="mr-2" total> Tổng giá tiền:
+                                    <span></li>
+                            <li class="flex justify-between align-center"><span class="mr-2" show_disount>chưa giảm giá
+                                </span>
                         </ul>
 
                         <h3 class="font-semibold text-center my-6 text-2xl" total_discount></h3>
-                        <form method="post" class="space-y-3">
-                            <input class="form-control with-border" type="text" placeholder="Nhập code"
-                                required="">
+                        <div class="space-y-3">
+                            <input class="form-control with-border" type="text" placeholder="Nhập code" discountcode>
                             <div class="col-span-2 border rounded-md border-blue-500">
-                                <button class="w-full py-2.5 font-semibold rounded text-blue-600 text-base block"
-                                    type="submit">Nhập mã giảm giá</button>
+                                <button type="button" onclick="checkcode('{{ route('client.order.checkCode') }}')"
+                                    class="w-full py-2.5 font-semibold rounded text-blue-600 text-base block">Kiểm tra mã
+                                    giảm giá
+                                </button>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
                 </div>
 
@@ -188,6 +192,7 @@
 @endsection
 
 @section('js-links')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
 @endsection
 @push('js-handles')
     <script>
@@ -198,5 +203,18 @@
         js_$('[total]').innerHTML = 'Tổng giá tiền: ' + price + ' đ'
 
         js_$('[total_discount]').innerHTML = price + ' đ'
+
+        function checkcode(url) {
+            axios.post(url, {
+                    code: js_$("[discountcode]").value
+                })
+                .then(
+                    res => {
+                        js_$('[input-code]').value = js_$("[discountcode]").value
+                        js_$('[show_disount]').innerHTML = `Giảm giá: ${res.data.discount} %`
+                        js_$('[total_discount]').innerHTML = price - (price * (res.data.discount / 100)) + ' đ'
+                    }
+                )
+        }
     </script>
 @endpush

@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center flex-wrap">
     <div class="d-flex flex-wrp py-2 mr-3">
-        <a href="#" class="btn btn-icon btn-sm btn-light-success mr-2 my-1" page-start><i
+        <a class="btn btn-icon btn-sm btn-light-success mr-2 my-1" page-start><i
                 class="ki ki-bold-double-arrow-back icon-xs"></i></a>
 
         <div show-page>
@@ -13,7 +13,7 @@
             </a>
         </div>
 
-        <a href="#" class="btn btn-icon btn-sm btn-light-success mr-2 my-1" page-end><i
+        <a class="btn btn-icon btn-sm btn-light-success mr-2 my-1" page-end><i
                 class="ki ki-bold-double-arrow-next icon-xs"></i></a>
     </div>
     <div class="d-flex align-items-center py-3">

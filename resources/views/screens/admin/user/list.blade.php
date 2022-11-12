@@ -176,13 +176,14 @@
 @endsection
 @push('js-handles')
     <script type="module">
-        
+
 import { filter } from '/js/data-table.js'
 const filter1 = new filter(
     {
-        search: 0,
+        name: 0,
         record: 10,
-    },'/admin/user/list-data',
+    },
+    '{{ route('admin.user.listData') }}',
     (data) => {
         return data.data.map(val => {
             return `<tr>
@@ -197,15 +198,16 @@ const filter1 = new filter(
         return data.links.map(
             (val) => {
                 return `<a filter-page="${val.url}" class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 ${val.active == true ? 'active' : ''}">
-            ${val.label.includes('e') == true ? `<i class="ki ki-bold-arrow-${val.label.includes('l') == true ? 'back' : 'next'} icon-xs text-success"></i>` : val.label}
+            ${val.label.includes('e') == true ? `${val.label.includes('l') == true ? '<i class="ki ki-bold-arrow-back icon-xs text-success"></i>' : '<i class="ki ki-bold-arrow-next icon-xs text-success"></i>'} ` : val.label}
             </a>`
             }
         ).join('')
     },
 )
+
 filter1.get()
-filter1.filterSearch()
-filter1.filterRecord() 
+filter1.filterSearchName()
+filter1.filterRecord()
 
     </script>
 @endpush
