@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -61,6 +62,15 @@ class User extends Authenticatable
         return $this->hasMany(DisscountCode::class,'user_id','id');
     }
 
+    function scopeName($query, Request $request)
+    {
+        if ($request->has('name') && $request->name != 0) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        }
+
+        return $query;
+    }
+  
     public function carts() {
         return $this->belongsToMany(Course::class,Cart::class);
     }
