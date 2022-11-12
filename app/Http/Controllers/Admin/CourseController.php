@@ -47,7 +47,17 @@ class CourseController extends Controller
 
         Course::create(
             array_merge(
-                $request->all(),
+                $request->only([
+                    'title',
+                    'content',
+                    'video',
+                    'price',
+                    'discount',
+                    'status',
+                    'slug',
+                    'participant',
+                    'cate_course_id'
+                ]),
                 ['image' => $image]
             )
         );

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 class UploadFileService
-{    
+{
     /**
      * storage_image
      *

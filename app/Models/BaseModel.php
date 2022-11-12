@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class BaseModel extends Model
-{ 
+{
     use HasFactory;
 
 
@@ -18,7 +18,7 @@ class BaseModel extends Model
         }elseif($request->id == 'id_asc'){
             $query = $query->orderBy('id', 'ASC');
         }
-        
+
         return $query;
     }
 

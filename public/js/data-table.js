@@ -4,15 +4,13 @@ export class filter {
 
     objFilter; url; htmlTable; htmlPage
     constructor(objFilter, url, htmlTable, htmlPage) {
-        this.objFilter = objFilter;this.url = url;this.htmlTable = htmlTable;this.htmlPage = htmlPage;
-    }
-
-    _url(search, record) {
-        return `${this.url}/${search}/${record}`;
+        this.objFilter = objFilter; this.url = url; this.htmlTable = htmlTable; this.htmlPage = htmlPage;
     }
 
     get() {
-        axios.get(this._url(this.objFilter.search, this.objFilter.record))
+        axios.get(this.url, {
+            params: this.objFilter
+        })
             .then(
                 (res) => {
                     this.showHtml(res.data.data, this.htmlTable(res.data.data))
@@ -26,10 +24,57 @@ export class filter {
             )
     }
 
-    filterSearch() {
+    filterSearchName() {
         js_$('[filter-search]').oninput = (a) => {
-            this.objFilter.search = a.target.value == '' ? 0 : a.target.value
-            axios.get(this._url(this.objFilter.search, this.objFilter.record))
+            this.objFilter.name = a.target.value == '' ? 0 : a.target.value
+
+            axios.get(this.url, {
+                params: this.objFilter
+            })
+                .then(
+                    (res) => {
+                        this.showHtml(res.data.data, this.htmlTable(res.data.data))
+                    }
+                )
+                .catch(
+                    (error) => {
+                        alert(error.message)
+                    }
+                )
+        }
+    }
+
+    filterRecord() {
+        js_$('[filter-record]').onchange = (a) => {
+            startLoader()
+
+            this.objFilter.record = a.target.value == '' ? 0 : a.target.value
+
+            axios.get(this.url, {
+                params: this.objFilter
+            })
+                .then(
+                    (res) => {
+                        this.showHtml(res.data.data, this.htmlTable(res.data.data))
+                        endLoader()
+                    }
+                )
+                .catch(
+                    (error) => {
+                        alert(error.message)
+                    }
+                )
+        }
+    }
+
+    filerSearchTitle() {
+        js_$('[filter-search-title]').oninput = (a) => {
+
+            this.objFilter.title = a.target.value == '' ? 0 : a.target.value
+
+            axios.get(this.url, {
+                params: this.objFilter
+            })
                 .then(
                     (res) => {
                         this.showHtml(res.data.data, this.htmlTable(res.data.data))
@@ -44,11 +89,45 @@ export class filter {
         }
     }
 
-    filterRecord() {
-        js_$('[filter-record]').onchange = (a) => {
+    filterPrice() {
+        js_$('[filter-price]').oninput = (a) => {
+            if (js_$('[show-price]')) {
+                js_$('[show-price]').innerText = a.target.value;
+            }
+
+            this.objFilter.price = a.value
+
+            axios.get(this.url, {
+                params: this.objFilter
+            })
+                .then(
+                    (res) => {
+                        this.showHtml(res.data.data, this.htmlTable(res.data.data))
+                    }
+                )
+                .catch(
+                    (error) => {
+                        console.log(error.message)
+                        alert(error.message)
+                    }
+                )
+        }
+    }
+
+    filterSort(id = '') {
+        js_$('[filter-sort]').onchange = (a) => {
             startLoader()
-            this.objFilter.record = a.target.value == '' ? 0 : a.target.value
-            axios.get(this._url(this.objFilter.search, this.objFilter.record))
+
+            if (id != '') {
+                this.objFilter.id = a.target.value
+            }
+            else {
+                this.objFilter.id = 0
+            }
+
+            axios.get(this.url, {
+                params: this.objFilter
+            })
                 .then(
                     (res) => {
                         this.showHtml(res.data.data, this.htmlTable(res.data.data))
@@ -64,21 +143,52 @@ export class filter {
         }
     }
 
+    filterCate() {
+        js_$('[filter-cate]').onchange = (a) => {
+            startLoader()
+            this.objFilter.cate = a.target.value
+
+            axios.get(this.url, {
+                params: this.objFilter
+            })
+                .then(
+                    (res) => {
+                        this.showHtml(res.data.data, this.htmlTable(res.data.data))
+                        endLoader()
+                    }
+                )
+                .catch(
+                    (error) => {
+                        console.log(error.message)
+                        alert(error.message)
+                    }
+                )
+        }
+
+    }
+
     showHtml(data, html) {
-        this.showPanigate(data)
+        this.showPaginate(data)
+
         $('[show-list]').html(html)
     }
 
-    showPanigate(data) {
-        $('[show-page]').html(this.htmlPage(data))
+    showPaginate(data) {
+
+        if ($('[show-page]')) {
+            $('[show-page]').html(this.htmlPage(data))
+        }
+
         js_$('[page-start]').setAttribute('filter-page', data.first_page_url)
         js_$('[page-end]').setAttribute('filter-page', data.last_page_url)
-        $('[show-number]').html(`Displaying ${data.to} of ${data.total} records`)
+
+        if ($('[show-number]')) {
+            $('[show-number]').html(`Displaying ${data.to} of ${data.total} records`)
+        }
 
         js_$$('[filter-page]').forEach(
             element => {
                 element.onclick = (a) => {
-                    console.log(a.target.getAttribute('filter-page'));
                     if (a.target.getAttribute('filter-page') != 'null' && a.target.getAttribute('filter-page') != null) {
                         startLoader()
                         axios.get(a.target.getAttribute('filter-page'))
@@ -90,7 +200,6 @@ export class filter {
                             )
                             .catch(
                                 (error) => {
-                                    console.log(error.message)
                                     alert(error.message)
                                 }
                             )
@@ -99,6 +208,6 @@ export class filter {
             }
         )
     }
-    
+
 }
 
