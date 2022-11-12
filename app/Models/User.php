@@ -64,6 +64,7 @@ class User extends Authenticatable
     public function carts() {
         return $this->belongsToMany(Course::class,Cart::class);
     }
+    
     public function saveNew($data)
     {
         $res = DB::table($this->table)->insertGetId($data);
