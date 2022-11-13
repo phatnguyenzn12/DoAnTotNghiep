@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('number_phone');
             $table->string('password');
             $table->integer('is_active')->default(0);
+            $table->integer('cate_course_id');
             $table->rememberToken();
             $table->timestamps();
         });
