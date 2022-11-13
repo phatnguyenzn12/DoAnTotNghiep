@@ -1,4 +1,7 @@
-<div class="left-side">
+
+@php
+$user = \Illuminate\Support\Facades\Auth::user();
+@endphp<div class="left-side">
     <!-- Logo -->
     <div id="logo">
         <a href="/">
@@ -203,8 +206,8 @@
                             <img src="/frontend/assets/images/avatars/avatar-2.jpg" alt="">
                         </div>
                         <div class="user_name">
-                            <div> Stella Johnson </div>
-                            <span> @Johnson </span>
+                            <div> {{$user->name}} </div>
+                            <span> {{$user->email}} </span>
                         </div>
                     </a>
                 </li>
@@ -225,7 +228,7 @@
                 @endhasanyrole
 
                 <li>
-                    <a href="#">
+                    <a href="{{route('client.account.index')}}">
                         <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
                         Tài khoản của tôi
                     </a>

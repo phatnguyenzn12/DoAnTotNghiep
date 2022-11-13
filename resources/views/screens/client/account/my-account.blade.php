@@ -1,20 +1,22 @@
+@php
+    $user = \Illuminate\Support\Facades\Auth::user();
+@endphp
 @extends('layouts.client.master')
-
 @section('title', 'Trang chủ')
 
 @section('content')
 
-     <!-- This is the modal -->
-     <div id="modal-example" uk-modal>
-        <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
-            <h2 class="mb-2 uk-modal-title">Headline</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <div class="uk-modal-footer text-right mt-6 px-0 space-x-1">
-                <button class="button gray uk-modal-close" type="button">Cancel</button>
-                <button class="button" type="button">Save</button>
-            </div>
-        </div>
-    </div>
+    {{-- <!-- This is the modal -->
+    <div id="modal-example" uk-modal>
+       <div class="uk-modal-body uk-modal-dialog rounded-md shadow-2xl">
+           <h2 class="mb-2 uk-modal-title">Headline</h2>
+           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+           <div class="uk-modal-footer text-right mt-6 px-0 space-x-1">
+               <button class="button gray uk-modal-close" type="button">Cancel</button>
+               <button class="button" type="button">Save</button>
+           </div>
+       </div>
+   </div> --}}
 
 
 
@@ -31,7 +33,7 @@
                     <div class="bg-white shadow-md rounded-xl p-4">
                         <div class="h-28 w-28 mt-3 mx-auto relative rounded-full overflow-hidden">
                             <img src="/frontend/assets/images/avatars/avatar-3.jpg" alt=""
-                                class="h-full w-full inset-0 object-cover rounded-full">
+                                 class="h-full w-full inset-0 object-cover rounded-full">
                         </div>
                         <div class="text-center p-4">
                             <h2 class="text-xl font-semibold"> Jesse Steven</h2>
@@ -42,7 +44,7 @@
                             <div class="flex items-center py-2 space-x-3">
                                 <div class="flex flex-1">
                                     <ion-icon name="play-circle-outline" class="text-xl mr-3 md hydrated" role="img"
-                                        aria-label="play circle outline"></ion-icon>
+                                              aria-label="play circle outline"></ion-icon>
                                     Các khóa học
                                 </div>
                                 <div class="text-black"> 24 </div>
@@ -50,7 +52,7 @@
                             <div class="flex items-center py-2 space-x-3">
                                 <div class="flex flex-1">
                                     <ion-icon name="people-outline" class="text-xl mr-3 md hydrated" role="img"
-                                        aria-label="people outline"></ion-icon>
+                                              aria-label="people outline"></ion-icon>
                                     Thời gian tham gia
                                 </div>
                                 <div class="text-black"> 01/03/2021 </div>
@@ -58,7 +60,7 @@
                             <div class="flex items-center py-2 space-x-3">
                                 <div class="flex flex-1">
                                     <ion-icon name="medal-outline" class="text-xl mr-3 md hydrated" role="img"
-                                        aria-label="medal outline"></ion-icon>
+                                              aria-label="medal outline"></ion-icon>
                                     Khoá học hoàn thành
                                 </div>
                                 <div class="text-black"> 12 </div>
@@ -67,8 +69,8 @@
                         </div>
 
                         <div class="mt-3 text-sm">
-                            <a href="#" class="bg-gray-100 block py-1.5 rounded text-center"
-                                uk-toggle="target: #modal-example" aria-expanded="false">Chỉnh sửa</a>
+                            <a href="{{route('client.account.detail',$user->id)}}" class="bg-gray-100 block py-1.5 rounded text-center"
+                            >Chỉnh sửa thông tin cá nhân</a>
                         </div>
 
                     </div>
@@ -105,20 +107,20 @@
                         </div>
                         <div class="flex items-center p-5 space-x-3">
                             <div class="bg-gray-100 border inline-flex p-0.5 rounded-md text-lg fliter-tab"
-                                uk-switcher="connect: #course-tabs; animation: uk-animation-fade">
+                                 uk-switcher="connect: #course-tabs; animation: uk-animation-fade">
                                 <a href="#" class="py-1.5 px-2.5 rounded-md uk-active" data-tippy-placement="top"
-                                    title="Grid view">
+                                   title="Grid view">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg" aria-expanded="true">
+                                         xmlns="http://www.w3.org/2000/svg" aria-expanded="true">
                                         <path fill-rule="evenodd"
-                                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                            clip-rule="evenodd"></path>
+                                              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                              clip-rule="evenodd"></path>
                                     </svg>
                                 </a>
                                 <a href="#" class="py-1.5 px-2.5 rounded-md" data-tippy-placement="top"
-                                    title="List view">
+                                   title="List view">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg" aria-expanded="false">
+                                         xmlns="http://www.w3.org/2000/svg" aria-expanded="false">
                                         <path
                                             d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
                                         </path>
@@ -142,7 +144,7 @@
                                     <a href="#">
                                         <div class="h-12 md:h-16 md:w-24 overflow-hidden relative rounded -md w-12">
                                             <img src="/frontend/assets/images/courses/img-3.jpg" alt=""
-                                                class="w-full h-full absolute inset-0 object-cover">
+                                                 class="w-full h-full absolute inset-0 object-cover">
                                         </div>
                                     </a>
                                     <div class="flex flex-1 items-end justify-between space-x-5">
@@ -158,7 +160,7 @@
                                             </div>
                                         </div>
                                         <a href="#"
-                                            class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
+                                           class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
                                             Resume
                                         </a>
                                     </div>
@@ -169,7 +171,7 @@
                                     <a href="#">
                                         <div class="h-12 md:h-16 md:w-24 overflow-hidden relative rounded -md w-12">
                                             <img src="/frontend/assets/images/courses/img-5.jpg" alt=""
-                                                class="w-full h-full absolute inset-0 object-cover">
+                                                 class="w-full h-full absolute inset-0 object-cover">
                                         </div>
                                     </a>
                                     <div class="flex flex-1 items-end justify-between space-x-5">
@@ -185,7 +187,7 @@
                                             </div>
                                         </div>
                                         <a href="#"
-                                            class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
+                                           class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
                                             Resume
                                         </a>
                                     </div>
@@ -196,7 +198,7 @@
                                     <a href="#">
                                         <div class="h-12 md:h-16 md:w-24 overflow-hidden relative rounded -md w-12">
                                             <img src="/frontend/assets/images/courses/img-1.jpg" alt=""
-                                                class="w-full h-full absolute inset-0 object-cover">
+                                                 class="w-full h-full absolute inset-0 object-cover">
                                         </div>
                                     </a>
                                     <div class="flex flex-1 items-end justify-between space-x-5">
@@ -212,7 +214,7 @@
                                             </div>
                                         </div>
                                         <a href="#"
-                                            class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
+                                           class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
                                             Resume
                                         </a>
                                     </div>
@@ -223,7 +225,7 @@
                                     <a href="#">
                                         <div class="h-12 md:h-16 md:w-24 overflow-hidden relative rounded -md w-12">
                                             <img src="/frontend/assets/images/courses/img-6.jpg" alt=""
-                                                class="w-full h-full absolute inset-0 object-cover">
+                                                 class="w-full h-full absolute inset-0 object-cover">
                                         </div>
                                     </a>
                                     <div class="flex flex-1 items-end justify-between space-x-5">
@@ -239,7 +241,7 @@
                                             </div>
                                         </div>
                                         <a href="#"
-                                            class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
+                                           class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
                                             Resume
                                         </a>
                                     </div>
@@ -250,7 +252,7 @@
                                     <a href="#">
                                         <div class="h-12 md:h-16 md:w-24 overflow-hidden relative rounded -md w-12">
                                             <img src="/frontend/assets/images/courses/img-3.jpg" alt=""
-                                                class="w-full h-full absolute inset-0 object-cover">
+                                                 class="w-full h-full absolute inset-0 object-cover">
                                         </div>
                                     </a>
                                     <div class="flex flex-1 items-end justify-between space-x-5">
@@ -266,7 +268,7 @@
                                             </div>
                                         </div>
                                         <a href="#"
-                                            class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
+                                           class="sm:flex items-center justify-center h-8 px-3 rounded-md text-sm border font-semibold hidden">
                                             Resume
                                         </a>
                                     </div>
