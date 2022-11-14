@@ -72,17 +72,21 @@ class OrderController extends Controller
             $total_price = $total_price - ($total_price * ($discount / 100));
         }
 
-        Cookie::queue('courses',json_encode($courses->toArray()),3600*1000);
+        $id = Order::select('id')->max('id');
+        $code = '#' . str_pad($id == null ? 0 : $id, 8, "0", STR_PAD_LEFT);
 
-        VnPayService::create($request, 'dasdđasdâssad', $total_price);
+        Cookie::queue('courses', json_encode($courses->toArray()), 3600 * 1000);
+
+        VnPayService::create($request, $code, $total_price);
     }
 
     public function resDataVnpay()
     {
-        $courses = collect(json_decode(Cookie::get('courses'),true));
+        $courses = collect(json_decode(Cookie::get('courses'), true));
         $course_id = $courses->pluck('course_id')->toArray();
 
         $order = Order::create([
+            'code' => $_GET['vnp_TxnRef'],
             'user_id' => auth()->user()->id,
             'total_price' => $_GET['vnp_Amount'],
             'status' => 1
@@ -96,7 +100,9 @@ class OrderController extends Controller
 
         Cart::destroy($course_id);
 
-        Cookie::queue('courses',0);
+
+
+        Cookie::queue('courses', 0);
 
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }
