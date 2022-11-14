@@ -19,10 +19,12 @@ class OrderDetailFactory extends Factory
     {
         static $course_id = 0;
         static $order_id  = 0;
-        $course_id == 10 ? $course_id = 1: $course_id++;
+        static $code = 1;
+        $course_id == 10 ? $course_id = 1 : $course_id++;
         $order_id > 3 ? $order_id = 1 : $order_id++;
-        $course = Course::select('price')->where('id',$course_id)->first();
+        $course = Course::select('price')->where('id', $course_id)->first();
         return [
+            'code' => 'BACH0' + $code++,
             'price' => $course->price,
             'course_id' => $course_id,
             'order_id' => $order_id,
