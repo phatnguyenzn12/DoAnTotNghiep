@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\CourseController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/course')->name('admin.course.')->middleware('role:admin|manager')->controller(CourseController::class)->group(
+Route::prefix('admin/course')->name('admin.course.')->middleware('role:admin|mentor')->controller(CourseController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('create', 'create')->name('create');
