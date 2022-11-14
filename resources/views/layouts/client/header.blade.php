@@ -92,7 +92,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
             @forelse ($carts as $cart)
                 <li>
                     <div class="cart_avatar">
-                        <img src="/frontend/assets/images/courses/img-1.jpg" alt="">
+                        <img src="" alt="">
                     </div>
                     <div class="cart_text">
                         <h4> {{ $cart->title }} </h4>

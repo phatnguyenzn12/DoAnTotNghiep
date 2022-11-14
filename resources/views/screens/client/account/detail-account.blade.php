@@ -21,7 +21,7 @@
                 <h3 class="px-8 pt-5 mb-2 text-lg font-semibold"> Xin chào: {{ $user->name }}</h3>
 
                 <div class="z-20 bg-white overflow-hidden border-b"
-                     uk-sticky="cls-active:shadow rounded-none ;media 992; offset:67;bottom:true">
+                    uk-sticky="cls-active:shadow rounded-none ;media 992; offset:67;bottom:true">
                     <nav class="cd-secondary-nav extanded px-6">
                         <ul class="space-x-3" uk-switcher="connect: #form_tabs; animation: uk-animation-fade">
                             <li><a href="#">
@@ -56,36 +56,35 @@
                         <div class="">
                             <!-- Course title -->
                             <form class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2 md:mt-4"
-                                  action="{{ route('client.account.update', $user->id) }}" method="post"
-                                  enctype="multipart/form-data">
+                                action="{{ route('client.account.update', $user->id) }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <label for="course_basic" class="font-medium"> Họ và tên <span
                                         class="text-red-600">*</span></label>
                                 <div class="col-span-2">
-                                    <input type="text" id="course_basic" name="name" value="{{ $user->name }}"
-                                           class="shadow-none with-border" placeholder="Enter course title" required="">
+                                    <input type="text" id="course_basic" name="name" 
+                                        class="shadow-none with-border" placeholder="Enter course title" required="">
                                 </div>
                                 <label for="course_basic" class="font-medium"> Số điện thoại <span
                                         class="text-red-600">*</span></label>
                                 <div class="col-span-2">
-                                    <input type="text" id="course_basic" value="{{ $user->number_phone }}"
-                                           name="number_phone" class="shadow-none with-border" placeholder="Enter course title"
-                                           required="">
+                                    <input type="text" id="course_basic" 
+                                        name="number_phone" class="shadow-none with-border" placeholder="Enter course title"
+                                        required="">
                                 </div>
                                 <label for="course_basic" class="font-medium"> Ảnh <span
                                         class="text-red-600">*</span></label>
                                 <div class="col-span-2">
-                                    <img id="mat_truoc_preview"
-                                         src="{{ $user->avatar ? '' . Storage::url($user->avatar) : 'http://placehold.it/100x100' }}"
-                                         alt="your image" style="max-width: 200px; height:100px; margin-bottom: 10px;"
-                                         class="img-fluid" />
+                                    <img id="mat_truoc_preview" src="{{ asset('') ?? 'http://placehold.it/100x100' }}"
+                                        alt="your image" style="max-width: 200px; height:100px; margin-bottom: 10px;"
+                                        class="img-fluid" />
                                     <label for="cmt_truoc">Mặt trước</label><br />
                                     <input class="form-control-file @error('cmt_mat_truoc') is-invalid @enderror"
-                                           id="cmt_truoc" type="file" name="avatar" class="form-group">
+                                        id="cmt_truoc" type="file" name="avatar" class="form-group">
                                 </div>
                                 <div style="margin-left:500px ">
                                     <button type="submit"
-                                            class="py-4 px-6 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Lưu</button>
+                                        class="py-4 px-6 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Lưu</button>
                                 </div>
                             </form>
                             <!-- Course short description  -->
@@ -98,38 +97,41 @@
 
                     <!-- Requirements  -->
                     <div class="p-8 md:w-3/4 mx-auto">
-
-                        <div class="flex items-center justify-between space-x-2 mb-7">
-                            <div>
-                                {{-- <h4 class="font-semibold mb-1 text-lg">Đổi mật khẩu</h4> --}}
-                                <div class="text-sm"> List of requirements that can be set for this course </div>
-                            </div>
-                            <button type="button" class="bg-gray-100 border p-2 px-4 rounded-md"> Create </button>
-
-                        </div>
-                        <form  action="{{ route('client.account.updatepass', $user->id) }}" method="post"
-                               enctype="multipart/form-data">
+                        <form action="{{ route('client.account.updatepass', $user->id) }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
-                            <div class="grid sm:grid-cols-4 align-items-center sm:gap-6 gap-2 md:mt-4">
-
+                            <div class=" blobk  grid sm:grid-cols-4 align-items-center sm:gap-6 gap-2 md:mt-4">
                                 <div class="col-span-3 space-y-4">
-                                    <label for="">Mật khẩu cũ</label>
-                                    <input type="text" id="requirements" name="password" class="shadow-none with-border"
-                                           value="">
+                                    <label class="mb-4px" for="">Mật khẩu cũ</label>
+                                    <input style="    margin-top: -8px;  }" type="text" id="requirements" name="password"
+                                        class="shadow-none with-border" value="">
+                                    @if (Session::has('error'))
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <strong style="color: red">{{ Session::get('error') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
-                                <!-- buttons -->
-                                {{-- <div class="flex space-x-2">
-                                <ion-icon name="create-outline" class="text-xl rounded-md p-2.5 bg-gray-100"></ion-icon>
-                                <ion-icon name="trash-outline" class="text-xl rounded-md p-2.5 bg-red-100 text-red-500">
-                                </ion-icon>
-                            </div> --}}
+
+                                {{-- @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                            @endif --}}
                             </div>
                             <div class="grid sm:grid-cols-4 align-items-center sm:gap-6 gap-2 md:mt-4">
 
                                 <div class="col-span-3 space-y-4">
                                     <label for="">Mật khẩu mới</label>
-                                    <input type="text" id="requirements" name="password_2" class="shadow-none with-border"
-                                           value="" >
+                                    <input style="    margin-top: -8px;  }" type="text" id="requirements"
+                                        name="password_2" class="shadow-none with-border" value="">
                                 </div>
                                 <!-- buttons -->
                                 <div class="flex space-x-2">
@@ -139,7 +141,11 @@
                                 </div>
 
                             </div>
-                            <button type="submit" class="bg-gray-100 border p-2 px-4 rounded-md"> Create </button>
+                            <div>
+                                <button type="submit" style="width: 120px;magrin-top:5px;"
+                                    class="bg-blue-600 px-4 py-2.5 rounded-md self-center text-center text-white w-full">
+                                    Lưu thay đổi </button>
+                            </div>
                         </form>
 
                     </div>
@@ -167,7 +173,7 @@
                                 <label for="course_basic" class="font-medium"> Course price ($) </label>
                                 <div class="col-span-2">
                                     <input type="number" id="course_basic" name="course_basic"
-                                           class="shadow-none with-border" value="Title" required="">
+                                        class="shadow-none with-border" value="Title" required="">
                                 </div>
 
                             </div>
@@ -192,7 +198,7 @@
                                 <label for="course_basic" class="font-medium">Discounted price ($) </label>
                                 <div class="col-span-2">
                                     <input type="number" id="course_basic" name="course_basic"
-                                           class="shadow-none with-border" value="Title" required="">
+                                        class="shadow-none with-border" value="Title" required="">
                                 </div>
 
                             </div>
@@ -254,7 +260,7 @@
                             <!-- Course provider -->
                             <label for="course_media" class="font-medium self-center">Course overview provider </label>
                             <select class="selectpicker border rounded-md col-span-2" name="course_media"
-                                    id="course_basic">
+                                id="course_basic">
                                 <option value="youtube">Youtube</option>
                                 <option value="vimeo">Vimeo</option>
                                 <option value="html5">Html5</option>
@@ -264,8 +270,8 @@
                             <label for="course_media" class="font-medium">Course overview url </label>
                             <div class="col-span-2">
                                 <input type="text" id="course_media" name="course_media"
-                                       class="shadow-none with-border"
-                                       placeholder="E.g: https://www.youtube.com/watch?v=abcd1234" required="">
+                                    class="shadow-none with-border"
+                                    placeholder="E.g: https://www.youtube.com/watch?v=abcd1234" required="">
                             </div>
 
                             <!-- Course thumbnail -->
@@ -287,13 +293,13 @@
                             <!-- Meta keywords -->
                             <label for="course_meta" class="font-medium self-start"> Meta keywords </label>
                             <textarea class="with-border col-span-2 p-4 min-h-full resize-none" id="course_meta" name="course_meta"
-                                      type="text" rows="2" value=""></textarea>
+                                type="text" rows="2" value=""></textarea>
 
                             <!-- Meta description  -->
                             <label for="course_description" class="font-medium self-start"> Meta description </label>
                             <div class="col-span-2 ">
                                 <textarea class="with-border col-span-2 p-4" id="course_description" name="course_description" type="text"
-                                          value=""></textarea>
+                                    value=""></textarea>
                                 <p class="mt-2 text-sm text-gray-500"> Your website's description, used mostly for SEO and
                                     search engines, Max of 100 characters is recommended</p>
                             </div>
@@ -307,11 +313,11 @@
 
                         <div class="flex flex-col items-center justify-center">
                             <ion-icon name="checkmark-circle" class="hydrated mb-2 md text-5xl text-green-500"
-                                      role="img" aria-label="checkmark circle"></ion-icon>
+                                role="img" aria-label="checkmark circle"></ion-icon>
                             <h6 class="font-semibold text-2xl"> Thank You</h6>
                             <h1 class="font-medium mb-5 text-gray-500"> Just One click away</h1>
                             <button type="button"
-                                    class="bg-blue-600 px-4 py-2.5 rounded-md self-center text-center text-white w-full">Submit</button>
+                                class="bg-blue-600 px-4 py-2.5 rounded-md self-center text-center text-white w-full">Submit</button>
                         </div>
 
                     </div>
