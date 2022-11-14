@@ -180,34 +180,32 @@
 import { filter } from '/js/data-table.js'
 const filter1 = new filter(
     {
-        name: 0,
+        search: 0,
         record: 10,
-    },
-    '{{ route('admin.user.listData') }}',
+    },'/admin/user/list-data',
     (data) => {
         return data.data.map(val => {
             return `<tr>
-    <td col="name">${val.name}</td><td><a class="btn btn-light btn-sm">
-        <i class="flaticon2-pen text-warning"></i></a>
-
-    <a class="btn btn-light btn-sm" href="{{ route('client') }}">
-        <i class="flaticon2-trash text-danger"></i></a></td></tr>`
-        }).join(',');
+                <td col="name"><a class="text-dark" href="detail/${val.id}">${val.name}</a></td>                
+                <td><a class="btn btn-light btn-sm" href="detail/${val.id}">
+                    <i class="flaticon2-pen text-warning"></i></a>
+                <a class="btn btn-light btn-sm" href="delete/${val.id}">
+                    <i class="flaticon2-trash text-danger"></i></a></td></tr>`
+                    }).join(',');
     },
     (data) => {
         return data.links.map(
             (val) => {
                 return `<a filter-page="${val.url}" class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 ${val.active == true ? 'active' : ''}">
-            ${val.label.includes('e') == true ? `${val.label.includes('l') == true ? '<i class="ki ki-bold-arrow-back icon-xs text-success"></i>' : '<i class="ki ki-bold-arrow-next icon-xs text-success"></i>'} ` : val.label}
+            ${val.label.includes('e') == true ? `<i class="ki ki-bold-arrow-${val.label.includes('l') == true ? 'back' : 'next'} icon-xs text-success"></i>` : val.label}
             </a>`
             }
         ).join('')
     },
 )
-
 filter1.get()
-filter1.filterSearchName()
-filter1.filterRecord()
+filter1.filterSearch()
+filter1.filterRecord() 
 
     </script>
 @endpush

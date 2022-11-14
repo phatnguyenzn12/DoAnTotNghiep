@@ -5,9 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -74,5 +74,38 @@ class User extends Authenticatable
         }
 
         return $query;
+    }
+  
+    public function saveNew($data)
+    {
+        $res = DB::table($this->table)->insertGetId($data);
+        return $res;
+    }
+    public function active_account($id){
+        $res = DB::table($this->table)->where('id', $id)->update(['remember_token'=>null]);
+        return $res;
+    }
+
+    public function updateToken($id,$token){
+        $res = DB::table($this->table)->where('id', $id)->update(['remember_token'=>$token]);
+        return $res;
+    }
+
+    public function updatePass($id,$password){
+        $res = DB::table($this->table)->where('id', $id)->update(['password'=>$password,'remember_token'=>null]);
+        return $res;
+    }
+    
+    public function loadOne($id)
+    {
+        $query = DB::table($this->table)->where('id', '=', $id);
+        $obj = $query->first();
+        return $obj;
+    }
+
+    public function dlt($id, $params = null)
+    {
+        $res = DB::table($this->table)->where('id', $id)->delete();
+        return $res;
     }
 }

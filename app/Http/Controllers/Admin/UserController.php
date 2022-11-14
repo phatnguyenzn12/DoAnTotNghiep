@@ -22,4 +22,18 @@ class UserController extends Controller
         ];
         return response()->json($passedDown,200);
     }
+
+    public function delete($id)
+    {
+        $user = new User();
+        $user->dlt($id);
+        return redirect()->route('admin.user.index')->with('success','Xóa thành công');
+    }
+
+    public function detail($id)
+    {
+        $users = new User();
+        $user = $users->loadOne($id);
+        return view('screens.admin.user.detail',compact('user'));
+    }
 }

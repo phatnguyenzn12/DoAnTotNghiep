@@ -16,7 +16,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $index = Banner::all();
+        $index = Banner::select('*')->where('status','!=' ,1)->get();
         // dd($index);
         return view('screens.admin.banner.list', compact('index'));
     }

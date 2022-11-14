@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Admin\DiscountCodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 //         Route::resource('admin/discount');
 //     }
 // );                                                      ->middleware('auth','permission.check:admin|mentor')
-Route::prefix('admin/discount')->name('admin.discount.')->middleware('role:admin|manager')->controller(DiscountCodeController::class)->group(
+Route::prefix('admin/discount')->name('admin.discount.')->middleware('role:admin|mentor')->controller(DiscountCodeController::class)->group(
      function () {
          Route::get('index', 'index')->name('index');
          Route::get('create', 'create')->name('create');

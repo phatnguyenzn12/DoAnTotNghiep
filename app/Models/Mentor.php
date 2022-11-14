@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class Mentor extends Authenticatable
 {
@@ -29,6 +30,7 @@ class Mentor extends Authenticatable
         'avatar',
         'number_phone',
         'is_active',
+        'cate_course_id',
     ];
 
     /**
@@ -50,6 +52,10 @@ class Mentor extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function PermissionCheck(){
+        return $this->guard;
+    }
+
     public function loadList()
     {
         $query = DB::table($this->table)
@@ -64,12 +70,12 @@ class Mentor extends Authenticatable
         return $res;
     }
 
-    public function actived($id,$status, $params=null){
+    public function actived($id,$status){
         if ($status == 1) {
-            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>0]);
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>0,'remember_token'=>Str::random(10)]);
         }
         else{
-            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>1]);
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>1,'remember_token'=>null]);
         }
         
         return $res;
