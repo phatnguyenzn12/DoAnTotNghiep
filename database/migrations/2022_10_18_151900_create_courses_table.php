@@ -22,6 +22,7 @@ return new class extends Migration
             $table->char('status');
             $table->char('video');
             $table->text('image');
+            $table->integer('type')->default(0);
             $table->char('slug');
             $table->integer('participant')->default(0);
             $table->unsignedBigInteger('cate_course_id');
