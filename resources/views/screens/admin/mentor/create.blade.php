@@ -60,6 +60,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label>Danh mục</label>
+                                <select name="cate_course_id" id="" class="form-control">
+                                    @foreach ($cate as $cate)
+                                        <option value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
                                 <a href="" class="btn btn-success mr-2">Danh sách slider</a>
                             </div>

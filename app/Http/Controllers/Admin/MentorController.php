@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CateCourse;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -22,6 +24,7 @@ class MentorController extends Controller
     public function create(Request $request)
     {
         $method_route = 'mentor.create';
+        $cate = DB::table('cate_courses')->select('*')->get();
         if ($request->isMethod('post')) {
             $params = [];
             // dd($request->post());
@@ -61,7 +64,7 @@ class MentorController extends Controller
                 }
             }
         }
-        return view('screens.admin.mentor.create');
+        return view('screens.admin.mentor.create',compact('cate'));
     }
     public function upLoadFile($file)
     {

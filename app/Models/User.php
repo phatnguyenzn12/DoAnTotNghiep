@@ -102,4 +102,10 @@ class User extends Authenticatable
         $obj = $query->first();
         return $obj;
     }
+
+    public function dlt($id, $params = null)
+    {
+        $res = DB::table($this->table)->where('id', $id)->delete();
+        return $res;
+    }
 }
