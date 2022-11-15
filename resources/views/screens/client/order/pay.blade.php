@@ -12,14 +12,14 @@
                         <a href="index.html"> <i class="icon-feather-home"></i> </a>
                     </li>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Gio hàng </a>
                     </li>
                     <li class="active">
-                        <a href="#">Payment method </a>
+                        <a href="#"> Thanh toán online </a>
                     </li>
                 </ul>
             </div>
-            <div class="md:text-2xl text-base font-semibold mt-6 md:mb-6"> Payment method </div>
+            <div class="md:text-2xl text-base font-semibold mt-6 md:mb-6"> Thanh toán online </div>
         </div>
     </div>
 
@@ -35,64 +35,19 @@
                     <div class="bg-white rounded-md shadow-md">
 
                         <ul class=" space-y-0 rounded-md" uk-accordion>
-                            <li class="uk-open">
+                            <li class="">
                                 <a class="uk-accordion-title border-b py-4 px-6" href="#">
                                     <div class="flex items-center text-base font-semibold">
-                                        <ion-icon name="card-outline" class="mr-2"></ion-icon> Pay with Credit Card
+                                        <ion-icon name="card-outline" class="mr-2"></ion-icon> Chọn phương thức thanh toán
                                     </div>
                                 </a>
                                 <div class="uk-accordion-content py-6 px-8 mt-0 border-b">
 
-                                    <p class="">We accept following credit cards:&nbsp;&nbsp;<img class="inline-block"
-                                            src="../assets/images/cards.png" style="width: 187px;" alt="Cerdit Cards"></p>
+                                    <p class="">We accept following credit cards:&nbsp;&nbsp;</p>
 
                                     <form class="grid sm:grid-cols-4 gap-4 mt-3">
-                                        <div class="col-span-2">
-                                            <input type="text" name="number" placeholder="Card Number"
-                                                class="with-border">
-                                        </div>
-                                        <div class="col-span-2">
-                                            <input type="text" name="name" placeholder="Full Name"
-                                                class="with-border">
-                                        </div>
-                                        <div>
-                                            <input type="text" name="expiry" placeholder="MM/YY" class="with-border">
-                                        </div>
-                                        <div>
-                                            <input type="text" name="cvc" placeholder="CVC" class="with-border">
-                                        </div>
-                                        <div class="col-span-2 border rounded-md border-blue-500">
-                                            <button class="w-full py-3 font-semibold rounded text-blue-600 text-base block"
-                                                type="submit">Submit</button>
-                                        </div>
+
                                     </form>
-
-                                </div>
-                            </li>
-                            <li>
-                                <a class="uk-accordion-title border-b py-4 px-6" href="#">
-                                    <div class="flex items-center text-base font-semibold">
-                                        <ion-icon name="logo-paypal" class="mr-2"></ion-icon> Pay with PayPal
-                                    </div>
-                                </a>
-                                <div class="uk-accordion-content py-6 px-8 mt-0 border-b">
-
-                                    <p><span class="font-semibold">PayPal</span> - the safer, easier way to pay</p>
-                                    <form class="grid sm:grid-cols-2 gap-4 mt-3">
-                                        <div>
-                                            <input type="text" name="email" placeholder="E-mail" class="with-border">
-                                        </div>
-                                        <div>
-                                            <input type="Password" name="Password" placeholder="Password"
-                                                class="with-border">
-                                        </div>
-                                    </form>
-
-                                    <div class="flex flex-wrap items-center justify-between py-2 mt-3">
-                                        <a class="font-medium text-sm text-blue-600 hover:underline" href="#">Forgot
-                                            password?</a>
-                                        <button class="button" type="submit">Log In</button>
-                                    </div>
 
                                 </div>
                             </li>
@@ -125,10 +80,13 @@
                             <i class="icon-feather-chevron-left mr-1"></i>
                             <span class="md:block hidden">Trở về giỏ hàng</span><span class="md:hidden block">Back</span>
                         </a>
-                        <button form="payment" class="bg-blue-600 text-white flex font-medium items-center justify-center py-3 rounded-md hover:text-white">
-                            <span class="md:block hidden"> Thanh toán </span><span class="md:hidden block">Review</span>
+
+                        <button form="payment" name="redirect_vnpay" value="1"
+                            class="bg-blue-600 text-white flex font-medium items-center justify-center py-3 rounded-md hover:text-white">
+                            <span class="md:block hidden"> Thanh toán vnpay </span>
                             <i class="icon-feather-chevron-right ml-1"></i>
                         </button>
+
                     </div>
 
 
@@ -141,7 +99,8 @@
 
                         <div class="font-semibold px-5 pb-3 text-lg text-center"> Tóm tắt đơn hàng </div>
 
-                        <form action="{{route('client.order.handlePay')}}" method="post" id="payment">
+                        <form action="{{ route('client.order.vnpay') }}" method="post" id="payment">
+
                             @csrf
                             @foreach ($courses as $course)
                                 <div>
@@ -155,29 +114,35 @@
                                                     class="line-clamp-2">{{ $course->title }}</a></h6>
                                             <div class="flex justify-between mt-1"><span
                                                     class="font-medium text-sm text-blue-500">{{ $course->cateCourse->name }}</span><span
-                                                    class="font-bold mt-0.5" products>{{ $course->current_Price }}</span></div>
+                                                    class="font-bold mt-0.5" products>{{ $course->current_Price }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
+
+                            <input class="form-control with-border" type="text" name="code"
+                                placeholder="Nhập code" input-code hidden>
+
                         </form>
 
                         <ul class="border-b border-t my-3 py-3 text-sm">
-                            <li class="flex justify-between align-center"><span class="mr-2" total> Tổng giá tiền: </li>
-                            <li class="flex justify-between align-center"><span class="mr-2">giảm giá:
-                                    50%
+                            <li class="flex justify-between align-center"><span class="mr-2" total> Tổng giá tiền:
+                                    <span></li>
+                            <li class="flex justify-between align-center"><span class="text-red-500 mr-2" show_disount>chưa giảm giá
+                                </span>
                         </ul>
 
                         <h3 class="font-semibold text-center my-6 text-2xl" total_discount></h3>
-                        <form method="post" class="space-y-3">
-                            <input class="form-control with-border" type="text" placeholder="Nhập code"
-                                required="">
+                        <div class="space-y-3">
+                            <input class="form-control with-border" type="text" placeholder="Nhập code" discountcode>
                             <div class="col-span-2 border rounded-md border-blue-500">
-                                <button class="w-full py-2.5 font-semibold rounded text-blue-600 text-base block"
-                                    type="submit">Nhập mã giảm giá</button>
+                                <button type="button" onclick="checkcode('{{ route('client.order.checkCode') }}')"
+                                    class="w-full py-2.5 font-semibold rounded text-blue-600 text-base block">Kiểm tra mã
+                                    giảm giá
+                                </button>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
                 </div>
 
@@ -188,6 +153,7 @@
 @endsection
 
 @section('js-links')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
 @endsection
 @push('js-handles')
     <script>
@@ -198,5 +164,22 @@
         js_$('[total]').innerHTML = 'Tổng giá tiền: ' + price + ' đ'
 
         js_$('[total_discount]').innerHTML = price + ' đ'
+
+        function checkcode(url) {
+            axios.post(url, {
+                    code: js_$("[discountcode]").value
+                })
+                .then(
+                    res => {
+                        js_$('[input-code]').value = js_$("[discountcode]").value
+                        js_$('[show_disount]').innerHTML = `Giảm giá: ${res.data.discount} %`
+                        js_$('[total_discount]').innerHTML = price - (price * (res.data.discount / 100)) + ' đ'
+                    }
+                )
+        }
+
+        function vnpay(a, url) {
+            // a.preventDefault()
+        }
     </script>
 @endpush

@@ -176,7 +176,7 @@
 @endsection
 @push('js-handles')
     <script type="module">
-        
+
 import { filter } from '/js/data-table.js'
 const filter1 = new filter(
     {
@@ -186,12 +186,12 @@ const filter1 = new filter(
     (data) => {
         return data.data.map(val => {
             return `<tr>
-    <td col="name">${val.name}</td><td><a class="btn btn-light btn-sm">
-        <i class="flaticon2-pen text-warning"></i></a>
-
-    <a class="btn btn-light btn-sm" href="{{ route('client') }}">
-        <i class="flaticon2-trash text-danger"></i></a></td></tr>`
-        }).join(',');
+                <td col="name"><a class="text-dark" href="detail/${val.id}">${val.name}</a></td>                
+                <td><a class="btn btn-light btn-sm" href="detail/${val.id}">
+                    <i class="flaticon2-pen text-warning"></i></a>
+                <a class="btn btn-light btn-sm" href="delete/${val.id}">
+                    <i class="flaticon2-trash text-danger"></i></a></td></tr>`
+                    }).join(',');
     },
     (data) => {
         return data.links.map(

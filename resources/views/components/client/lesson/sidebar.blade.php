@@ -41,8 +41,9 @@
                                             <ul class="course-curriculum-list">
                                                 @forelse ($chapter->lessons as $key2 => $lesson)
                                                     <li onclick="showAjax('{{ route('client.lesson.show',$lesson->id) }}')">
-                                                        <a href="#" class="flex flex-col">
+                                                        <a href="{{ route('client.lesson.index', ['course'=>$course->id, 'lesson'=>$lesson->id]) }}" class="flex flex-col">
                                                             <div class="flex justify-between items-center">
+                                                                {{$lesson->id}}
                                                                 <div class="">
                                                                     <span>{{ ++$key2 }}.
                                                                         {{ $lesson->title }}</span>

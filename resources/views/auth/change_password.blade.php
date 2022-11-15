@@ -10,17 +10,17 @@
             @csrf
             <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Đổi mật khẩu mới</h1>
             <div>
-                <label class="mb-0"> mật khẩu mới </label>
+                <label class="mb-0"> Mật khẩu mới </label>
                 <input type="password" name="password" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
                     uk-tooltip="title: Nhập mật khẩu mới; pos: right">
             </div>
             
             <div>
-                <label class="mb-0"> nhập lại mật khẩu mới </label>
-                <input type="password" name="password" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+                <label class="mb-0"> Mhập lại mật khẩu mới </label>
+                <input type="re-password" name="re-password" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
             </div>
 
-            <div class="g-recaptcha" data-sitekey="6LeXMAYiAAAAAH-6JZwbx2GSa8vrgZsUCq7xrUK4"></div>
+            {{-- <div class="g-recaptcha" data-sitekey="6LeXMAYiAAAAAH-6JZwbx2GSa8vrgZsUCq7xrUK4"></div> --}}
 
             <div>
                 <button type="submit"

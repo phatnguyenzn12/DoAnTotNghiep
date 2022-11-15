@@ -13,7 +13,7 @@
     <div id="wrapper" class="course-watch">
 
         <!--  Sidebar  -->
-        @include('components.client.lesson.sidebar')
+        {{-- @include('components.client.lesson.sidebar') --}}
 
         <!-- Main Contents -->
         <div class="main_content">

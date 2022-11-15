@@ -64,11 +64,11 @@
                     <li class=""><a href="#reviews" uk-scroll="">Đánh giá về khóa học</a></li>
                 </ul>
             </nav>
-
+{{-- @dd($course->lessons()->get()); --}}
             <div class="flex space-x-3">
                 @if (auth()->user())
-                    @if ($course->users()->get()->contains(auth()->user()->id))
-                        <a href="{{ route('client.lesson.index', $course->id) }}"
+                    @if ($course->users()->get()->contains(auth()->user()->id) && auth()->user())
+                        <a href="{{ route('client.lesson.index', ['course'=>$course->id, 'lesson'=>$course->chapters()->first()->lessons()->first()->id]) }}"
                             class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white"> Vào học
                         </a>
                     @else
