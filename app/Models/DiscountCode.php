@@ -15,11 +15,7 @@ class DiscountCode extends Model
         'status',
         'code',
         'discount',
-        'content',
         'start_time',
         'end_time',
-        'title',
-        'slug',
-        'status',
     ];
 }

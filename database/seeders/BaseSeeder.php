@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\CateCourse;
 use App\Models\Chapter;
@@ -11,6 +12,7 @@ use App\Models\Course;
 use App\Models\DisscountCode;
 use App\Models\Lesson;
 use App\Models\LessonVideo;
+use App\Models\Mentor;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OwnerCourse;
@@ -32,6 +34,8 @@ class BaseSeeder extends Seeder
         foreach ($users as $user) {
             $user->assignRole('student');
         }
+        Admin::factory(1)->create();
+        Mentor::factory(4)->create();
         CateCourse::factory(3)->create();
         Course::factory(10)->create();
         Chapter::factory(20)->create();
@@ -47,8 +51,8 @@ class BaseSeeder extends Seeder
                 );
             }
         }
-        CommentCourse::factory(100)->create();
-        CommentLesson::factory(100)->create();
+        // CommentCourse::factory(100)->create();
+        // CommentLesson::factory(100)->create();
         Cart::factory(10)->create();
         Order::factory(10)->create();
         OrderDetail::factory(10)->create();

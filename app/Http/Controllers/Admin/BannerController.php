@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Course;
+use App\Models\DiscountCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +18,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $index = Banner::select('*')->where('status','!=' ,1)->get();
+        $index = Banner::all();
         // dd($index);
         return view('screens.admin.banner.list', compact('index'));
     }
@@ -28,7 +30,10 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('screens.admin.banner.add');
+        $courses = Course::select('id', 'title')->get();
+        // dd( $courses);
+        $coupons = DiscountCode::select('id', 'title')->get();
+        return view('screens.admin.banner.add', compact('courses','coupons'));
     }
 
     /**
@@ -38,10 +43,13 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $courses = Course::select('id', 'title')->get();
+        // dd( $courses);
+        $coupons = DiscountCode::select('id', 'title')->get();
         $store = new Banner();
         if($request->hasFile('image')){
-            $imgPath = $request->file('image')->store('Banners');
+            $imgPath = $request->file('image')->store('images');
             $imgPath = str_replace('public/', '', $imgPath);
             $store->image = $imgPath;
         }
@@ -69,6 +77,8 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
+        $courses = Course::select('id', 'title')->get();
+       
         $edit = Banner::find($id);
         if(!$edit){
             return back();
@@ -86,16 +96,7 @@ class BannerController extends Controller
     public function update(Request $request, $id)
     {
         $update = Banner::find($id);
-        if(!$update){
-            return back();
-        }
-        if($request->hasFile('image')){
-            Storage::delete($update->image);
-
-            $imgPath = $request->file('image')->store('Banners');
-            $imgPath = str_replace('public/', '', $imgPath);
-            $update->image = $imgPath;
-        }
+          
         $update->fill($request->all());
         $update->save();
         return redirect()->route('admin.banner.index')->with('success', 'sửa thành công');
@@ -118,4 +119,6 @@ class BannerController extends Controller
         
         return redirect()->route('admin.banner.index')->with('success', 'Xoá thành công');
     }
+
+    
 }
