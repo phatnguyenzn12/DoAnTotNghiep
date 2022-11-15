@@ -18,9 +18,11 @@ class LessonController extends Controller
             $cmt = CommentLesson::where('lesson_id', $lesson->id)->get();
 // dd($cmt);
             return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt'));
+
         // }else {
         //     return redirect()->back();
         // }
+
     }
 
 

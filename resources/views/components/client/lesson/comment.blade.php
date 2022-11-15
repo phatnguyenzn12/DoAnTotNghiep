@@ -1,68 +1,14 @@
-{{-- <div class="tube-card p-6">
-
-    <h1 class="block text-xl font-semibold mb-6"> Bình luận (12) </h1>
-
-    <div class="space-y-5">
-
-        <div class="flex gap-x-4 relative rounded-md">
-            <a href="#"
-                class="bg-gray-100 py-1.5 px-4 rounded-full absolute right-5 top-0">Replay</a>
-            <img src="/frontend/assets/images/avatars/avatar-3.jpg" alt=""
-                class="rounded-full shadow w-12 h-12">
-            <div>
-                <h4 class="text-base m-0 font-semibold"> Alex Dolgove</h4>
-                <span class="text-gray-700 text-sm"> 14th, April 2021 </span>
-                <p class="mt-3 md:ml-0 -ml-16">
-                    elit, sed diam ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-                    ipsum dolor sit
-                    amet, consectetuer adipiscing elit, sed diam ut laoreet dolore
-                </p>
-            </div>
-        </div>
-
-        <div class="flex gap-x-4 relative rounded-md lg:ml-16">
-            <a href="#"
-                class="bg-gray-100 py-1.5 px-4 rounded-full absolute right-5 top-0">Replay</a>
-            <img src="/frontend/assets/images/avatars/avatar-1.jpg" alt=""
-                class="rounded-full shadow w-12 h-12">
-            <div>
-                <h4 class="text-base m-0 font-semibold"> Stella Johnson</h4>
-                <span class="text-gray-700 text-sm"> 13th, May 2021 </span>
-                <p class="mt-3 md:ml-0 -ml-16">
-                    elit, sed diam ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-                    ipsum dolor sit
-                    amet, consectetuer adipiscing elit, sed diam ut laoreet dolore
-                </p>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="flex justify-center mt-9">
-        <a href="#"
-            class="bg-gray-50 border hover:bg-gray-100 px-4 py-1.5 rounded-full text-sm">More Comments
-            ..</a>
-    </div>
-
-</div>  --}}
-
 
 <div class="tube-card p-6">
 
-    <h1 class="block text-xl font-semibold mb-6"> Bình luận {{count($cmt)}} </h1>
-{{-- @foreach ($cmt as $item)
-    {{$item->comment}}
-
-@endforeach --}}
+    <h1 class="block text-xl font-semibold mb-6"> Bình luận {{ count($cmt) }} </h1>
     <div class="space-y-5">
         @foreach ($cmt as $item)
-
             @if ($item->reply == null)
                 <div class="flex gap-x-4 relative rounded-md">
                     <button id="btnreply" onclick="showform()"
                         class="bg-gray-100 py-1.5 px-4 rounded-full absolute right-5 top-0">Replay</button>
-                    <img src="{{$item->avatar}}" alt=""
-                        class="rounded-full shadow w-12 h-12">
+                    <img src="{{ $item->avatar }}" alt="" class="rounded-full shadow w-12 h-12">
                     <div>
                         <h4 class="text-base m-0 font-semibold">
                             {{ DB::table('users')->where('id', '=', $item->user_id)->first()->name }} </h4>
@@ -73,7 +19,28 @@
                     </div>
                 </div>
 
-                <form id="reply" style="display: none" action="{{ route('client.lesson.reply', $item->id) }}" method="post">
+                @foreach ($cmt as $i)
+                    @if ($i->reply == $item->id)
+                        <div class="flex gap-x-4 relative rounded-md lg:ml-16">
+                            <button id="btnreply" onclick="showform()"
+                                class="bg-gray-100 py-1.5 px-4 rounded-full absolute right-5 top-0">Replay</button>
+                            <img src="{{ $i->avatar }}" alt="" class="rounded-full shadow w-12 h-12">
+                            <div>
+                                <h4 class="text-base m-0 font-semibold">
+                                    {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }} </h4>
+                                </h4>
+                                <span class="text-gray-700 text-sm"> {{ date('d/m/Y', strtotime($i->created_at)) }}
+                                </span>
+                                <p class="mt-3 md:ml-0 -ml-16">
+                                    {{ $i->comment }}
+                                </p>
+                            </div>
+                        </div>
+
+                    @endif
+                @endforeach
+                <form id="reply" style="display: none" action="{{ route('client.lesson.reply', $item->id) }}"
+                    method="post">
                     @csrf
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
                         <div class="d-flex flex-start w-100">
@@ -88,26 +55,8 @@
                         </div>
                     </div>
                 </form>
-                @foreach ($cmt as $i)
-                    @if ($i->reply == $item->id)
-                        <div class="flex gap-x-4 relative rounded-md lg:ml-16">
-                            <a href="#"
-                                class="bg-gray-100 py-1.5 px-4 rounded-full absolute right-5 top-0">Replay</a>
-                            <img src="{{$i->avatar}}" alt=""
-                                class="rounded-full shadow w-12 h-12">
-                            <div>
-                                <h4 class="text-base m-0 font-semibold">
-                                    {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }} </h4>
-                                </h4>
-                                <span class="text-gray-700 text-sm"> {{ date('d/m/Y', strtotime($i->created_at)) }} </span>
-                                <p class="mt-3 md:ml-0 -ml-16">
-                                    {{ $i->comment }}
-                                </p>
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
             @endif
+
         @endforeach
     </div>
 
@@ -141,8 +90,4 @@
             x.style.display = "none";
         }
     }
-
 </script>
-
-
-
