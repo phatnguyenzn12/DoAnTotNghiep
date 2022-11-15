@@ -47,8 +47,8 @@ class BaseSeeder extends Seeder
                 );
             }
         }
-        CommentCourse::factory(100)->create();
-        CommentLesson::factory(100)->create();
+        // CommentCourse::factory(100)->create();
+        // CommentLesson::factory(100)->create();
         Cart::factory(10)->create();
         Order::factory(10)->create();
         OrderDetail::factory(10)->create();

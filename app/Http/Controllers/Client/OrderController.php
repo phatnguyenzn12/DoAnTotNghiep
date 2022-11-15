@@ -7,7 +7,10 @@ use App\Models\Cart;
 use App\Models\Course;
 use App\Models\DiscountCode;
 use App\Models\Order;
+use App\Services\VnPayService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -51,9 +54,8 @@ class OrderController extends Controller
         return response()->json($data);
     }
 
-    public function handlePay(Request $request)
+    public function vnpay(Request $request)
     {
-
         $courses = Course::whereIn('id', $request->course_id)->get();
 
         $courses->transform(
@@ -70,9 +72,23 @@ class OrderController extends Controller
             $total_price = $total_price - ($total_price * ($discount / 100));
         }
 
+        $id = Order::select('id')->max('id');
+        $code = '#' . str_pad($id == null ? 0 : $id, 8, "0", STR_PAD_LEFT);
+
+        Cookie::queue('courses', json_encode($courses->toArray()), 3600 * 1000);
+
+        VnPayService::create($request, $code, $total_price);
+    }
+
+    public function resDataVnpay()
+    {
+        $courses = collect(json_decode(Cookie::get('courses'), true));
+        $course_id = $courses->pluck('course_id')->toArray();
+
         $order = Order::create([
+            'code' => $_GET['vnp_TxnRef'],
             'user_id' => auth()->user()->id,
-            'total_price' => $total_price,
+            'total_price' => $_GET['vnp_Amount'],
             'status' => 1
         ]);
 
@@ -80,9 +96,13 @@ class OrderController extends Controller
 
         auth()->user()->load('courses')
             ->courses()
-            ->attach($request->course_id);
+            ->attach($course_id);
 
-        Cart::destroy($request->course_id);
+        Cart::destroy($course_id);
+
+
+
+        Cookie::queue('courses', 0);
 
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }
