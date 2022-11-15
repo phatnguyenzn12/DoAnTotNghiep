@@ -67,7 +67,7 @@
 
             <div class="flex space-x-3">
                 @if (auth()->user())
-                    @if ($course->users()->get()->contains(auth()->user()->id) && auth()->user())
+                    @if ($course->users()->get()->contains(auth()->user()->id))
                         <a href="{{ route('client.lesson.index', $course->id) }}"
                             class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white"> Vào học
                         </a>
