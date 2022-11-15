@@ -18,6 +18,45 @@ class AuthAdminController extends Controller
         return view('screens.admin.auth.login');
     }
 
+    public function index()
+    {
+        $admins = Admin::select('*')->get();
+        return view('screens.admin.admin.list', compact('admins'));
+    }
+
+    public function update($id, Request $request)
+    {
+        $admin = DB::table('admins')->select('*')->where('id', $id)->first();
+        if ($request->isMethod('post')) {
+            $params = [];
+            $params['cols'] = array_map(function ($item) {
+                if ($item == '') {
+                    $item = null;
+                }
+                if (is_string($item)) {
+                    $item = trim($item);
+                }
+                return $item;
+            }, $request->post());
+            unset($params['cols']['_token']);
+            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+                $params['cols']['avatar'] = $this->upLoadFile($request->file('avatar'));
+            }
+            $params['cols']['id'] = $id;
+            $objUser = new Admin();
+            $res = $objUser->saveUpdate($params);
+
+            if ($res == null) {
+                return redirect()->route('admins.index');
+            } else if ($res > 0) {
+                return redirect()->route('admins.index')->with('success','Cập nhật thành công');
+            } else {
+                return redirect()->route('admins.update', ['id' => $id])->with('failed','Cập nhật không thành công');
+            }
+        }
+        return view('screens.admin.admin.update', compact('admin'));
+    }
+
     public function handleLogin(Request $request)
     {
 
@@ -28,7 +67,7 @@ class AuthAdminController extends Controller
             ])
             // && $request->{'g-recaptcha-response'} != null
         ) {
-            if(!Auth::guard('admin')->user()->remember_token == null){
+            if (!Auth::guard('admin')->user()->remember_token == null) {
                 return redirect()->route('admin.login')->with('success', 'Vui lòng xác minh tài khoản');
             }
             return redirect()->route('admin')->with('success', 'bạn đăng nhập thành công');
