@@ -56,7 +56,6 @@
                                 <textarea id="editor" name="content" rows="5" class="form-control"></textarea>
                             </div>
 
-                            <
                             <div class="form-group row">
                                 <label class="col-3 col-form-label">Trạng thái</label>
                                 <div class="col-9 col-form-label">

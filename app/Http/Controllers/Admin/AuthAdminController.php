@@ -59,7 +59,7 @@ class AuthAdminController extends Controller
             $data = array_merge($params['cols'], [
                 'email_verified_at' => now(),
                 'password' => Hash::make($params['cols']['password']),
-                'remember_token' => Str::random(10),
+                'remember_token' => null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
@@ -74,10 +74,10 @@ class AuthAdminController extends Controller
                 if ($res == null) {
                     return redirect()->route($method_route);
                 } else if ($res > 0) {
-                    Mail::send('screens.email.activedAdmin', compact('db'), function ($email) use ($db) {
-                        $email->subject('Xác minh tài khoản');
-                        $email->to($db->email, $db->name);
-                    });
+                    // Mail::send('screens.email.activedAdmin', compact('db'), function ($email) use ($db) {
+                    //     $email->subject('Xác minh tài khoản');
+                    //     $email->to($db->email, $db->name);
+                    // });
                     return redirect()->route('admin.login')->with('success', 'Thêm mới thành công vui lòng xác minh tài khoản');
                 } else {
                     return redirect()->route($method_route)->with('failed', 'Lỗi thêm mới');
