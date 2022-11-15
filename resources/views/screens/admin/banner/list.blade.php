@@ -94,7 +94,7 @@
                                     <th>nội dung</th>
                                     <th>hình ảnh</th>
                                     <th>kiểu banner</th>
-                                    <th>status</th>
+                                    <th>trạng thái</th>
                                     <th>xử lý</th>
                                     
                                 </tr>

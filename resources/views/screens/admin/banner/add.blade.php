@@ -36,14 +36,29 @@
                                                <label for="">Hình Ảnh</label>
                                                <input type="file" name="image" class="form-control" placeholder="">
                                           </div>
-                                          <div class="form-group">
-                                               <label for="">kiểu banner</label>
-                                               <input type="text" name="type" class="form-control" placeholder="">
-                                          </div>
-                                          <div class="form-group">
-                                               <label for="">trạng thái</label>
-                                               <input type="text" name="status" class="form-control" placeholder="">
-                                          </div>   
+                                          <div class="form-group" data-select2-id="2">
+                                            <label>Chọn kiểu banner</label>
+                                            <select class="form-control" name="type" id="exampleSelect1" onchange="selectBanner(this)">
+                                                <option value="course">bài học mới</option>
+                                                <option value="discount">mã giảm giá</option>
+                                            </select>
+                                        </div>
+                                        <div option-banner></div>
+
+                                          <div class="form-group row">
+                                            <label class="col-3 col-form-label">Trạng thái</label>
+                                            <div class="col-9 col-form-label">
+                                                <div class="radio-inline">
+                                                    <label class="radio">
+                                                        <input type="radio" value="1" name="status"
+                                                            @checked(true)>
+                                                        <span></span>Công khai</label>
+                                                    <label class="radio">
+                                                        <input type="radio" value="0" name="status">
+                                                        <span></span>Riêng tư</label>
+                                                </div>
+                                            </div>
+                                        </div> 
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">
                                         <br>
@@ -60,10 +75,29 @@
             </div>
         <!--end::Container-->
     </div>
+    
     <!--end::Entry-->
 @endsection
+
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
+<script>
+    $('[option-banner]').html(
+        `@include('components.admin.banner.list-course')`
+    )
+
+    function selectBanner(elm) {
+        if (elm.value == 'course') {
+            $('[option-banner]').html(
+                `@include('components.admin.banner.list-course')`
+            )
+        } else {
+            $('[option-banner]').html(
+                `@include('components.admin.banner.list-discount')`
+            )
+        }
+    }
+</script>
 @endpush

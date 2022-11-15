@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Banner;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -29,6 +31,10 @@ class HomeController extends Controller
 
         $courses = json_decode($courses);
 
-        return view('screens.client.home', compact('courses'));
+        $interView = Banner::select('*')->where('status', 1)->get();
+        $getCourseInBanner = Banner::select('course_id')->get();
+        // dd($getCourseInBanner);
+        return view('screens.client.home', compact('courses', 'interView'));
     }
+
 }

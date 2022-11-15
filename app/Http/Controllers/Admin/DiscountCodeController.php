@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\DisscountCode;
+use App\Models\DiscountCode;
 use Illuminate\Http\Request;
 
 class DiscountCodeController extends Controller
@@ -15,7 +15,7 @@ class DiscountCodeController extends Controller
      */
     public function index()
     {
-        $discounts = DisscountCode::all();
+        $discounts = DiscountCode::all();
         return view('screens.admin.discount.list', compact('discounts'));
     }
 
@@ -37,7 +37,7 @@ class DiscountCodeController extends Controller
      */
     public function store(Request $request)
     {
-        DisscountCode::create(
+        DiscountCode::create(
             array_merge(
                 $request->all()
             )
@@ -67,7 +67,7 @@ class DiscountCodeController extends Controller
      */
     public function edit($id)
     {
-        $discount = DisscountCode::findOrFail($id);
+        $discount = DiscountCode::findOrFail($id);
         return view('screens.admin.discount.update', compact('discount'));
     }
 
@@ -80,7 +80,7 @@ class DiscountCodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $discount = DisscountCode::findOrFail($id);
+        $discount = DiscountCode::findOrFail($id);
         $discount->title = $request->title;
         $discount->content = $request->content;
         $discount->code = $request->code;
@@ -102,7 +102,7 @@ class DiscountCodeController extends Controller
      */
     public function destroy($id)
     {
-        $data = DisscountCode::destroy($id);
+        $data = DiscountCode::destroy($id);
         return redirect()->back()->with('success', 'Xoa thành công');
     }
 }
