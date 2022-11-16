@@ -26,16 +26,26 @@
                         that are usually glossed over in other.. </p>
 
                     <ul class="flex text-gray-100 gap-4 mt-4 mb-1">
-                        <li class="flex items-center">
-                            <span class="avg bg-yellow-500 mr-2 px-2 rounded text-white font-semiold"> 4.9 </span>
-                            <div class="star-rating text-yellow-200">
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star-half"></ion-icon>
+                        @if (count($result_vote) == 0)
+                        <span class="avg bg-yellow-500 mr-2 px-2 rounded text-white font-semiold"> {{ round($resultvote / count($result_vote), 0) }} </span>
+                        @else
+                            <div hidden>
+                                {{ $resultvote = 0 }}
+                                @foreach ($result_vote as $vote)
+                                    {{ $resultvote += $vote->vote }}
+                                @endforeach
                             </div>
-                        </li>
+                            <span class="avg bg-yellow-500 mr-2 px-2 rounded text-white font-semiold"> {{ round($resultvote / count($result_vote), 0) }} </span>
+                            @for ($j = 0; $j < 5; $j++)
+                                @if ($j < round($resultvote / count($result_vote), 1))
+                                <div class="star-rating text-yellow-200">
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                @else
+                                    <ion-icon name="star" class="text-gray-300"></ion-icon>
+                                @endif
+                            @endfor
+                        @endif
                         <li class="opacity-90">
                             <ion-icon name="people-outline"></ion-icon> 1200 Người tham gia
                         </li>
@@ -64,11 +74,11 @@
                     <li class=""><a href="#reviews" uk-scroll="">Đánh giá về khóa học</a></li>
                 </ul>
             </nav>
-{{-- @dd($course->lessons()->get()); --}}
+            {{-- @dd($course->lessons()->get()); --}}
             <div class="flex space-x-3">
                 @if (auth()->user())
                     @if ($course->users()->get()->contains(auth()->user()->id) && auth()->user())
-                        <a href="{{ route('client.lesson.index', ['course'=>$course->id, 'lesson'=>$course->chapters()->first()->lessons()->first()->id]) }}"
+                        <a href="{{ route('client.lesson.index', ['course' => $course->id,'lesson' => $course->chapters()->first()->lessons()->first()->id]) }}"
                             class="flex items-center justify-center h-9 px-6 rounded-md bg-blue-600 text-white"> Vào học
                         </a>
                     @else
