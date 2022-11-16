@@ -100,8 +100,6 @@ class OrderController extends Controller
 
         Cart::destroy($course_id);
 
-
-
         Cookie::queue('courses', 0);
 
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
