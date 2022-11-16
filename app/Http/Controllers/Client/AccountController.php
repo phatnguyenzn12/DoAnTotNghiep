@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\CateCourse;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,11 +13,14 @@ use Illuminate\Support\Facades\Validator;
 class AccountController extends Controller
 {
     public function index()
+
     {
-        return view('screens.client.account.my-account');
+        $cate = CateCourse::all();
+        return view('screens.client.account.my-account',compact('cate'));
     }
     public function detail($id)
     {
+        $cate = CateCourse::all();
         $user = User::find($id);
       //  return view('screens.client.account.detail-account', compact('user'));
 
@@ -26,7 +30,7 @@ class AccountController extends Controller
             $courses = $courses->whereNotIn('id',$courses_id);
         }
         $courses =  $courses->get();
-        return view('screens.client.account.detail-account',  compact('courses','user'));
+        return view('screens.client.account.detail-account',  compact('courses','user','cate'));
     }
     public function update(Request $request, User $user, $id)
     {
@@ -39,6 +43,7 @@ class AccountController extends Controller
                 //  $params['cols']['avatar'] = $this->upLoadFile($request->file('avatar'));
                 $user->avatar =  $this->upLoadFile($request->file('avatar'));
             }
+           
             $user->update();
             return redirect()->back()->with('success', 'sửa thành công');
         }
@@ -46,6 +51,7 @@ class AccountController extends Controller
 
     public function updatepass(Request $request, $id)
     {
+     
         $user = User::find($id);
         //$pass = Hash::make($request->password);
         // dd(Hash::check($request->password,$user->password));
@@ -66,14 +72,5 @@ class AccountController extends Controller
         //   dd( $file->storeAs('image', $fileName, 'public'));
         return $file->storeAs('images', $fileName, 'public');
     }
-    // public function test()
-    // {
-    //     $courses = Course::select('*');
-    //     if(auth()->user()){
-    //         $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
-    //         $courses = $courses->whereNotIn('id',$courses_id);
-    //     }
-    //     $courses =  $courses->get();
-    //     return view('screens.client.account.my-course',  compact('courses'));
-    // }
+    
 }

@@ -19,10 +19,9 @@
                 <a href="#" aria-expanded="false"> Danh mục khoá học</a>
                 <div uk-drop="mode: click" class="category-dropdown uk-drop">
                     <ul>
-                        <li> <a href="courses.html">
-                                <ion-icon name="newspaper-outline" class="is-icon"></ion-icon> Web
-                                Development
-                            </a></li>
+                        @foreach ($cate as $item)
+                        <li><a href="">{{$item->name}}</a> </li>
+                        @endforeach
                     </ul>
                 </div>
 
@@ -245,11 +244,10 @@
                 @endif
 
                 <li>
-<<<<<<< HEAD
                     <a href="#">
-=======
+
                     <a href="{{route('client.account.detail',auth()->user()->id)}}">
->>>>>>> dce7a4bd48cb9231c5e84437263fafbf69a6692c
+
                         <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
                         Tài khoản của tôi
                     </a>
