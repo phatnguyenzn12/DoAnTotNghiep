@@ -1,7 +1,4 @@
-
-@php
-$user = \Illuminate\Support\Facades\Auth::user();
-@endphp<div class="left-side">
+<div class="left-side">
     <!-- Logo -->
     <div id="logo">
         <a href="/">
@@ -92,7 +89,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
             @forelse ($carts as $cart)
                 <li>
                     <div class="cart_avatar">
-                        <img src="" alt="">
+                        <img src="/frontend/assets/images/courses/img-1.jpg" alt="">
                     </div>
                     <div class="cart_text">
                         <h4> {{ $cart->title }} </h4>
@@ -100,17 +97,17 @@ $user = \Illuminate\Support\Facades\Auth::user();
                     </div>
                 </li>
             @empty
-            <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
-                <h1 class="text-lg font-medium">
-                    <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
-                </h1>
-            </div>
+                <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
+                    <h1 class="text-lg font-medium">
+                        <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
+                    </h1>
+                </div>
             @endforelse
 
         </ul>
     </div>
 
-    @if (auth()->user())
+    @if (Auth::guard('web')->user() || Auth::guard('admin')->user() || Auth::guard('mentor')->user())
         <!-- notification -->
         <a href="#" class="header_widgets">
             <ion-icon name="notifications-outline" class="is-icon"></ion-icon>
@@ -206,17 +203,37 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             <img src="/frontend/assets/images/avatars/avatar-2.jpg" alt="">
                         </div>
                         <div class="user_name">
-                            <div> {{$user->name}} </div>
-                            <span> {{$user->email}} </span>
+                            @if (Auth::guard('admin')->user())
+                                <div>
+                                    {{ Auth::guard('admin')->user()->name }}
+                                </div>
+                                <span>
+                                    {{ Auth::guard('admin')->user()->email }}
+                                </span>
+                            @elseif (Auth::guard('mentor')->user())
+                                <div>
+                                    {{ Auth::guard('mentor')->user()->name }}
+                                </div>
+                                <span>
+                                    {{ Auth::guard('mentor')->user()->email }}
+                                </span>
+                            @else
+                                <div>
+                                    {{ Auth::guard('web')->user()->name }}
+                                </div>
+                                <span>
+                                    {{ Auth::guard('web')->user()->email }}
+                                </span>
+                            @endif
                         </div>
                     </a>
                 </li>
                 <li>
                     <hr>
                 </li>
-                @hasanyrole('admin|teacher')
+                @if (Auth::guard('admin')->user() || Auth::guard('mentor')->user())
                     <li>
-                        <a href="#" class="is-link">
+                        <a href="/admin" class="is-link">
                             <ion-icon name="layers-outline" class="is-icon"></ion-icon> <span> Trang quản
                                 trị
                             </span>
@@ -225,19 +242,31 @@ $user = \Illuminate\Support\Facades\Auth::user();
                     <li>
                         <hr>
                     </li>
-                @endhasanyrole
+                @endif
 
                 <li>
-                    <a href="{{route('client.account.index')}}">
+                    <a href="#">
                         <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
                         Tài khoản của tôi
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('auth.logout') }}">
-                        <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
-                        Đăng xuất
-                    </a>
+                    @if (Auth::guard('admin')->user())
+                        <a href="{{ route('admin.logout') }}">
+                            <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                            Đăng xuất
+                        </a>
+                    @elseif (Auth::guard('mentor')->user())
+                        <a href="{{ route('mentor.logout') }}">
+                            <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                            Đăng xuất
+                        </a>
+                    @else
+                        <a href="{{ route('admin.logout') }}">
+                            <ion-icon name="log-out-outline" class="is-icon"></ion-icon>
+                            Đăng xuất
+                        </a>
+                    @endif
                 </li>
             </ul>
         </div>

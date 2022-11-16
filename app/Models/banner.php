@@ -17,4 +17,6 @@ class Banner extends Model
         'sort',
         'discount_code_id',
     ];
+
+   
 }

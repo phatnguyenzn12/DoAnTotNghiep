@@ -4,11 +4,11 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Mentor>
  */
-class AdminFactory extends Factory
+class MentorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -24,10 +24,12 @@ class AdminFactory extends Factory
             'avatar' => 'placeholder.png',
             'number_phone' => fake()->phoneNumber(),
             'password' => Hash::make('12345678'), // password
+            'is_active' => 1,
+            'cate_course_id' => 1,
             'remember_token' => null,
         ];
     }
-    
+
     /**
      * Indicate that the model's email address should be unverified.
      *
