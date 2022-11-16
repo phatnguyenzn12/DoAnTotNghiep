@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,15 @@ class AccountController extends Controller
     public function detail($id)
     {
         $user = User::find($id);
-        return view('screens.client.account.detail-account', compact('user'));
+      //  return view('screens.client.account.detail-account', compact('user'));
+
+        $courses = Course::select('*');
+        if(auth()->user()){
+            $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
+            $courses = $courses->whereNotIn('id',$courses_id);
+        }
+        $courses =  $courses->get();
+        return view('screens.client.account.detail-account',  compact('courses','user'));
     }
     public function update(Request $request, User $user, $id)
     {
@@ -57,4 +66,14 @@ class AccountController extends Controller
         //   dd( $file->storeAs('image', $fileName, 'public'));
         return $file->storeAs('images', $fileName, 'public');
     }
+    // public function test()
+    // {
+    //     $courses = Course::select('*');
+    //     if(auth()->user()){
+    //         $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
+    //         $courses = $courses->whereNotIn('id',$courses_id);
+    //     }
+    //     $courses =  $courses->get();
+    //     return view('screens.client.account.my-course',  compact('courses'));
+    // }
 }
