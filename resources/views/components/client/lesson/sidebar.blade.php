@@ -8,7 +8,7 @@
 
     <!-- back to home link -->
     <div class="flex justify-between lg:-ml-1 mt-1 mr-2">
-        <a href="{{ url()->previous() }}" class="flex items-center text-blue-500">
+        <a href="{{ route('client.course.show', ['slug' => $course->slug,'course' => $course->id]) }}" class="flex items-center text-blue-500">
             <ion-icon name="chevron-back-outline" class="md:text-lg text-2xl"></ion-icon>
             <span class="text-sm md:inline hidden"> back</span>
         </a>
@@ -40,10 +40,9 @@
 
                                             <ul class="course-curriculum-list">
                                                 @forelse ($chapter->lessons as $key2 => $lesson)
-                                                    <li onclick="showAjax('{{ route('client.lesson.show',$lesson->id) }}')">
+                                                    <li>
                                                         <a href="{{ route('client.lesson.index', ['course'=>$course->id, 'lesson'=>$lesson->id]) }}" class="flex flex-col">
                                                             <div class="flex justify-between items-center">
-                                                                {{$lesson->id}}
                                                                 <div class="">
                                                                     <span>{{ ++$key2 }}.
                                                                         {{ $lesson->title }}</span>

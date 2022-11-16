@@ -19,7 +19,7 @@
 
                         <div class="embed-video">
                             <!-- to autoplay video uk-video="automute: true" -->
-                            {{-- @include('components.client.lesson.video') --}}
+                            @include('components.client.lesson.video')
                         </div>
                     </li>
 
@@ -73,14 +73,14 @@
 @endsection
 @push('js-handles')
 <script>
-    function showAjax(url) {
-        $.ajax({
-            url: url,
-            timeout: 1000,
-            success: function(res) {
-                $('.embed-video').html(res)
-            }
-        })
-    }
+    // function showAjax(url) {
+    //     $.ajax({
+    //         url: url,
+    //         timeout: 1000,
+    //         success: function(res) {
+    //             $('.embed-video').html(res)
+    //         }
+    //     })
+    // }
 </script>
 @endpush

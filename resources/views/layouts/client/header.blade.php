@@ -228,7 +228,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                 @endhasanyrole
 
                 <li>
-                    <a href="{{route('client.account.index')}}">
+                    <a href="{{route('client.account.detail',auth()->user()->id)}}">
                         <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
                         Tài khoản của tôi
                     </a>

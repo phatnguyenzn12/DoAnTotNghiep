@@ -59,10 +59,11 @@
                                     </div>
                                 </div>
                                 <h5 class="font-semibold text-black text-xl"> {{ $cart->current_price }} đ</h5>
-                                <h5 class="absolute bottom-9 right-4 text-red-500 text-xl"
-                                    onclick="remove(this,'{{ route('client.order.cartRemove', $cart->id) }}')">
-                                    <ion-icon name="trash"></ion-icon>
-                                </h5>
+                                <a href="{{ route('client.order.cartRemove', $cart->id) }}">
+                                    <h5 class="absolute bottom-9 right-4 text-red-500 text-xl">
+                                        <ion-icon name="trash"></ion-icon>
+                                    </h5>
+                                </a>
                             </div>
                         @empty
                             <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
@@ -117,20 +118,6 @@
                         js_$('[total]').innerHTML = $i
                     }
                 });
-            }
-
-            function remove(a, url) {
-                axios.delete(url)
-                    .then(
-                        res => {
-                            a.parentElement.remove()
-                        }
-                    )
-                    .catch(
-                        res => {
-                            console.log(res);
-                        }
-                    )
             }
         </script>
     @endpush
