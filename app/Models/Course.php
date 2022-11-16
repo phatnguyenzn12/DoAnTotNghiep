@@ -68,4 +68,5 @@ class Course extends BaseModel
             : $this->price;
         return $price;
     }
+
 }

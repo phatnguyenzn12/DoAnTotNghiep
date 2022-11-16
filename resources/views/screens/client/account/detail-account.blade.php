@@ -1,3 +1,6 @@
+@php
+    $user = \Illuminate\Support\Facades\Auth::user();
+@endphp
 @extends('layouts.client.master')
 
 @section('title', 'Trang chủ')
@@ -26,14 +29,14 @@
                         <ul class="space-x-3" uk-switcher="connect: #form_tabs; animation: uk-animation-fade">
                             <li><a href="#">
                                     <ion-icon name="document-text-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>
-                                    Bẩn Thân
+                                    Bản Thân
                                 </a></li>
                             <li><a href="#">
                                     <ion-icon name="help-circle-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>
                                     Đổi mật khẩu
                                 </a></li>
                             <li><a href="#">
-                                    <ion-icon name="card-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Pricing
+                                    <ion-icon name="card-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Khóa học 
                                 </a></li>
                             <li><a href="#">
                                     <ion-icon name="film-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Media
@@ -153,101 +156,98 @@
                     <!-- Pricing  -->
                     <div class="p-8 w-4/5 mx-auto py-12 md:space-y-10 space-y-4">
 
-                        <div>
-                            <div class="flex items-center justify-between space-x-2 mb-5">
-                                <div>
-                                    <h4 class="font-semibold mb-2 text-base">Check if this is a free course</h4>
-                                    <div class="text-sm"> Set the price for this course or let the student register for
-                                        free. </div>
+                        <div class="flex-1 bg-white shadow-md rounded-xl xl:mt-0 mt-10">
+
+                            <div class="border-b items-end justify-between mb-6 sm:flex">
+                                <div class="flex-1 mb-3 md:mb-0 p-5 pb-0">
+                                    <div class="font-semibold text-lg"> Các khóa học của tôi </div>
+                                    <nav class="cd-secondary-nav md:m-0 nav-small">
+                                        <ul>
+                                            <li class="active"><a href="#" class="lg:px-2"> Chưa hoàn thành </a></li>
+                                            <li><a href="#" class="lg:px-2"> Đã hoàn thành </a></li>
+                                        </ul>
+                                    </nav>
                                 </div>
-                                <div class="switches-list -mt-8 is-large">
-                                    <div class="switch-container">
-                                        <label class="switch"><input type="checkbox"><span class="switch-button"></span>
-                                        </label>
+                                <div class="flex items-center p-5 space-x-3">
+                                    
+                                    <div class="bg-gray-100 border inline-flex p-0.5 rounded-md text-lg fliter-tab"
+                                        uk-switcher="connect: #course-tabs; animation: uk-animation-fade">
+                                        <a href="#" class="py-1.5 px-2.5 rounded-md uk-active" data-tippy-placement="top"
+                                            title="Grid view">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                                                aria-expanded="true">
+                                                <path fill-rule="evenodd"
+                                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="#" class="py-1.5 px-2.5 rounded-md" data-tippy-placement="top" title="List view">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                                                aria-expanded="false">
+                                                <path
+                                                    d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                        
+                                </div>
+                            </div>
+                        
+                            <!-- my course list -->
+                            <div class="p-6 pt-0">
+                        
+                                <div class="uk-switcher" id="course-tabs" style="touch-action: pan-y pinch-zoom;">
+                        
+                                    <!-- layout 1 -->
+                                    <ul class="divide-y -mt-5 uk-active" style="">
+                                            @foreach ($courses as $course)
+                                        <li class="flex items-start md:space-x-6 space-x-3 md:py-4 py-3">
+                                            <a href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}"
+                                                class="uk-link-reset ">
+                                                {{-- <div class="card uk-transition-toggle"> --}}
+                                                    <a href="#">
+                                                        <div class="h-12 md:h-16 md:w-24 overflow-hidden relative rounded -md w-12">
+                                                            <img src="/frontend/assets/images/courses/img-3.jpg" alt=""
+                                                                class="w-full h-full absolute inset-0 object-cover">
+                                                        </div>
+                                                    </a>
+                                                    <div class=" flex flex-1 items-end justify-between space-x-5">
+                                                        <div class=" flex-1 font-semibold line-clamp-2"> {{ $course->title }}.
+                                                            <div class="mt-1.5">
+                                                                <div class="mb-1.5 text-gray-400 text-sm"> 8/16 <span class="ml-1">
+                                                                        Complete </span> </div>
+                                                                <div class="relative bg-gray-200 rounded-md overflow-hidden w-full h-1">
+                                                                    <div class="h-full w-1/2 bg-blue-600"></div>
+                                                                </div>
+                                                            </div>
+                                                         </div>
+                                                        <div class="flex space-x-2 items-center text-sm pt-3">
+                                                            <div> 13 hours </div>
+                                                            <div> · </div>
+                                                            <div> {{ $course->lesson }} Bài học </div>
+                                                            <div>·</div>
+                                                            <div> {{ $course->chapter }} chương học </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="relative overflow-hidden rounded-md bg-gray-200 h-1 mt-4">
+                                                        <div class="w-2/4 h-full bg-green-500"></div>
+                                                    </div>
+                                                {{-- </div> --}}
+                                            </a>
+                                        </li>
+                                        @endforeach
+                        
+                                        <!-- Pagination -->
+                                        @include('components.client.pagination')
+                        
+                                    </ul>
+                                    <!-- layout 2-->
+                                    <div class="grid md:grid-cols-2 gap-6" style="">
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2">
-
-                                <!-- Website title -->
-                                <label for="course_basic" class="font-medium"> Course price ($) </label>
-                                <div class="col-span-2">
-                                    <input type="number" id="course_basic" name="course_basic"
-                                        class="shadow-none with-border" value="Title" required="">
-                                </div>
-
-                            </div>
-                        </div>
-                        <div>
-
-                            <div class="flex items-center justify-between space-x-2 mb-5">
-                                <div>
-                                    <h4 class="font-semibold mb-2 text-base"> Check if this course has discount</h4>
-                                    <div class="text-sm"> This course has 0% Discount </div>
-                                </div>
-                                <div class="switches-list -mt-8 is-large">
-                                    <div class="switch-container">
-                                        <label class="switch"><input type="checkbox"><span class="switch-button"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid sm:grid-cols-3 align-items-baseline sm:gap-6 gap-2">
-
-                                <!-- Website title -->
-                                <label for="course_basic" class="font-medium">Discounted price ($) </label>
-                                <div class="col-span-2">
-                                    <input type="number" id="course_basic" name="course_basic"
-                                        class="shadow-none with-border" value="Title" required="">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div>
-
-                            <div class="flex items-center justify-between space-x-2 mb-5">
-                                <div>
-                                    <h4 class="font-semibold mb-2 text-base">Sale type</h4>
-                                    <div class="text-sm"> How do you want students to be registered </div>
-                                </div>
-                                <div class="switches-list -mt-8 is-large">
-                                    <div class="switch-container">
-                                        <label class="switch"><input type="checkbox"><span class="switch-button"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Website title -->
-                            <div class="border divide-y rounded-md">
-                                <div class="radio p-5 w-full">
-                                    <input id="price-discount-1" name="radio" type="radio" checked>
-                                    <label for="price-discount-1" class="font-semibold"><span class="radio-label"></span>
-                                        Subscriptions</label>
-                                    <p class="text-gray-500 text-sm mt-1.5 ml-7"> Lorem ipsum dolor sit amet nibh
-                                        consectetuer adipiscing elit</p>
-                                </div>
-                                <br>
-                                <div class="radio p-5 w-full">
-                                    <input id="price-discount-2" name="radio" type="radio">
-                                    <label for="price-discount-2" class="font-semibold"><span class="radio-label"></span>
-                                        Selling </label>
-                                    <p class="text-gray-500 text-sm mt-1.5 ml-7"> Lorem ipsum dolor sit amet nibh
-                                        consectetuer adipiscing elit</p>
-                                </div>
-                                <br>
-                                <div class="radio p-5 w-full">
-                                    <input id="price-discount-3" name="radio" type="radio">
-                                    <label for="price-discount-3" class="font-semibold"><span class="radio-label"></span>
-                                        Bundle </label>
-                                    <p class="text-gray-500 text-sm mt-1.5 ml-7"> Lorem ipsum dolor sit amet nibh
-                                        consectetuer adipiscing elit</p>
-                                </div>
-                            </div>
-
+                        
                         </div>
 
                     </div>

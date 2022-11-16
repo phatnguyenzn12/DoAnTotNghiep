@@ -44,12 +44,22 @@
                               </div>
                               <div class="form-group">
                                    <label for="">kiểu banner</label>
-                                   <input type="text" name="type" value="{{$edit->type}}"  class="form-control" placeholder="">
+                                   <input type="text" name="type" value="{{$edit->type}}"  class="form-control" placeholder="" disabled>
                               </div>
-                              <div class="form-group">
-                                   <label for="">trạng thái</label>
-                                   <input type="text" name="status" value="{{$edit->status}}"  class="form-control" placeholder="">
-                              </div>   
+                              <div class="form-group row">
+                                <label class="col-3 col-form-label">Trạng thái</label>
+                                <div class="col-9 col-form-label">
+                                    <div class="radio-inline">
+                                        <label class="radio">
+                                            <input type="radio" value="1" name="status"
+                                                @checked(true)>
+                                            <span></span>Công khai</label>
+                                        <label class="radio">
+                                            <input type="radio" value="0" name="status">
+                                            <span></span>Riêng tư</label>
+                                    </div>
+                                </div>
+                            </div> 
                         </div>
                         <div class="col-12 d-flex justify-content-end">
                             <br>

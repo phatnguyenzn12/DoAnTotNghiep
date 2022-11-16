@@ -10,14 +10,14 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Danh sách banners
+                        <h3 class="card-label">Danh sách Admin
                             <span class="d-block text-muted pt-2 font-size-sm">Sorting &amp; pagination remote
                                 datasource</span>
                         </h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="{{route('admin.banner.create')}}" class="btn btn-primary font-weight-bolder">
+                        {{-- <a href="{{ route('admin.banner.create') }}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -31,7 +31,7 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span>Thêm mới</a>
+                            </span>Thêm mới</a> --}}
                         <!--end::Button-->
                     </div>
                 </div>
@@ -90,17 +90,28 @@
                         <table class="table table-separate table-head-custom table-checkable">
                             <thead>
                                 <tr>
-                                    <th>Tiêu đề</th>
-                                    <th>nội dung</th>
-                                    <th>hình ảnh</th>
-                                    <th>kiểu banner</th>
-                                    <th>trạng thái</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Avatar</th>
+                                    <th>Phone</th>
                                     <th>xử lý</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
-                                @include('components.admin.banner.body-table')
+                                @foreach ($admins as $admin)
+                                    <tr>
+                                        <td col="name"><a class="text-dark" href="#">{{ $admin->name }}</a></td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->avatar }}</td>
+                                        <td>{{ $admin->number_phone }}</td>
+                                        <td><a class="btn btn-light btn-sm" href="{{ route('admins.update', $admin->id) }}">
+                                                <i class="flaticon2-pen text-warning"></i></a>
+                                            <a class="btn btn-light btn-sm" href="delete/${val.id}">
+                                                <i class="flaticon2-trash text-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         @include('components.admin.pagination')

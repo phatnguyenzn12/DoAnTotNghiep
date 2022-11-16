@@ -78,4 +78,20 @@ class Admin extends Authenticatable
         $obj = $query->first();
         return $obj;
     }
+
+    public function saveUpdate($params){
+        $dataUpdate = [];
+        foreach ($params['cols'] as $colName=>$val){
+            if ($colName == 'id') {
+                continue;
+            }
+            //kiem tra ton tai trong mang
+            if (in_array($colName, $this->fillable)) {
+                $dataUpdate[$colName] = (strlen($val)==0)?null:$val;
+            }
+        }
+        //update dk co id = $params['cols']['id']
+        $res = DB::table($this->table)->where('id', $params['cols']['id'])->update($dataUpdate);
+        return $res;
+    }
 }
