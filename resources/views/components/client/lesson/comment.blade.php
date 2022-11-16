@@ -1,4 +1,3 @@
-
 <div class="tube-card p-6">
 
     <h1 class="block text-xl font-semibold mb-6"> Bình luận {{ count($cmt) }} </h1>
@@ -18,7 +17,6 @@
                         </p>
                     </div>
                 </div>
-
                 @foreach ($cmt as $i)
                     @if ($i->reply == $item->id)
                         <div class="flex gap-x-4 relative rounded-md lg:ml-16">
@@ -36,22 +34,6 @@
                                 </p>
                             </div>
                         </div>
-                        <form id="reply" style="display: none" action="{{ route('client.lesson.reply', $i->id) }}"
-                            method="post">
-                            @csrf
-                            <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                                <div class="d-flex flex-start w-100">
-                                    <input type="hidden" name="lesson_id" value="{{ $item->lesson_id }}">
-                                    <textarea style="border: 1px solid rgba(92, 88, 88, 0.562)" name="replycmt" placeholder="Comment..."></textarea>
-                                </div>
-                                <div class="float-end mt-2 pt-1">
-                                    <div class="form-group">
-                                        <button class="btn btn-primary" type="submit">Reply</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </form>
                     @endif
                 @endforeach
                 <form id="reply" style="display: none" action="{{ route('client.lesson.reply', $item->id) }}"
@@ -71,7 +53,6 @@
                     </div>
                 </form>
             @endif
-
         @endforeach
     </div>
 
