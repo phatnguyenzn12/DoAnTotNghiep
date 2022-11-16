@@ -245,7 +245,11 @@
                 @endif
 
                 <li>
+<<<<<<< HEAD
                     <a href="#">
+=======
+                    <a href="{{route('client.account.detail',auth()->user()->id)}}">
+>>>>>>> dce7a4bd48cb9231c5e84437263fafbf69a6692c
                         <ion-icon name="person-circle-outline" class="is-icon"></ion-icon>
                         Tài khoản của tôi
                     </a>

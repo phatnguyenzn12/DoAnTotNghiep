@@ -8,7 +8,7 @@ Route::prefix('order')->name('client.order.')->controller(OrderController::class
     function () {
         Route::get('cart-list', 'cartList')->name('cartList');
         Route::post('add-to-cart/{course}', 'addToCart')->name('addToCart');
-        Route::delete('cart-remove/{id}', 'removeCart')->name('cartRemove');
+        Route::get('cart-remove/{id}', 'removeCart')->name('cartRemove');
         Route::get('payment', 'pay')->name('pay');
         Route::post('check-code', 'checkCode')->name('checkCode');
         Route::post('payment', 'handlePay')->name('handlePay');
