@@ -18,8 +18,8 @@ class CommentLessonFactory extends Factory
     {
         return [
             'comment' => fake()->name(30),
-            'vote' => fake()->numberBetween(0,200),
-            'reply' => rand(0,100),
+            'vote' => fake()->numberBetween(0,200),          //fake()->numberBetween(0,200)
+            'reply' => rand(0,100),          //rand(0,100)
             'status' => '1',
             'lesson_id' => rand(1,100),
             'user_id' => rand(1,50),
