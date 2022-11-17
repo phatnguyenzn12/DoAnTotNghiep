@@ -15,7 +15,7 @@
     <!-- menu bar for mobile -->
     <nav class="header_menu">
         <ul>
-            <li>
+            {{-- <li>
                 <a href="#" aria-expanded="false"> Danh mục khoá học</a>
                 <div uk-drop="mode: click" class="category-dropdown uk-drop">
                     <ul>
@@ -25,7 +25,7 @@
                     </ul>
                 </div>
 
-            </li>
+            </li> --}}
             <li> <a href="categories.html" class="active"> Khoá học ưu đãi </a></li>
         </ul>
     </nav>

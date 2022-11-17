@@ -79,6 +79,9 @@
         </div>
         <!-- progress -->
         <div class="w-2/4 hidden lg:flex flex-col justify-center space-y-5">
+            @if ((count($result_vote) == 0))
+
+            @else
             <?php $s = count($result_vote);
             count( $start5);
             $a= round((count($start5)/$s), 1)*100;
@@ -95,6 +98,7 @@
             count( $start1);
             $e= round((count($start1)/$s), 1)*100;
             ?>
+
             <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
                 <div style="width:{{$a}}%" class=" h-full rounded-lg bg-gray-800"> </div>
             </div>
@@ -156,6 +160,7 @@
             </div>
 
         </div>
+        @endif
     </div>
     {{-- {{dd($course->commentCourses())}} --}}
 
