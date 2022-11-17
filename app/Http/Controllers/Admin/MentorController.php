@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CateCourse;
+use App\Models\CommentCourse;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,12 +14,12 @@ use Illuminate\Support\Str;
 
 class MentorController extends Controller
 {
-    
-    public function index(){
+
+    public function index()
+    {
         $db_mentors = new Mentor();;
         $db = $db_mentors->loadList();
-
-        return view('screens.admin.mentor.list',compact('db'));
+        return view('screens.admin.mentor.list', compact('db'));
     }
 
     public function create(Request $request)
@@ -64,7 +65,7 @@ class MentorController extends Controller
                 }
             }
         }
-        return view('screens.admin.mentor.create',compact('cate'));
+        return view('screens.admin.mentor.create', compact('cate'));
     }
     public function upLoadFile($file)
     {
@@ -80,5 +81,22 @@ class MentorController extends Controller
         return redirect()->route('mentor.index')->with('success', 'Cập nhập thành công');
     }
 
+    public function commentLesson($id)
+    {
+        $cate_course_id = $id;
+        $comments = DB::table('cate_courses')->select('*')->where('cate_courses.id' , $id)->join('courses','cate_courses.id', '=', 'courses.id')->join('chapters','courses.id','=','chapters.course_id')->join('lessons','chapters.id','=','lessons.chapter_id')->join('comment_lessons','lessons.id','=','comment_lessons.lesson_id')->get();
+        return view('screens.admin.mentor.list-comment', compact('comments', 'cate_course_id'));
+    }
 
+    public function hideComment($id, $cate_course_id)
+    {
+        $status = DB::table('comment_lessons')->select('status')->where('id', $id)->first();
+        if ($status->status == 1) {
+            DB::table('comment_lessons')->where('id', $id)->update(['status' => 0]);
+            return redirect()->route('mentor.commentLesson',['id'=>$cate_course_id])->with('success', 'Ẩn thành công');
+        } else {
+            DB::table('comment_lessons')->where('id', $id)->update(['status' => 1]);
+            return redirect()->route('mentor.commentLesson',['id'=>$cate_course_id])->with('success', 'Hiện thành công');
+        }
+    }
 }

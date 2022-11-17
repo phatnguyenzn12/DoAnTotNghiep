@@ -79,7 +79,27 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">QUẢN LÝ NGƯỜI DÙNG</span>
+                                <span class="menu-text">QUẢN LÝ User</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="menu-subnav">
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="{{route('mentor.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">QUẢN LÝ Mentor</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="menu-subnav">
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="{{route('admins.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">QUẢN LÝ Admin</span>
                             </a>
                         </li>
                     </ul>

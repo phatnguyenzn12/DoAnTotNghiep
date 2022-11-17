@@ -25,7 +25,7 @@ class MentorFactory extends Factory
             'number_phone' => fake()->phoneNumber(),
             'password' => Hash::make('12345678'), // password
             'is_active' => 1,
-            'cate_course_id' => 1,
+            'cate_course_id' => rand(1,3),
             'remember_token' => null,
         ];
     }
