@@ -3,6 +3,34 @@
 @section('title', 'Trang chủ')
 
 @section('content')
+
+    @if ($checkUserLesson)
+        <div id="modal-example" style="margin-left: 22.5rem; display: block;" uk-modal="" class="uk-modal uk-open"
+            tabindex="0">
+            <div class="uk-modal-dialog uk-modal-body rounded-md shadow-xl">
+
+                <button class="absolute block top-0 right-0 m-6 rounded-full bg-gray-300 p-2 uk-modal-close" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+
+                <div class="text-sm mb-2"> Section 2 </div>
+                <h2 class="mb-5 font-semibold text-2xl"> Your First webpage </h2>
+                <p class="text-base">Bạn đang xem dỡ bài 2 chọn để tiếp tục.</p>
+
+                <div class="text-right  pt-3 mt-3">
+                    <a href="#" class="py-2 inline-block px-8 rounded-md hover:bg-gray-200 uk-modal-close"> tắt </a>
+                    <a href="{{ route('client.lesson.index',['course' =>  $course->id,'lesson' => $lesson->id]) }}" class="py-2 inline-block px-8 rounded-md bg-blue-600 text-white"> Tiếp tục </a>
+                </div>
+            </div>
+        </div>
+    @else
+    @endif
+
+
     <div id="wrapper" class="course-watch">
 
         <!--  Sidebar  -->
@@ -42,8 +70,8 @@
 
                 <div class="max-w-2xl lg:py-6 mx-auto uk-switcher" id="course-tabs" style="touch-action: pan-y pinch-zoom;">
 
-                      <!--  Overview -->
-                      <div class="uk-active">
+                    <!--  Overview -->
+                    <div class="uk-active">
                         @include('components.client.lesson.overview')
                     </div>
 
@@ -72,15 +100,15 @@
 
 @endsection
 @push('js-handles')
-<script>
-    // function showAjax(url) {
-    //     $.ajax({
-    //         url: url,
-    //         timeout: 1000,
-    //         success: function(res) {
-    //             $('.embed-video').html(res)
-    //         }
-    //     })
-    // }
-</script>
+    <script>
+        // function showAjax(url) {
+        //     $.ajax({
+        //         url: url,
+        //         timeout: 1000,
+        //         success: function(res) {
+        //             $('.embed-video').html(res)
+        //         }
+        //     })
+        // }
+    </script>
 @endpush

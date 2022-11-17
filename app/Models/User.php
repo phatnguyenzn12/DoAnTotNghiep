@@ -66,6 +66,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class,Cart::class);
     }
 
+    public function lesson_user(){
+        return $this->belongsToMany(Lesson::class,LessonUser::class);
+    }
+
+    public function course_user(){
+        return $this->belongsToMany(Course::class,LessonUser::class);
+    }
 
     function scopeName($query, Request $request)
     {
@@ -75,7 +82,7 @@ class User extends Authenticatable
 
         return $query;
     }
-  
+
     public function saveNew($data)
     {
         $res = DB::table($this->table)->insertGetId($data);
@@ -95,7 +102,7 @@ class User extends Authenticatable
         $res = DB::table($this->table)->where('id', $id)->update(['password'=>$password,'remember_token'=>null]);
         return $res;
     }
-    
+
     public function loadOne($id)
     {
         $query = DB::table($this->table)->where('id', '=', $id);
