@@ -27,7 +27,7 @@
 
                     <ul class="flex text-gray-100 gap-4 mt-4 mb-1">
                         @if (count($result_vote) == 0)
-                        <span class="avg bg-yellow-500 mr-2 px-2 rounded text-white font-semiold"> {{ round($resultvote / count($result_vote), 0) }} </span>
+                        <span class="avg bg-yellow-500 mr-2 px-2 rounded text-white font-semiold"> 0 </span>
                         @else
                             <div hidden>
                                 {{ $resultvote = 0 }}
