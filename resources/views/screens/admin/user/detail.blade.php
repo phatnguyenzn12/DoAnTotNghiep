@@ -10,17 +10,11 @@
                 {{-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> --}}
             </h3>
             <div class="card-toolbar">
-                <ul class="nav nav-pills nav-pills-sm nav-dark-75">
-                    <li class="nav-item">
-                        <a class="nav-link py-2 px-4" data-toggle="tab" href="#kt_tab_pane_11_1">Month</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-2 px-4" data-toggle="tab" href="#kt_tab_pane_11_2">Week</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-2 px-4 active" data-toggle="tab" href="#kt_tab_pane_11_3">Day</a>
-                    </li>
-                </ul>
+                <div class="dropdown dropdown-inline mr-2">
+                    <a href="{{ route('admin.user.index')}}" class="btn btn-light-primary font-weight-bolder">
+                        <span>
+                        </span>Back</a>
+                </div>
             </div>
         </div>
         <!--end::Header-->

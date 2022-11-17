@@ -13,14 +13,6 @@
                         <div class="card-title">
                             <h3 class="card-label">Chỉnh sửa Admin</h3>
                         </div>
-                        <div class="card-toolbar">
-                            <a href="{{route('admins.index')}}" class="btn btn-light-primary font-weight-bolder mr-2">
-                                <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
-                            <div class="btn-group">
-                                <button type="submit" class="btn btn-primary font-weight-bolder">
-                                    <i class="ki ki-check icon-sm"></i>Cập nhật</button>
-                            </div>
-                        </div>
                     </div>
                     <div class="card-body">
                         <!--begin::Form-->

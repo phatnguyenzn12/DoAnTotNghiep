@@ -69,7 +69,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
-                                <a href="" class="btn btn-success mr-2">Danh sách slider</a>
+                                <a href="{{route('mentor.index')}}" class="btn btn-success mr-2">Back</a>
                             </div>
                         </form>
                     </div>
