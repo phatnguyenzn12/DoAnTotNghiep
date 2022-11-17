@@ -1,6 +1,6 @@
 <!--begin: Datatable-->
 <table class="table table-separate table-head-custom table-checkable" data-loading>
-    <a href="{{route('admin.cate-course.create')}}" class="btn btn-primary mr-2 mb-3">Thêm khóa học</a>
+    <a href="{{route('admin.cate-course.create')}}" class="btn btn-primary mr-2 mb-3">Thêm danh mục</a>
     <a href="{{route('admin.cate-course.listdelete')}}" class="btn btn-primary mr-2 mb-3">Danh mục rác</a>
     <thead>
         <tr>
