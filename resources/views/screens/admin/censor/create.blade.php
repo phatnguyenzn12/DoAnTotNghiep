@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Trang danh sách người dùng')
+@section('title', 'Trang thêm mới người kiểm duyệt')
 @section('content')
     <div class="container">
         <div class="row">
@@ -9,7 +9,7 @@
                     <div class="card-header card-header-tabs-line">
                         <div class="card-toolbar">
                             <div class="card-title">
-                                <h3 class="card-label">Tạo mới Mentor</h3>
+                                <h3 class="card-label">Tạo mới Censor</h3>
                             </div>
                         </div>
                     </div>
@@ -60,16 +60,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Danh mục</label>
-                                <select name="cate_course_id" id="" class="form-control">
-                                    @foreach ($cate as $cate)
-                                        <option value="{{ $cate->id }}">{{ $cate->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
-                                <a href="{{route('mentor.index')}}" class="btn btn-success mr-2">Back</a>
+                                <a href="" class="btn btn-success mr-2">Back</a>
                             </div>
                         </form>
                     </div>

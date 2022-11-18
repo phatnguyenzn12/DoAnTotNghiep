@@ -7,6 +7,7 @@ use App\Models\CommentLesson;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class CommentLessonController extends Controller
 {
@@ -22,6 +23,10 @@ class CommentLessonController extends Controller
                     'comment' => $request->comment
                 ]);
                 // dd($lesson);
+                //Notification
+                $create_comment=Auth()->user()->name;
+                Notification::send($lesson, new CommentLesson($lesson->id, $create_comment, $lesson->comment));
+
                 return redirect()->back();
             } else {
                 return redirect()->back()->with('message', 'No such ');

@@ -1,6 +1,6 @@
-@extends('layouts.admin.master')
+@extends('layouts.censor.master')
 
-@section('title', 'Trang danh sách mentor')
+@section('title', 'Trang danh sách khóa học')
 @section('content')
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
@@ -16,7 +16,7 @@
                         </h3>
                     </div>
                     <div class="card-toolbar">
-                        <a href="{{route('mentor.create')}}" class="btn btn-primary font-weight-bolder">
+                        <a href="" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -86,40 +86,40 @@
                         <table class="table table-separate table-head-custom table-checkable">
                             <thead>
                                 <tr>
-                                    <th>Tên</th>
-                                    <th>Email</th>
-                                    <th>Avatar</th>
-                                    <th>Phone</th>
-                                    <th>Bình luận</th>
+                                    <th>Tên khóa học</th>
+                                    <th>Nội dung</th>
+                                    <th>Giá</th>
+                                    <th>Video</th>
+                                    <th>Hình ảnh</th>
                                     <th>Trạng thái</th>
                                     <th>Active</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($db as $db)
+                                @foreach ($courses as $course)
                                     <tr>
-                                        <td>{{ $db->name }}</td>
-                                        <td>{{ $db->email }}</td>
-                                        <td>{{ $db->avatar }}</td>
-                                        <td>{{ $db->number_phone }}</td>
+                                        <td>{{ $course->title }}</td>
+                                        <td>{{ $course->content }}</td>
+                                        <td>{{ $course->price }}</td>
                                         <td>
-                                            <a href="{{ route('mentor.commentLesson', $db->cate_course_id) }}"
-                                                class="text-dark">{{ DB::table('cate_courses')->select('*')->where('cate_courses.id' , $db->cate_course_id)->join('courses','cate_courses.id', '=', 'courses.id')->join('chapters','courses.id','=','chapters.course_id')->join('lessons','chapters.id','=','lessons.chapter_id')->join('comment_lessons','lessons.id','=','comment_lessons.lesson_id')->count() }}</a>
+                                            {{$course->video}}
+                                            {{-- <iframe width="420" height="315" src="https://www.youtube.com/embed/A6XUVjK9W4o" frameborder="0" allowfullscreen></iframe> --}}
                                         </td>
+                                        <td><img src="{{ $course->image }}" width="150" height="100" alt=""></td>
                                         <td>
-                                            @if ($db->is_active == 1)
-                                                {{ 'Hoạt động' }} @else{{ 'Ngừng hoạt động' }}
+                                            @if ($course->status == 1)
+                                                {{ 'Hiện' }} @else{{ 'Ẩn' }}
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($db->is_active == 1)
-                                                <a href="{{ route('mentor.actived', $db->id) }}"
+                                            @if ($course->status == 1)
+                                                <a href="{{ route('censor.course.actived', $course->id) }}"
                                                     onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
-                                                    class="btn btn-danger">Ngừng hoạt động</a>
+                                                    class="btn btn-danger">Ẩn</a>
                                             @else
-                                                <a href="{{ route('mentor.actived', $db->id) }}"
+                                                <a href="{{ route('censor.course.actived', $course->id) }}"
                                                     onclick="return confirm('Bạn có chắc muốn hoạt động')"
-                                                    class="btn btn-success">Hoạt động</a>
+                                                    class="btn btn-success">Hiện</a>
                                             @endif
                                         </td>
                                     </tr>

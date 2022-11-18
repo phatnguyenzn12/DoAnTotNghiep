@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Trang danh sách mentor')
+@section('title', 'Trang danh sách Censor')
 @section('content')
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
@@ -10,13 +10,13 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Danh sách Mentor
+                        <h3 class="card-label">Danh sách Censor
                             <span class="d-block text-muted pt-2 font-size-sm">Sorting &amp; pagination remote
                                 datasource</span>
                         </h3>
                     </div>
                     <div class="card-toolbar">
-                        <a href="{{route('mentor.create')}}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{route('admin.censor.create')}}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -90,7 +90,6 @@
                                     <th>Email</th>
                                     <th>Avatar</th>
                                     <th>Phone</th>
-                                    <th>Bình luận</th>
                                     <th>Trạng thái</th>
                                     <th>Active</th>
                                 </tr>
@@ -103,21 +102,17 @@
                                         <td>{{ $db->avatar }}</td>
                                         <td>{{ $db->number_phone }}</td>
                                         <td>
-                                            <a href="{{ route('mentor.commentLesson', $db->cate_course_id) }}"
-                                                class="text-dark">{{ DB::table('cate_courses')->select('*')->where('cate_courses.id' , $db->cate_course_id)->join('courses','cate_courses.id', '=', 'courses.id')->join('chapters','courses.id','=','chapters.course_id')->join('lessons','chapters.id','=','lessons.chapter_id')->join('comment_lessons','lessons.id','=','comment_lessons.lesson_id')->count() }}</a>
-                                        </td>
-                                        <td>
                                             @if ($db->is_active == 1)
                                                 {{ 'Hoạt động' }} @else{{ 'Ngừng hoạt động' }}
                                             @endif
                                         </td>
                                         <td>
                                             @if ($db->is_active == 1)
-                                                <a href="{{ route('mentor.actived', $db->id) }}"
+                                                <a href="{{ route('admin.censor.actived', $db->id) }}"
                                                     onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
                                                     class="btn btn-danger">Ngừng hoạt động</a>
                                             @else
-                                                <a href="{{ route('mentor.actived', $db->id) }}"
+                                                <a href="{{ route('admin.censor.actived', $db->id) }}"
                                                     onclick="return confirm('Bạn có chắc muốn hoạt động')"
                                                     class="btn btn-success">Hoạt động</a>
                                             @endif

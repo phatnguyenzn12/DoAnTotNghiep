@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Trang danh sách người dùng')
+@section('title', 'Trang danh mục khóa học')
 @section('content')
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">

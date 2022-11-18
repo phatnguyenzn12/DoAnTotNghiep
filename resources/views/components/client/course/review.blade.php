@@ -56,36 +56,64 @@
     <div class="flex space-x-5 mb-8">
         <div class="lg:w-1/4 w-full">
             <div class="bg-blue-100 space-y-1 py-5 rounded-md border border-blue-200 text-center shadow-xs">
-                <h1 class="text-5xl font-semibold"> 4.8</h1>
-                <div class="flex justify-center">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star" class="text-gray-300"></ion-icon>
-                </div>
+                @if (count($result_vote) == 0)
+                    <h1 class="text-5xl font-semibold">0</h1>
+                @else
+                    <div hidden>
+                        {{ $resultvote = 0 }}
+                        @foreach ($result_vote as $vote)
+                            {{ $resultvote += $vote->vote }}
+                        @endforeach
+                    </div>
+                    <h1 class="text-5xl font-semibold"> {{ round($resultvote / count($result_vote), 0) }}</h1>
+                    @for ($j = 0; $j < 5; $j++)
+                        @if ($j < round($resultvote / count($result_vote), 1))
+                            <ion-icon style="font-size: 18px" name="star" class="text-yellow-300"></ion-icon>
+                        @else
+                            <ion-icon style="font-size: 18px" name="star" class="text-gray-300"></ion-icon>
+                        @endif
+                    @endfor
+                @endif
                 <h5 class="mb-0 mt-1 text-sm"> Course Rating</h5>
             </div>
         </div>
         <!-- progress -->
         <div class="w-2/4 hidden lg:flex flex-col justify-center space-y-5">
+            @if ((count($result_vote) == 0))
+
+            @else
+            <?php $s = count($result_vote);
+            count( $start5);
+            $a= round((count($start5)/$s), 1)*100;
+
+            count( $start4);
+            $b= round((count($start4)/$s), 1)*100;
+
+            count( $start3);
+            $c= round((count($start3)/$s), 1)*100;
+
+            count( $start2);
+            $d= round((count($start2)/$s), 1)*100;
+
+            count( $start1);
+            $e= round((count($start1)/$s), 1)*100;
+            ?>
 
             <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div class="w-11/12 h-full rounded-lg bg-gray-800"> </div>
+                <div style="width:{{$a}}%" class=" h-full rounded-lg bg-gray-800"> </div>
             </div>
             <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div class="w-4/5 h-full rounded-lg bg-gray-800"> </div>
+                <div style="width:{{$b}}%" class=" h-full rounded-lg bg-gray-800"> </div>
             </div>
             <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div class="w-3/5 h-full rounded-lg bg-gray-800"> </div>
+                <div style="width:{{$c}}%" class=" h-full rounded-lg bg-gray-800"> </div>
             </div>
             <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div class="w-3/6 h-full rounded-lg bg-gray-800"> </div>
+                <div style="width:{{$d}}%" class=" h-full rounded-lg bg-gray-800"> </div>
             </div>
             <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div class="w-1/3 h-full rounded-lg bg-gray-800"> </div>
+                <div style="width:{{$e}}%" class=" h-full rounded-lg bg-gray-800"> </div>
             </div>
-
         </div>
         <!-- stars -->
         <div class="w-1/4 hidden lg:flex flex-col justify-center space-y-2">
@@ -96,7 +124,7 @@
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> 95 %</span>
+                <span class="ml-2"> {{$a}} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -104,7 +132,7 @@
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> 85 %</span>
+                <span class="ml-2"> {{$b}} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -112,7 +140,7 @@
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> 60 %</span>
+                <span class="ml-2"> {{$c}} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -120,7 +148,7 @@
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> 50 %</span>
+                <span class="ml-2"> {{$d}} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -128,11 +156,14 @@
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> 35 %</span>
+                <span class="ml-2"> {{$e}} %</span>
             </div>
 
         </div>
+        @endif
     </div>
+    {{-- {{dd($course->commentCourses())}} --}}
+
     @foreach ($course->commentCourses as $i)
         <div class="space-y-4 my-5">
 
@@ -150,7 +181,7 @@
 
                         </div>
                     </div>
-                    <div >
+                    <div>
                         @for ($j = 0; $j < 5; $j++)
                             @if ($j < $i->vote)
                                 <ion-icon style="font-size: 18px" name="star" class="text-yellow-300"></ion-icon>
@@ -158,6 +189,8 @@
                                 <ion-icon style="font-size: 18px" name="star" class="text-gray-300"></ion-icon>
                             @endif
                         @endfor
+
+                        {{-- số lượt vote {{($i->vote)}} --}}
                     </div>
                     <br><i class="fa-solid fa-bullhorn"></i>
                     <span style="font-size: 15px" class="text-gray-500">{{ $i->comment }} </span>
@@ -169,7 +202,8 @@
     @endforeach
     <div>
         <div class="flex justify-center mt-9">
-            <button type="submit" class="bg-gray-50 border hover:bg-gray-300 px-4 py-1.5 rounded-full text-sm">Xem thêm
+            <button type="submit" class="bg-gray-50 border hover:bg-gray-300 px-4 py-1.5 rounded-full text-sm">Xem
+                thêm
                 đánh giá</button>
 
         </div>
