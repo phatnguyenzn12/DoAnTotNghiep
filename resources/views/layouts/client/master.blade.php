@@ -50,6 +50,7 @@
 
         @yield('content')
 
+
         <!-- End Main Contents -->
 
         <!-- footer -->
@@ -82,6 +83,8 @@
     <!--End of Fchat.vn-->
     @yield('js-links')
     @stack('js-handles')
+
+
 </body>
 
 </html>

@@ -16,6 +16,7 @@ class CommentLesson extends Model
         'status',
         // 'id_mentor',
         'lesson_id',
+        // 'course_id',
         'user_id',
     ];
 
@@ -25,4 +26,7 @@ class CommentLesson extends Model
     public function lesson(){
         return $this->belongsTo(Lesson::class,'lesson_id','id');
     }
+    // public function course(){
+    //     return $this->belongsTo(Course::class);
+    // }
 }

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\CommentLesson;
 use App\Models\Lesson;
+use App\Models\User;
+use App\Notifications\notifications;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification as NotificationsNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
@@ -23,9 +26,10 @@ class CommentLessonController extends Controller
                     'comment' => $request->comment
                 ]);
                 // dd($lesson);
-                //Notification
-                $create_comment=Auth()->user()->name;
-                Notification::send($lesson, new CommentLesson($lesson->id, $create_comment, $lesson->comment));
+                //Notification TẠo thông báo
+                $users= User::where('id', '=', auth()->user()->id)->get();
+                // dd($users);
+                Notification::send($users, new notifications($request->lesson_id,$request->course_id,  $request->comment));
 
                 return redirect()->back();
             } else {

@@ -37,13 +37,13 @@ class CateCourse extends Model
         $res = DB::table($this->table)->where('id', $id)->update(['type'=>1]);
         return 1;
     }
-   
+
     public function restore($id,$cate_course_id)
     {
         // $id_cate = DB::table('courses')->select(['id'])->where('cate_course_id', $id)->get();
         // foreach ($id_cate as $id1) {
            DB::table('courses')->where('id', $id)->update(['type'=>0,'cate_course_id'=>$cate_course_id]);
-           
+
         // }
      //   $res = DB::table($this->table)->where('id', $id)->update(['type'=>1]);
         return 1;

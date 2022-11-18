@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('user_id');
             // $table->integer('mentor_id');
             $table->integer('lesson_id');
+            // $table->integer('course_id');
             $table->timestamps();
         });
     }

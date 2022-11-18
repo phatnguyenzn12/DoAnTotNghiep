@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -17,10 +18,11 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer(['layouts.client.header'], function ($view) {
             if (auth()->user()) {
+
                 $carts = auth()->user()->load('carts')->carts;
                 $view->with('carts', $carts);
             } else {
-                $view->with('carts', []);
+                $view->with('carts');
             }
         });
 
@@ -35,6 +37,7 @@ class ViewServiceProvider extends ServiceProvider
                 $view->with('ownerCourse', []);
             }
         });
+
     }
 
     /**

@@ -1,3 +1,4 @@
+
 <div class="left-side">
     <!-- Logo -->
     <div id="logo">
@@ -85,6 +86,7 @@
             <a href="{{ route('client.order.cartList') }}" class="checkout">Xem các giỏ hàng</a>
         </div>
         <ul class="dropdown_cart_scrollbar" data-simplebar>
+        {{-- @dd($carts) --}}
             @forelse ($carts as $cart)
                 <li>
                     <div class="cart_avatar">
@@ -113,7 +115,7 @@
         </a>
         <div uk-drop="mode: click" class="header_dropdown">
             <div class="drop_headline">
-                <h4>Thông báo </h4>
+                <h4>Thông báo {{Auth::user()->unreadNotifications->count()}} </h4>
                 <div class="btn_action">
                     <div class="btn_action">
                         <a href="#">
@@ -129,61 +131,22 @@
             </div>
 
             <ul class="dropdown_scrollbar" data-simplebar>
-                <li>
-                    <a href="#">
+                @foreach (Auth::user()->unreadNotifications as $notification )
+                {{-- @dd($notification) --}}
+                <li>          {{--  {{route('client.lesson.index', $notification->data['course_id'], $notification->data['lesson_id'])}} --}}
+                  <a href="{{route('client.lesson.index',['course'=>$notification->data['course_id'], 'lesson'=>$notification->data['lesson_id']])}}">
                         <div class="drop_avatar"> <img src="/frontend/assets/images/avatars/avatar-1.jpg"
                                 alt="">
                         </div>
                         <div class="drop_content">
-                            <p> <strong>Adrian Mohani</strong> Like Your Comment On Course
-                                <span class="text-link">Javascript Introduction </span>
+                            <p> <strong class="text-black">{{Auth::user()->name}}</strong> commented on
+                               <span class="text-link">{{$notification->is_check}} </span>
                             </p>
-                            <span class="time-ago"> 2 hours ago </span>
+                            <span class="time-ago"> {{$notification->created_at}} </span>
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <div class="drop_avatar"> <img src="/frontend/assets/images/avatars/avatar-2.jpg"
-                                alt="">
-                        </div>
-                        <div class="drop_content">
-                            <p>
-                                <strong>Stella Johnson</strong> Replay Your Comments in
-                                <span class="text-link">Programming for Games</span>
-                            </p>
-                            <span class="time-ago"> 9 hours ago </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="drop_avatar"> <img src="/frontend/assets/images/avatars/avatar-3.jpg"
-                                alt="">
-                        </div>
-                        <div class="drop_content">
-                            <p>
-                                <strong>Alex Dolgove</strong> Added New Review In Course
-                                <span class="text-link">Full Stack PHP Developer</span>
-                            </p>
-                            <span class="time-ago"> 12 hours ago </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="drop_avatar"> <img src="/frontend/assets/images/avatars/avatar-1.jpg"
-                                alt="">
-                        </div>
-                        <div class="drop_content">
-                            <p>
-                                <strong>Jonathan Madano</strong> Shared Your Discussion On Course
-                                <span class="text-link">Css Flex Box </span>
-                            </p>
-                            <span class="time-ago"> Yesterday </span>
-                        </div>
-                    </a>
-                </li>
+                @endforeach
             </ul>
             <a href="#" class="see-all">See all</a>
         </div>

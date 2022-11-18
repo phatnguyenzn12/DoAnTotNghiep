@@ -79,41 +79,40 @@
         </div>
         <!-- progress -->
         <div class="w-2/4 hidden lg:flex flex-col justify-center space-y-5">
-            @if ((count($result_vote) == 0))
-
+            @if (count($result_vote) == 0)
             @else
-            <?php $s = count($result_vote);
-            count( $start5);
-            $a= round((count($start5)/$s), 1)*100;
+                <?php $s = count($result_vote);
+                count($start5);
+                $a = round(count($start5) / $s, 1) * 100;
+                
+                count($start4);
+                $b = round(count($start4) / $s, 1) * 100;
+                
+                count($start3);
+                $c = round(count($start3) / $s, 1) * 100;
+                
+                count($start2);
+                $d = round(count($start2) / $s, 1) * 100;
+                
+                count($start1);
+                $e = round(count($start1) / $s, 1) * 100;
+                ?>
 
-            count( $start4);
-            $b= round((count($start4)/$s), 1)*100;
-
-            count( $start3);
-            $c= round((count($start3)/$s), 1)*100;
-
-            count( $start2);
-            $d= round((count($start2)/$s), 1)*100;
-
-            count( $start1);
-            $e= round((count($start1)/$s), 1)*100;
-            ?>
-
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$a}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$b}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$c}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$d}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$e}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
+                <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
+                    <div style="width:{{ $a }}%" class=" h-full rounded-lg bg-gray-800"> </div>
+                </div>
+                <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
+                    <div style="width:{{ $b }}%" class=" h-full rounded-lg bg-gray-800"> </div>
+                </div>
+                <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
+                    <div style="width:{{ $c }}%" class=" h-full rounded-lg bg-gray-800"> </div>
+                </div>
+                <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
+                    <div style="width:{{ $d }}%" class=" h-full rounded-lg bg-gray-800"> </div>
+                </div>
+                <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
+                    <div style="width:{{ $e }}%" class=" h-full rounded-lg bg-gray-800"> </div>
+                </div>
         </div>
         <!-- stars -->
         <div class="w-1/4 hidden lg:flex flex-col justify-center space-y-2">
@@ -124,7 +123,7 @@
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$a}} %</span>
+                <span class="ml-2"> {{ $a }} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -132,7 +131,7 @@
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$b}} %</span>
+                <span class="ml-2"> {{ $b }} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -140,7 +139,7 @@
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$c}} %</span>
+                <span class="ml-2"> {{ $c }} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -148,7 +147,7 @@
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$d}} %</span>
+                <span class="ml-2"> {{ $d }} %</span>
             </div>
             <div class="flex justify-center items-center">
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
@@ -156,7 +155,7 @@
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
                 <ion-icon name="star" class="text-gray-300"></ion-icon>
                 <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$e}} %</span>
+                <span class="ml-2"> {{ $e }} %</span>
             </div>
 
         </div>
@@ -175,10 +174,10 @@
                                 class="rounded-full shadow w-20 h-20">
                         </div>
                         <div style="margin-left: 20px">
-                            <strong>{{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}</strong> <br>
+                            <strong>{{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}</strong>
+                            <br>
                             <span class="time-ago text-gray-300">Nhận xét
                                 vào:{{ date('d/m/Y', strtotime($i->created_at)) }}</span>
-
                         </div>
                     </div>
                     <div>

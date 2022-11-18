@@ -6,14 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Banner;
 use App\Models\CateCourse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class HomeController extends Controller
 {
     public function index()
-    {   
+    {
         $cate = CateCourse::all();
-
+        // Notification::Auth()->find('')->update(['read_at'=>now()]);
+        // dd(Auth::user()->unreadNotifications->first()->data);
         $courses = Course::select('*');
         if(auth()->user()){
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();

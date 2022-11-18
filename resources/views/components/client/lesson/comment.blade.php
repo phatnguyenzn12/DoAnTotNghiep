@@ -41,6 +41,7 @@
                     @csrf
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
                         <div class="d-flex flex-start w-100">
+                            <input type="hidden" name="course_id" value="{{ $course->id }}">
                             <input type="hidden" name="lesson_id" value="{{ $item->lesson_id }}">
                             <textarea style="border: 1px solid rgba(92, 88, 88, 0.562)" name="replycmt" placeholder="Comment..."></textarea>
                         </div>
@@ -48,7 +49,6 @@
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Reply</button>
                             </div>
-
                         </div>
                     </div>
                 </form>
@@ -64,7 +64,7 @@
         @csrf
         <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
             <div class="d-flex flex-start w-100">
-                {{-- {{ $exe->id }} --}}
+                <input type="hidden" name="course_id" value="{{ $course->id }}">
                 <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
                 <textarea style="border: 1px solid rgba(92, 88, 88, 0.562)" name="comment" placeholder="Comment..."></textarea>
             </div>
