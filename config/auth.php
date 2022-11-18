@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'mentors',
         ],
+        'censor' => [
+            'driver' => 'session',
+            'provider' => 'censors',
+        ],
     ],
 
     /*
@@ -85,6 +89,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Mentor::class, 
         ],
+        'censors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Censor::class, 
+        ],
     ],
 
     /*
@@ -117,6 +125,12 @@ return [
         ],
         'mentors' => [
             'provider' => 'mentors',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'censors' => [
+            'provider' => 'censors',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
