@@ -12,29 +12,15 @@ class LessonController extends Controller
 {
     public function index(Course $course,  Lesson $lesson)
     {
-        // if($course->users()->first()->id == auth()->user()->id){
-// dd($course->lessons()->get(), $course->chapters()->get());
-            $chapters = $course->chapters;
-            $cmt = CommentLesson::where('lesson_id', $lesson->id)->get();
-// dd($cmt);
-            return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt'));
 
-        // }else {
-        //     return redirect()->back();
-        // }
+        collect(auth()->user()->load('course_user')->course_user)->where('id', $course->id)->first() == null ?
+            auth()->user()->load('course_user')->course_user()->attach([$course->id => ['lesson_id' => $lesson->id]]) :
+            auth()->user()->load('course_user')->course_user()->updateExistingPivot($course->id, ['lesson_id' => $lesson->id]);
 
-    }
-
-
-    public function show(Lesson $lesson)
-    {
-
-        $data = view('components.client.lesson.video', compact('lesson'))->render();
-        return response()->json($data, 201);
-
-        // $exe = Lesson::find($id);
-        // $chapters = CommentLesson::where('lesson_id', $id)->get();             // ->where('status', '!=', 1)
-        // return view('screens.client.lesson.watch', ['exe' => $exe, 'cmt' => $chapters]);
-
+            // $checkUserLesson = collect(auth()->user()->load('lesson_user')->lesson_user);
+            // dd($checkUserLesson);
+        $chapters = $course->chapters;
+        $cmt = CommentLesson::where('lesson_id', $lesson->id)->get();
+        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt', 'checkUserLesson'));
     }
 }

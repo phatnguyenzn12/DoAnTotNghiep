@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('combos', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('content');
-            $table->string('slug');
-            $table->integer('discount');
-            $table->integer('status');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+        Schema::create('lesson_user', function (Blueprint $table) {
+            $table->unsignedInteger('lesson_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('course_id');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banner_combo_courses');
+        Schema::dropIfExists('_lesson_user');
     }
 };

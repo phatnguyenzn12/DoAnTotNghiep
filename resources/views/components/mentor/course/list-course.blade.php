@@ -14,7 +14,7 @@
                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
                             <!--begin::Navigation-->
                             <ul class="navi navi-hover">
-                                <a class="dropdown-item" href="{{route('admin.course.program',$course->id)}}">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="{{route('mentor.course.program',$course->id)}}">Chỉnh sửa</a>
                                 <form action="" method="POST" class="dropdown-item">
                                     @csrf
                                     @method('PATCH')

@@ -1,4 +1,4 @@
-<form action="{{ route('admin.lesson.put', $lesson->id) }}" class="has-validation-ajax" method="POST"
+<form action="{{ route('mentor.lesson.put', $lesson->id) }}" class="has-validation-ajax" method="POST"
     enctype="multipart/form-data">
     @csrf
     @method('PUT')

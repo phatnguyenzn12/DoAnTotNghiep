@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\ChapterController;
+use App\Http\Controllers\mentor\ChapterController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/chapter')->name('admin.chapter.')->middleware('role:admin|mentor')->controller(ChapterController::class)->group(
+Route::prefix('mentor/chapter')->name('mentor.chapter.')->middleware('role:mentor')->controller(ChapterController::class)->group(
     function () {
         Route::get('create','create')->name('create');
         Route::post('add','store')->name('add');

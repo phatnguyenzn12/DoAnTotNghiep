@@ -48,7 +48,7 @@
                                                                         {{ $lesson->title }}</span>
                                                                     <div class="">
                                                                         @if ($lesson->lesson_type == 'video')
-                                                                            <ion-icon name="logo-youtube"></ion-icon>
+                                                                           <ion-icon name="caret-forward-circle-outline"></ion-icon>
                                                                         @else
                                                                             <ion-icon name="pencil"></ion-icon>
                                                                         @endif

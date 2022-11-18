@@ -6,7 +6,7 @@
             <li class="menu-item" aria-haspopup="true">
                 <a href="" class="menu-link">
                     <span class="svg-icon menu-icon">
-                        <!--begin::Svg Icon | path:/admin/media/svg/icons/Design/Layers.svg-->
+                        <!--begin::Svg Icon | path:/mentor/media/svg/icons/Design/Layers.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <polygon points="0 0 24 0 24 24 0 24" />
@@ -22,7 +22,7 @@
             <li class="menu-item" aria-haspopup="true">
                 <a href="{{route('client')}}" class="menu-link">
                     <span class="svg-icon menu-icon">
-                        <!--begin::Svg Icon | path:/admin/media/svg/icons/Design/Layers.svg-->
+                        <!--begin::Svg Icon | path:/mentor/media/svg/icons/Design/Layers.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <rect x="0" y="0" width="24" height="24"/>
@@ -35,8 +35,8 @@
                 </a>
             </li>
             <li class="menu-item" aria-haspopup="true">
-                @if(Auth::guard('admin')->check() == true)
-                <a href="{{route('admin.logout')}}" class="menu-link">
+                @if(Auth::guard('mentor')->check() == true)
+                <a href="{{route('mentor.logout')}}" class="menu-link">
                 @else
                 <a href="{{route('mentor.logout')}}" class="menu-link">
                 @endif
@@ -55,6 +55,7 @@
                 <h4 class="menu-text">CỬA HÀNG</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
             </li>
+
             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon">
@@ -68,38 +69,18 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">Quản LÝ NGƯỜI DÙNG</span>
+                    <span class="menu-text">QUẢN LÝ KHÓA HỌC</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="menu-submenu">
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{route('admin.user.index')}}" class="menu-link">
+                            <a href="{{route('mentor.course.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">QUẢN LÝ User</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="menu-subnav">
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="{{route('mentor.index')}}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">QUẢN LÝ Mentor</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="menu-subnav">
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="{{route('admins.index')}}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">QUẢN LÝ Admin</span>
+                                <span class="menu-text">DANH SÁCH KHÓA HỌC</span>
                             </a>
                         </li>
                     </ul>
@@ -118,24 +99,18 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">QUẢN LÝ BANNER</span>
+                    <span class="menu-text">THỐNG KÊ</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="menu-submenu">
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{route('admin.banner.index')}}" class="menu-link">
+                            <a href="{{route('mentor.home')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">DANH SÁCH BANNER</span>
-                            </a>
-                            <a href="{{route('admin.discount.index')}}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">DANH SÁCH DISCOUNT</span>
+                                <span class="menu-text">BẢNG ĐIỀU KIỂN</span>
                             </a>
                         </li>
                     </ul>

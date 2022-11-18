@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
@@ -14,7 +14,7 @@ class LessonController extends Controller
     public function create(Request $course_id)
     {
         $chapters = Chapter::where('course_id', $course_id->course)->get();
-        $data = view('components.admin.course.modal.lesson.add', compact('chapters'))->render();
+        $data = view('components.mentor.course.modal.lesson.add', compact('chapters'))->render();
         return response()->json($data, 200);
     }
 
@@ -112,13 +112,13 @@ class LessonController extends Controller
     public function show(Request $request, Lesson $lesson)
     {
         $chapters = Course::findOrFail($request->course)->chapters;
-        $data = view('components.admin.course.modal.lesson.edit', compact('lesson', 'chapters'))->render();
+        $data = view('components.mentor.course.modal.lesson.edit', compact('lesson', 'chapters'))->render();
         return response()->json($data, 200);
     }
 
     public function showSort(Chapter $chapter)
     {
-        $data = view('components.admin.course.modal.lesson.sort', compact('chapter'))->render();
+        $data = view('components.mentor.course.modal.lesson.sort', compact('chapter'))->render();
         return response()->json($data, 201);
     }
 
