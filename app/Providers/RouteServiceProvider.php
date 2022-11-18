@@ -46,17 +46,23 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/admin/user.php'));
 
             Route::middleware('web')
-                ->group(base_path('routes/admin/course.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/admin/chapter.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/admin/lesson.php'));
-
-            Route::middleware('web')
                 ->group(base_path('routes/admin/banner.php'));
 
+
+            Route::middleware('web')
+                ->group(base_path('routes/mentor/auth.php'));
+
+            Route::middleware('web')
+                ->group(base_path('routes/mentor/home.php'));
+
+            Route::middleware('web')
+                ->group(base_path('routes/mentor/course.php'));
+
+            Route::middleware('web')
+                ->group(base_path('routes/mentor/chapter.php'));
+
+            Route::middleware('web')
+                ->group(base_path('routes/mentor/lesson.php'));
 
 
             Route::middleware('web')
@@ -66,10 +72,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/admin/auth.php'));
 
             Route::middleware('web')
-                ->group(base_path('routes/mentor/auth.php'));
-
-            Route::middleware('web')
                 ->group(base_path('routes/admin/mentor.php'));
+
 
             Route::middleware('web')
                 ->group(base_path('routes/admin/admin.php'));
@@ -85,7 +89,6 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/client/account.php'));
-        
         });
     }
 

@@ -1,4 +1,4 @@
-<form action="{{ route('admin.chapter.add') }}" class="has-validation-ajax" method="POST">
+<form action="{{ route('mentor.chapter.add') }}" class="has-validation-ajax" method="POST">
     @csrf
     <p class="text-danger errors system"></p>
     <div class="form-group">

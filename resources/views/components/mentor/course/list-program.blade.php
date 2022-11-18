@@ -9,12 +9,12 @@
             <div class="card-toolbar">
                 <div class="card-toolbar">
                     <a data-toggle="modal" data-target="#modal-example"
-                        onclick="showAjaxModal('{{ route('admin.chapter.show', $chapter->id) }}' ,'Cập nhật chương học')"
+                        onclick="showAjaxModal('{{ route('mentor.chapter.show', $chapter->id) }}' ,'Cập nhật chương học')"
                         class="btn btn-icon btn-sm btn-primary mr-1">
                         <i class="fas fa-edit"></i>
                     </a>
                     <a data-toggle="modal" data-target="#modal-example"
-                        onclick="showAjaxModal('{{ route('admin.lesson.showSort', ['chapter' => $chapter->id]) }}','Sắp xếp bài học')"
+                        onclick="showAjaxModal('{{ route('mentor.lesson.showSort', ['chapter' => $chapter->id]) }}','Sắp xếp bài học')"
                         class="btn btn-icon btn-sm btn-success mr-1">
                         <i class="fas fa-sort-amount-down-alt"></i>
                     </a>
@@ -46,7 +46,7 @@
                         </form>
                         <p class="lession-tool m-0">
                             <a data-toggle="modal" data-target="#modal-example"
-                                onclick="showAjaxModal('{{ route('admin.lesson.show', $lesson->id) }}','Cập nhật bài học')"
+                                onclick="showAjaxModal('{{ route('mentor.lesson.show', $lesson->id) }}','Cập nhật bài học')"
                                 class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
                                 <i class="fas fa-edit"></i>
                             </a>

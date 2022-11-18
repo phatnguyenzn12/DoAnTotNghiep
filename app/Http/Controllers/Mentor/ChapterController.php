@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
@@ -12,7 +12,7 @@ class ChapterController extends Controller
     public function create(Request $course_id)
     {
         $course_id = $course_id->course;
-        $data = view('components.admin.course.modal.chapter.add',compact('course_id'))->render();
+        $data = view('components.mentor.course.modal.chapter.add',compact('course_id'))->render();
         return response()->json($data, 200);
     }
 
@@ -38,10 +38,10 @@ class ChapterController extends Controller
         $data = Chapter::destroy($chapter);
         return response()->json(null, 200);
     }
-    
+
     public function show(Chapter $chapter)
     {
-        $data = view('components.admin.course.modal.chapter.edit', compact('chapter'))->render();
+        $data = view('components.mentor.course.modal.chapter.edit', compact('chapter'))->render();
         return response()->json($data, 200);
     }
 
@@ -61,7 +61,7 @@ class ChapterController extends Controller
 
     public function showSort(Course $course)
     {
-        $data = view('components.admin.course.modal.chapter.sort', compact('course'))->render();
+        $data = view('components.mentor.course.modal.chapter.sort', compact('course'))->render();
         return response()->json($data, 201);
     }
 

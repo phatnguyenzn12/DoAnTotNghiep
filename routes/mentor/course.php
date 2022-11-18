@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\mentor\CourseController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/course')->name('admin.course.')->middleware('role:admin|mentor')->controller(CourseController::class)->group(
+Route::prefix('mentor/course')->name('mentor.course.')->middleware('role:mentor')->controller(CourseController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('create', 'create')->name('create');

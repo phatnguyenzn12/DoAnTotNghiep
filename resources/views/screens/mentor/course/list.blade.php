@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.mentor.master')
 
 @section('title', 'Trang danh sách Khóa học')
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="alert alert-danger text-center">{{ session()->get('error') }}</div>
             @endif
             <!--begin::table-->
-            <a href="{{route('admin.course.create')}}" class="btn btn-primary mr-2 mb-3">Thêm khóa học</a>
+            <a href="{{route('mentor.course.create')}}" class="btn btn-primary mr-2 mb-3">Thêm khóa học</a>
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <form action="">
@@ -65,7 +65,7 @@
 
             <div class="row">
                 <!--begin::Col-->
-                @include('components.admin.course.list-course')
+                @include('components.mentor.course.list-course')
                 <!--end::Col-->
             </div>
             <!--end::table-->

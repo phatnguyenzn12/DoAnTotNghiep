@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.mentor.master')
 
 @section('title', 'Trang danh sách người dùng')
 @section('content')
@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.course.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('mentor.course.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label>Tiêu đề

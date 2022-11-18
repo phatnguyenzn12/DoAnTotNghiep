@@ -24,4 +24,9 @@ class Lesson extends Model
     public function commentLessons(){
         return $this->hasMany(CommentLesson::class,'lesson_id','id');
     }
+
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class);
+    }
 }

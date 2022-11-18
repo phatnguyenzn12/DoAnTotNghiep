@@ -21,7 +21,7 @@ class Mentor extends Authenticatable
      */
     protected $table = 'mentors';
     protected $guard = 'mentor';
-    
+
     protected $fillable = [
         'id',
         'name',
@@ -77,7 +77,7 @@ class Mentor extends Authenticatable
         else{
             $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>1,'remember_token'=>null]);
         }
-        
+
         return $res;
     }
 
@@ -87,4 +87,10 @@ class Mentor extends Authenticatable
         $obj = $query->first();
         return $obj;
     }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
 }

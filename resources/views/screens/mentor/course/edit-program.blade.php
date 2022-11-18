@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.mentor.master')
 
 @section('title', 'Trang danh sách người dùng')
 @section('content')
@@ -9,13 +9,13 @@
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('admin.course.program', $course_id) }}">
+                                <a class="nav-link active" href="{{ route('mentor.course.program', $course_id) }}">
                                     <span class="nav-icon"><i class="fas fa-align-left"></i></span>
                                     <span class="nav-text">Chương Trình Học</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.course.edit', $course_id) }}">
+                                <a class="nav-link" href="{{ route('mentor.course.edit', $course_id) }}">
                                     <span class="nav-icon"><i class="far fa-bookmark"></i></span>
                                     <span class="nav-text">Thông Tin Khóa Học</span>
                                 </a>
@@ -27,20 +27,20 @@
 
                     <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
                         <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('admin.chapter.create') }}','Thêm chương học')"
+                            onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm chương
                             học</button>
                         <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('admin.lesson.create') }}','Thêm bài học')" data-toggle="modal"
+                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')" data-toggle="modal"
                             data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
                             học</button>
                         <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('admin.chapter.showSort', ['course' => $course_id]) }}','Sắp xếp chương học')"
+                            onclick="showAjaxModal('{{ route('mentor.chapter.showSort', ['course' => $course_id]) }}','Sắp xếp chương học')"
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
                             Sắp xếp chương học</button>
                     </div>
 
-                    @include('components.admin.course.list-program')
+                    @include('components.mentor.course.list-program')
 
                 </div>
 

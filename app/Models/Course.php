@@ -17,7 +17,8 @@ class Course extends BaseModel
         'status',
         'slug',
         'participant',
-        'cate_course_id'
+        'cate_course_id',
+        'mentor_id'
     ];
 
     protected $appends = [
@@ -61,6 +62,11 @@ class Course extends BaseModel
         return $this->belongsToMany(User::class, OwnerCourse::class);
     }
 
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class);
+    }
+
     public function getCurrentPriceAttribute()
     {
         $price = $this->discount > 0
@@ -68,5 +74,4 @@ class Course extends BaseModel
             : $this->price;
         return $price;
     }
-
 }

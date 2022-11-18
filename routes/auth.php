@@ -10,14 +10,6 @@ Route::controller(HomeController::class)->group(
     }
 );
 
-Route::middleware(['role:admin|mentor'])->group(
-    function () {
-        Route::get('admin', function () {
-            return view('screens.admin.home');
-        })->name('admin');
-    }
-);
-
 Route::prefix('/')->name('auth.')->controller(AuthController::class)->group(
     function () {
         Route::match(['get', 'post'], '/register', 'register')->name('register');

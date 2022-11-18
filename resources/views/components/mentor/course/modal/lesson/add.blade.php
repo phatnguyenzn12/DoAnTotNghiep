@@ -1,4 +1,4 @@
-<form action="{{ route('admin.lesson.add') }}" class="has-validation-ajax" method="POST">
+<form action="{{ route('mentor.lesson.add') }}" class="has-validation-ajax" method="POST">
     @csrf
     <p class="text-danger errors system"></p>
 
@@ -38,17 +38,17 @@
 
 <script>
     $('[option-lesson]').html(
-        `@include('components.admin.course.modal.lesson.video')`
+        `@include('components.mentor.course.modal.lesson.video')`
     )
 
     function selectLesson(elm) {
         if (elm.value == 'video') {
             $('[option-lesson]').html(
-                `@include('components.admin.course.modal.lesson.video')`
+                `@include('components.mentor.course.modal.lesson.video')`
             )
         } else {
             $('[option-lesson]').html(
-                `@include('components.admin.course.modal.lesson.exercise')`
+                `@include('components.mentor.course.modal.lesson.exercise')`
             )
         }
     }

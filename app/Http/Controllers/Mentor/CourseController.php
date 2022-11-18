@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
 use App\Models\CateCourse;
@@ -14,8 +14,8 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses = Course::select('*')->get();
-        return view('screens.admin.course.list', compact('courses'));
+        $courses =  auth()->guard('mentor')->user()->load('courses')->courses;
+        return view('screens.mentor.course.list', compact('courses'));
     }
 
     public function program($course_id)
@@ -25,19 +25,19 @@ class CourseController extends Controller
             ->orderBy('sort')
             ->paginate();
 
-        return view('screens.admin.course.edit-program', compact('chapters', 'course_id'));
+        return view('screens.mentor.course.edit-program', compact('chapters', 'course_id'));
     }
 
     public function edit($id)
     {
         $course = Course::findOrFail($id);
         $cateCourses = CateCourse::select('id', 'name')->get();
-        return view('screens.admin.course.edit-course', compact('course', 'cateCourses', 'id'));
+        return view('screens.mentor.course.edit-course', compact('course', 'cateCourses', 'id'));
     }
     public function create()
     {
         $cateCourses = CateCourse::select('id', 'name')->get();
-        return view('screens.admin.course.create', compact('cateCourses'));
+        return view('screens.mentor.course.create', compact('cateCourses'));
     }
 
     public function store(Request $request, UploadFileService $upload)
@@ -45,7 +45,7 @@ class CourseController extends Controller
         $image = $upload
             ->storage_image($request->file);
 
-        Course::create(
+        $course = Course::create(
             array_merge(
                 $request->only([
                     'title',
@@ -58,7 +58,8 @@ class CourseController extends Controller
                     'participant',
                     'cate_course_id'
                 ]),
-                ['image' => $image]
+                ['image' => $image],
+                ['mentor_id' => auth()->guard('mentor')->user()->id]
             )
         );
 

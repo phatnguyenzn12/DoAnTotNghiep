@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.mentor.master')
 
 @section('title', 'Trang danh sách người dùng')
 @section('content')
@@ -9,13 +9,13 @@
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link " href="{{route('admin.course.program',$id)}}">
+                                <a class="nav-link " href="{{route('mentor.course.program',$id)}}">
                                     <span class="nav-icon"><i class="fas fa-align-left"></i></span>
                                     <span class="nav-text">Chương Trình Học</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{route('admin.course.edit',$course->id)}}">
+                                <a class="nav-link active" href="{{route('mentor.course.edit',$course->id)}}">
                                     <span class="nav-icon"><i class="far fa-bookmark"></i></span>
                                     <span class="nav-text">Thông Tin Khóa Học</span>
                                 </a>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="{{route('admin.course.update',$id)}}">
+                    <form method="POST" enctype="multipart/form-data" action="{{route('mentor.course.update',$id)}}">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -34,7 +34,7 @@
                                 placeholder="Nhập tiêu đề">
                         </div>
                         {{-- @error('title')
-                                <p class="text-danger">{{ $message }}</p>    
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror --}}
                         <div class="form-group">
                             <label>Đường dẫn
