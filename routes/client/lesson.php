@@ -10,10 +10,10 @@ Route::prefix('lesson')->name('client.lesson.')->controller(LessonController::cl
         Route::get('exercise-lesson/{lesson}','show')->name('show');
     }
 );
+
 Route::prefix('lesson')->name('client.lesson.')->controller(CommentLessonController::class)->group(
     function () {
         Route::post('storecmt',  'store')->name('storecmt');
         Route::post('reply/{id_comment}', 'reply')->name('reply');
-
     }
 );

@@ -4,52 +4,131 @@
 
 @section('content')
 
-    <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-        <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" action="" method="post"
-            enctype="multipart/form-data">
-            @csrf
-            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Đăng ký </h1>
-            <div>
-                <label class="mb-0" for="username"> Tên người dùng </label>
-                <input type="text" placeholder="Username" id="username" name="name"
-                    class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-            </div>
-            <div>
-                <label class="mb-0" for="email"> Địa chỉ Email </label>
-                <input type="email" placeholder="Info@example.com" id="email" name="email"
-                    class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-            </div>
-            <div class="grid lg:grid-cols-2 gap-3">
-                <div>
-                    <label class="mb-0" for="password"> Mật khẩu </label>
-                    <input type="password" placeholder="******" id="password" name="password"
-                        class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+    <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left -->
+                <div
+                    class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
+                    <div class="p-3 p-lg-5">
+                        <!-- Title -->
+                        <div class="text-center">
+                            <h2 class="fw-bold">Welcome to our largest community</h2>
+                            <p class="mb-0 h6 fw-light">Let's learn something new today!</p>
+                        </div>
+                        <!-- SVG Image -->
+                        <img src="assets/images/element/02.svg" class="mt-5" alt="">
+                        <!-- Info -->
+                        <div class="d-sm-flex mt-5 align-items-center justify-content-center">
+                            <ul class="avatar-group mb-2 mb-sm-0">
+                                <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
+                                        src="assets/images/avatar/01.jpg" alt="avatar"></li>
+                                <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
+                                        src="assets/images/avatar/02.jpg" alt="avatar"></li>
+                                <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
+                                        src="assets/images/avatar/03.jpg" alt="avatar"></li>
+                                <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
+                                        src="assets/images/avatar/04.jpg" alt="avatar"></li>
+                            </ul>
+                            <!-- Content -->
+                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k+ Students joined us, now it's your turn.</p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label class="mb-0" for="password"> Nhập lại mật khẩu </label>
-                    <input type="password" placeholder="******" id="password" name="re_password"
-                        class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
+
+                <!-- Right -->
+                <div class="col-12 col-lg-6 m-auto">
+                    <div class="row my-5">
+                        <div class="col-sm-10 col-xl-8 m-auto">
+                            <!-- Title -->
+                            <img src="assets/images/element/03.svg" class="h-40px mb-2" alt="">
+                            <h2>Sign up for your account!</h2>
+                            <p class="lead mb-4">Nice to see you! Please Sign up with your account.</p>
+
+                            <!-- Form START -->
+                            <form>
+                                <!-- Email -->
+                                <div class="mb-4">
+                                    <label for="exampleInputEmail1" class="form-label">Email address *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span
+                                            class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                                class="bi bi-envelope-fill"></i></span>
+                                        <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
+                                            placeholder="E-mail" id="exampleInputEmail1">
+                                    </div>
+                                </div>
+                                <!-- Password -->
+                                <div class="mb-4">
+                                    <label for="inputPassword5" class="form-label">Password *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span
+                                            class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                                class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
+                                            placeholder="*********" id="inputPassword5">
+                                    </div>
+                                </div>
+                                <!-- Confirm Password -->
+                                <div class="mb-4">
+                                    <label for="inputPassword6" class="form-label">Confirm Password *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span
+                                            class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                                class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
+                                            placeholder="*********" id="inputPassword6">
+                                    </div>
+                                </div>
+                                <!-- Check box -->
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="checkbox-1">
+                                        <label class="form-check-label" for="checkbox-1">By signing up, you agree to
+                                            the<a href="#"> terms of service</a></label>
+                                    </div>
+                                </div>
+                                <!-- Button -->
+                                <div class="align-items-center mt-0">
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary mb-0" type="button">Sign Up</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- Form END -->
+
+                            <!-- Social buttons -->
+                            <div class="row">
+                                <!-- Divider with text -->
+                                <div class="position-relative my-4">
+                                    <hr>
+                                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Or
+                                    </p>
+                                </div>
+                                <!-- Social btn -->
+                                <div class="col-xxl-6 d-grid">
+                                    <a href="#" class="btn bg-google mb-2 mb-xxl-0"><i
+                                            class="fab fa-fw fa-google text-white me-2"></i>Signup with Google</a>
+                                </div>
+                                <!-- Social btn -->
+                                <div class="col-xxl-6 d-grid">
+                                    <a href="#" class="btn bg-facebook mb-0"><i
+                                            class="fab fa-fw fa-facebook-f me-2"></i>Signup with Facebook</a>
+                                </div>
+                            </div>
+
+                            <!-- Sign up link -->
+                            <div class="mt-4 text-center">
+                                <span>Already have an account?<a href="sign-in.html"> Sign in here</a></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="grid lg:grid-cols-2 gap-3">
-                <div>
-                    <label class="mb-0">Avatar</label>
-                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg, .jfif, .webp"
-                        class="bg-gray-100 h-12 mt-2 px-3 py-1.5 rounded-md w-full" id="avatar">
-                </div>
-                <div>
-                    <label class="mb-0"> Số điện thoại </label>
-                    <input type="text" placeholder="+543 5445 0543" class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
-                        name="number_phone">
-                </div>
-            </div>
-            {{-- <div class="g-recaptcha" data-sitekey="6LeXMAYiAAAAAH-6JZwbx2GSa8vrgZsUCq7xrUK4"></div> --}}
-            <div>
-                <button type="submit" class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full">
-                    Đăng ký</button>
-            </div>
-        </form>
-    </div>
+        </div>
+    </section>
+
 @endsection
 @section('js-links')
 @endsection

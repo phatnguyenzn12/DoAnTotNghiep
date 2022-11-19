@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('video_path');
             $table->integer('is_demo');
             $table->integer('lesson_id');
+            $table->integer('is_check');
             $table->timestamps();
         });
     }

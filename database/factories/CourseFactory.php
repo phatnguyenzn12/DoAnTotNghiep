@@ -33,6 +33,7 @@ class CourseFactory extends Factory
             'cate_course_id' => rand(1, 3),
             'video' => 'https://www.youtube.com/watch?v=oQjcJBGIFsA',
             'image' => fake()->imageUrl(),
+            'mentor_id' => rand(1,4),
         ];
     }
 }

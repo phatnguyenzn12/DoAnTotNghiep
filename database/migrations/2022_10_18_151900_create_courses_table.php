@@ -17,11 +17,16 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('content');
+            $table->text('description');
+            $table->text('description_details');
             $table->integer('price');
             $table->integer('discount');
             $table->char('status');
             $table->char('video');
             $table->text('image');
+            $table->char('skill');
+            $table->char('language');
+            $table->char('certificate');
             $table->integer('type')->default(0);
             $table->char('slug');
             $table->integer('participant')->default(0);

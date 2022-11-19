@@ -18,10 +18,10 @@ class AccountController extends Controller
         $cate = CateCourse::all();
         return view('screens.client.account.my-account',compact('cate'));
     }
-    public function detail($id)
+    public function detail()
     {
         $cate = CateCourse::all();
-        $user = User::find($id);
+        $user = auth()->user();
       //  return view('screens.client.account.detail-account', compact('user'));
 
         $courses = Course::select('*');
@@ -30,8 +30,9 @@ class AccountController extends Controller
             $courses = $courses->whereNotIn('id',$courses_id);
         }
         $courses =  $courses->get();
-        return view('screens.client.account.detail-account',  compact('courses','user','cate'));
+        return view('screens.client.account.my-account',  compact('courses','user','cate'));
     }
+
     public function update(Request $request, User $user, $id)
     {
         $user = User::find($id);
@@ -43,7 +44,7 @@ class AccountController extends Controller
                 //  $params['cols']['avatar'] = $this->upLoadFile($request->file('avatar'));
                 $user->avatar =  $this->upLoadFile($request->file('avatar'));
             }
-           
+
             $user->update();
             return redirect()->back()->with('success', 'sửa thành công');
         }
@@ -51,7 +52,7 @@ class AccountController extends Controller
 
     public function updatepass(Request $request, $id)
     {
-     
+
         $user = User::find($id);
         //$pass = Hash::make($request->password);
         // dd(Hash::check($request->password,$user->password));
@@ -72,5 +73,14 @@ class AccountController extends Controller
         //   dd( $file->storeAs('image', $fileName, 'public'));
         return $file->storeAs('images', $fileName, 'public');
     }
-    
+
+    public function myCourse()
+    {
+        $courses = auth()->user()->load('courses')
+        ->courses()
+        ->select('*')
+        ->get();
+
+        return view('screens.client.account.my-course',compact('courses'));
+    }
 }

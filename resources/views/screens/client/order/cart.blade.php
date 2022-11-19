@@ -3,121 +3,182 @@
 @section('title', 'Trang chủ')
 
 @section('content')
-    <!--  breadcrumb -->
-    <div class="from-blue-500 via-blue-400 to-blue-500 bg-gradient-to-l breadcrumb-area py-6 text-white">
-        <div class="container mx-auto lg:pt-5">
-            <div class="breadcrumb text-white">
-                <ul class="m-0">
-                    <li>
-                        <a href="index.html"> <i class="icon-feather-home"></i> </a>
-                    </li>
-                    <li>
-                        <a href="index.html">Trang chủ</a>
-                    </li>
-                    <li class="active">
-                        <a href="#"> Giỏ hàng </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="md:text-2xl text-base font-semibold mt-6 md:mb-24"> Giỏ hàng </div>
-        </div>
-    </div>
-
-    <div class="container">
-
-        <div class="max-w-3xl mx-auto lg:-mt-20 relative">
-
-            <div class="bg-white rounded-md shadow-md">
-
-                <h3 class="border-b font-semibold px-5 py-4 text-base text-gray-500">
-                    Giỏ hàng của bạn ({{ $carts ? $carts->count() : 0 }} Khóa học)
-                </h3>
-
-                <div class="divide-y">
-                    <form action="{{ route('client.order.pay') }}" method="get" id="pay">
-                        @csrf
-                        @method('GET')
-                        @forelse ($carts as $cart)
-                            <div class="flex items-start space-x-6 relative py-7 px-6">
-                                <div class="cols-span-2 checkbox my-2">
-                                    <input type="checkbox" id="use_points{{ $cart->id }}" name="products[]"
-                                        price="{{ $cart->current_price }}" value="{{ $cart->id }}"
-                                        onclick="checkCart(this)">
-                                    <label for="use_points{{ $cart->id }}" class="text-sm"><span
-                                            class="checkbox-icon"></span> </label>
-                                </div>
-
-                                <div class="h-28 overflow-hidden relative rounded-md w-44">
-                                    <img src="/frontend/assets/images/courses/img-5.jpg" alt=""
-                                        class="absolute w-full h-full inset-0 object-cover">
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <a href="course-intro-2.html"
-                                        class="md:text-lg font-semibold line-clamp-2 mb-2">{{ $cart->title }}</a>
-                                    <div class="flex items-center mt-7 space-x-2 text-sm font-medium">
-                                        <div> Advance levels </div>
-                                    </div>
-                                </div>
-                                <h5 class="font-semibold text-black text-xl"> {{ $cart->current_price }} đ</h5>
-                                <a href="{{ route('client.order.cartRemove', $cart->id) }}">
-                                    <h5 class="absolute bottom-9 right-4 text-red-500 text-xl">
-                                        <ion-icon name="trash"></ion-icon>
-                                    </h5>
-                                </a>
-                            </div>
-                        @empty
-                            <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
-                                <h1 class="text-lg font-medium">
-                                    <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
-                                </h1>
-                            </div>
-                        @endforelse
-                    </form>
-                </div>
-
-                @if ($carts)
-                    <div class="border-t pt-6 space-y-6">
-                        <div class="flex justify-between px-6">
-                            @if (auth()->user())
-                                <div class="px-6 pb-5">
-                                    <button form="pay" class="button">
-                                        Đi tới thanh toán </button>
-                                    <div class="flex items-center justify-center mt-4 space-x-1.5">
-                                        <p class="font-medium"> hoặc </p> <a hf="#"
-                                            class="text-blue-600 font-semibold text-center"> Tiếp tục mua hàng </a>
-                                    </div>
-                                </div>
-                            @else
-                                <button form="pay" class="button">
-                                    Tiếp tục mua hàng </button>
-                            @endif
-                            <h5 class="font-semibold text-black text-xl" total> 0 đ </h5>
+    <!-- =======================
+                                    Page Banner START -->
+    <section class="py-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bg-light p-4 text-center rounded-3">
+                        <h1 class="m-0">My cart</h1>
+                        <!-- Breadcrumb -->
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb breadcrumb-dots mb-0">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Courses</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                                </ol>
+                            </nav>
                         </div>
                     </div>
-                @endif
-
+                </div>
             </div>
-
         </div>
-    @endsection
+    </section>
+    <!-- =======================
+                                    Page Banner END -->
 
-    @section('js-links')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
-            integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    @endsection
-    @push('js-handles')
-        <script>
-            function checkCart(a) {
-                $i = 0
-                js_$$('.divide-y [type="checkbox"]').forEach(element => {
-                    if (element.checked == true) {
-                        $i = $i + Number(element.attributes.price.value)
-                        js_$('[total]').innerHTML = $i
-                    } else {
-                        js_$('[total]').innerHTML = $i
-                    }
-                });
-            }
-        </script>
-    @endpush
+    <!-- =======================
+                                    Page content START -->
+    <section class="pt-5">
+        <div class="container">
+
+            <div class="row g-4 g-sm-5">
+                <!-- Main content START -->
+                <div class="col-lg-8 mb-4 mb-sm-0">
+                    <div class="card card-body p-4 shadow">
+                        <!-- Alert -->
+                        <div class="alert alert-danger alert-dismissible d-flex justify-content-between align-items-center fade show py-3 pe-2"
+                            role="alert">
+                            <div>
+                                <span class="fs-5 me-1">🔥</span>
+                                Đang có sự kiện giảm giá khóa học<strong class="text-danger ms-1">Mời bạn nhập mã</strong>
+                            </div>
+                            <button type="button" class="btn btn-link mb-0 text-end" data-bs-dismiss="alert"
+                                aria-label="Close"><i class="bi bi-x-lg text-dark"></i></button>
+                        </div>
+
+
+
+                        <div class="table-responsive border-0 rounded-3">
+                            <!-- Table START -->
+                            <table class="table align-middle p-4 mb-0">
+                                <!-- Table head -->
+                                <!-- Table body START -->
+                                <tbody class="border-top-0">
+
+                                        @forelse ($carts as $cart)
+                                            <!-- Table item -->
+                                            <tr>
+                                                <!-- Course item -->
+                                                <td>
+                                                    <div class="d-lg-flex align-items-center">
+                                                        <!-- Image -->
+                                                        <div class="w-100px w-md-80px mb-2 mb-md-0">
+                                                            <img src="assets/images/courses/4by3/08.jpg" class="rounded"
+                                                                alt="">
+                                                        </div>
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0 ms-lg-3 mt-2 mt-lg-0">
+                                                            <a href="#">{{ $cart->title }}</a>
+                                                        </h6>
+                                                    </div>
+                                                </td>
+
+                                                <!-- Amount item -->
+                                                <td class="text-center">
+                                                    <h5 class="text-success mb-0">{{ $cart->current_price }} đ</h5>
+                                                </td>
+                                                <!-- Action item -->
+                                                <td>
+                                                    <a href="#"
+                                                        class="btn btn-sm btn-success-soft px-2 me-1 mb-1 mb-md-0"><i
+                                                            class="far fa-fw fa-edit"></i></a>
+                                                    <button class="btn btn-sm btn-danger-soft px-2 mb-0"><i
+                                                            class="fas fa-fw fa-times"></i></button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
+                                                <h5>
+                                                    <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
+                                                </h5>
+                                            </div>
+                                        @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Coupon input and button -->
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input class="form-control form-control " placeholder="COUPON CODE">
+                                    <button type="button" class="btn btn-primary">Nhập mã giảm giá</button>
+                                </div>
+                            </div>
+                            <!-- Update button -->
+                            <div class="col-md-6 text-md-end">
+                                <button class="btn btn-primary mb-0" disabled>Cập nhật giỏ hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main content END -->
+
+                <!-- Right sidebar START -->
+                <div class="col-lg-4">
+                    <!-- Card total START -->
+                    <div class="card card-body p-4 shadow">
+                        <!-- Title -->
+                        <h4 class="mb-3">Tổng giỏ hàng</h4>
+
+                        <!-- Price and detail -->
+                        <ul class="list-group list-group-borderless mb-2">
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span class="h6 fw-light mb-0">Tổng giá</span>
+                                <span class="h6 fw-light mb-0 fw-bold">$500</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span class="h6 fw-light mb-0">Giảm được</span>
+                                <span class="text-danger">-$20</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span class="h5 mb-0">Kết quả</span>
+                                <span class="h5 mb-0" total>$480</span>
+                            </li>
+                        </ul>
+
+                        <!-- Button -->
+                        <div class="d-grid">
+                            <a href="{{ route('client.order.pay') }}" class="btn btn-lg btn-success">Chuyển qua thanh toán</a>
+                        </div>
+
+                        <!-- Content -->
+                        <p class="small mb-0 mt-2 text-center">By completing your purchase, you agree to these <a
+                                href="#"><strong>Terms of Service</strong></a></p>
+
+                    </div>
+                    <!-- Card total END -->
+                </div>
+                <!-- Right sidebar END -->
+
+            </div><!-- Row END -->
+        </div>
+    </section>
+    <!-- =======================
+                                    Page content END -->
+@endsection
+
+@section('js-links')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+        integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@endsection
+@push('js-handles')
+    <script>
+        function checkCart(a) {
+            $i = 0
+            js_$$('.divide-y [type="checkbox"]').forEach(element => {
+                if (element.checked == true) {
+                    $i = $i + Number(element.attributes.price.value)
+                    js_$('[total]').innerHTML = $i
+                } else {
+                    js_$('[total]').innerHTML = $i
+                }
+            });
+        }
+    </script>
+@endpush

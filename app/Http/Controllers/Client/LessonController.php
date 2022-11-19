@@ -13,14 +13,12 @@ class LessonController extends Controller
     public function index(Course $course,  Lesson $lesson)
     {
 
-        collect(auth()->user()->load('course_user')->course_user)->where('id', $course->id)->first() == null ?
-            auth()->user()->load('course_user')->course_user()->attach([$course->id => ['lesson_id' => $lesson->id]]) :
-            auth()->user()->load('course_user')->course_user()->updateExistingPivot($course->id, ['lesson_id' => $lesson->id]);
+        // collect(auth()->user()->load('course_user')->course_user)->where('id', $course->id)->first() == null ?
+        //     auth()->user()->load('course_user')->course_user()->attach([$course->id => ['lesson_id' => $lesson->id]]) :
+        //     auth()->user()->load('course_user')->course_user()->updateExistingPivot($course->id, ['lesson_id' => $lesson->id]);
 
-            // $checkUserLesson = collect(auth()->user()->load('lesson_user')->lesson_user);
-            // dd($checkUserLesson);
         $chapters = $course->chapters;
         $cmt = CommentLesson::where('lesson_id', $lesson->id)->get();
-        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt', 'checkUserLesson'));
+        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt'));
     }
 }
