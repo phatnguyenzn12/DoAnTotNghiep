@@ -30,7 +30,11 @@ class Mentor extends Authenticatable
         'avatar',
         'number_phone',
         'is_active',
-        'cate_course_id',
+        'address',
+        'social_networks',
+        'educations',
+        'specialize',
+        'skills',
     ];
 
     /**
@@ -52,14 +56,15 @@ class Mentor extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function PermissionCheck(){
+    public function PermissionCheck()
+    {
         return $this->guard;
     }
 
     public function loadList()
     {
         $query = DB::table($this->table)
-                ->select($this->fillable);
+            ->select($this->fillable);
         $list = $query->get();
         return $list;
     }
@@ -70,12 +75,12 @@ class Mentor extends Authenticatable
         return $res;
     }
 
-    public function actived($id,$status){
+    public function actived($id, $status)
+    {
         if ($status == 1) {
-            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>0,'remember_token'=>Str::random(10)]);
-        }
-        else{
-            $res = DB::table($this->table)->where('id', $id)->update(['is_active'=>1,'remember_token'=>null]);
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active' => 0, 'remember_token' => Str::random(10)]);
+        } else {
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active' => 1, 'remember_token' => null]);
         }
 
         return $res;
@@ -92,7 +97,4 @@ class Mentor extends Authenticatable
     {
         return $this->hasMany(Course::class);
     }
-
-
-
 }

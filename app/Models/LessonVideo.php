@@ -12,6 +12,7 @@ class LessonVideo extends Model
     protected $fillable = [
         'is_demo',
         'video_path',
-        'lesson_id'
+        'lesson_id',
+        'is_check'
     ];
 }

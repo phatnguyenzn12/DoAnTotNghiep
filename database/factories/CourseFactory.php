@@ -17,7 +17,7 @@ class CourseFactory extends Factory
      */
     public function definition()
     {
-        $prices = [200000,500000,1000000,100000,800000,900000,750000,340000,430000,2000000];
+        $prices = [200000, 500000, 1000000, 100000, 800000, 900000, 750000, 340000, 430000, 2000000];
         static $i = 0;
         $name = fake()->text(15);
         $discounts = [0, 20, 50, 90];
@@ -33,7 +33,14 @@ class CourseFactory extends Factory
             'cate_course_id' => rand(1, 3),
             'video' => 'https://www.youtube.com/watch?v=oQjcJBGIFsA',
             'image' => fake()->imageUrl(),
-            'mentor_id' => rand(1,4),
+            'mentor_id' => rand(1, 4),
+            'skill_id' => 1,
+            'language' => 'tiếng việt, tiếng anh',
+            'certificate' => 'hoàn thành khóa học',
+            'description' => fake()->text(1000),
+            'description_details' => fake()->text(30).','.fake()->text(30).','.fake()->text(30),
+            'tags' => 'php,laravel',
+            'type' => '0',
         ];
     }
 }

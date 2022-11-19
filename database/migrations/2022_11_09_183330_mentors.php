@@ -23,11 +23,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('address');
             $table->string('social_networks');
-            $table->integer('educations');
-            $table->integer('specialize');
-            $table->integer('skills');
+            $table->string('educations');
+            $table->string('specialize');
+            $table->string('skills');
             $table->integer('is_active')->default(0);
-            $table->integer('cate_course_id');
             $table->rememberToken();
             $table->timestamps();
         });

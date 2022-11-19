@@ -25,8 +25,12 @@ class MentorFactory extends Factory
             'number_phone' => fake()->phoneNumber(),
             'password' => Hash::make('12345678'), // password
             'is_active' => 1,
-            'cate_course_id' => rand(1,3),
             'remember_token' => null,
+            'address' => 'hà nội',
+            'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
+            'educations' => 'dạy tại cao đẳng fpt',
+            'specialize' => 'Lập trình',
+            'skills' => 'html,css,php',
         ];
     }
 

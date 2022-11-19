@@ -25,8 +25,11 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'avatar' => 'placeholder.png',
             'number_phone' => fake()->phoneNumber(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2a$12$7jg/HO6Q2c1.gxdxBNwKcur.IHdWRpsDARlgLM.LOPWcRnkc/R79m', // password
             'remember_token' => Str::random(10),
+            'about_me' => fake()->text(100),
+            'education' => 'cao đẳng fpt,trung tâm fpt',
+            'location' => 'hà nội',
         ];
     }
 

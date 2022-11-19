@@ -17,7 +17,7 @@ Page content START -->
             <div class="card shadow p-2 mb-4 text-center">
               <div class="rounded-3">
                 <!-- Image -->
-                <img src="assets/images/instructor/07.jpg" class="card-img" alt="course image">
+                <img src="/frontend/images/instructor/07.jpg" class="card-img" alt="course image">
               </div>
 
               <!-- Card body -->
@@ -213,7 +213,7 @@ Page content START -->
 					<div class="col-sm-6">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img src="assets/images/courses/4by3/08.jpg" class="card-img-top" alt="course image">
+							<img src="/frontend/images/courses/4by3/08.jpg" class="card-img-top" alt="course image">
 							<!-- Card body -->
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
@@ -250,7 +250,7 @@ Page content START -->
 					<div class="col-sm-6">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img src="assets/images/courses/4by3/02.jpg" class="card-img-top" alt="course image">
+							<img src="/frontend/images/courses/4by3/02.jpg" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -287,7 +287,7 @@ Page content START -->
 					<div class="col-sm-6">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img src="assets/images/courses/4by3/03.jpg" class="card-img-top" alt="course image">
+							<img src="/frontend/images/courses/4by3/03.jpg" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -324,7 +324,7 @@ Page content START -->
 					<div class="col-sm-6">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img src="assets/images/courses/4by3/07.jpg" class="card-img-top" alt="course image">
+							<img src="/frontend/images/courses/4by3/07.jpg" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -384,7 +384,7 @@ Related instructor START -->
 				<div class="card bg-transparent">
 					<div class="position-relative">
 						<!-- Image -->
-						<img src="assets/images/instructor/02.jpg" class="card-img" alt="course image">
+						<img src="/frontend/images/instructor/02.jpg" class="card-img" alt="course image">
 						<!-- Overlay -->
 						<div class="card-img-overlay d-flex flex-column p-3">
 							<div class="w-100 mt-auto text-end">
@@ -416,7 +416,7 @@ Related instructor START -->
 				<div class="card bg-transparent">
 					<div class="position-relative">
 						<!-- Image -->
-						<img src="assets/images/instructor/01.jpg" class="card-img" alt="course image">
+						<img src="/frontend/images/instructor/01.jpg" class="card-img" alt="course image">
 						<!-- Overlay -->
 						<div class="card-img-overlay d-flex flex-column p-3">
 							<div class="w-100 mt-auto text-end">
@@ -439,7 +439,7 @@ Related instructor START -->
 								<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
 								<li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
 								<li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-							</ul>
+							</ul>small
 					</div>
 				</div>
 				<!-- Card item END -->
@@ -448,7 +448,7 @@ Related instructor START -->
 				<div class="card bg-transparent">
 					<div class="position-relative">
 						<!-- Image -->
-						<img src="assets/images/instructor/08.jpg" class="card-img" alt="course image">
+						<img src="/frontend/images/instructor/08.jpg" class="card-img" alt="course image">
 						<!-- Overlay -->
 						<div class="card-img-overlay d-flex flex-column p-3">
 							<div class="w-100 mt-auto text-end">
@@ -480,7 +480,7 @@ Related instructor START -->
 				<div class="card bg-transparent">
 					<div class="position-relative">
 						<!-- Image -->
-						<img src="assets/images/instructor/04.jpg" class="card-img" alt="course image">
+						<img src="/frontend/images/instructor/04.jpg" class="card-img" alt="course image">
 						<!-- Overlay -->
 						<div class="card-img-overlay d-flex flex-column p-3">
 							<div class="w-100 mt-auto text-end">
@@ -512,7 +512,7 @@ Related instructor START -->
 				<div class="card bg-transparent">
 					<div class="position-relative">
 						<!-- Image -->
-						<img src="assets/images/instructor/03.jpg" class="card-img" alt="course image">
+						<img src="/frontend/images/instructor/03.jpg" class="card-img" alt="course image">
 						<!-- Overlay -->
 						<div class="card-img-overlay d-flex flex-column p-3">
 							<div class="w-100 mt-auto text-end">

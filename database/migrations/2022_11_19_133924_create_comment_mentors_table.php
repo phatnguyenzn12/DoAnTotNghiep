@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comment_mentor', function (Blueprint $table) {
+        Schema::create('comment_mentors', function (Blueprint $table) {
             $table->id();
             $table->text('comment');
             $table->integer('vote');
-            $table->integer('reply');
             $table->char('status');
             $table->integer('user_id');
             $table->integer('mentor_id');
-            $table->integer('course_id');
             $table->timestamps();
         });
     }
