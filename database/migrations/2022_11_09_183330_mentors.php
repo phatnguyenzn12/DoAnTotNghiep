@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('educations')->nullable();
             $table->string('skills')->nullable();
             $table->unsignedBigInteger('specialize_id');
-            $table->integer('is_active')->default(0);
+            $table->integer('is_active')->default(0); //Không sửa thằng này
             $table->rememberToken();
             $table->timestamps();
         });

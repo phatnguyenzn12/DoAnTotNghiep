@@ -16,6 +16,8 @@ use App\Models\Mentor;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OwnerCourse;
+use App\Models\Skill;
+use App\Models\Specialize;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -37,6 +39,8 @@ class BaseSeeder extends Seeder
         Admin::factory(1)->create();
         Mentor::factory(4)->create();
         CateCourse::factory(3)->create();
+        Specialize::factory(3)->create();
+        Skill::factory(3)->create();
         Course::factory(10)->create();
         Chapter::factory(20)->create();
         Lesson::factory(100)->create();

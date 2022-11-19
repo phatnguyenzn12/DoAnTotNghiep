@@ -21,11 +21,11 @@ return new class extends Migration
             $table->text('description_details');
             $table->integer('price');
             $table->integer('discount');
-            $table->integer('participant');
-            $table->char('status');
+            $table->integer('participant')->default(0);
+            $table->integer('status')->default(0);
             $table->char('video');
             $table->text('image');
-            $table->char('language');
+            $table->integer('language');
             $table->char('certificate');
             $table->char('tags');
             $table->integer('type')->default(0);
