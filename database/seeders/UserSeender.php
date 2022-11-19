@@ -45,37 +45,49 @@ class UserSeender extends Seeder
 
         //---Permission chưa cần đến phân quyền---
 
-        // $users = [
-        //     [
-        //         'name' => fake()->name(),
-        //         'email' => 'admin@example.com',
-        //         'password' => Hash::make(12345678),
-        //         'avatar' => 'placeholder.png',
-        //         'number_phone' => '012345678',
-        //     ],
-        //     [
-        //         'name' => fake()->name(),
-        //         'email' => 'manager@example.com',
-        //         'password' => Hash::make(12345678),
-        //         'avatar' => 'placeholder.png',
-        //         'number_phone' => '012345678',
-        //     ],
-        //     [
-        //         'name' => fake()->name(),
-        //         'email' => 'teacher@example.com',
-        //         'password' => Hash::make(12345678),
-        //         'avatar' => 'placeholder.png',
-        //         'number_phone' => '012345678',
-        //     ],
-        //     [
-        //         'name' => fake()->name(),
-        //         'email' => 'student@example.com',
-        //         'password' => Hash::make(12345678),
-        //         'avatar' => 'placeholder.png',
-        //         'number_phone' => '012345678',
-        //     ],
-        // ];
-        // DB::table('users')->insert($users);
+        $users = [
+            [
+                'name' => fake()->name(),
+                'email' => 'admin@example.com',
+                'password' => '$2a$12$7jg/HO6Q2c1.gxdxBNwKcur.IHdWRpsDARlgLM.LOPWcRnkc/R79m',
+                'avatar' => 'placeholder.png',
+                'number_phone' => '012345678',
+                'about_me' => fake()->text(100),
+                'education' => 'cao đẳng fpt,trung tâm fpt',
+                'location' => 'hà nội',
+            ],
+            [
+                'name' => fake()->name(),
+                'email' => 'manager@example.com',
+                'password' => '$2a$12$7jg/HO6Q2c1.gxdxBNwKcur.IHdWRpsDARlgLM.LOPWcRnkc/R79m',
+                'avatar' => 'placeholder.png',
+                'number_phone' => '012345678',
+                'about_me' => fake()->text(100),
+                'education' => 'cao đẳng fpt,trung tâm fpt',
+                'location' => 'hà nội',
+            ],
+            [
+                'name' => fake()->name(),
+                'email' => 'teacher@example.com',
+                'password' => '$2a$12$7jg/HO6Q2c1.gxdxBNwKcur.IHdWRpsDARlgLM.LOPWcRnkc/R79m',
+                'avatar' => 'placeholder.png',
+                'number_phone' => '012345678',
+                'about_me' => fake()->text(100),
+                'education' => 'cao đẳng fpt,trung tâm fpt',
+                'location' => 'hà nội',
+            ],
+            [
+                'name' => fake()->name(),
+                'email' => 'student@example.com',
+                'password' => '$2a$12$7jg/HO6Q2c1.gxdxBNwKcur.IHdWRpsDARlgLM.LOPWcRnkc/R79m',
+                'avatar' => 'placeholder.png',
+                'number_phone' => '012345678',
+                'about_me' => fake()->text(100),
+                'education' => 'cao đẳng fpt,trung tâm fpt',
+                'location' => 'hà nội',
+            ],
+        ];
+        DB::table('users')->insert($users);
         //---create roles for users---
         // foreach ($users as $userItem) {
         //     $user = User::create($userItem);
