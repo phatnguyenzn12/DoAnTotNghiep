@@ -16,21 +16,21 @@ class AccountController extends Controller
 
     {
         $cate = CateCourse::all();
-        return view('screens.client.account.my-account',compact('cate'));
+        return view('screens.client.account.my-account', compact('cate'));
     }
     public function detail()
     {
         $cate = CateCourse::all();
         $user = auth()->user();
-      //  return view('screens.client.account.detail-account', compact('user'));
+        //  return view('screens.client.account.detail-account', compact('user'));
 
         $courses = Course::select('*');
-        if(auth()->user()){
+        if (auth()->user()) {
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
-            $courses = $courses->whereNotIn('id',$courses_id);
+            $courses = $courses->whereNotIn('id', $courses_id);
         }
         $courses =  $courses->get();
-        return view('screens.client.account.my-account',  compact('courses','user','cate'));
+        return view('screens.client.account.my-account',  compact('courses', 'user', 'cate'));
     }
 
     public function update(Request $request, User $user, $id)
@@ -56,13 +56,28 @@ class AccountController extends Controller
         $user = User::find($id);
         //$pass = Hash::make($request->password);
         // dd(Hash::check($request->password,$user->password));
+        // if (Hash::check($request->password, $user->password)) {
+        //       Hash::make($request->password_1);
+        //    //  dd($abc);
+        //     Hash::make($request->password_2);
+        //     //dd($bc);
+        //     if (Hash::check($request->password_1, $user->password_2)) {
+        //        //  dd(Hash::check($abc, $request->password_2));
+        //         $passnew = Hash::make($request->password_2);
+        //         $us = new User();
+        //         $us->updatePass($id, $passnew);
+        //         return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
+        //     } 
+        //     else{
+        //         return redirect()->back()->with('error', 'Mật khẩu mới không khớp !');
+        //     }
         if (Hash::check($request->password, $user->password)) {
             //   dd($request->password);
-            $passnew = Hash::make($request->password_2);
+            $a = Hash::make($request->password_1);
             //dd($a);
             $us = new User();
-            $us->updatePass($id, $passnew);
-            return redirect()->route('client')->with('success', 'sửa thành công');
+            $us->updatePass($id, $a);
+            return redirect()->back()->with('success', 'sửa thành công');
         } else {
             return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');
         }
@@ -77,10 +92,10 @@ class AccountController extends Controller
     public function myCourse()
     {
         $courses = auth()->user()->load('courses')
-        ->courses()
-        ->select('*')
-        ->get();
+            ->courses()
+            ->select('*')
+            ->get();
 
-        return view('screens.client.account.my-course',compact('courses'));
+        return view('screens.client.account.my-course', compact('courses'));
     }
 }
