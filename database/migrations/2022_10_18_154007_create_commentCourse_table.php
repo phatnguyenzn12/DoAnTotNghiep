@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->text('comment');
             $table->integer('vote');
-            // $table->text('slug');
             $table->integer('reply');
             $table->char('status');
             $table->integer('user_id');

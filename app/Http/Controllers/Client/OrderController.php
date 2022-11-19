@@ -40,9 +40,9 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
-    public function pay(Request $course)
+    public function pay()
     {
-        $courses = Course::whereIn('id', $course->products)->get();
+        $courses = auth()->user()->load('carts')->carts;
         return view('screens.client.order.pay', compact('courses'));
     }
 

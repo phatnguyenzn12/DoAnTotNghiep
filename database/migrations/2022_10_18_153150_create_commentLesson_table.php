@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('comment_lessons', function (Blueprint $table) {
             $table->id();
             $table->text('comment');
-            $table->integer('vote');
+            // $table->integer('vote');
             $table->integer('reply');
             $table->char('status');
             $table->integer('user_id');

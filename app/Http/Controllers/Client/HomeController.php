@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public function index()
-    {   
+    {
         $cate = CateCourse::all();
 
         $courses = Course::select('*');
@@ -19,19 +19,16 @@ class HomeController extends Controller
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
             $courses = $courses->whereNotIn('id',$courses_id);
         }
-        $courses =  $courses->get();
-// dd($courses->toArray());
+        $courses =  $courses->paginate(8);
+
         $courses->transform(
             function (Course $course) {
                 return [
                     ...$course->toArray(),
-                    ...['chapter' => $course->with('chapters')->count()],
                     ...['lesson' => $course->with('lessons')->count()]
                 ];
             }
-        )->toJson();
-
-        $courses = json_decode($courses);
+        );
 
         $interView = Banner::select('*')->where('status', 1)->get();
         $getCourseInBanner = Banner::select('course_id')->get();

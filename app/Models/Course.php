@@ -29,7 +29,7 @@ class Course extends BaseModel
 
     public function chapters()
     {
-        return $this->hasMany(Chapter::class, 'course_id', 'id');
+        return $this->hasMany(Chapter::class);
     }
 
     public function commentCourses()

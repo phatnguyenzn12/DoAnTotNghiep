@@ -19,7 +19,5 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
 Route::name('commentcourse.')->controller(CommentCourseController::class)->group(
     function () {
         Route::post('store',  'store')->name('store');
-
-
     }
 );
