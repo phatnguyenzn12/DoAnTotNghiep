@@ -4,73 +4,138 @@
 
 @section('content')
 
-    <div class="lg:p-12 max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-        <form class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md" method="POST" action="{{ route('mentor.handleLogin') }}">
-            @csrf
-            <h1 class="lg:text-2xl text-xl font-semibold mb-6"> Đăng nhập Mentor </h1>
-            <div>
-                <label class="mb-0" for="email"> Địa chỉ Email </label>
-                <input type="email" id="email" name="email" placeholder="Info@example.com"
-                    class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-            </div>
-            <div>
-                <label class="mb-0" for="password"> Mật khẩu </label>
-                <input type="password" id="password" name="password" placeholder="******"
-                    class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full">
-            </div>
+<section class="p-0 d-flex align-items-center position-relative overflow-hidden">
 
-            <div class="g-recaptcha" data-sitekey="6LeXMAYiAAAAAH-6JZwbx2GSa8vrgZsUCq7xrUK4"></div>
-
-            <div>
-                <button type="submit" id="sign-in"
-                    class="bg-blue-600 font-semibold p-2.5 mt-5 rounded-md text-center text-white w-full">
-                    Đăng nhập</button>
-            </div>
-
-            <div class="">
-                <a href="" class="text-blue-500 text-center font-light">Lấy lại mật
-                    khẩu ?</a>
-            </div>
-
-            <div class="uk-heading-line uk-text-center py-5"><span> Hoặc, kết nối với </span></div>
-
-            <a href="{{route('auth.google')}}"
-                class="hidden relative lg:flex items-center justify-start w-full py-3 mt-2 overflow-hidden text-lg font-medium text-white border border-blue-300 shadow rounded-md rounded-lg cursor-pointer">
-                <span class="absolute left-0 flex items-center justify-center w-16 h-full mr-3 fill-current">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                        fill="none">
-                        <path
-                            d="M19.9895 10.1871C19.9895 9.36767 19.9214 8.76973 19.7742 8.14966H10.1992V11.848H15.8195C15.7062 12.7671 15.0943 14.1512 13.7346 15.0813L13.7155 15.2051L16.7429 17.4969L16.9527 17.5174C18.879 15.7789 19.9895 13.221 19.9895 10.1871Z"
-                            fill="#4285F4"></path>
-                        <path
-                            d="M10.1993 19.9313C12.9527 19.9313 15.2643 19.0454 16.9527 17.5174L13.7346 15.0813C12.8734 15.6682 11.7176 16.0779 10.1993 16.0779C7.50243 16.0779 5.21352 14.3395 4.39759 11.9366L4.27799 11.9466L1.13003 14.3273L1.08887 14.4391C2.76588 17.6945 6.21061 19.9313 10.1993 19.9313Z"
-                            fill="#34A853"></path>
-                        <path
-                            d="M4.39748 11.9366C4.18219 11.3166 4.05759 10.6521 4.05759 9.96565C4.05759 9.27909 4.18219 8.61473 4.38615 7.99466L4.38045 7.8626L1.19304 5.44366L1.08875 5.49214C0.397576 6.84305 0.000976562 8.36008 0.000976562 9.96565C0.000976562 11.5712 0.397576 13.0882 1.08875 14.4391L4.39748 11.9366Z"
-                            fill="#FBBC05"></path>
-                        <path
-                            d="M10.1993 3.85336C12.1142 3.85336 13.406 4.66168 14.1425 5.33717L17.0207 2.59107C15.253 0.985496 12.9527 0 10.1993 0C6.2106 0 2.76588 2.23672 1.08887 5.49214L4.38626 7.99466C5.21352 5.59183 7.50242 3.85336 10.1993 3.85336Z"
-                            fill="#EB4335"></path>
-                    </svg>
-                </span>
-                <span class="inline-block pl-5 text-base text-center w-full text-blue-500">Đăng nhập với Google</span>
-            </a>
-
-            <div class="flex items-center space-x-2 justify-center">
-                <a href="#">
-                    <ion-icon name="logo-facebook" class="p-2 rounded-full text-2xl bg-gray-100 text-blue-600"></ion-icon>
-                </a>
-                <a href="#">
-                    <ion-icon name="logo-twitter" class="p-2 rounded-full text-2xl bg-gray-100 text-indigo-500"></ion-icon>
-                </a>
-                <a href="#">
-                    <ion-icon name="logo-github" class="p-2 rounded-full text-2xl bg-gray-100"></ion-icon>
-                </a>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left -->
+            <div
+                class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
+                <div class="p-3 p-lg-5">
+                    <!-- Title -->
+                    <div class="text-center">
+                        <h2 class="fw-bold">Welcome to our largest community</h2>
+                        <p class="mb-0 h6 fw-light">Let's learn something new today!</p>
+                    </div>
+                    <!-- SVG Image -->
+                    <img src="/frontend/images/element/02.svg" class="mt-5" alt="">
+                    <!-- Info -->
+                    <div class="d-sm-flex mt-5 align-items-center justify-content-center">
+                        <!-- Avatar group -->
+                        <ul class="avatar-group mb-2 mb-sm-0">
+                            <li class="avatar avatar-sm">
+                                <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                    alt="avatar">
+                            </li>
+                            <li class="avatar avatar-sm">
+                                <img class="avatar-img rounded-circle" src="/frontend/images/avatar/02.jpg"
+                                    alt="avatar">
+                            </li>
+                            <li class="avatar avatar-sm">
+                                <img class="avatar-img rounded-circle" src="/frontend/images/avatar/03.jpg"
+                                    alt="avatar">
+                            </li>
+                            <li class="avatar avatar-sm">
+                                <img class="avatar-img rounded-circle" src="/frontend/images/avatar/04.jpg"
+                                    alt="avatar">
+                            </li>
+                        </ul>
+                        <!-- Content -->
+                        <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k+ Students joined us, now it's your turn.</p>
+                    </div>
+                </div>
             </div>
 
-        </form>
+            <!-- Right -->
+            <div class="col-12 col-lg-6 m-auto">
+                <div class="row my-5">
+                    <div class="col-sm-10 col-xl-8 m-auto">
+                        <!-- Title -->
+                        <span class="mb-0 fs-1">👋</span>
+                        <h1 class="fs-2">Đặng nhập tài khoản giảng viên</h1>
+                        <p class="lead mb-4">Nice to see you! Please log in with your account.</p>
 
+                        <!-- Form START -->
+                        <form method="POST" action="{{ route('mentor.handleLogin') }}">
+                            @csrf
+                            <!-- Email -->
+                            <div class="mb-4">
+                                <label for="exampleInputEmail1" class="form-label">Email address *</label>
+                                <div class="input-group input-group-lg">
+                                    <span
+                                        class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                            class="bi bi-envelope-fill"></i></span>
+                                    <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
+                                        name="email" placeholder="Info@example.com" id="exampleInputEmail1">
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="mb-4">
+                                <label for="inputPassword5" class="form-label">Password *</label>
+                                <div class="input-group input-group-lg">
+                                    <span
+                                        class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                            class="fas fa-lock"></i></span>
+                                    <input type="password"
+                                        class="form-control border-0 bg-light rounded-end ps-1"name="password"
+                                        placeholder="******" id="inputPassword5">
+                                </div>
+                                <div id="passwordHelpBlock" class="form-text">
+                                    Your password must be 8 characters at least
+                                </div>
+                            </div>
+                            <!-- Check box -->
+                            <div class="mb-4 d-flex justify-content-between mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                                </div>
+                                <div class="text-primary-hover">
+                                    <a href="{{ route('auth.forgotPassword') }}" class="text-secondary">
+                                        <u>Forgot password?</u>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="align-items-center mt-0">
+                                <div class="d-grid">
+                                    <button class="btn btn-primary mb-0" type="submit">Login</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Form END -->
+
+                        <!-- Social buttons and divider -->
+                        <div class="row">
+                            <!-- Divider with text -->
+                            <div class="position-relative my-4">
+                                <hr>
+                                <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Or</p>
+                            </div>
+
+                            <!-- Social btn -->
+                            <div class="col-xxl-6 d-grid">
+                                <a href="{{ route('auth.google') }}" class="btn bg-google mb-2 mb-xxl-0"><i
+                                        class="fab fa-fw fa-google text-white me-2"></i>Login with Google</a>
+                            </div>
+                            <!-- Social btn -->
+                            <div class="col-xxl-6 d-grid">
+                                <a href="#" class="btn bg-facebook mb-0"><i
+                                        class="fab fa-fw fa-facebook-f me-2"></i>Login with Facebook</a>
+                            </div>
+                        </div>
+
+                        <!-- Sign up link -->
+                        <div class="mt-4 text-center">
+                            <span>Don't have an account? <a href="sign-up.html">Signup here</a></span>
+                        </div>
+                    </div>
+                </div> <!-- Row END -->
+            </div>
+        </div> <!-- Row END -->
     </div>
+</section>
+
 @endsection
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>

@@ -18,7 +18,14 @@ class Course extends BaseModel
         'slug',
         'participant',
         'cate_course_id',
-        'mentor_id'
+        'mentor_id',
+        'skill_id',
+        'language',
+        'certificate',
+        'tags',
+        'type',
+        'description',
+        'description_details',
     ];
 
     protected $appends = [

@@ -45,37 +45,37 @@ class UserSeender extends Seeder
 
         //---Permission chưa cần đến phân quyền---
 
-        $users = [
-            [
-                'name' => fake()->name(),
-                'email' => 'admin@example.com',
-                'password' => Hash::make(12345678),
-                'avatar' => 'placeholder.png',
-                'number_phone' => '012345678',
-            ],
-            [
-                'name' => fake()->name(),
-                'email' => 'manager@example.com',
-                'password' => Hash::make(12345678),
-                'avatar' => 'placeholder.png',
-                'number_phone' => '012345678',
-            ],
-            [
-                'name' => fake()->name(),
-                'email' => 'teacher@example.com',
-                'password' => Hash::make(12345678),
-                'avatar' => 'placeholder.png',
-                'number_phone' => '012345678',
-            ],
-            [
-                'name' => fake()->name(),
-                'email' => 'student@example.com',
-                'password' => Hash::make(12345678),
-                'avatar' => 'placeholder.png',
-                'number_phone' => '012345678',
-            ],
-        ];
-        DB::table('users')->insert($users);
+        // $users = [
+        //     [
+        //         'name' => fake()->name(),
+        //         'email' => 'admin@example.com',
+        //         'password' => Hash::make(12345678),
+        //         'avatar' => 'placeholder.png',
+        //         'number_phone' => '012345678',
+        //     ],
+        //     [
+        //         'name' => fake()->name(),
+        //         'email' => 'manager@example.com',
+        //         'password' => Hash::make(12345678),
+        //         'avatar' => 'placeholder.png',
+        //         'number_phone' => '012345678',
+        //     ],
+        //     [
+        //         'name' => fake()->name(),
+        //         'email' => 'teacher@example.com',
+        //         'password' => Hash::make(12345678),
+        //         'avatar' => 'placeholder.png',
+        //         'number_phone' => '012345678',
+        //     ],
+        //     [
+        //         'name' => fake()->name(),
+        //         'email' => 'student@example.com',
+        //         'password' => Hash::make(12345678),
+        //         'avatar' => 'placeholder.png',
+        //         'number_phone' => '012345678',
+        //     ],
+        // ];
+        // DB::table('users')->insert($users);
         //---create roles for users---
         // foreach ($users as $userItem) {
         //     $user = User::create($userItem);
@@ -99,6 +99,6 @@ class UserSeender extends Seeder
         //     }
         // }
 
-        
+
     }
 }

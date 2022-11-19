@@ -45,8 +45,9 @@ class BaseSeeder extends Seeder
                 LessonVideo::create(
                     [
                         'is_demo' => 0,
-                        'video_path' => '766989834',
-                        'lesson_id' => $lesson->id
+                        'video_path' => '772157924',
+                        'lesson_id' => $lesson->id,
+                        'is_check' => 1,
                     ]
                 );
             }

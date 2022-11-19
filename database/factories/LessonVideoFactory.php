@@ -21,7 +21,9 @@ class LessonVideoFactory extends Factory
         // dd($lesson_type);
         return [
             'video_path' => 'https://www.youtube.com/watch?v=oQjcJBGIFsA',
-            'lesson_id' => $lesson_id 
+            'lesson_id' => $lesson_id,
+            'is_demo' => 0,
+            'is_check' => 1,
         ];
     }
 }
