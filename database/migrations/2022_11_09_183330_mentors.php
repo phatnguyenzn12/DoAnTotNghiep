@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('avatar');
             $table->string('number_phone');
             $table->string('password');
-            $table->string('address');
-            $table->string('social_networks');
-            $table->string('educations');
-            $table->string('specialize');
-            $table->string('skills');
+            $table->string('address')->nullable();
+            $table->string('social_networks')->nullable();
+            $table->string('educations')->nullable();
+            $table->string('skills')->nullable();
+            $table->unsignedBigInteger('specialize_id');
             $table->integer('is_active')->default(0);
             $table->rememberToken();
             $table->timestamps();

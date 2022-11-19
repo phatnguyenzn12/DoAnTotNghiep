@@ -33,7 +33,7 @@ class Mentor extends Authenticatable
         'address',
         'social_networks',
         'educations',
-        'specialize',
+        'specialize_id',
         'skills',
     ];
 

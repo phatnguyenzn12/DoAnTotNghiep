@@ -29,7 +29,7 @@ class MentorFactory extends Factory
             'address' => 'hà nội',
             'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
             'educations' => 'dạy tại cao đẳng fpt',
-            'specialize' => 'Lập trình',
+            'specialize_id' => rand(1,3),
             'skills' => 'html,css,php',
         ];
     }
