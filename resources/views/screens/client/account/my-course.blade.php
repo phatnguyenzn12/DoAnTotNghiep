@@ -1,5 +1,8 @@
+@php
+$user = \Illuminate\Support\Facades\Auth::user();
+@endphp
 @extends('layouts.client.master')
-@section('title', 'Trang chủ')
+@section('title', 'Khóa học của tôi')
 
 @section('content')
     <!-- =======================
@@ -27,7 +30,7 @@
                             <!-- Profile info -->
                             <div class="col d-sm-flex justify-content-between align-items-center">
                                 <div>
-                                    <h1 class="my-1 fs-4">Lori Stevens</h1>
+                                    <h1 class="my-1 fs-4">{{$user->name}}</h1>
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item me-3 mb-1 mb-sm-0">
                                             <span class="h6">255</span>
@@ -160,7 +163,7 @@
                     <div class="card bg-transparent border rounded-3">
                         <!-- Card header START -->
                         <div class="card-header bg-transparent border-bottom">
-                            <h3 class="mb-0">My Courses List</h3>
+                            <h3 class="mb-0">Khóa học của tôi</h3>
                         </div>
                         <!-- Card header END -->
 

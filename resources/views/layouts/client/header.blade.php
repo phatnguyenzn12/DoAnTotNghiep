@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-xl">
     <div class="container">
         <!-- Logo START -->
-        <a class="navbar-brand" href="index-2.html">
+        <a class="navbar-brand" href="{{route('client')}}">
             <img class="light-mode-item navbar-brand-item" src="/frontend/images/logo.svg" alt="logo">
             <img class="dark-mode-item navbar-brand-item" src="/frontend/images/logo-light.svg" alt="logo">
         </a>
@@ -275,7 +275,7 @@
                                     quản
                                     trị</a></li>
                         @endif
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit
+                        <li><a class="dropdown-item" href="{{route('client.account.index')}}"><i class="bi bi-person fa-fw me-2"></i>Edit
                                 Profile</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account
                                 Settings</a></li>

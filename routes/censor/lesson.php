@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Censor\CourseController;
+use App\Http\Controllers\Censor\LessonController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('censor/course')->name('censor.course.')->middleware('role:censor')->controller(CourseController::class)->group(
+Route::prefix('censor/lesson')->name('censor.lesson.')->middleware('role:censor')->controller(LessonController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('/actived/{id}', 'actived')->name('actived');

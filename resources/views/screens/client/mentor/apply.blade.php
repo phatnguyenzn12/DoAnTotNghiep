@@ -75,8 +75,8 @@ Page Banner START -->
 		<div class="row g-4 align-items-center">
 			<div class="col-md-6">
 				<!-- Title -->
-				<h1>Apply as Instructor</h1>
-				<p>Satisfied conveying a dependent contented he gentleman agreeable do be. Delivered dejection necessary objection do Mr prevailed. Mr feeling does chiefly cordial in do.</p>
+				<h1>Đăng ký làm Giảng viênr</h1>
+				<p>Hài lòng truyền đạt một người phụ thuộc hài lòng anh ấy quý ông dễ chịu. Đưa ra sự phản đối cần thiết khiến ông chiếm ưu thế. Ông cảm thấy chủ yếu thân mật trong làm.</p>
 				<!-- Button -->
 				<a href="#fill-instructor-form" class="btn btn-primary mb-0">Start Teaching today</a>
 			</div>
@@ -98,8 +98,8 @@ Work START -->
 		<!-- Title -->
 		<div class="row mb-4">
 			<div class="col-sm-10 col-xl-6 text-center mx-auto">
-				<h2>You can be your guiding star with our help</h2>
-				<p class="mb-0">As it so contrasted oh estimating instrument. Size like body someone had. Are conduct viewing boy minutes warrant the expense? Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted.</p>
+				<h2>Bạn có thể là ngôi sao dẫn đường của bạn với sự giúp đỡ của chúng tôi</h2>
+				<p class="mb-0">Vì nó rất tương phản oh công cụ ước tính. Kích thước giống như cơ thể ai đó đã có. Hành vi xem biên bản cậu bé có đảm bảo chi phí không? Hành vi có thể chịu đựng được có thể thừa nhận con gái xúc phạm chính yêu cầu của mình. Hiệu ứng khen ngợi mong muốn thay đổi cách thức và bất kỳ mong muốn.</p>
 			</div>
 		</div>
 
@@ -108,23 +108,23 @@ Work START -->
 			<!-- Item -->
 			<div class="col-md-4 text-center">
 				<img src="assets/images/element/create-account.svg" class="h-200px" alt="">
-				<h4 class="mt-3">Create Account</h4>
-				<p class="text-truncate-2 mb-0">Satisfied conveying a dependent contented he gentleman agreeable do be. Delivered dejection necessary objection do Mr prevailed. Mr feeling does chiefly cordial in do</p>
+				<h4 class="mt-3">Tạo tài khoản</h4>
+				<p class="text-truncate-2 mb-0">Hài lòng truyền đạt một người phụ thuộc hài lòng anh ấy quý ông dễ chịu. Đưa ra sự phản đối cần thiết khiến ông</p>
 			</div>
 
 			<!-- Item -->
 			<div class="col-md-4 text-center">
 				<img src="assets/images/element/add-course.svg" class="h-200px" alt="">
-				<h4 class="mt-3">Add your Course</h4>
-				<p class="text-truncate-2 mb-0">Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.
+				<h4 class="mt-3">Thêm khóa học của bạn</h4>
+				<p class="text-truncate-2 mb-0">Tiến hành cách bất kỳ khách truy cập đã tham gia nào. Giải thích quyền sở hữu ra vĩnh viễn của mình bạn. Cảm giác bị
 				</p>
 			</div>
 
 			<!-- Item -->
 			<div class="col-md-4 text-center">
 				<img src="assets/images/element/earn-money.svg" class="h-200px" alt="">
-				<h4 class="mt-3">Start Earning Money</h4>
-				<p class="text-truncate-2 mb-0">Insipidity the sufficient discretion imprudence resolution sir him decisively.  Delivered dejection necessary objection do Mr prevailed. Mr feeling does chiefly cordial in do</p>
+				<h4 class="mt-3">Bắt đầu kiếm tiền</h4>
+				<p class="text-truncate-2 mb-0">Insipidity đủ tùy ý giải quyết sự bất cẩn thưa ông một cách dứt khoát. Đưa ra sự phản đối cần thiết khiến ông chiếm</p>
 			</div>
 		</div> <!-- Row END -->
 	</div>
@@ -212,28 +212,29 @@ Form and Tabs START -->
 
 				<div class="card card-body shadow p-4">
 					<!-- Title -->
-					<h3>Please fill this form</h3>
+					<h3>Vui lòng điền vào mẫu này</h3>
 					<!-- Form START -->
-					<form class="row g-3 mt-2 position-relative z-index-9">
+					<form class="row g-3 mt-2 position-relative z-index-9" method="post" action="{{ route('client.mentor.apply') }}">
+						@csrf
 						<!-- Name -->
 						<div class="col-lg-6">
-							<label class="form-label">Name *</label>
-							<input type="text" class="form-control" aria-label="First name">
+							<label class="form-label">Tên *</label>
+							<input type="text" name="name" class="form-control" aria-label="First name">
 						</div>
 						<!-- Email -->
 						<div class="col-lg-6">
 							<label class="form-label">Email *</label>
-							<input type="email" class="form-control">
+							<input type="email" name="email" class="form-control">
 						</div>
 						<!-- Number -->
 						<div class="col-lg-12">
-							<label class="form-label">Phone Number *</label>
-							<input type="text" class="form-control">
+							<label class="form-label">Số điện thoại *</label>
+							<input type="text" name="number_phone" class="form-control">
 						</div>
 						<!-- Textarea -->
 						<div class="col-12">
-							<label class="form-label">Add Summary *</label>
-							<textarea class="form-control" rows="3" spellcheck="false"></textarea>
+							<label class="form-label">Thêm tóm tắt *</label>
+							<textarea class="form-control" name="Summary" rows="3" spellcheck="false"></textarea>
 						</div>
 						<!-- Button -->
 						<div class="col-12">

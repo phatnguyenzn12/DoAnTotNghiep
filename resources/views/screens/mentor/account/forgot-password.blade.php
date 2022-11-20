@@ -1,24 +1,24 @@
+@php
+    $mentor = \Illuminate\Support\Facades\Auth::guard('mentor')->user();
+@endphp
+@endphp
 @extends('layouts.mentor.master')
-
-@section('title', 'Trang Quản Trị')
-
+@section('title', 'Đổi mật khẩu')
 @section('content')
 
     <div class="card card-custom">
         <!--begin::Header-->
         <div class="card-header py-3">
             <div class="card-title align-items-start flex-column">
-                <h3 class="card-label font-weight-bolder text-dark">Change Password</h3>
-                <span class="text-muted font-weight-bold font-size-sm mt-1">Change your account password</span>
-            </div>
-            <div class="card-toolbar">
-                <button type="reset" class="btn btn-success mr-2">Save Changes</button>
-                <button type="reset" class="btn btn-secondary">Cancel</button>
+                <h3 class="card-label font-weight-bolder text-dark">Đổi mật khẩu</h3>
+                <span class="text-muted font-weight-bold font-size-sm mt-1">Thay đổi mật khẩu của bạn</span>
             </div>
         </div>
         <!--end::Header-->
         <!--begin::Form-->
-        <form class="form">
+        <form action="{{ route('mentor.account.forgotPassword', $mentor->id) }}" method="post"
+            enctype="multipart/form-data" class="form">
+            @csrf
             <div class="card-body">
                 <!--begin::Alert-->
                 <div class="alert alert-custom alert-light-danger fade show mb-10" role="alert">
@@ -39,9 +39,9 @@
                             <!--end::Svg Icon-->
                         </span>
                     </div>
-                    <div class="alert-text font-weight-bold">Configure user passwords to expire periodically. Users will
-                        need warning that their passwords are going to expire,
-                        <br />or they might inadvertently get locked out of the system!
+                    <div class="alert-text font-weight-bold">Định cấu hình mật khẩu người dùng hết hạn định kỳ. Người dùng sẽ
+                        cần cảnh báo rằng mật khẩu của họ sắp hết hạn,
+                        <br />hoặc họ có thể vô tình bị khóa khỏi hệ thống!
                     </div>
                     <div class="alert-close">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -53,26 +53,31 @@
                 </div>
                 <!--end::Alert-->
                 <div class="form-group row">
-                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Current Password</label>
+                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu cũ</label>
                     <div class="col-lg-9 col-xl-6">
-                        <input type="password" class="form-control form-control-lg form-control-solid mb-2" value=""
-                            placeholder="Current password" />
-                        <a href="#" class="text-sm font-weight-bold">Forgot password ?</a>
+                        <input type="password" name="password" class="form-control form-control-lg form-control-solid mb-2"
+                            />
+                        <a href="#" class="text-sm font-weight-bold">Nhập cho đúng ?</a>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">New Password</label>
+                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu mới</label>
                     <div class="col-lg-9 col-xl-6">
-                        <input type="password" class="form-control form-control-lg form-control-solid" value=""
-                            placeholder="New password" />
+                        <input type="password" name="password_1" class="form-control form-control-lg form-control-solid" 
+                           />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Verify Password</label>
+                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Nhập lại mật khẩu</label>
                     <div class="col-lg-9 col-xl-6">
-                        <input type="password" class="form-control form-control-lg form-control-solid" value=""
-                            placeholder="Verify password" />
+                        <input type="password" name="password_2" class="form-control form-control-lg form-control-solid" 
+                            />
                     </div>
+                </div>
+                <div class="card-toolbar">
+                    <button type="submit" class="btn btn-success mr-2">Lưu thay đổi</button>
+                    <button type="" class="btn btn-secondary"><a href="{{ route('mentor.home') }}">Quay
+                        lại</a></button>
                 </div>
             </div>
         </form>
