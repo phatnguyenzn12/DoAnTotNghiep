@@ -45,6 +45,14 @@ class PermissionCheck
                 return $next($request);
             }
         }
+        if (Auth::guard('censor')->check() == true) {
+            if (!Auth::guard('censor')->user()->remember_token == null) {
+                return redirect()->route('censor.login')->with('failed', 'Tài khoản chưa xác thực email');
+            }
+            elseif (in_array(Auth::guard('censor')->user()->PermissionCheck(), $allowRoles)) {
+                return $next($request);
+            }
+        }
         if (Auth::guard('web')->check() == true) {
             if (!Auth::guard('web')->user()->remember_token == null) {
                 return redirect()->route('auth.login')->with('failed', 'Tài khoản chưa xác thực email');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apply;
 use App\Models\CateCourse;
 use App\Models\CommentCourse;
 use App\Models\Mentor;
@@ -67,6 +68,7 @@ class MentorController extends Controller
         }
         return view('screens.admin.mentor.create', compact('cate'));
     }
+
     public function upLoadFile($file)
     {
         $fileName = time() . '_' . $file->getClientOriginalName();
@@ -81,10 +83,43 @@ class MentorController extends Controller
         return redirect()->route('mentor.index')->with('success', 'Cập nhập thành công');
     }
 
+    public function accept($id)
+    {
+        $db = Apply::find($id);
+        $password = Str::random(10);
+        $data = [
+            'name'=>$db->name,
+            'email'=>$db->email,
+            'number_phone'=>$db->number_phone,       
+            'email_verified_at' => now(),
+            'avatar'=>'placeholder.png',
+            'specialize_id'=> 2,
+            'is_active'=>1,
+            'password' => Hash::make($password),
+            'remember_token' => null,
+            'created_at' => $db->created_at,
+            'updated_at' => $db->updated_at,
+        ];
+        $mentor = new Mentor();
+        $res = $mentor->saveNew($data);
+        if ($res == null) {
+            return redirect()->route('mentor.index');
+        } else if ($res > 0) {
+            Apply::find($id)->delete();
+            Mail::send('screens.email.acceptMentor', compact('db','password'), function ($email) use ($db) {
+                $email->subject('Yêu cầu đăng ký giảng viên');
+                $email->to($db->email, $db->name);
+            });
+            return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
+        } else {
+            return redirect()->route('mentor.index')->with('failed', 'Lỗi thêm mới');
+        }
+    }
+
     public function commentLesson($id)
     {
         $cate_course_id = $id;
-        $comments = DB::table('cate_courses')->select('*')->where('cate_courses.id' , $id)->join('courses','cate_courses.id', '=', 'courses.id')->join('chapters','courses.id','=','chapters.course_id')->join('lessons','chapters.id','=','lessons.chapter_id')->join('comment_lessons','lessons.id','=','comment_lessons.lesson_id')->get();
+        $comments = DB::table('cate_courses')->select('*')->where('cate_courses.id', $id)->join('courses', 'cate_courses.id', '=', 'courses.id')->join('chapters', 'courses.id', '=', 'chapters.course_id')->join('lessons', 'chapters.id', '=', 'lessons.chapter_id')->join('comment_lessons', 'lessons.id', '=', 'comment_lessons.lesson_id')->get();
         return view('screens.admin.mentor.list-comment', compact('comments', 'cate_course_id'));
     }
 
@@ -93,10 +128,10 @@ class MentorController extends Controller
         $status = DB::table('comment_lessons')->select('status')->where('id', $id)->first();
         if ($status->status == 1) {
             DB::table('comment_lessons')->where('id', $id)->update(['status' => 0]);
-            return redirect()->route('mentor.commentLesson',['id'=>$cate_course_id])->with('success', 'Ẩn thành công');
+            return redirect()->route('mentor.commentLesson', ['id' => $cate_course_id])->with('success', 'Ẩn thành công');
         } else {
             DB::table('comment_lessons')->where('id', $id)->update(['status' => 1]);
-            return redirect()->route('mentor.commentLesson',['id'=>$cate_course_id])->with('success', 'Hiện thành công');
+            return redirect()->route('mentor.commentLesson', ['id' => $cate_course_id])->with('success', 'Hiện thành công');
         }
     }
 }
