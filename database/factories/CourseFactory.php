@@ -35,12 +35,12 @@ class CourseFactory extends Factory
             'image' => fake()->imageUrl(),
             'mentor_id' => rand(1, 4),
             'skill_id' => 1,
-            'language' => 'tiếng việt, tiếng anh',
+            'language' => 0,
             'certificate' => 'hoàn thành khóa học',
             'description' => fake()->text(1000),
             'description_details' => fake()->text(30).','.fake()->text(30).','.fake()->text(30),
             'tags' => 'php,laravel',
-            'type' => '0',
+            'type' => rand(0,1),
         ];
     }
 }

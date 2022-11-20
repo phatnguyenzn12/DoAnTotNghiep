@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CateCourse;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Skill;
 use App\Services\UploadFileService;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,11 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses =  auth()->guard('mentor')->user()->load('courses')->courses;
+        $courses = auth()->guard('mentor')
+            ->user()
+            ->load('courses')
+            ->courses;
+
         return view('screens.mentor.course.list', compact('courses'));
     }
 
@@ -30,22 +35,28 @@ class CourseController extends Controller
 
     public function edit($id)
     {
+        $skills = Skill::select('id', 'title')->get();
         $course = Course::findOrFail($id);
         $cateCourses = CateCourse::select('id', 'name')->get();
-        return view('screens.mentor.course.edit-course', compact('course', 'cateCourses', 'id'));
+
+        return view('screens.mentor.course.edit-course', compact('course', 'cateCourses', 'id', 'skills'));
     }
     public function create()
     {
         $cateCourses = CateCourse::select('id', 'name')->get();
-        return view('screens.mentor.course.create', compact('cateCourses'));
+        $skills = Skill::select('id', 'title')->get();
+
+        return view('screens.mentor.course.create', compact('cateCourses', 'skills'));
     }
 
     public function store(Request $request, UploadFileService $upload)
     {
         $image = $upload
-            ->storage_image($request->file);
+            ->storage_image($request->image);
+        $certificate = $upload
+            ->storage_image($request->certificate);
 
-        $course = Course::create(
+        Course::create(
             array_merge(
                 $request->only([
                     'title',
@@ -55,11 +66,17 @@ class CourseController extends Controller
                     'discount',
                     'status',
                     'slug',
-                    'participant',
-                    'cate_course_id'
+                    'cate_course_id',
+                    'skill_id',
+                    'language',
+                    'certificate',
+                    'tags',
+                    'description',
+                    'description_details',
                 ]),
                 ['image' => $image],
-                ['mentor_id' => auth()->guard('mentor')->user()->id]
+                ['mentor_id' => auth()->guard('mentor')->user()->id],
+                ['certificate' => $certificate]
             )
         );
 
@@ -81,11 +98,18 @@ class CourseController extends Controller
         $course->content = $request->content;
         $course->price = $request->price;
         $course->discount = $request->discount;
-        $course->status = $request->status;
-        $course->slug = $request->slug;
+        $course->skill_id = $request->skill_id;
+        $course->language = $request->language;
+        $course->tags = $request->tags;
+        $course->description = $request->description;
+        $course->description_details = $request->description_details;
         if ($request->image) {
             $image = $upload->storage_image($request->image);
             $course->image = $image;
+        }
+        if ($request->certificate) {
+            $certificate = $upload->storage_image($request->certificate);
+            $course->certificate = $certificate;
         }
         $course->save();
         return redirect()
