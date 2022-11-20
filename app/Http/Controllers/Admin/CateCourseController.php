@@ -13,15 +13,15 @@ class CateCourseController extends Controller
 {
     public  function index()
     {
-        $cate = CateCourse::where('type','!=' ,1)->get(); 
+        $cate = CateCourse::all() ;
         return view('screens.admin.catecourse.list', compact('cate'));
     }
-    public  function listdelete()
-    {
-        $cate = CateCourse::where('type','!=' ,1)->get();
-        $course = Course::where('type','!=' ,0)->get(); 
-        return view('components.admin.catecourse.listdelete', compact('course','cate'));
-    }
+    // public  function listdelete()
+    // {
+    //     $cate = CateCourse::where('type','!=' ,0)->get();
+    //    // $course = Course::where('type','!=' ,0)->get(); 
+    //     return view('components.admin.catecourse.listdelete', compact('course','cate'));
+    // }
     public function create()
     {
 
@@ -57,8 +57,9 @@ class CateCourseController extends Controller
     // }
     public function destroy($id)
     {
-        $model = new CateCourse();
-        $res = $model->Xoa($id);
+        //dd(catecourse::max('id'));
+        $a = CateCourse::create(['name'=>'Cate-course-'.catecourse::max('id')]);
+        $b = Course::where('cate_course_id',$id)->update(['cate_course_id'=>$a->id]);
         return redirect()->back();
     }
     public function restore( Request $request, $id)
