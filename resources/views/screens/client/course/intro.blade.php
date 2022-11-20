@@ -87,42 +87,14 @@
 
                                     <!-- List content -->
                                     <h5 class="mt-4"> Bạn học được gì từ khóa học này?</h5>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
+                                    <div class="mb-3">
                                             <ul class="list-group list-group-borderless">
                                                 @foreach (explode(',',$course->description_details) as $description_detail)
-                                                @dd($description_detail)
                                                 <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                                    class="fas fa-check-circle text-success me-2"></i>Digital
-                                                marketing course introduction</li>
+                                                    class="fas fa-check-circle text-success me-2"></i>{{ $description_detail }}</li>
                                                 @endforeach
-
                                             </ul>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <ul class="list-group list-group-borderless">
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                                        class="fas fa-check-circle text-success me-2"></i>Why SEO</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                                        class="fas fa-check-circle text-success me-2"></i>URL Structure
-                                                </li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                                        class="fas fa-check-circle text-success me-2"></i>Featured
-                                                    Snippet</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                                        class="fas fa-check-circle text-success me-2"></i>SEO tips and
-                                                    tricks</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                                        class="fas fa-check-circle text-success me-2"></i>Google tag
-                                                    manager</li>
-                                            </ul>
-                                        </div>
                                     </div>
-                                    <p class="mb-0">As it so contrasted oh estimating instrument. Size like body some
-                                        one had. Are conduct viewing boy minutes warrant the expense? Tolerably behavior
-                                        may admit daughters offending her ask own. Praise effect wishes change way and
-                                        any wanted. Lively use looked latter regard had. Do he it part more last in.
-                                    </p>
                                 </div>
                                 <!-- Card body START -->
                             </div>

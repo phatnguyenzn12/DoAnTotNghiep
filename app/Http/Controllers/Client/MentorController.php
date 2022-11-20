@@ -20,6 +20,6 @@ class MentorController extends Controller
 
     public function show(Mentor $mentor)
     {
-        return view('screens.client.mentor.intro');
+        return view('screens.client.mentor.intro',compact('mentor'));
     }
 }
