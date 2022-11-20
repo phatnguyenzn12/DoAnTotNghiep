@@ -21,10 +21,12 @@ return new class extends Migration
             $table->string('avatar');
             $table->string('number_phone');
             $table->string('password');
+            $table->string('about_me')->nullable();
             $table->string('address')->nullable();
             $table->string('social_networks')->nullable();
             $table->string('educations')->nullable();
             $table->string('skills')->nullable();
+            $table->integer('Years_in_Experience')->nullable();
             $table->unsignedBigInteger('specialize_id');
             $table->integer('is_active')->default(0); //Không sửa thằng này
             $table->rememberToken();

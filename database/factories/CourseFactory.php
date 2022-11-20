@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Mentor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Arr;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
@@ -17,30 +18,28 @@ class CourseFactory extends Factory
      */
     public function definition()
     {
-        $prices = [200000, 500000, 1000000, 100000, 800000, 900000, 750000, 340000, 430000, 2000000];
-        static $i = 0;
         $name = fake()->text(15);
-        $discounts = [0, 20, 50, 90];
         $slug = Str::slug($name);
+        $mentor =  Mentor::all()->random();
         return [
             'title' => $name,
             'content' => fake()->text(30),
-            'price' => $prices[$i++],
-            'discount' => $discounts[array_rand($discounts)],
+            'price' =>   Arr::random([200000, 500000, 1000000, 100000, 800000, 900000, 750000, 340000, 430000, 2000000]),
+            'discount' => Arr::random([0, 20, 50, 90]),
             'status' => 1,
             'slug' => $slug,
             'participant' => 0,
             'cate_course_id' => rand(1, 3),
             'video' => 'https://www.youtube.com/watch?v=oQjcJBGIFsA',
             'image' => fake()->imageUrl(),
-            'mentor_id' => rand(1, 4),
+            'mentor_id' => $mentor->id,
             'skill_id' => 1,
             'language' => 0,
             'certificate' => 'hoàn thành khóa học',
             'description' => fake()->text(1000),
-            'description_details' => fake()->text(30).','.fake()->text(30).','.fake()->text(30),
+            'description_details' => fake()->text(30) . ',' . fake()->text(30) . ',' . fake()->text(30),
             'tags' => 'php,laravel',
-            'type' => rand(0,1),
+            'type' => rand(0, 1),
         ];
     }
 }

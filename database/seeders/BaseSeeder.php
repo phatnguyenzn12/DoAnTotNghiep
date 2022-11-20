@@ -37,11 +37,11 @@ class BaseSeeder extends Seeder
             $user->assignRole('student');
         }
         Admin::factory(1)->create();
-        Mentor::factory(4)->create();
+        Mentor::factory(10)->create();
         CateCourse::factory(3)->create();
         Specialize::factory(3)->create();
         Skill::factory(3)->create();
-        Course::factory(10)->create();
+        Course::factory(30)->create();
         Chapter::factory(20)->create();
         Lesson::factory(100)->create();
         foreach(Lesson::select('*')->get() as $lesson) {
@@ -56,11 +56,11 @@ class BaseSeeder extends Seeder
                 );
             }
         }
-        // CommentCourse::factory(100)->create();
+        CommentCourse::factory(300)->create();
         // CommentLesson::factory(100)->create();
         Cart::factory(10)->create();
-        Order::factory(10)->create();
-        OrderDetail::factory(10)->create();
-        OwnerCourse::factory(10)->create();
+        Order::factory(100)->create();
+        OrderDetail::factory(200)->create();
+        OwnerCourse::factory(200)->create();
     }
 }
