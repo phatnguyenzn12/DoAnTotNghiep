@@ -97,4 +97,8 @@ class Mentor extends Authenticatable
     {
         return $this->hasMany(Course::class);
     }
+    public function updatePass($id,$password){
+        $res = DB::table($this->table)->where('id', $id)->update(['password'=>$password,'remember_token'=>null]);
+        return $res;
+    }
 }

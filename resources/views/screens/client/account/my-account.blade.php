@@ -247,14 +247,14 @@
                                                 </span><br>
                                             </div>
                                             <div class="rounded mt-1" id="psw-strength"></div>
-											{{-- <strong style="color: rgb(242, 58, 58)">{{ Session::get('error') }}</strong> --}}
+											<strong style="color: rgb(242, 58, 58)">{{ Session::get('error1') }}</strong>
                                         </div>
                                         <!-- Confirm password -->
-                                        {{-- <div>
+                                        <div>
                                             <label class="form-label">Nhập lại mật khẩu</label>
                                             <input name="password_2" class="form-control" type="password" placeholder="">
-											<strong style="color: rgb(242, 58, 58)">{{ Session::get('error') }}</strong>
-                                        </div> --}}
+											<strong style="color: rgb(242, 58, 58)">{{ Session::get('error1') }}</strong>
+                                        </div>
                                         <!-- Button -->
                                         <div class="d-flex justify-content-end mt-4">
                                             <button type="submit" class="btn btn-primary mb-0">Lưu thay đổi</button>

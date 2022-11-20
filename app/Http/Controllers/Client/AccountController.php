@@ -54,34 +54,32 @@ class AccountController extends Controller
     {
 
         $user = User::find($id);
-        //$pass = Hash::make($request->password);
-        // dd(Hash::check($request->password,$user->password));
-        // if (Hash::check($request->password, $user->password)) {
-        //       Hash::make($request->password_1);
-        //    //  dd($abc);
-        //     Hash::make($request->password_2);
-        //     //dd($bc);
-        //     if (Hash::check($request->password_1, $user->password_2)) {
-        //        //  dd(Hash::check($abc, $request->password_2));
-        //         $passnew = Hash::make($request->password_2);
-        //         $us = new User();
-        //         $us->updatePass($id, $passnew);
-        //         return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
-        //     } 
-        //     else{
-        //         return redirect()->back()->with('error', 'Mật khẩu mới không khớp !');
-        //     }
         if (Hash::check($request->password, $user->password)) {
-            //   dd($request->password);
-            $a = Hash::make($request->password_1);
-            //dd($a);
-            $us = new User();
-            $us->updatePass($id, $a);
-            return redirect()->back()->with('success', 'sửa thành công');
+            // Hash::make($request->password_1);
+            //  dd($abc);
+            //  Hash::make($request->password_2);
+            //dd($bc);
+            if ($request->password_1 == $request->password_2) {
+                //  dd(Hash::check($abc, $request->password_2));
+                $passnew = Hash::make($request->password_2);
+                $us = new User();
+                $us->updatePass($id, $passnew);
+                return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
+            } else {
+                return redirect()->back()->with('error1', 'Mật khẩu mới không khớp !');
+            }
+            // if (Hash::check($request->password, $user->password)) {
+            //     //   dd($request->password);
+            //     $a = Hash::make($request->password_1);
+            //     //dd($a);
+            //     $us = new User();
+            //     $us->updatePass($id, $a);
+            //     return redirect()->back()->with('success', 'sửa thành công');
         } else {
             return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');
         }
     }
+
     public function uploadFile($file)
     {
         $fileName = time() . '_' . $file->getClientOriginalName();  //
