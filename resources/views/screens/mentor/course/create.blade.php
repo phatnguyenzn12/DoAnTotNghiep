@@ -45,11 +45,55 @@
                             </div>
                             <div class="form-group">
                                 <label>Video demo</label>
-                                <input type="url" name="video" rows="5" class="form-control" placeholder="nhập đường dẫn video youtube"/>
+                                <input type="url" name="video" rows="5" class="form-control"
+                                    placeholder="nhập đường dẫn video youtube" />
+                            </div>
+                            <div class="form-group">
+                                <label>Kỹ năng</label>
+                                <select id="select2" class="form-control" name="skill_id" id="">
+                                    <option value="">Chọn kỹ năng</option>
+                                    @foreach ($skills as $skill)
+                                    <option value="{{ $skill->id }}">{{ $skill->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Ngôn ngữ</label>
+                                <select id="select2" class="form-control" name="language" id="">
+                                    <option value="">Chọn ngôn ngữ</option>
+                                    <option value="0">Tiếng việt</option>
+                                    <option value="1">Tiếng anh</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Giấy chứng nhận</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input file-image" name="certificate"
+                                        accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                                <div class="preview-image new"></div>
+                                <div class="preview-image old">
+                                    <img src="/"
+                                        style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Thẻ
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" value="" name="tags" class="form-control" placeholder="Thẻ">
+                            </div>
+                            <div class="form-group">
+                                <label>Giới thiệu</label>
+                                <textarea rows="5" class="form-control" name="content"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Mô tả</label>
-                                <textarea id="editor" name="content" rows="5" class="form-control">asdasdasdasd</textarea>
+                                <textarea id="editor" rows="5" class="form-control" name="description" id=""></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Mô tả chi tiết</label>
+                                <input name="description_details" type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Danh mục</label>
@@ -65,7 +109,7 @@
                             <div class="form-group">
                                 <label>Ảnh slide</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input file-image" name="file"
+                                    <input type="file" class="custom-file-input file-image" name="image"
                                         accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
@@ -75,20 +119,7 @@
                                         style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-3 col-form-label">Trạng thái</label>
-                                <div class="col-9 col-form-label">
-                                    <div class="radio-inline">
-                                        <label class="radio">
-                                            <input type="radio" value="1" name="status"
-                                                @checked(true)>
-                                            <span></span>Công khai</label>
-                                        <label class="radio">
-                                            <input type="radio" value="0" name="status">
-                                            <span></span>Riêng tư</label>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
                                 <a href="" class="btn btn-success mr-2">Danh sách slider</a>

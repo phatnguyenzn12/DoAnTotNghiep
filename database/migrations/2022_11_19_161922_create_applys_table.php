@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_videos', function (Blueprint $table) {
+        Schema::create('applys', function (Blueprint $table) {
             $table->id();
-            $table->string('video_path');
-            $table->integer('is_demo')->default(0);
-            $table->integer('lesson_id');
-            $table->integer('is_check')->default(0);
+            $table->string('name');
+            $table->string('email');
+            $table->string('number_phone');
+            $table->string('Summary');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessonVideos');
+        Schema::dropIfExists('applys');
     }
 };

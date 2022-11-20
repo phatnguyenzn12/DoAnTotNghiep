@@ -3,7 +3,12 @@
         <!--begin::Card-->
         <div class="card card-custom gutter-b card-stretch">
             <!--begin::Body-->
-            <div class="card-body pt-4">
+            <div class="card-body pt-4 ribbon ribbon-right">
+                <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
+                    <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">{{ $course->active }}</font>
+                    </font>
+                </div>
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end">
                     <div class="dropdown dropdown-inline">
@@ -14,12 +19,8 @@
                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
                             <!--begin::Navigation-->
                             <ul class="navi navi-hover">
-                                <a class="dropdown-item" href="{{route('mentor.course.program',$course->id)}}">Chỉnh sửa</a>
-                                <form action="" method="POST" class="dropdown-item">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button class="btn btn-link-dark">Thay đổi trạng thái</button>
-                                </form>
+                                <a class="dropdown-item" href="{{ route('mentor.course.program', $course->id) }}">Chỉnh
+                                    sửa</a>
                                 <div class="dropdown-divider"></div>
                             </ul>
                             <!--end::Navigation-->
@@ -29,38 +30,57 @@
                 <!--end::Toolbar-->
                 <!--begin::User-->
                 <div class="d-flex align-items-center mb-7" style="aspect-ratio:1/1;overflow:hidden">
-                    <img src="{{$course->image}}" style="width: 100%;height:100%;object-fit:cover" alt="image">
+                    <img src="{{ $course->image }}" style="width: 100%;height:100%;object-fit:cover" alt="image">
                 </div>
                 <!--end::User-->
                 <!--begin::Desc-->
-                <h4 class=" mb-7 font-weight-bold"><a class="text-dark text-hover-primary" href="">{{$course->title}}</a> </h4>
+                <h4 class=" mb-7 font-weight-bold"><a class="text-dark text-hover-primary"
+                        href="">{{ $course->title }}</a> </h4>
                 <!--end::Desc-->
                 <!--begin::Info-->
                 <div class="mb-7">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Danh mục</span>
-                        <span class="text-dark font-weight-bolder text-hover-primary">{{$course->cateCourse->name}}</span>
+                        <span
+                            class="text-dark font-weight-bolder text-hover-primary">{{ $course->cateCourse->name }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-cente my-1">
                         <span class="text-dark-75 mr-2">Chương học</span>
-                        <span class="text-dark font-weight-bolder text-hover-primary">10</span>
+                        <span
+                            class="text-dark font-weight-bolder text-hover-primary">{{ $course->chapters->count() }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Bài học</span>
-                        <span class="text-dark font-weight-bolder font-weight-bold">50</span>
+                        <span
+                            class="text-dark font-weight-bolder font-weight-bold">{{ $course->lessons->count() }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Giá khóa học</span>
-                        <span class="text-dark font-weight-bolder font-weight-bold">50.000</span>
+                        <span class="text-dark font-weight-bolder font-weight-bold">{{ $course->price }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Giảm giá</span>
-                        <span class="text-dark font-weight-bolder font-weight-bold">50% - 25.000</span>
+                        <span class="text-dark font-weight-bolder font-weight-bold">{{ $course->discount }}% -
+                            {{ $course->current_price }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-dark-75 mr-2">Trạng thái</span>
-                        <span class="text-success font-weight-bolder">Ẩn</span>
+                        <span class="text-dark-75 mr-2">Ngôn ngữ</span>
+                        <span class="text-success font-weight-bolder">{{ $course->language }}</span>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-dark-75 mr-2">Giấy chứng nhận</span>
+                        <span
+                            class="text-success font-weight-bolder">{{ $course->certificate != null ? 'có giấy chứng nhận' : ' không Có giấy chứng nhận' }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-dark-75 mr-2">tags</span>
+                        <span class="text-success font-weight-bolder">{{ $course->tags }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-dark-75 mr-2">Kỹ năng</span>
+                        <span class="text-success font-weight-bolder">{{ $course->skill->title }}</span>
+                    </div>
+
                 </div>
                 <!--end::Info-->
             </div>

@@ -29,7 +29,7 @@ class Course extends BaseModel
     ];
 
     protected $appends = [
-        'current_price'
+        'current_price','active','language_rule'
     ];
 
     ////////////////////////////////////////////////////////////////
@@ -74,6 +74,10 @@ class Course extends BaseModel
         return $this->belongsTo(Mentor::class);
     }
 
+    public function skill(){
+        return $this->belongsTo(Skill::class);
+    }
+
     public function getCurrentPriceAttribute()
     {
         $price = $this->discount > 0
@@ -81,4 +85,21 @@ class Course extends BaseModel
             : $this->price;
         return $price;
     }
+
+    public function getActiveAttribute()
+    {
+        $type = $this->type == 0
+            ? 'Chờ xử lý'
+            : 'Được sử dụng';
+        return $type;
+    }
+
+    public function getLanguageRuleAttribute()
+    {
+        $language = $this->language == 0
+            ? 'Tiếng việt'
+            : 'english';
+        return $language;
+    }
+
 }
