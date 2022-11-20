@@ -54,7 +54,8 @@ class MentorController extends Controller
 
     public function list()
     {
-        return view('screens.client.mentor.list');
+        $mentor = Mentor::all();
+        return view('screens.client.mentor.list',compact('mentor'));
     }
 
     public function show(Mentor $mentor)
