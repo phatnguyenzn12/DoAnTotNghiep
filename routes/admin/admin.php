@@ -10,3 +10,6 @@ Route::prefix('admin/admins')->name('admins.')->middleware('role:admin|mentor')-
         Route::match(['get','post'],'/update/{id}', 'update')->name('update');
     }
 );
+Route::get('admin', function () {
+    return view('screens.admin.home');
+})->name('admin');
