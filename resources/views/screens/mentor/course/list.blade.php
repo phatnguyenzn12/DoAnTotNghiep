@@ -11,7 +11,7 @@
                 <div class="alert alert-danger text-center">{{ session()->get('error') }}</div>
             @endif
             <!--begin::table-->
-            <a href="{{route('mentor.course.create')}}" class="btn btn-primary mr-2 mb-3">Thêm khóa học</a>
+            <a href="{{ route('mentor.course.create') }}" class="btn btn-primary mr-2 mb-3">Thêm khóa học</a>
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <form action="">
