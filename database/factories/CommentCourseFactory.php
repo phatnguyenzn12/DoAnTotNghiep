@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\CommentCourse;
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,14 +19,16 @@ class CommentCourseFactory extends Factory
      */
     public function definition()
     {
+        $course = Course::all()->random();
+        $user = User::all()->random();
         return [
             'comment' => fake()->name(),
             'vote' => fake()->numberBetween(1,5),
-            'mentor_id' => 0, 
+            'mentor_id' => 0,
             'reply' => rand(0,100),
             'status' => 1,
-            'course_id' => rand(1,10),
-            'user_id' => rand(1,50),
+            'course_id' =>$course->id,
+            'user_id' => $user->id,
         ];
     }
 }

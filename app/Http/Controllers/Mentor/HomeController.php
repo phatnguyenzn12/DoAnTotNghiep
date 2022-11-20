@@ -9,7 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $courses =  auth()->guard('mentor')->user()->load('courses')->courses;
+        $courses = auth()->guard('mentor')->user()->load('courses')->courses;
+        $courses = auth()->guard('mentor')->user()->load('courses')->courses;
         return view('screens.mentor.home',compact('courses'));
     }
 

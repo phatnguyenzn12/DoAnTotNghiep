@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +18,11 @@ class OwnerCourseFactory extends Factory
      */
     public function definition()
     {
-        static $course_id = 1;
-        static $user_id = 1;
-        $user_id++;
+        $course = Course::all()->random();
+        $user = User::all()->random();
         return [
-            'course_id' => $course_id++,
-            'user_id' => $user_id == 4 ? $user_id = 1 : $user_id
+            'course_id' => $course->id,
+            'user_id' => $user->id
         ];
     }
 }

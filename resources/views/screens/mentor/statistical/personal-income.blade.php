@@ -123,8 +123,8 @@
             <div class="card-title py-5">
                 <h3 class="card-label">Thu nhập: 12000</h3>
             </div>
-            <div class="row align-items-center">
-                <div class="col-md-6 my-2 my-md-0">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="my-2 my-md-0">
                     <div class="d-flex align-items-center">
                         <label class="mr-3 mb-0 d-none d-md-block">Khoá học  </label>
                         <select class="form-control" id="kt_datatable_search_status">
@@ -138,7 +138,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6 my-2 my-md-0">
+                <div class="m-2 my-md-0">
                     <div class="d-flex align-items-center">
                         <label class="mr-3 mb-0 d-none d-md-block">Năm:</label>
                         <select class="form-control" id="kt_datatable_search_type">
@@ -149,6 +149,8 @@
                         </select>
                     </div>
                 </div>
+
+                <button class="btn btn-primary m-2 my-md-0">Lọc</button>
             </div>
             <!--end::Title-->
         </div>
