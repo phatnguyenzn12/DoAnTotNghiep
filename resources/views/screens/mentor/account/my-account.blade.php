@@ -74,7 +74,8 @@
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Địa chỉ</label>
                         <div class="col-lg-9 col-xl-6">
-                            <input required name="address" class="form-control form-control-lg form-control-solid" type="text" />
+                            <input required name="address" class="form-control form-control-lg form-control-solid"
+                                type="text" />
                             <span class="form-text text-muted">Ghi rõ địa chỉ hiện đang sinh sống.</span>
                         </div>
                     </div>
@@ -94,7 +95,7 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Kinh nghiệm</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <input required name="" type="text"
+                                <input required name="years_in_experience" type="text"
                                     class="form-control form-control-lg form-control-solid" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
@@ -106,7 +107,7 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Bản thân</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <input required name="" type="text"
+                                <input required name="about_me" type="text"
                                     class="form-control form-control-lg form-control-solid" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
