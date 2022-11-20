@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('social_networks')->nullable();
             $table->string('educations')->nullable();
             $table->string('skills')->nullable();
-            $table->integer('Years_in_Experience')->nullable();
+            $table->integer('years_in_experience')->nullable();
             $table->unsignedBigInteger('specialize_id');
             $table->integer('is_active')->default(0); //Không sửa thằng này
             $table->rememberToken();

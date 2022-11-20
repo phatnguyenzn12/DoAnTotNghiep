@@ -138,7 +138,7 @@
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{route('mentor.account.forgotPassword')}}" class="menu-link">
+                            <a href="{{route('mentor.account.password')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
