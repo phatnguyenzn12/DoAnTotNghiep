@@ -51,7 +51,12 @@ class Course extends BaseModel
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class, OrderDetail::class, 'order_id');
+        return $this->belongsToMany(Order::class, OrderDetail::class);
+    }
+
+    public function order_details()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
 
     public function cateCourse()

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\CateCourse;
+use App\Models\Censor;
 use App\Models\Chapter;
 use App\Models\CommentCourse;
 use App\Models\CommentLesson;
@@ -19,6 +20,7 @@ use App\Models\OwnerCourse;
 use App\Models\Skill;
 use App\Models\Specialize;
 use App\Models\User;
+use Database\Factories\CensorFactory;
 use Illuminate\Database\Seeder;
 
 class BaseSeeder extends Seeder
@@ -38,6 +40,7 @@ class BaseSeeder extends Seeder
         }
         Admin::factory(1)->create();
         Mentor::factory(10)->create();
+        Censor::factory(1)->create();
         CateCourse::factory(3)->create();
         Specialize::factory(3)->create();
         Skill::factory(3)->create();
@@ -57,10 +60,10 @@ class BaseSeeder extends Seeder
             }
         }
         CommentCourse::factory(300)->create();
-        // CommentLesson::factory(100)->create();
+        CommentLesson::factory(1000)->create();
         Cart::factory(10)->create();
         Order::factory(100)->create();
-        OrderDetail::factory(200)->create();
+        OrderDetail::factory(500)->create();
         OwnerCourse::factory(200)->create();
     }
 }

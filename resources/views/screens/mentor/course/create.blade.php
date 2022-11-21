@@ -53,7 +53,7 @@
                                 <select id="select2" class="form-control" name="skill_id" id="">
                                     <option value="">Chọn kỹ năng</option>
                                     @foreach ($skills as $skill)
-                                    <option value="{{ $skill->id }}">{{ $skill->title }}</option>
+                                        <option value="{{ $skill->id }}">{{ $skill->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -81,7 +81,8 @@
                             <div class="form-group">
                                 <label>Thẻ
                                     <span class="text-danger">*</span></label>
-                                <input type="text" value="" name="tags" class="form-control" placeholder="Thẻ">
+                                <input id="kt_tagify_1" class="form-control" name='tags' placeholder='Thẻ'
+                                    value='css, html, javascript, angular, vue, react' />
                             </div>
                             <div class="form-group">
                                 <label>Giới thiệu</label>
@@ -93,7 +94,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Mô tả chi tiết</label>
-                                <input name="description_details" type="text" class="form-control">
+                                <input id="kt_tagify_2" class="form-control" name='description_details'
+                                    placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
                             </div>
                             <div class="form-group">
                                 <label>Danh mục</label>
@@ -134,7 +136,7 @@
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
-
+    <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
     <script>

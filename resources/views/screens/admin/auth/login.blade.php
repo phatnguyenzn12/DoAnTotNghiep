@@ -4,6 +4,7 @@
 
 @section('content')
 
+
     <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
 
         <div class="container-fluid">
@@ -52,7 +53,7 @@
                         <div class="col-sm-10 col-xl-8 m-auto">
                             <!-- Title -->
                             <span class="mb-0 fs-1">👋</span>
-                            <h1 class="fs-2">Login Admin</h1>
+                            <h1 class="fs-2">Đặng nhập tài khoản kiểm duyệt</h1>
                             <p class="lead mb-4">Nice to see you! Please log in with your account.</p>
 
                             <!-- Form START -->
@@ -135,7 +136,6 @@
             </div> <!-- Row END -->
         </div>
     </section>
-
 @endsection
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>

@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\CommentLesson;
+use App\Models\Lesson;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,13 +19,15 @@ class CommentLessonFactory extends Factory
      */
     public function definition()
     {
+        $lesson = Lesson::all()->random();
+        $user = User::all()->random();
         return [
             'comment' => fake()->name(30),
             'vote' => fake()->numberBetween(0,200),          //fake()->numberBetween(0,200)
-            'reply' => rand(0,100),          //rand(0,100)
+            'reply' => 0,          //rand(0,100)
             'status' => '1',
-            'lesson_id' => rand(1,100),
-            'user_id' => rand(1,50),
+            'lesson_id' => $lesson->id,
+            'user_id' => $user->id,
         ];
     }
 }

@@ -65,59 +65,107 @@
                         </div>
                     </div>
                     <!--end::Search Form-->
-                    <!--end: Search Form-->
                     <!--begin: Datatable-->
-                    <div id="datatable">
-                        <table class="table table-separate table-head-custom table-checkable">
-                            <thead>
-                                <tr>
-                                    <th>Tên khóa học</th>
-                                    <th>Tên chủ sỡ hữu</th>
-                                    <th>Nội dung</th>
-                                    <th>Giá</th>
-                                    <th>Video</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Trạng thái</th>
-                                    <th>Active</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($courses as $course)
-                                    <tr>
-                                        <td>{{ $course->title }}</td>
-                                        @foreach (DB::table('mentors')->select('*')->where('id', $course->mentor_id)->get() as $mentor)
-                                            <td>{{ $mentor->name }}</td>
-                                        @endforeach
-                                        <td>{{ $course->content }}</td>
-                                        <td>{{ $course->price }}</td>
-                                        <td>
-                                            {{$course->video}}
-                                            {{-- <iframe width="420" height="315" src="https://www.youtube.com/embed/A6XUVjK9W4o" frameborder="0" allowfullscreen></iframe> --}}
-                                        </td>
-                                        <td><img src="{{ $course->image }}" width="150" height="100" alt=""></td>
-                                        <td>
-                                            @if ($course->status == 1)
-                                                {{ 'Hiện' }} @else{{ 'Ẩn' }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($course->status == 1)
-                                                <a href="{{ route('censor.course.actived', $course->id) }}"
-                                                    onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
-                                                    class="btn btn-danger">Ẩn</a>
-                                            @else
-                                                <a href="{{ route('censor.course.actived', $course->id) }}"
-                                                    onclick="return confirm('Bạn có chắc muốn hoạt động')"
-                                                    class="btn btn-success">Hiện</a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @include('components.admin.pagination')
+                    <div class="row">
+                        <!--begin::Col-->
+                        @foreach ($courses as $course)
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <a class="card-body pt-4 ribbon ribbon-right"
+                                        href="{{ route('mentor.course.program', $course->id) }}">
+                                        <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">{{ $course->active }}</font>
+                                            </font>
+                                        </div>
+                                        
+                                        <!--begin::User-->
+                                        <div class="d-flex align-items-center mb-7"
+                                            style="aspect-ratio:1/1;overflow:hidden">
+                                            <img src="{{ $course->image }}" style="width: 100%;height:100%;object-fit:cover"
+                                                alt="image">
+                                        </div>
+                                        <!--end::User-->
+
+                                        <!--begin::Desc-->
+                                        <h4 class=" mb-7 font-weight-bold"><a class="text-dark text-hover-primary"
+                                                href="">{{ $course->title }}</a> </h4>
+                                        <!--end::Desc-->
+                                        <!--begin::Info-->
+                                        <div class="mb-7 p-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">Danh mục</span>
+                                                <span
+                                                    class="text-dark font-weight-bolder text-hover-primary">{{ $course->cateCourse->name }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-cente my-1">
+                                                <span class="text-dark-75 mr-2">Chương học</span>
+                                                <span
+                                                    class="text-dark font-weight-bolder text-hover-primary">{{ $course->chapters->count() }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">Bài học</span>
+                                                <span
+                                                    class="text-dark font-weight-bolder font-weight-bold">{{ $course->lessons->count() }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">Giá khóa học</span>
+                                                <span
+                                                    class="text-dark font-weight-bolder font-weight-bold">{{ $course->price }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">Giảm giá</span>
+                                                <span
+                                                    class="text-dark font-weight-bolder font-weight-bold">{{ $course->discount }}%
+                                                    -
+                                                    {{ $course->current_price }}</span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">Ngôn ngữ</span>
+                                                <span
+                                                    class="text-success font-weight-bolder">{{ $course->language }}</span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">Giấy chứng nhận</span>
+                                                <span
+                                                    class="text-success font-weight-bolder">{{ $course->certificate != null ? 'có giấy chứng nhận' : ' không Có giấy chứng nhận' }}</span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">tags</span>
+                                                <span class="text-success font-weight-bolder">{{ $course->tags }}</span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">Kỹ năng</span>
+                                                <span
+                                                    class="text-success font-weight-bolder">{{ $course->skill->title }}</span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                    <a href="{{ route('censor.course.actived',['course' => $course->id,'status' => 1]) }}"
+                                                        onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
+                                                        class="btn btn-success">hoạt động</a>
+
+                                                    <a href="{{ route('censor.course.actived', ['course' => $course->id,'status' => 0]) }}"
+                                                        onclick="return confirm('Bạn có chắc muốn hoạt động')"
+                                                        class="btn btn-danger">Ngừng hoạt động</a>
+                                            </div>
+
+                                        </div>
+                                        <!--end::Info-->
+                                    </a>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end:: Card-->
+                            </div>
+                        @endforeach
+                        <!--end: Datatable-->
                     </div>
-                    <!--end: Datatable-->
                 </div>
             </div>
             <!--end::Card-->
