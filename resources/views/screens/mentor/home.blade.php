@@ -71,7 +71,7 @@
                         <div class="d-flex flex-column">
                             <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">Tổng
                                 số học sinh</a>
-                            <div class="text-dark-75">155</div>
+                            <div class="text-dark-75">{{ $student_number }}</div>
                         </div>
                         <!--end::Content-->
                     </div>
@@ -102,9 +102,9 @@
                         <!--end::Icon-->
                         <!--begin::Content-->
                         <div class="d-flex flex-column">
-                            <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">Tổng
-                                doanh thu tháng này</a>
-                            <div class="text-dark-75">150.000</div>
+                            <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">Số
+                                khóa học được bán</a>
+                            <div class="text-dark-75">{{ $course_sold }}</div>
                         </div>
                         <!--end::Content-->
                     </div>
@@ -121,7 +121,7 @@
         <div class="card-header h-auto">
             <!--begin::Title-->
             <div class="card-title py-5">
-                <h3 class="card-label">   Thu nhập tháng này so với tháng trước</h3>
+                <h3 class="card-label"> Thu nhập năm nay</h3>
             </div>
             <!--end::Title-->
         </div>
@@ -273,12 +273,21 @@
                     <thead>
                         <tr>
                             <th>Tên khóa học</th>
-                            <th>Bán</th>
+                            <th>Thu nhập</th>
                             <th>Số lượng</th>
                             <th>Giai đoạn</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse ($selling as $item)
+                            <tr>
+                                <td><img src="{{$item->image}}" width="100px" alt=""> {{$item->title }}</td>
+                                <td>{{$item->total }}</td>
+                                <td>{{$item->number }}</td>
+                                <td>{{$item->title }}</td>
+                            </tr>
+                        @empty
+                        @endforelse
 
                     </tbody>
                 </table>

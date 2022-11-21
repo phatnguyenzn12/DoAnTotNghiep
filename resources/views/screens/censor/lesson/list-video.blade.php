@@ -71,35 +71,54 @@
                         <table class="table table-separate table-head-custom table-checkable">
                             <thead>
                                 <tr>
+                                    <th>Tên khóa học</th>
                                     <th>Tên bài học</th>
                                     <th>Video</th>
-                                    <th>Trạng thái</th>
+                                    <th>Công khai</th>
                                     <th>Active</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($lessons as $lesson)
                                     <tr>
+                                        <td>{{ $lesson->chapter->course->title }}</td>
                                         <td>{{ $lesson->title }}</td>
                                         <td>
-                                            {{ $lesson->video_path }}
-                                            {{-- <iframe width="250" height="180" src="https://www.facebook.com/" frameborder="0" allowfullscreen></iframe> --}}
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-example"
+                                                onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
+                                                video</button>
                                         </td>
+                                        <th>{{ $lesson->lessonVideo->demo }}</th>
                                         <td>
-                                            @if ($lesson->is_check == 1)
-                                                {{ 'Hiện' }} @else{{ 'Ẩn' }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($lesson->is_check == 1)
-                                                <a href="{{ route('censor.lesson.actived', $lesson->id) }}"
-                                                    onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
-                                                    class="btn btn-danger">Ẩn</a>
-                                            @else
-                                                <a href="{{ route('censor.lesson.actived', $lesson->id) }}"
-                                                    onclick="return confirm('Bạn có chắc muốn hoạt động')"
-                                                    class="btn btn-success">Hiện</a>
-                                            @endif
+
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    @if ($lesson->lessonVideo->is_check == 0)
+                                                        chưa được kiểm duyệt
+                                                    @elseif($lesson->lessonVideo->is_check == 2)
+                                                        Cần Sửa lại
+                                                    @else
+                                                        đã đc kiểm duyệt
+                                                    @endif
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('censor.lesson.actived', ['lesson_video' => $lesson->lessonVideo->id, 'check' => 0]) }}"
+                                                        onclick="return confirm('bài học chưa được kiểm duyệt')"
+                                                        class="btn btn-success">chưa được kiểm duyệt </a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('censor.lesson.actived', ['lesson_video' => $lesson->lessonVideo->id, 'check' => 2]) }}"
+                                                        onclick="return confirm('Bài học cần sửa lại')"
+                                                        class="btn btn-danger">Cần Sửa lại</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('censor.lesson.actived', ['lesson_video' => $lesson->lessonVideo->id, 'check' => 1]) }}"
+                                                        onclick="return confirm('bài học đã đc kiểm duyệt')"
+                                                        class="btn btn-danger">đã đc kiểm duyệt</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -115,9 +134,51 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
+
+    <!-- modal add section -->
+    \
+    <!-- Modal-->
+    <div class="modal fade" id="modal-example" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xem video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body" style="height: 500px;">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('js-links')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
 @push('js-handles')
+    <script>
+        function showModal(id_video) {
+            $('#modal-example').find('.modal-body').html(
+                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
+                .then(
+                    res => {
+                        console.log(res)
+                        $('#modal-example').find('.modal-body').html(res.data.html)
+                        $('iframe').css({
+                            'width': '100%',
+                            'height': '100%',
+                        });
+                    }
+                )
+        }
+    </script>
 @endpush

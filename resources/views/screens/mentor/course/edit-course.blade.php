@@ -93,8 +93,8 @@
                         <div class="form-group">
                             <label>Thẻ
                                 <span class="text-danger">*</span></label>
-                            <input type="text" name="tags" class="form-control"
-                                value="{{ $course->tags }}" placeholder="Thẻ">
+                            <input id="kt_tagify_1" type="text" name="tags" class="form-control"
+                                value="{{ str_replace(',',', ', $course->tags) }}" placeholder="Thẻ">
                         </div>
                         <div class="form-group">
                             <label>Giới thiệu</label>
@@ -107,7 +107,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả chi tiết</label>
-                            <input name="description_details" type="text" value="{{ $course->description_details }}"
+                            <input id="kt_tagify_2" name="description_details" type="text" value="{{ str_replace(',',', ', $course->description_details) }}"
                                 class="form-control">
                         </div>
                         <div class="form-group">
@@ -146,6 +146,7 @@
 @endsection
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
 @endpush

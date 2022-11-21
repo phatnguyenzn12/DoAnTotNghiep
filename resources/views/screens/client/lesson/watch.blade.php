@@ -380,170 +380,277 @@
 
                 <div class="container">
                     <!-- Content START -->
-                <div class="tab-pane fade active show" id="course-pills-4" role="tabpanel"
-                aria-labelledby="course-pills-tab-4">
-                <!-- Review START -->
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <h5 class="mb-4">Ask Your Question</h5>
+                    <div class="tab-pane fade active show" id="course-pills-4" role="tabpanel"
+                        aria-labelledby="course-pills-tab-4">
+                        <!-- Review START -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="mb-4">Ask Your Question</h5>
 
-                        <!-- Comment box -->
-                        <div class="d-flex mb-4">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-sm flex-shrink-0 me-2">
-                                <a href="#"> <img class="avatar-img rounded-circle"
-                                        src="/frontend/images/avatar/09.jpg" alt=""> </a>
-                            </div>
-
-                            <form class="w-100 d-flex">
-                                <textarea class="one form-control pe-4 bg-light" id="autoheighttextarea" rows="1"
-                                    placeholder="Add a comment..."></textarea>
-                                <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
-                                        class="fas fa-paper-plane fs-5"></i></button>
-                            </form>
-                        </div>
-
-                        <!-- Comment item START -->
-                        <div class="border p-2 p-sm-4 rounded-3 mb-4">
-                            <ul class="list-unstyled mb-0">
-                                <li class="comment-item">
-                                    <div class="d-flex mb-3">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm flex-shrink-0">
-                                            <a href="#"><img class="avatar-img rounded-circle"
-                                                    src="/frontend/images/avatar/05.jpg" alt=""></a>
-                                        </div>
-                                        <div class="ms-2">
-                                            <!-- Comment by -->
-                                            <div class="bg-light p-3 rounded">
-                                                <div class="d-flex justify-content-center">
-                                                    <div class="me-2">
-                                                        <h6 class="mb-1 lead fw-bold"> <a href="#!"> Frances
-                                                                Guerrero (Giảng viên) </a></h6>
-                                                        <p class="h6 mb-0">Removed demands expense account in outward
-                                                            tedious do. Particular way thoroughly unaffected projection?
-                                                        </p>
-                                                    </div>
-                                                    <small>5hr</small>
-                                                </div>
-                                            </div>
-                                            <!-- Comment react -->
-                                            <ul class="nav nav-divider py-2 small">
-                                                <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                                        Like (3)</a> </li>
-                                                <li class="nav-item"> <a class="text-primary-hover"
-                                                        data-bs-toggle="collapse" href="#collapseComment1"
-                                                        role="button" aria-expanded="false"
-                                                        aria-controls="collapseComment">
-                                                        Reply</a> </li>
-                                                <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                                        View 5 replies</a> </li>
-                                            </ul>
-
-                                            <!-- collapse textarea -->
-                                            <div class="collapse show" id="collapseComment1">
-                                                <div class="d-flex mt-3">
-                                                    <textarea class="form-control mb-0" placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-                                                    <button
-                                                        class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
-                                                            class="fas fa-paper-plane fs-5"></i></button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
+                                <!-- Comment box -->
+                                <div class="d-flex mb-4">
+                                    <!-- Avatar -->
+                                    <div class="avatar avatar-sm flex-shrink-0 me-2">
+                                        <a href="#"> <img class="avatar-img rounded-circle"
+                                                src="/frontend/images/avatar/09.jpg" alt=""> </a>
                                     </div>
 
-                                    <!-- Comment item nested START -->
-                                    <ul class="list-unstyled ms-4">
-                                        <!-- Comment item START -->
-                                        <li class="comment-item">
-                                            <div class="d-flex">
-                                                <!-- Avatar -->
-                                                <div class="avatar avatar-xs flex-shrink-0">
-                                                    <a href="#"><img class="avatar-img rounded-circle"
-                                                            src="/frontend/images/avatar/06.jpg" alt=""></a>
-                                                </div>
-                                                <!-- Comment by -->
-                                                <div class="ms-2">
-                                                    <div class="bg-light p-3 rounded">
-                                                        <div class="d-flex justify-content-center">
-                                                            <div class="me-2">
-                                                                <h6 class="mb-1  lead fw-bold"> <a href="#">
-                                                                        Lori Stevens </a> </h6>
-                                                                <p class=" mb-0">See resolved goodness felicity shy
-                                                                    civility domestic had but Drawings offended yet
-                                                                    answered Jennings perceive. Domestic had but
-                                                                    Drawings offended yet answered Jennings perceive.
-                                                                </p>
+                                    <form class="w-100 d-flex" action="{{ route('client.lesson.storecmt') }}"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
+                                        <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
+                                            placeholder="Add a comment..."></textarea>
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
+                                                class="fas fa-paper-plane fs-5"></i></button>
+                                    </form>
+                                </div>
+
+                                <!-- Comment item START -->
+                                <div class="border p-2 p-sm-4 rounded-3 mb-4">
+                                    @foreach ($cmt as $item)
+                                        @if ($item->reply == null)
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="comment-item">
+                                                    <div class="d-flex mb-3 ">
+                                                        <!-- Avatar -->
+                                                        <div class="avatar avatar-sm flex-shrink-0">
+                                                            <a href="#"><img class="avatar-img rounded-circle"
+                                                                    src="{{ Auth::user()->avatar }}" alt=""></a>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <!-- Comment by -->
+                                                            <div class="bg-light p-3 rounded">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <div class="me-2">
+                                                                        <h6 class="mb-1 lead fw-bold"> <a href="#!">
+                                                                                {{ DB::table('users')->where('id', '=', $item->user_id)->first()->name }}
+                                                                                (Giảng viên)
+                                                                            </a></h6>
+                                                                        <p class="h6 mb-0"> {{ $item->comment }}
+                                                                        </p>
+                                                                    </div>
+                                                                    <small>
+                                                                        {{ date('d/m/Y', strtotime($item->created_at)) }}</small>
+                                                                </div>
                                                             </div>
-                                                            <small>2hr</small>
+                                                            <!-- Comment react -->
+                                                            <ul class="nav nav-divider py-2 small">
+                                                                <li class="nav-item"> <a class="text-primary-hover"
+                                                                        href="#">
+                                                                        Like (3)</a> </li>
+                                                                <li class="nav-item"> <a class="text-primary-hover"
+                                                                        data-bs-toggle="collapse" href="#collapseComment1"
+                                                                        role="button" aria-expanded="false"
+                                                                        aria-controls="collapseComment">
+                                                                        Reply</a> </li>
+                                                                <li class="nav-item"> <a class="text-primary-hover"
+                                                                        href="#">
+                                                                        View 5 replies</a> </li>
+                                                            </ul>
+                                                            {{-- end lisst cooment  --}}
+                                                            @foreach ($cmt as $i)
+                                                                @if ($i->reply == $item->id)
+                                                                    <div class="bg-light p-3 rounded" style="margin-left: 50px">
+                                                                        <div class="d-flex justify-content-center">
+                                                                            <div class="avatar avatar-sm flex-shrink-0">
+                                                                                <a href="#"><img
+                                                                                        class="avatar-img rounded-circle"
+                                                                                        src="/frontend/images/avatar/05.jpg"
+                                                                                        alt=""></a>
+                                                                            </div>
+                                                                            <div class="me-2">
+                                                                                <h6 class="mb-1 lead fw-bold"> <a
+                                                                                        href="#!">
+                                                                                        {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}
+                                                                                    </a></h6>
+                                                                                <p class="h6 mb-0">{{ $i->comment }}
+                                                                                </p>
+                                                                            </div>
+                                                                            <small>5hr</small>
+                                                                        </div>
+                                                                        <ul class="nav nav-divider py-2 small">
+                                                                            <li class="nav-item"> <a
+                                                                                    class="text-primary-hover" href="#">
+                                                                                    Like (3)</a> </li>
+                                                                            <li class="nav-item"> <a
+                                                                                    class="text-primary-hover"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    href="#collapseComment1" role="button"
+                                                                                    aria-expanded="false"
+                                                                                    aria-controls="collapseComment">
+                                                                                    Reply</a> </li>
+                                                                            <li class="nav-item"> <a
+                                                                                    class="text-primary-hover" href="#">
+                                                                                    View 5 replies</a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    @endif
+                                                                @endforeach
+                                                                    <!-- Comment react -->
+
+                                                            <form style="display: none" action="{{ route('client.lesson.reply', $item->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <div class="collapse show" id="collapseComment1">
+                                                                    <div class="d-flex mt-3">
+                                                                        <input type="hidden" name="course_id"
+                                                                            value="{{ $course->id }}">
+                                                                        <input type="hidden" name="lesson_id"
+                                                                            value="{{ $lesson->id }}">
+                                                                        <textarea class="form-control mb-0" name="replycmt" placeholder="Add a comment..." rows="2"
+                                                                            spellcheck="false"></textarea>
+                                                                        <button
+                                                                            class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
+                                                                                class="fas fa-paper-plane fs-5"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+
+                                                            {{-- end lisst cooment  --}}
+                                                            {{-- <div class="bg-light p-3 rounded">
+                                                    <div class="d-flex justify-content-center">
+                                                        <div class="me-2">
+                                                            <h6 class="mb-1 lead fw-bold"> <a href="#!"> Frances
+                                                                    Guerrero (Giảng viên) </a></h6>
+                                                            <p class="h6 mb-0">Removed demands expense account in
+                                                                outward
+                                                                tedious do. Particular way thoroughly unaffected
+                                                                projection?
+                                                            </p>
+                                                        </div>
+                                                        <small>5hr</small>
+                                                    </div>
+                                                </div> --}}
+                                                            <!-- Comment react -->
+                                                            {{-- <ul class="nav nav-divider py-2 small">
+                                                                <li class="nav-item"> <a class="text-primary-hover"
+                                                                        href="#">
+                                                                        Like (3)</a> </li>
+                                                                <li class="nav-item"> <a class="text-primary-hover"
+                                                                        data-bs-toggle="collapse" href="#collapseComment1"
+                                                                        role="button" aria-expanded="false"
+                                                                        aria-controls="collapseComment">
+                                                                        Reply</a> </li>
+                                                                <li class="nav-item"> <a class="text-primary-hover"
+                                                                        href="#">
+                                                                        View 5 replies</a> </li>
+                                                            </ul> --}}
+
+                                                            <!-- collapse textarea -->
+                                                            {{-- <form {{ route('client.lesson.reply', $item->id) }} method="post">
+                                                    @csrf
+                                                    <div class="collapse show" id="collapseComment1">
+                                                        <div class="d-flex mt-3">
+                                                            <textarea class="form-control mb-0" name="replycmt" placeholder="Add a comment..." rows="2"
+                                                                spellcheck="false"></textarea>
+                                                            <button
+                                                                class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
+                                                                    class="fas fa-paper-plane fs-5"></i></button>
                                                         </div>
                                                     </div>
-                                                    <!-- Comment react -->
-                                                    <ul class="nav nav-divider py-2 small">
-                                                        <li class="nav-item"><a class="text-primary-hover"
-                                                                href="#!"> Like (5)</a></li>
-                                                        <li class="nav-item"><a class="text-primary-hover"
-                                                                href="#!"> Reply</a> </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- Comment item END -->
-                                    </ul>
-                                    <!-- Comment item nested END -->
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Comment item END -->
-
-                        <!-- Comment item START -->
-                        <div class="border p-2 p-sm-4 rounded-3">
-                            <ul class="list-unstyled mb-0">
-                                <li class="comment-item">
-                                    <div class="d-flex">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm flex-shrink-0">
-                                            <a href="#"><img class="avatar-img rounded-circle"
-                                                    src="/frontend/images/avatar/02.jpg" alt=""></a>
-                                        </div>
-                                        <div class="ms-2">
-                                            <!-- Comment by -->
-                                            <div class="bg-light p-3 rounded">
-                                                <div class="d-flex justify-content-center">
-                                                    <div class="me-2">
-                                                        <h6 class="mb-1 lead fw-bold"> <a href="#!"> Louis
-                                                                Ferguson </a></h6>
-                                                        <p class="h6 mb-0">Removed demands expense account in outward
-                                                            tedious do. Particular way thoroughly unaffected projection?
-                                                        </p>
+                                                </form> --}}
+                                                        </div>
+                                                        @endif
+                                                    @endforeach
                                                     </div>
-                                                    <small>5hr</small>
-                                                </div>
+
+                                <!-- Comment item nested START -->
+                                <ul class="list-unstyled ms-4">
+                                    <!-- Comment item START -->
+                                    <li class="comment-item">
+                                        {{-- <div class="d-flex">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-xs flex-shrink-0">
+                                                <a href="#"><img class="avatar-img rounded-circle"
+                                                        src="/frontend/images/avatar/06.jpg" alt=""></a>
                                             </div>
-                                            <!-- Comment react -->
-                                            <ul class="nav nav-divider py-2 small">
-                                                <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                                        Like</a> </li>
-                                                <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                                        Reply</a> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                            <!-- Comment by -->
+                                            <div class="ms-2">
+                                                <div class="bg-light p-3 rounded">
+                                                    <div class="d-flex justify-content-center">
+                                                        <div class="me-2">
+                                                            <h6 class="mb-1  lead fw-bold"> <a href="#">
+                                                                    Lori Stevens </a> </h6>
+                                                            <p class=" mb-0">See resolved goodness felicity
+                                                                shy
+                                                                civility domestic had but Drawings offended yet
+                                                                answered Jennings perceive. Domestic had but
+                                                                Drawings offended yet answered Jennings
+                                                                perceive.
+                                                            </p>
+                                                        </div>
+                                                        <small>2hr</small>
+                                                    </div>
+                                                </div>
+                                                <!-- Comment react -->
+                                                <ul class="nav nav-divider py-2 small">
+                                                    <li class="nav-item"><a class="text-primary-hover" href="#!">
+                                                            Like (5)</a></li>
+                                                    <li class="nav-item"><a class="text-primary-hover" href="#!">
+                                                            Reply</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div> --}}
+                                    </li>
+                                    <!-- Comment item END -->
+                                </ul>
+                                <!-- Comment item nested END -->
                                 </li>
-                            </ul>
+                                </ul>
+                            </div>
+                            <!-- Comment item END -->
+
+                            <!-- Comment item START -->
+                            <div class="border p-2 p-sm-4 rounded-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="comment-item">
+                                        <div class="d-flex">
+                                            <!-- Avatar -->
+                                            <div class="avatar avatar-sm flex-shrink-0">
+                                                <a href="#"><img class="avatar-img rounded-circle"
+                                                        src="/frontend/images/avatar/02.jpg" alt=""></a>
+                                            </div>
+                                            <div class="ms-2">
+                                                <!-- Comment by -->
+                                                <div class="bg-light p-3 rounded">
+                                                    <div class="d-flex justify-content-center">
+                                                        <div class="me-2">
+                                                            <h6 class="mb-1 lead fw-bold"> <a href="#!"> Louis
+                                                                    Ferguson </a></h6>
+                                                            <p class="h6 mb-0">Removed demands expense account in
+                                                                outward
+                                                                tedious do. Particular way thoroughly unaffected
+                                                                projection?
+                                                            </p>
+                                                        </div>
+                                                        <small>5hr</small>
+                                                    </div>
+                                                </div>
+                                                <!-- Comment react -->
+                                                <ul class="nav nav-divider py-2 small">
+                                                    <li class="nav-item"> <a class="text-primary-hover" href="#">
+                                                            Like</a> </li>
+                                                    <li class="nav-item"> <a class="text-primary-hover" href="#">
+                                                            Reply</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Comment item END -->
+
                         </div>
-                        <!-- Comment item END -->
 
                     </div>
-
                 </div>
+                <!-- Content END -->
             </div>
-            <!-- Content END -->
-                </div>
-            </div>
-            <!-- Tab contents END -->
+        </div>
+        <!-- Tab contents END -->
         </div>
 
 

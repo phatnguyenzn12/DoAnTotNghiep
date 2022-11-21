@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-xl">
     <div class="container">
         <!-- Logo START -->
-        <a class="navbar-brand" href="{{route('client')}}">
+        <a class="navbar-brand" href="{{ route('client') }}">
             <img class="light-mode-item navbar-brand-item" src="/frontend/images/logo.svg" alt="logo">
             <img class="dark-mode-item navbar-brand-item" src="/frontend/images/logo-light.svg" alt="logo">
         </a>
@@ -45,7 +45,8 @@
                         aria-haspopup="true" aria-expanded="false">Menu</a>
                     <ul class="dropdown-menu" aria-labelledby="demoMenu">
                         <li> <a class="dropdown-item" href="{{ route('client.mentor.list') }}">Người giảng dạy</a></li>
-                        <li> <a class="dropdown-item" href="{{ route('client.mentor.index') }}">Trở thành giáo viên</a></li>
+                        <li> <a class="dropdown-item" href="{{ route('client.mentor.index') }}">Trở thành giáo viên</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -136,99 +137,106 @@
                     <span class="notif-badge animation-blink"></span>
 
                     <!-- Notification dropdown menu START -->
-                    <div
-                        class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
-                        <div class="card bg-transparent">
-                            <div
-                                class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
-                                <h6 class="m-0">Notifications <span
-                                        class="badge bg-danger bg-opacity-10 text-danger ms-2">2 new</span></h6>
-                                <a class="small" href="#">Clear all</a>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-group list-unstyled list-group-flush">
+                    @if (Auth::guard('web')->user() || Auth::guard('admin')->user() || Auth::guard('mentor')->user())
+                        <div
+                            class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+                            <div class="card bg-transparent">
+                                <div
+                                    class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
+                                    <h6 class="m-0">Notifications <span
+                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ Auth::user()->unreadNotifications->count() }}
+                                            new</span></h6>
+                                    <a class="small" href="#">Clear all</a>
+                                </div>
+                                <div class="card-body p-0">
+                                    <ul class="list-group list-unstyled list-group-flush">
 
-                                    <!-- Notif item -->
-                                    <li>
-                                        <a href="#"
-                                            class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                            <div class="me-3">
-                                                <div class="avatar avatar-md">
-                                                    <img class="avatar-img rounded-circle"
-                                                        src="/frontend/images/avatar/08.jpg" alt="avatar">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p class="text-body small m-0">Congratulate <b>Joan Wallace</b> for
-                                                    graduating from <b>Microverse university</b></p>
-                                                <u class="small">Say congrats</u>
-                                            </div>
-                                        </a>
-                                    </li>
+                                        <!-- Notif item -->
+                                        @foreach (Auth::user()->unreadNotifications as $notification )
+                                        <li>
+                                            <a href="{{route('client.lesson.index',['course'=>$notification->data['course_id'], 'lesson'=>$notification->data['lesson_id']])}}"
+                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                <div class="me-3">
+                                                    <div class="avatar avatar-md">
+                                                        <img class="avatar-img rounded-circle"
+                                                            src="{{Auth::user()->avatar}}" alt="avatar">
 
-                                    <!-- Notif item -->
-                                    <li>
-                                        <a href="#"
-                                            class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                            <div class="me-3">
-                                                <div class="avatar avatar-md">
-                                                    <img class="avatar-img rounded-circle"
-                                                        src="/frontend/images/avatar/02.jpg" alt="avatar">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-1">Larry Lawson Added a new course</h6>
-                                                <p class="small text-body m-0">What's new! Find out about new features
-                                                </p>
-                                                <u class="small">View detail</u>
-                                            </div>
-                                        </a>
-                                    </li>
+                                                <div>
+                                                    <p class="text-body small m-0"> <b>{{Auth::user()->name}}</b> commented on <b>{{$notification->data['lesson_id']}}</b></p>
+                                                    <u class="small">View detail</u>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        @endforeach
 
-                                    <!-- Notif item -->
-                                    <li>
-                                        <a href="#"
-                                            class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                            <div class="me-3">
-                                                <div class="avatar avatar-md">
-                                                    <img class="avatar-img rounded-circle"
-                                                        src="/frontend/images/avatar/05.jpg" alt="avatar">
+                                        <!-- Notif item -->
+                                        {{-- <li>
+                                            <a href="#"
+                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                <div class="me-3">
+                                                    <div class="avatar avatar-md">
+                                                        <img class="avatar-img rounded-circle"
+                                                            src="/frontend/images/avatar/02.jpg" alt="avatar">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-1">New request to apply for Instructor</h6>
-                                                <u class="small">View detail</u>
-                                            </div>
-                                        </a>
-                                    </li>
+                                                <div>
+                                                    <h6 class="mb-1">Larry Lawson Added a new course</h6>
+                                                    <p class="small text-body m-0">What's new! Find out about new
+                                                        features
+                                                    </p>
+                                                    <u class="small">View detail</u>
+                                                </div>
+                                            </a>
+                                        </li> --}}
 
-                                    <!-- Notif item -->
-                                    <li>
-                                        <a href="#"
-                                            class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                            <div class="me-3">
-                                                <div class="avatar avatar-md">
-                                                    <img class="avatar-img rounded-circle"
-                                                        src="/frontend/images/avatar/03.jpg" alt="avatar">
+                                        <!-- Notif item -->
+                                        {{-- <li>
+                                            <a href="#"
+                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                <div class="me-3">
+                                                    <div class="avatar avatar-md">
+                                                        <img class="avatar-img rounded-circle"
+                                                            src="/frontend/images/avatar/05.jpg" alt="avatar">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-1">Update v2.3 completed successfully</h6>
-                                                <p class="small text-body m-0">What's new! Find out about new features
-                                                </p>
-                                                <small class="text-body">5 min ago</small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Button -->
-                            <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
-                                <a href="#" class="stretched-link">See all incoming activity</a>
+                                                <div>
+                                                    <h6 class="mb-1">New request to apply for Instructor</h6>
+                                                    <u class="small">View detail</u>
+                                                </div>
+                                            </a>
+                                        </li> --}}
+
+                                        <!-- Notif item -->
+                                        {{-- <li>
+                                            <a href="#"
+                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                <div class="me-3">
+                                                    <div class="avatar avatar-md">
+                                                        <img class="avatar-img rounded-circle"
+                                                            src="/frontend/images/avatar/03.jpg" alt="avatar">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-1">Update v2.3 completed successfully</h6>
+                                                    <p class="small text-body m-0">What's new! Find out about new
+                                                        features
+                                                    </p>
+                                                    <small class="text-body">5 min ago</small>
+                                                </div>
+                                            </a>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                                <!-- Button -->
+                                <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
+                                    <a href="#" class="stretched-link">See all incoming activity</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Notification dropdown menu END -->
+                        <!-- Notification dropdown menu END -->
+                    @endif
                 </li>
                 <!-- Notification dropdown END -->
 
@@ -257,7 +265,8 @@
                                         <a class="h6" href="#">{{ Auth::guard('admin')->user()->name }}</a>
                                         <p class="small m-0">{{ Auth::guard('admin')->user()->email }}</p>
                                     @elseif (Auth::guard('mentor')->user())
-                                        <a class="h6" href="#">{{ Auth::guard('mentor')->user()->name }}</a>
+                                        <a class="h6"
+                                            href="#">{{ Auth::guard('mentor')->user()->name }}</a>
                                         <p class="small m-0">{{ Auth::guard('mentor')->user()->email }}</p>
                                     @else
                                         <a class="h6" href="#">{{ Auth::guard('web')->user()->name }}</a>
@@ -275,7 +284,8 @@
                                     quản
                                     trị</a></li>
                         @endif
-                        <li><a class="dropdown-item" href="{{route('client.account.index')}}"><i class="bi bi-person fa-fw me-2"></i>Edit
+                        <li><a class="dropdown-item" href="{{ route('client.account.index') }}"><i
+                                    class="bi bi-person fa-fw me-2"></i>Edit
                                 Profile</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account
                                 Settings</a></li>

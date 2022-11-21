@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-    Page content START -->
+        Page content START -->
     <section class="pt-5 pb-0">
         <div class="container">
             <div class="row g-0 g-lg-5">
@@ -57,37 +57,19 @@
 
                                 <!-- Education START -->
                                 <!-- Title -->
-                                <h4 class="mb-3">Education</h4>
+                                <h4 class="mb-3">Đã từng học tại</h4>
 
-                                <!-- Education item -->
-                                <div class="d-flex align-items-center mb-4">
-                                    <span class="icon-md text-dark mb-0 bg-light rounded-3"><i
-                                            class="fas fa-graduation-cap"></i></span>
-                                    <div class="ms-3">
-                                        <h6 class="mb-0">Harvard University</h6>
-                                        <p class="mb-0 small">Bachelor in Computer Graphics</p>
+                                @foreach (explode(',', $mentor->educations) as $education)
+                                    <!-- Education item -->
+                                    <div class="d-flex align-items-center mb-4">
+                                        <span class="icon-md text-dark mb-0 bg-light rounded-3"><i
+                                                class="fas fa-graduation-cap"></i></span>
+                                        <div class="ms-3">
+                                            <h6 class="mb-0">{{ $education }}</h6>
+                                            <p class="mb-0 small">Bachelor in Computer Graphics</p>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <!-- Education item -->
-                                <div class="d-flex align-items-center mb-4">
-                                    <span class="icon-md text-dark mb-0 bg-light rounded-3"><i
-                                            class="fas fa-graduation-cap"></i></span>
-                                    <div class="ms-3">
-                                        <h6 class="mb-0">University of Toronto</h6>
-                                        <p class="mb-0 small">Master in Computer Graphics</p>
-                                    </div>
-                                </div>
-
-                                <!-- Education item -->
-                                <div class="d-flex align-items-center mb-4">
-                                    <span class="icon-md text-dark mb-0 bg-light rounded-3"><i
-                                            class="fas fa-graduation-cap"></i></span>
-                                    <div class="ms-3">
-                                        <h6 class="mb-0">East Ray University</h6>
-                                        <p class="mb-0 small">Bachelor in Computer Graphics</p>
-                                    </div>
-                                </div>
+                                @endforeach
                                 <!-- Education END -->
 
                                 <hr> <!-- Divider -->
@@ -95,56 +77,20 @@
                                 <!-- Skills START -->
                                 <h4 class="mb-3">Skills</h4>
 
-                                <!-- Progress item -->
-                                <div class="overflow-hidden mb-4">
-                                    <h6 class="uppercase">Graphic design</h6>
-                                    <div class="progress progress-sm bg-primary bg-opacity-10">
-                                        <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"
-                                            data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
-                                            style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="progress-percent-simple h6 mb-0">90%</span>
+                                @foreach (explode(',', $mentor->skills) as $skill)
+                                    <!-- Progress item -->
+                                    <div class="overflow-hidden mb-4">
+                                        <h6 class="uppercase">{{ $skill}}</h6>
+                                        <div class="progress progress-sm bg-primary bg-opacity-10">
+                                            <div class="progress-bar bg-danger aos" role="progressbar"
+                                                data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000"
+                                                data-aos-easing="ease-in-out" style="width: 100%;" aria-valuenow="90"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
 
-                                <!-- Progress item -->
-                                <div class="overflow-hidden mb-4">
-                                    <h6 class="uppercase">Web design</h6>
-                                    <div class="progress progress-sm bg-success bg-opacity-10">
-                                        <div class="progress-bar bg-success aos" role="progressbar" data-aos="slide-right"
-                                            data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
-                                            style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="progress-percent-simple h6 mb-0">80%</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Progress item -->
-                                <div class="overflow-hidden mb-4">
-                                    <h6 class="uppercase">HTML/CSS</h6>
-                                    <div class="progress progress-sm bg-warning bg-opacity-15">
-                                        <div class="progress-bar bg-warning aos" role="progressbar" data-aos="slide-right"
-                                            data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
-                                            style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
-                                            aria-valuemax="100">
-                                            <span class="progress-percent-simple h6 mb-0">60%</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Progress item -->
-                                <div class="overflow-hidden mb-4">
-                                    <h6 class="uppercase">UI/UX</h6>
-                                    <div class="progress progress-sm bg-danger bg-opacity-10">
-                                        <div class="progress-bar bg-danger aos" role="progressbar" data-aos="slide-right"
-                                            data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
-                                            style="width: 50%;" aria-valuenow="50" aria-valuemin="0"
-                                            aria-valuemax="100">
-                                            <span class="progress-percent-simple h6 mb-0">50%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Skills END -->
 
                             </div>
                         </div>
@@ -156,9 +102,9 @@
                 <div class="col-lg-8">
 
                     <!-- Title -->
-                    <h5 class="mb-0">Hi, I am</h5>
-                    <h1 class="mb-0">Lori Stevens</h1>
-                    <p>Graphic Designer</p>
+                    <h5 class="mb-0">Xin chào, Tôi là</h5>
+                    <h1 class="mb-0">{{ $mentor->name }}</h1>
+                    <p>{{ $mentor->years_in_experience }}</p>
                     <!-- Content -->
                     <p class="mt-4">Satisfied conveying a dependent contented he gentleman agreeable do be. Warrant
                         private blushes removed an in equally totally if. Delivered dejection necessary objection do Mr
@@ -172,17 +118,17 @@
                         <li class="list-group-item px-0">
                             <span class="h6 fw-light"><i
                                     class="fas fa-fw fa-map-marker-alt text-primary me-1 me-sm-3"></i>Address:</span>
-                            <span>2002 Horton Ford Rd, Eidson, TN, 37731</span>
+                            <span>{{ $mentor->address }}</span>
                         </li>
                         <li class="list-group-item px-0">
                             <span class="h6 fw-light"><i
                                     class="fas fa-fw fa-envelope text-primary me-1 me-sm-3"></i>Email:</span>
-                            <span>example@gmail.com</span>
+                            <span>{{ $mentor->email }}</span>
                         </li>
                         <li class="list-group-item px-0">
-                            <span class="h6 fw-light"><i
-                                    class="fas fa-fw fa-headphones text-primary me-1 me-sm-3"></i>Phone number:</span>
-                            <span>+896-789-546</span>
+                            <span class="h6 fw-light"><i class="fas fa-fw fa-headphones text-primary me-1 me-sm-3"></i>Phone
+                                number:</span>
+                            <span>{{ $mentor->number_phone }}</span>
                         </li>
                         <li class="list-group-item px-0">
                             <span class="h6 fw-light"><i
@@ -201,7 +147,7 @@
                                 <div class="ms-3">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="10" data-purecounter-delay="200">0</h5>
+                                            data-purecounter-end="{{ $mentor->load('courses')->courses->count() }}" data-purecounter-delay="200">0</h5>
                                         <span class="mb-0 h5">+</span>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Total Courses</p>
@@ -216,8 +162,8 @@
                                 <div class="ms-3">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="36" data-purecounter-delay="200">0</h5>
-                                        <span class="mb-0 h5">K+</span>
+                                            data-purecounter-end="{{ $mentor->load('courses')->courses->count() }}" data-purecounter-delay="200">0</h5>
+                                        <span class="mb-0 h5">+</span>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Total Students</p>
                                 </div>
@@ -231,7 +177,7 @@
                                 <div class="ms-3">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="11" data-purecounter-delay="200">0</h5>
+                                            data-purecounter-end="{{ $mentor->years_in_experience }}" data-purecounter-delay="200">0</h5>
                                         <span class="mb-0 h5">+</span>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Years in Experience</p>
@@ -437,10 +383,10 @@
         </div>
     </section>
     <!-- =======================
-    Page content END -->
+        Page content END -->
 
     <!-- =======================
-    Related instructor START -->
+        Related instructor START -->
     <section>
         <div class="container">
             <!-- Title -->
@@ -635,7 +581,7 @@
         </div>
     </section>
     <!-- =======================
-    Related instructor END -->
+        Related instructor END -->
 @endsection
 
 @section('js-links')
