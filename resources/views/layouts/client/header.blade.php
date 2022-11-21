@@ -137,14 +137,17 @@
                     <span class="notif-badge animation-blink"></span>
 
                     <!-- Notification dropdown menu START -->
+
                     @if (Auth::guard('web')->user() || Auth::guard('admin')->user() || Auth::guard('mentor')->user())
+
+
                         <div
                             class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
                             <div class="card bg-transparent">
                                 <div
                                     class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
                                     <h6 class="m-0">Notifications <span
-                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ Auth::user()->unreadNotifications->count() }}
+                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ Auth::user()->unreadNotifications->count() > 0 ?? Auth::user()->unreadNotifications->count() }}
                                             new</span></h6>
                                     <a class="small" href="#">Clear all</a>
                                 </div>
@@ -152,7 +155,8 @@
                                     <ul class="list-group list-unstyled list-group-flush">
 
                                         <!-- Notif item -->
-                                        @foreach (Auth::user()->unreadNotifications as $notification )
+
+                                        @forelse (Auth::user()->unreadNotifications as $notification )
                                         <li>
                                             <a href="{{route('client.lesson.index',['course'=>$notification->data['course_id'], 'lesson'=>$notification->data['lesson_id']])}}"
                                                 class="list-group-item-action border-0 border-bottom d-flex p-3">
@@ -169,7 +173,8 @@
                                                 </div>
                                             </a>
                                         </li>
-                                        @endforeach
+                                        @empty
+                                        @endforelse
 
                                         <!-- Notif item -->
                                         {{-- <li>
@@ -236,6 +241,7 @@
                             </div>
                         </div>
                         <!-- Notification dropdown menu END -->
+
                     @endif
                 </li>
                 <!-- Notification dropdown END -->
