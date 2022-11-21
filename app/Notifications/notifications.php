@@ -16,14 +16,12 @@ class notifications extends Notification
      *
      * @return void
      */
-    public $comment_id;
-    public $create_comment;
-    public $comment;
-    public function __construct($comment_id, $create_comment )
+
+    public function __construct($lesson_id, $course_id, $name  )
     {
-        $this->comment_id= $comment_id;
-        $this->create_comment= $create_comment;
-        $this->comment= $create_comment->comment;
+        $this->name=$name;
+        $this->lesson_id=$lesson_id;
+        $this->course_id=$course_id;
     }
 
     /**
@@ -59,9 +57,10 @@ class notifications extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            'comment_id'=>$this->comment_id,
-            'create_comment'=>$this->create_comment
-        ];
+        return[
+            'name'=> $this->name,
+            'lesson_id'=> $this->lesson_id,
+            'course_id'=> $this->course_id,
+         ];
     }
 }
