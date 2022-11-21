@@ -3,31 +3,12 @@
         <!--begin::Card-->
         <div class="card card-custom gutter-b card-stretch">
             <!--begin::Body-->
-            <div class="card-body pt-4 ribbon ribbon-right">
+            <a class="card-body pt-4 ribbon ribbon-right"  href="{{ route('mentor.course.program', $course->id) }}">
                 <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
                     <font style="vertical-align: inherit;">
                         <font style="vertical-align: inherit;">{{ $course->active }}</font>
                     </font>
                 </div>
-                <!--begin::Toolbar-->
-                <div class="d-flex justify-content-end">
-                    <div class="dropdown dropdown-inline">
-                        <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ki ki-bold-more-hor"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                            <!--begin::Navigation-->
-                            <ul class="navi navi-hover">
-                                <a class="dropdown-item" href="{{ route('mentor.course.program', $course->id) }}">Chỉnh
-                                    sửa</a>
-                                <div class="dropdown-divider"></div>
-                            </ul>
-                            <!--end::Navigation-->
-                        </div>
-                    </div>
-                </div>
-                <!--end::Toolbar-->
                 <!--begin::User-->
                 <div class="d-flex align-items-center mb-7" style="aspect-ratio:1/1;overflow:hidden">
                     <img src="{{ $course->image }}" style="width: 100%;height:100%;object-fit:cover" alt="image">
@@ -38,7 +19,7 @@
                         href="">{{ $course->title }}</a> </h4>
                 <!--end::Desc-->
                 <!--begin::Info-->
-                <div class="mb-7">
+                <div class="mb-7 p-5">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Danh mục</span>
                         <span
@@ -83,7 +64,7 @@
 
                 </div>
                 <!--end::Info-->
-            </div>
+            </a>
             <!--end::Body-->
         </div>
         <!--end:: Card-->

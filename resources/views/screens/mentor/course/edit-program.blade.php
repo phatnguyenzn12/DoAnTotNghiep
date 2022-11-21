@@ -31,8 +31,8 @@
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm chương
                             học</button>
                         <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')" data-toggle="modal"
-                            data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
+                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
+                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
                             học</button>
                         <button type="button" class="btn btn-outline-primary btn-pill"
                             onclick="showAjaxModal('{{ route('mentor.chapter.showSort', ['course' => $course_id]) }}','Sắp xếp chương học')"
@@ -92,6 +92,8 @@
 
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
+            $('#modal-example').find('.modal-body').html(
+                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)

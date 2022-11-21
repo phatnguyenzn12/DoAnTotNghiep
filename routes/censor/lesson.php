@@ -6,6 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('censor/lesson')->name('censor.lesson.')->middleware('role:censor')->controller(LessonController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
-        Route::get('/actived/{id}', 'actived')->name('actived');
+        Route::get('/actived/{lesson_video}/{check}', 'actived')->name('actived');
     }
 );
