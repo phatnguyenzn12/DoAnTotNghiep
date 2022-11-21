@@ -495,6 +495,7 @@
                                         </div>
                                     </div>
 
+
                                     <!-- Buttons -->
                                     <div class="mt-3 d-grid">
                                         @if (auth()->user())

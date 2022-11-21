@@ -410,9 +410,9 @@
 
                                 <!-- Comment item START -->
                                 <div class="border p-2 p-sm-4 rounded-3 mb-4">
-                                    @foreach ($cmt as $item)
-                                        @if ($item->reply == null)
-                                            <ul class="list-unstyled mb-0">
+                                    <ul class="list-unstyled mb-0">
+                                        @foreach ($cmt as $item)
+                                            @if ($item->reply == null)
                                                 <li class="comment-item">
                                                     <div class="d-flex mb-3 ">
                                                         <!-- Avatar -->
@@ -453,7 +453,8 @@
                                                             {{-- end lisst cooment  --}}
                                                             @foreach ($cmt as $i)
                                                                 @if ($i->reply == $item->id)
-                                                                    <div class="bg-light p-3 rounded" style="margin-left: 50px">
+                                                                    <div class="bg-light p-3 rounded"
+                                                                        style="margin-left: 50px">
                                                                         <div class="d-flex justify-content-center">
                                                                             <div class="avatar avatar-sm flex-shrink-0">
                                                                                 <a href="#"><img
@@ -473,25 +474,28 @@
                                                                         </div>
                                                                         <ul class="nav nav-divider py-2 small">
                                                                             <li class="nav-item"> <a
-                                                                                    class="text-primary-hover" href="#">
+                                                                                    class="text-primary-hover"
+                                                                                    href="#">
                                                                                     Like (3)</a> </li>
                                                                             <li class="nav-item"> <a
                                                                                     class="text-primary-hover"
                                                                                     data-bs-toggle="collapse"
-                                                                                    href="#collapseComment1" role="button"
-                                                                                    aria-expanded="false"
+                                                                                    href="#collapseComment1"
+                                                                                    role="button" aria-expanded="false"
                                                                                     aria-controls="collapseComment">
                                                                                     Reply</a> </li>
                                                                             <li class="nav-item"> <a
-                                                                                    class="text-primary-hover" href="#">
+                                                                                    class="text-primary-hover"
+                                                                                    href="#">
                                                                                     View 5 replies</a> </li>
                                                                         </ul>
                                                                     </div>
-                                                                    @endif
-                                                                @endforeach
-                                                                    <!-- Comment react -->
+                                                                @endif
+                                                            @endforeach
+                                                            <!-- Comment react -->
 
-                                                            <form style="display: none" action="{{ route('client.lesson.reply', $item->id) }}"
+                                                            <form style="display: none"
+                                                                action="{{ route('client.lesson.reply', $item->id) }}"
                                                                 method="post">
                                                                 @csrf
                                                                 <div class="collapse show" id="collapseComment1">
@@ -508,147 +512,73 @@
                                                                     </div>
                                                                 </div>
                                                             </form>
+                                            @endif
+                                        @endforeach
 
-                                                            {{-- end lisst cooment  --}}
-                                                            {{-- <div class="bg-light p-3 rounded">
-                                                    <div class="d-flex justify-content-center">
-                                                        <div class="me-2">
-                                                            <h6 class="mb-1 lead fw-bold"> <a href="#!"> Frances
-                                                                    Guerrero (Giảng viên) </a></h6>
-                                                            <p class="h6 mb-0">Removed demands expense account in
-                                                                outward
-                                                                tedious do. Particular way thoroughly unaffected
-                                                                projection?
-                                                            </p>
-                                                        </div>
-                                                        <small>5hr</small>
-                                                    </div>
-                                                </div> --}}
-                                                            <!-- Comment react -->
-                                                            {{-- <ul class="nav nav-divider py-2 small">
-                                                                <li class="nav-item"> <a class="text-primary-hover"
-                                                                        href="#">
-                                                                        Like (3)</a> </li>
-                                                                <li class="nav-item"> <a class="text-primary-hover"
-                                                                        data-bs-toggle="collapse" href="#collapseComment1"
-                                                                        role="button" aria-expanded="false"
-                                                                        aria-controls="collapseComment">
-                                                                        Reply</a> </li>
-                                                                <li class="nav-item"> <a class="text-primary-hover"
-                                                                        href="#">
-                                                                        View 5 replies</a> </li>
-                                                            </ul> --}}
+                                </div>
 
-                                                            <!-- collapse textarea -->
-                                                            {{-- <form {{ route('client.lesson.reply', $item->id) }} method="post">
-                                                    @csrf
-                                                    <div class="collapse show" id="collapseComment1">
-                                                        <div class="d-flex mt-3">
-                                                            <textarea class="form-control mb-0" name="replycmt" placeholder="Add a comment..." rows="2"
-                                                                spellcheck="false"></textarea>
-                                                            <button
-                                                                class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
-                                                                    class="fas fa-paper-plane fs-5"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </form> --}}
-                                                        </div>
-                                                        @endif
-                                                    @endforeach
-                                                    </div>
+                            </div>
 
-                                <!-- Comment item nested START -->
-                                <ul class="list-unstyled ms-4">
-                                    <!-- Comment item START -->
-                                    <li class="comment-item">
-                                        {{-- <div class="d-flex">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-xs flex-shrink-0">
-                                                <a href="#"><img class="avatar-img rounded-circle"
-                                                        src="/frontend/images/avatar/06.jpg" alt=""></a>
-                                            </div>
-                                            <!-- Comment by -->
-                                            <div class="ms-2">
-                                                <div class="bg-light p-3 rounded">
-                                                    <div class="d-flex justify-content-center">
-                                                        <div class="me-2">
-                                                            <h6 class="mb-1  lead fw-bold"> <a href="#">
-                                                                    Lori Stevens </a> </h6>
-                                                            <p class=" mb-0">See resolved goodness felicity
-                                                                shy
-                                                                civility domestic had but Drawings offended yet
-                                                                answered Jennings perceive. Domestic had but
-                                                                Drawings offended yet answered Jennings
-                                                                perceive.
-                                                            </p>
-                                                        </div>
-                                                        <small>2hr</small>
-                                                    </div>
-                                                </div>
-                                                <!-- Comment react -->
-                                                <ul class="nav nav-divider py-2 small">
-                                                    <li class="nav-item"><a class="text-primary-hover" href="#!">
-                                                            Like (5)</a></li>
-                                                    <li class="nav-item"><a class="text-primary-hover" href="#!">
-                                                            Reply</a> </li>
-                                                </ul>
-                                            </div>
-                                        </div> --}}
-                                    </li>
-                                    <!-- Comment item END -->
-                                </ul>
-                                <!-- Comment item nested END -->
+                            <!-- Comment item nested START -->
+                            <ul class="list-unstyled ms-4">
+                                <!-- Comment item START -->
+                                <li class="comment-item">
+
                                 </li>
-                                </ul>
-                            </div>
-                            <!-- Comment item END -->
-
-                            <!-- Comment item START -->
-                            <div class="border p-2 p-sm-4 rounded-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="comment-item">
-                                        <div class="d-flex">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-sm flex-shrink-0">
-                                                <a href="#"><img class="avatar-img rounded-circle"
-                                                        src="/frontend/images/avatar/02.jpg" alt=""></a>
-                                            </div>
-                                            <div class="ms-2">
-                                                <!-- Comment by -->
-                                                <div class="bg-light p-3 rounded">
-                                                    <div class="d-flex justify-content-center">
-                                                        <div class="me-2">
-                                                            <h6 class="mb-1 lead fw-bold"> <a href="#!"> Louis
-                                                                    Ferguson </a></h6>
-                                                            <p class="h6 mb-0">Removed demands expense account in
-                                                                outward
-                                                                tedious do. Particular way thoroughly unaffected
-                                                                projection?
-                                                            </p>
-                                                        </div>
-                                                        <small>5hr</small>
-                                                    </div>
-                                                </div>
-                                                <!-- Comment react -->
-                                                <ul class="nav nav-divider py-2 small">
-                                                    <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                                            Like</a> </li>
-                                                    <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                                            Reply</a> </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Comment item END -->
-
+                                <!-- Comment item END -->
+                            </ul>
+                            <!-- Comment item nested END -->
+                            </li>
+                            </ul>
                         </div>
+                        <!-- Comment item END -->
+
+                        <!-- Comment item START -->
+                        <div class="border p-2 p-sm-4 rounded-3">
+                            <ul class="list-unstyled mb-0">
+                                <li class="comment-item">
+                                    <div class="d-flex">
+                                        <!-- Avatar -->
+                                        <div class="avatar avatar-sm flex-shrink-0">
+                                            <a href="#"><img class="avatar-img rounded-circle"
+                                                    src="/frontend/images/avatar/02.jpg" alt=""></a>
+                                        </div>
+                                        <div class="ms-2">
+                                            <!-- Comment by -->
+                                            <div class="bg-light p-3 rounded">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="me-2">
+                                                        <h6 class="mb-1 lead fw-bold"> <a href="#!"> Louis
+                                                                Ferguson </a></h6>
+                                                        <p class="h6 mb-0">Removed demands expense account in
+                                                            outward
+                                                            tedious do. Particular way thoroughly unaffected
+                                                            projection?
+                                                        </p>
+                                                    </div>
+                                                    <small>5hr</small>
+                                                </div>
+                                            </div>
+                                            <!-- Comment react -->
+                                            <ul class="nav nav-divider py-2 small">
+                                                <li class="nav-item"> <a class="text-primary-hover" href="#">
+                                                        Like</a> </li>
+                                                <li class="nav-item"> <a class="text-primary-hover" href="#">
+                                                        Reply</a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Comment item END -->
 
                     </div>
+
                 </div>
-                <!-- Content END -->
             </div>
+            <!-- Content END -->
+        </div>
         </div>
         <!-- Tab contents END -->
         </div>
