@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->smallInteger('status');
             $table->string('type');
-            $table->integer('sort');
+            $table->integer('sort')->nullable();
             $table->unsignedBigInteger('course_id')->default(0);
             $table->unsignedBigInteger('discount_code_id')->default(0);
             $table->unsignedBigInteger('combo_id')->default(0);
