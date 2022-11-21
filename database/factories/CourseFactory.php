@@ -38,7 +38,7 @@ class CourseFactory extends Factory
             'certificate' => 'hoàn thành khóa học',
             'description' => fake()->text(1000),
             'description_details' => fake()->text(30) . ',' . fake()->text(30) . ',' . fake()->text(30),
-            'tags' => 'php,laravel',
+            'tags' => 'php,laravel,java',
             'type' => rand(0, 1),
         ];
     }

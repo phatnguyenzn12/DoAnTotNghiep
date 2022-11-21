@@ -32,7 +32,7 @@ class MentorFactory extends Factory
             'educations' => 'dạy tại cao đẳng fpt',
             'specialize_id' => rand(1,3),
             'skills' => 'html,css,php',
-            'Years_in_Experience' => 10
+            'years_in_experience' => 10
         ];
     }
 

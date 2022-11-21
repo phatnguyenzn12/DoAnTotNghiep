@@ -20,12 +20,13 @@ class OrderDetailFactory extends Factory
     {
         $order = Order::all()->random();
         $course = Course::all()->random();
-
+        $timestamp = rand( strtotime("Jan 01 2015"), strtotime("Nov 01 2022") );
+        $random_Date = date("d.m.Y", $timestamp );
         return [
             'price' => $course->price,
             'course_id' => $course->id,
             'order_id' => $order,
-
+            'created_at' => $random_Date
         ];
     }
 }
