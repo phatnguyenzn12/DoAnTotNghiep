@@ -160,7 +160,7 @@
                                                     <div class="avatar avatar-md">
                                                         <img class="avatar-img rounded-circle"
                                                             src="{{Auth::user()->avatar}}" alt="avatar">
-
+                                                       
                                                     </div>
                                                 </div>
                                                 <div>
@@ -246,8 +246,8 @@
                     <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button"
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg" alt="avatar">
-                    </a>
+                        <img class="avatar-img rounded-circle" src="{{asset('app/'.Auth::user()->avatar)}}" alt="avatar">
+                 </a>                                            
 
                     <!-- Profile dropdown START -->
                     <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
