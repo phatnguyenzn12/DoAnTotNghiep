@@ -40,12 +40,16 @@ class AccountController extends Controller
             return back();
         } else {
             $user->fill($request->except(['_method', '_token']));
-            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-                //  $params['cols']['avatar'] = $this->upLoadFile($request->file('avatar'));
-                $user->avatar =  $this->upLoadFile($request->file('avatar'));
+            if($request->hasFile('avatar')){
+                $imgPath = $request->file('avatar')->store('images');
+                $imgPath = str_replace('public/', '', $imgPath);
+                $user->avatar = $imgPath;
+               
             }
+          //  $user->fill($request->all());
 
             $user->update();
+           // dd($user);
             return redirect()->back()->with('success', 'sửa thành công');
         }
     }
@@ -68,24 +72,17 @@ class AccountController extends Controller
             } else {
                 return redirect()->back()->with('error1', 'Mật khẩu mới không khớp !');
             }
-            // if (Hash::check($request->password, $user->password)) {
-            //     //   dd($request->password);
-            //     $a = Hash::make($request->password_1);
-            //     //dd($a);
-            //     $us = new User();
-            //     $us->updatePass($id, $a);
-            //     return redirect()->back()->with('success', 'sửa thành công');
         } else {
             return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');
         }
     }
 
-    public function uploadFile($file)
-    {
-        $fileName = time() . '_' . $file->getClientOriginalName();  //
-        //   dd( $file->storeAs('image', $fileName, 'public'));
-        return $file->storeAs('images', $fileName, 'public');
-    }
+    // public function uploadFile($file)
+    // {
+    //     $fileName = time() . '_' . $file->getClientOriginalName();  //
+    //     //   dd( $file->storeAs('image', $fileName, 'public'));
+    //     return $file->storeAs('images', $fileName, 'public');
+    // }
 
     public function myCourse()
     {

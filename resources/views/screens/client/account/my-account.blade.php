@@ -7,7 +7,7 @@
 @section('content')
 
     <!-- =======================
-                Page Banner START -->
+                        Page Banner START -->
     <section class="pt-0">
         <!-- Main banner background image -->
         <div class="container-fluid px-0">
@@ -25,7 +25,7 @@
                             <div class="col-auto mt-4 mt-md-0">
                                 <div class="avatar avatar-xxl mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                        src="/frontend/images/avatar/01.jpg" alt="">
+                                    src="{{asset('app/'.Auth::user()->avatar)}}">
                                 </div>
                             </div>
                             <!-- Profile info -->
@@ -67,10 +67,10 @@
         </div>
     </section>
     <!-- =======================
-                Page Banner END -->
+                        Page Banner END -->
 
     <!-- =======================
-                Page content START -->
+                        Page content START -->
     <section class="pt-0">
         <div class="container">
             <div class="row">
@@ -139,8 +139,8 @@
                                         {{-- // --}}
                                         <label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
                                             <span class="avatar avatar-xl">
-                                                <img id="mat_truoc_preview" src="/frontend/images/avatar/07.jpg"
-                                                    alt="your image"
+                                                <img name="avatar" id="mat_truoc_preview"
+                                                    src="{{asset('app/'.$user->avatar)}}" alt="your image"
                                                     class="avatar-img rounded-circle border border-white border-3 shadow"
                                                     class="img-fluid" />
                                                 <label for="cmt_truoc">Mặt trước</label>
@@ -148,6 +148,15 @@
                                             <input
                                                 class=" w-[125px] btn btn-primary-soft mb-0 form-control-file @error('cmt_mat_truoc') is-invalid @enderror"
                                                 id="cmt_truoc" required type="file" name="avatar" class="form-group">
+                                            {{-- <span class="avatar avatar-xl">
+                                                <img name="avatar" id="mat_truoc_preview"
+                                                    src="{{ asset('app/' . $user->avatar) }}" alt="your image"
+                                                    class="avatar-img rounded-circle border border-white border-3 shadow"
+                                                    class="img-fluid" />
+                                                    <label for="cmt_truoc">Mặt trước</label>
+                                            </span><br />
+                                            
+                                            <input type="file" name="avatar" class="form-control" placeholder=""> --}}
                                         </label>
                                     </div>
 
@@ -167,33 +176,36 @@
                                     <label class="form-label">Họ và tên</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Xin chào !</span>
-                                        <input type="text" name="name" class="form-control">
+                                        <input type="text" value="{{ $user->name }}" name="name"
+                                            class="form-control">
                                     </div>
                                 </div>
 
                                 <!-- Email id -->
                                 <div class="col-md-6">
                                     <label class="form-label">Số điện thoại</label>
-                                    <input name="number_phone" class="form-control" type="number"
-                                        placeholder="số điện thoại" required>
+                                    <input name="number_phone" value="{{ $user->number_phone }}" class="form-control"
+                                        type="number" placeholder="số điện thoại" required>
                                 </div>
 
                                 <!-- Phone number -->
                                 <div class="col-md-6">
                                     <label class="form-label">Trình độ văn hóa</label>
-                                    <input name="education" class="form-control mb-2" type="text" required>
+                                    <input name="education" value="{{ $user->education }}" class="form-control mb-2"
+                                        type="text" required>
                                 </div>
 
                                 <!-- Location -->
                                 <div class="col-md-6">
                                     <label class="form-label">Địa chỉ</label>
-                                    <input name="location" class="form-control" type="text"required>
+                                    <input name="location" value="{{ $user->location }}" class="form-control"
+                                        type="text"required>
                                 </div>
 
                                 <!-- About me -->
                                 <div class="col-12">
                                     <label class="form-label">Sở thích</label>
-                                    <textarea required name="about_me" class="form-control" rows="3"></textarea>
+                                    <textarea required name="about_me" value="{{ $user->about_me }}" class="form-control" rows="3"></textarea>
                                     <div class="form-text">Mô tả ngắn về con người bạn.</div>
                                 </div>
 
@@ -231,10 +243,10 @@
                                     <div class="card-body">
                                         <!-- Current password -->
                                         <div class="mb-3">
-                                            <label  class="form-label">Mật khẩu cũ</label>
+                                            <label class="form-label">Mật khẩu cũ</label>
                                             <input name="password" class="form-control" type="password"
                                                 placeholder="Mời nhập !">
-												<strong style="color: rgb(242, 58, 58)">{{ Session::get('error') }}</strong>
+                                            <strong style="color: rgb(242, 58, 58)">{{ Session::get('error') }}</strong>
                                         </div>
                                         <!-- New password -->
                                         <div class="mb-3">
@@ -247,13 +259,14 @@
                                                 </span><br>
                                             </div>
                                             <div class="rounded mt-1" id="psw-strength"></div>
-											<strong style="color: rgb(242, 58, 58)">{{ Session::get('error1') }}</strong>
+                                            <strong style="color: rgb(242, 58, 58)">{{ Session::get('error1') }}</strong>
                                         </div>
                                         <!-- Confirm password -->
                                         <div>
                                             <label class="form-label">Nhập lại mật khẩu</label>
-                                            <input name="password_2" class="form-control" type="password" placeholder="">
-											<strong style="color: rgb(242, 58, 58)">{{ Session::get('error1') }}</strong>
+                                            <input name="password_2" class="form-control" type="password"
+                                                placeholder="">
+                                            <strong style="color: rgb(242, 58, 58)">{{ Session::get('error1') }}</strong>
                                         </div>
                                         <!-- Button -->
                                         <div class="d-flex justify-content-end mt-4">
@@ -272,7 +285,7 @@
         </div>
     </section>
     <!-- =======================
-                Page content END -->
+                        Page content END -->
 
 @endsection
 @section('js-links')

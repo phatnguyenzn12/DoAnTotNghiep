@@ -2,7 +2,7 @@
 <tr>
      <td>{{$banner->title}}</td>
      <td>{{$banner->content}}</td>
-     <td>{{$banner->image}}</td>
+     <td><img src="{{asset('app/'.$banner->image)}}" alt=""></td>
      <td>{{$banner->type}}</td>
      <td><button></button></td>
      <td style="display: flex" ><a href="{{route('admin.banner.edit',$banner->id)}}" class="btn btn-light btn-sm">
