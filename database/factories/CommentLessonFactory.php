@@ -23,8 +23,7 @@ class CommentLessonFactory extends Factory
         $user = User::all()->random();
         return [
             'comment' => fake()->name(30),
-           // 'vote' => fake()->numberBetween(0,200),          //fake()->numberBetween(0,200)
-            'reply' => 0,          //rand(0,100)
+            'reply' => rand(0,1000),          //rand(0,100)
             'status' => '1',
             'lesson_id' => $lesson->id,
             'user_id' => $user->id,

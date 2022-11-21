@@ -91,6 +91,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/admin/censor.php'));
 
             Route::middleware('web')
+                ->group(base_path('routes/admin/skill.php'));
+
+            Route::middleware('web')
+                ->group(base_path('routes/admin/specialize.php'));
+
+            Route::middleware('web')
                 ->group(base_path('routes/censor/auth.php'));
 
             Route::middleware('web')
