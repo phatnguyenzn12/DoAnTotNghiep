@@ -40,11 +40,6 @@ class AccountController extends Controller
             return back();
         } else {
             $user->fill($request->except(['_method', '_token']));
-            // if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            //     //  $params['cols']['avatar'] = $this->upLoadFile($request->file('avatar'));
-            //     $user->avatar =  $this->upLoadFile($request->file('avatar'));
-            // }
-            //$u = new User();
             if($request->hasFile('avatar')){
                 $imgPath = $request->file('avatar')->store('images');
                 $imgPath = str_replace('public/', '', $imgPath);
