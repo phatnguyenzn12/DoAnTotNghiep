@@ -11,7 +11,7 @@ class CommentLesson extends Model
     protected $table = 'comment_lessons';
     protected $fillable = [
         'comment',
-        'vote',
+        // 'vote',
         'reply',
         'status',
         // 'id_mentor',
