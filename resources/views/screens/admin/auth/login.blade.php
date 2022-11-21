@@ -141,22 +141,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-headles')
-    <script type="module">
-    (
-        () => {
-            const classname = ['bg-purple-500','purple-500','px-6','py-3','rounded-md','shadow','text-white']
-            js_$('#pages').children[0].classList.add(...classname)
-        }
-    )()
-    // import { store } from "/js/crud.js";
-    // js_$('#sign-in').onclick = (a) => {
-    //     a.preventDefault()
-    //     let obj = {
-    //         url:'{{ route('auth.handleLogin') }}',
-    //         form:js_$('form'),
-    //         redirect:'{{ route('client') }}'
-    //     }
-    //     store(obj)
-    // }
-    </script>
 @endpush

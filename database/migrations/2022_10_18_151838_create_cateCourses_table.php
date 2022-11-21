@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->timestamps();
-            $table->integer('type')->default(0);
+            $table->integer('type')->default(1);
         });
     }
 
