@@ -18,18 +18,18 @@
                             <p class="mb-0 h6 fw-light">Let's learn something new today!</p>
                         </div>
                         <!-- SVG Image -->
-                        <img src="assets/images/element/02.svg" class="mt-5" alt="">
+                        <img src="frontend/images/element/02.svg" class="mt-5" alt="">
                         <!-- Info -->
                         <div class="d-sm-flex mt-5 align-items-center justify-content-center">
                             <ul class="avatar-group mb-2 mb-sm-0">
                                 <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
-                                        src="assets/images/avatar/01.jpg" alt="avatar"></li>
+                                        src="frontend/images/avatar/01.jpg" alt="avatar"></li>
                                 <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
-                                        src="assets/images/avatar/02.jpg" alt="avatar"></li>
+                                        src="frontend/images/avatar/02.jpg" alt="avatar"></li>
                                 <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
-                                        src="assets/images/avatar/03.jpg" alt="avatar"></li>
+                                        src="frontend/images/avatar/03.jpg" alt="avatar"></li>
                                 <li class="avatar avatar-sm"><img class="avatar-img rounded-circle"
-                                        src="assets/images/avatar/04.jpg" alt="avatar"></li>
+                                        src="frontend/images/avatar/04.jpg" alt="avatar"></li>
                             </ul>
                             <!-- Content -->
                             <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k+ Students joined us, now it's your turn.</p>
@@ -42,12 +42,23 @@
                     <div class="row my-5">
                         <div class="col-sm-10 col-xl-8 m-auto">
                             <!-- Title -->
-                            <img src="assets/images/element/03.svg" class="h-40px mb-2" alt="">
+                            <img src="frontend/images/element/03.svg" class="h-40px mb-2" alt="">
                             <h2>Sign up for your account!</h2>
                             <p class="lead mb-4">Nice to see you! Please Sign up with your account.</p>
 
                             <!-- Form START -->
-                            <form>
+                            <form method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-4">
+                                    <label for="exampleInputEmail1" class="form-label">Name *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span
+                                            class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                                class="fa fa-user-secret"></i></span>
+                                        <input type="text" class="form-control border-0 bg-light rounded-end ps-1"
+                                            placeholder="Name" id="" name="name">
+                                    </div>
+                                </div>
                                 <!-- Email -->
                                 <div class="mb-4">
                                     <label for="exampleInputEmail1" class="form-label">Email address *</label>
@@ -56,7 +67,17 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="bi bi-envelope-fill"></i></span>
                                         <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="E-mail" id="exampleInputEmail1">
+                                            placeholder="E-mail" id="exampleInputEmail1" name="email">
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="exampleInputEmail1" class="form-label">Number *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span
+                                            class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                                class="fa fa-phone"></i></span>
+                                        <input type="text" class="form-control border-0 bg-light rounded-end ps-1"
+                                            placeholder="Phone" id="" name="number_phone">
                                     </div>
                                 </div>
                                 <!-- Password -->
@@ -67,7 +88,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="fas fa-lock"></i></span>
                                         <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="*********" id="inputPassword5">
+                                            placeholder="*********" id="inputPassword5" name="password">
                                     </div>
                                 </div>
                                 <!-- Confirm Password -->
@@ -78,7 +99,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="fas fa-lock"></i></span>
                                         <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="*********" id="inputPassword6">
+                                            placeholder="*********" id="inputPassword6" name="re_password">
                                     </div>
                                 </div>
                                 <!-- Check box -->
@@ -92,7 +113,7 @@
                                 <!-- Button -->
                                 <div class="align-items-center mt-0">
                                     <div class="d-grid">
-                                        <button class="btn btn-primary mb-0" type="button">Sign Up</button>
+                                        <button class="btn btn-primary mb-0" type="submit">Sign Up</button>
                                     </div>
                                 </div>
                             </form>
@@ -120,7 +141,7 @@
 
                             <!-- Sign up link -->
                             <div class="mt-4 text-center">
-                                <span>Already have an account?<a href="sign-in.html"> Sign in here</a></span>
+                                <span>Already have an account?<a href="{{route('auth.login')}}"> Sign in here</a></span>
                             </div>
                         </div>
                     </div>
