@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\CommentLesson;
 use App\Models\Lesson;
+use App\Models\Mentor;
 use App\Models\User;
 use App\Notifications\notifications;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class CommentLessonController extends Controller
         if (Auth::check()) {
 
             $lesson = Lesson::where('id', $request->lesson_id)->first();
+
             if ($lesson) {
                 CommentLesson::create([
                     'lesson_id' => $lesson->id,
@@ -49,6 +51,10 @@ class CommentLessonController extends Controller
             'comment' => $request->replycmt,
             'reply' => $id_comment
         ]);
+        $users= User::where('id', '=', auth()->user()->id)->get();
+                // dd($users);
+        Notification::send($users, new notifications($request->lesson_id,$request->course_id,  $request->replycmt));
+
         // dd($cmt);
         return redirect()->back();
     }

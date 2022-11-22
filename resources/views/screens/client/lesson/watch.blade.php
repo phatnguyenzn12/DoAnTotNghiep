@@ -399,6 +399,7 @@
                                         method="post">
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                         <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
                                         <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
                                             placeholder="Add a comment..."></textarea>
@@ -442,7 +443,7 @@
                                                                         href="#">
                                                                         Like (3)</a> </li>
                                                                 <li class="nav-item"> <a class="text-primary-hover"
-                                                                        data-bs-toggle="collapse" href="#collapseComment1"
+                                                                        data-bs-toggle="collapse" href="" onclick="showform()"
                                                                         role="button" aria-expanded="false"
                                                                         aria-controls="collapseComment">
                                                                         Reply</a> </li>
@@ -494,7 +495,8 @@
                                                             @endforeach
                                                             <!-- Comment react -->
 
-                                                            <form style="display: none"
+                                                            @endif
+                                                            <form style="display: none" id="reply"
                                                                 action="{{ route('client.lesson.reply', $item->id) }}"
                                                                 method="post">
                                                                 @csrf
@@ -502,6 +504,8 @@
                                                                     <div class="d-flex mt-3">
                                                                         <input type="hidden" name="course_id"
                                                                             value="{{ $course->id }}">
+
+                                                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                                         <input type="hidden" name="lesson_id"
                                                                             value="{{ $lesson->id }}">
                                                                         <textarea class="form-control mb-0" name="replycmt" placeholder="Add a comment..." rows="2"
@@ -512,7 +516,6 @@
                                                                     </div>
                                                                 </div>
                                                             </form>
-                                            @endif
                                         @endforeach
 
                                 </div>
@@ -534,7 +537,7 @@
                         <!-- Comment item END -->
 
                         <!-- Comment item START -->
-                        <div class="border p-2 p-sm-4 rounded-3">
+                        {{-- <div class="border p-2 p-sm-4 rounded-3">
                             <ul class="list-unstyled mb-0">
                                 <li class="comment-item">
                                     <div class="d-flex">
@@ -570,7 +573,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <!-- Comment item END -->
 
                     </div>
@@ -600,5 +603,13 @@
         //         }
         //     })
         // }
+        function showform() {
+        var x = document.getElementById("reply");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
     </script>
 @endpush

@@ -139,15 +139,15 @@
                     <!-- Notification dropdown menu START -->
 
                     @if (Auth::guard('web')->user() || Auth::guard('admin')->user() || Auth::guard('mentor')->user())
-
-
+                    <?php $mentor = App\Models\Mentor::find(1); ?>
+                    {{-- @dd(Auth::user()) --}}
                         <div
                             class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
                             <div class="card bg-transparent">
                                 <div
                                     class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
                                     <h6 class="m-0">Notifications <span
-                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ Auth::user()->unreadNotifications->count() > 0 ?? Auth::user()->unreadNotifications->count() }}
+                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ Auth::user()->unreadNotifications->count() != null ? Auth::user()->unreadNotifications->count(): 0 }}
                                             new</span></h6>
                                     <a class="small" href="#">Clear all</a>
                                 </div>
@@ -157,6 +157,7 @@
                                         <!-- Notif item -->
 
                                         @forelse (Auth::user()->unreadNotifications as $notification )
+                                        {{-- @dd($notification) --}}
                                         <li>
                                             <a href="{{route('client.lesson.index',['course'=>$notification->data['course_id'], 'lesson'=>$notification->data['lesson_id']])}}"
                                                 class="list-group-item-action border-0 border-bottom d-flex p-3">
@@ -164,11 +165,10 @@
                                                     <div class="avatar avatar-md">
                                                         <img class="avatar-img rounded-circle"
                                                             src="{{Auth::user()->avatar}}" alt="avatar">
-                                                       
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <p class="text-body small m-0"> <b>{{Auth::user()->name}}</b> commented on <b>{{$notification->data['lesson_id']}}</b></p>
+                                                    <p class="text-body small m-0"> <b>{{Auth::user()->name}}</b> commented on <b>{{$notification->data['name']}}</b></p>
                                                     <u class="small">View detail</u>
                                                 </div>
                                             </a>
@@ -253,7 +253,7 @@
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <img class="avatar-img rounded-circle" src="{{asset('app/'.Auth::user()->avatar)}}" alt="avatar">
-                 </a>                                            
+                 </a>
 
                     <!-- Profile dropdown START -->
                     <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
