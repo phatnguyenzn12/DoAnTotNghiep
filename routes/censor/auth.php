@@ -17,5 +17,6 @@ Route::prefix('censor')->name('censor.')->controller(AuthCensorController::class
 Route::prefix('censor')->name('censor.')->middleware('role:censor')->controller(CensorController::class)->group(
     function () {
         Route::match(['get','post'],'/edit', 'edit')->name('edit');
+        Route::match(['get','post'],'/updatepassword', 'updatepassword')->name('updatepassword');
     }
 );

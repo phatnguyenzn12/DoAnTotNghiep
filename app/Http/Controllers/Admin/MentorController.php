@@ -134,4 +134,12 @@ class MentorController extends Controller
             return redirect()->route('mentor.commentLesson', ['id' => $cate_course_id])->with('success', 'Hiện thành công');
         }
     }
+
+    public function delete($id)
+    {
+        $delete = Mentor::find($id);
+        $delete->delete();
+        
+        return redirect()->route('mentor.index')->with('success', 'Xoá thành công');
+    }
 }

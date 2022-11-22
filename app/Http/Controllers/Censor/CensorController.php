@@ -111,4 +111,30 @@ class CensorController extends Controller
         $db->actived($id, $db_censor->is_active);
         return redirect()->route('admin.censor.index')->with('success', 'Cập nhập thành công');
     }
+
+    public function updatepassword(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            if (Hash::check($request->password, auth()->guard('censor')->user()->password)) {
+                if ($request->password_1 == $request->password_2) {
+                    $passnew = Hash::make($request->password_2);
+                    Censor::where('id',auth()->guard('censor')->user()->id)->update(['password'=>$passnew]);
+                    return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
+                } else {
+                    return redirect()->back()->with('failed', 'Mật khẩu mới không khớp !');
+                }
+            } else {
+                return redirect()->back()->with('failed', 'Nhập đúng mật khẩu !');
+            }
+        }
+        return view('screens.censor.censor.changepassword');
+    }
+
+    public function delete($id)
+    {
+        $delete = Censor::find($id);
+        $delete->delete();
+
+        return redirect()->route('admin.censor.index')->with('success', 'Xoá thành công');
+    }
 }

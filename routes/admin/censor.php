@@ -8,5 +8,6 @@ Route::prefix('admin/censor')->name('admin.censor.')->middleware('role:admin')->
         Route::get('index', 'index')->name('index');
         Route::match(['get', 'post'],'create','create')->name('create');
         Route::get('/actived/{id}', 'actived')->name('actived');
+        Route::get('/delete/{id}', 'delete')->name('delete');
     }
 );

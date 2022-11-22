@@ -95,6 +95,16 @@
                     </ul>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
+                            <a href="{{route('censor.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">QUẢN LÝ CENSOR</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="menu-subnav">
+                        <li class="menu-item" aria-haspopup="true">
                             <a href="{{route('admins.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
