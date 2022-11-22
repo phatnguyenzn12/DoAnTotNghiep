@@ -152,23 +152,26 @@
                                     <ul class="list-group list-unstyled list-group-flush">
 
                                         <!-- Notif item -->
-                                        @foreach (Auth::user()->unreadNotifications as $notification )
-                                        <li>
-                                            <a href="{{route('client.lesson.index',['course'=>$notification->data['course_id'], 'lesson'=>$notification->data['lesson_id']])}}"
-                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                                <div class="me-3">
-                                                    <div class="avatar avatar-md">
-                                                        <img class="avatar-img rounded-circle"
-                                                            src="{{Auth::user()->avatar}}" alt="avatar">
-                                                       
+                                        @foreach (Auth::user()->unreadNotifications as $notification)
+                                            <li>
+                                                <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                                    class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                    <div class="me-3">
+                                                        <div class="avatar avatar-md">
+                                                            <img class="avatar-img rounded-circle"
+                                                                src="{{ Auth::user()->avatar }}" alt="avatar">
+
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <p class="text-body small m-0"> <b>{{Auth::user()->name}}</b> commented on <b>{{$notification->data['lesson_id']}}</b></p>
-                                                    <u class="small">View detail</u>
-                                                </div>
-                                            </a>
-                                        </li>
+                                                    <div>
+                                                        <p class="text-body small m-0">
+                                                            <b>{{ Auth::user()->name }}</b> commented on
+                                                            <b>{{ $notification->data['lesson_id'] }}</b>
+                                                        </p>
+                                                        <u class="small">View detail</u>
+                                                    </div>
+                                                </a>
+                                            </li>
                                         @endforeach
 
                                         <!-- Notif item -->
@@ -246,8 +249,14 @@
                     <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button"
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img class="avatar-img rounded-circle" src="{{asset('app/'.Auth::user()->avatar)}}" alt="avatar">
-                 </a>                                            
+                        @if (Auth::guard('admin')->user())
+                            <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                        @elseif (Auth::guard('mentor')->user())
+                            <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                        @else
+                            <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                        @endif
+                    </a>
 
                     <!-- Profile dropdown START -->
                     <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -257,8 +266,14 @@
                             <div class="d-flex align-items-center">
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
-                                    <img class="src="{{asset('app/'.Auth::user()->avatar)}} src="/frontend/images/avatar/01.jpg"
-                                        alt="avatar">
+                                    {{-- <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar"> --}}
+                                    @if (Auth::guard('admin')->user())
+                                        <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                                    @elseif (Auth::guard('mentor')->user())
+                                        <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                                    @else
+                                        <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                                    @endif
                                 </div>
                                 <div>
                                     @if (Auth::guard('admin')->user())
