@@ -3,7 +3,7 @@
 use App\Http\Controllers\admin\AuthAdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/admins')->name('admins.')->middleware('role:admin|mentor')->controller(AuthAdminController::class)->group(
+Route::prefix('admin/admins')->name('admins.')->middleware('role:admin')->controller(AuthAdminController::class)->group(
     function () {
         Route::get('/index','index')->name('index');
         Route::get('/list-data/{search?}/{record?}','filterData')->name('listData');
@@ -12,4 +12,4 @@ Route::prefix('admin/admins')->name('admins.')->middleware('role:admin|mentor')-
 );
 Route::get('admin', function () {
     return view('screens.admin.home');
-})->name('admin');
+})->middleware('role:admin')->name('admin');
