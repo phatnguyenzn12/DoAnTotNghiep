@@ -399,6 +399,7 @@
                                         method="post">
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <input type="hidden" name="mentor_id" value="{{$course->mentor_id}}">
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                         <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
                                         <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"

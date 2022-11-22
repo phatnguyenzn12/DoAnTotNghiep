@@ -28,9 +28,10 @@ class CommentLessonController extends Controller
                 ]);
                 // dd($lesson);
                 //Notification
-                $users= User::where('id', '=', auth()->user()->id)->get();
+                $users= User::where('id', '=', auth()->user()->id)->first();
+                $mentor= Mentor::where('id','=', $request->mentor_id)->first();
                 // dd($users);
-                Notification::send($users, new notifications($request->lesson_id,$request->course_id,  $request->comment));
+                Notification::send($mentor, new notifications($request->lesson_id,$request->course_id,  $request->comment, Auth::id()));
 
                 return redirect()->back();
             } else {
@@ -51,9 +52,9 @@ class CommentLessonController extends Controller
             'comment' => $request->replycmt,
             'reply' => $id_comment
         ]);
-        $users= User::where('id', '=', auth()->user()->id)->get();
+        $users= User::where('id', '=', auth()->user()->id)->first();
                 // dd($users);
-        Notification::send($users, new notifications($request->lesson_id,$request->course_id,  $request->replycmt));
+        Notification::send($users, new notifications($request->lesson_id,$request->course_id,  $request->replycmt, Auth::id()));
 
         // dd($cmt);
         return redirect()->back();
