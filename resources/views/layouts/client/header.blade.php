@@ -301,10 +301,12 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        @if (Auth::guard('admin')->user() || Auth::guard('mentor')->user())
+                        @if (Auth::guard('admin')->user())
                             <li><a class="dropdown-item" href="/admin"><i class="bi bi-person fa-fw me-2"></i>Trang
                                     quản
                                     trị</a></li>
+                        @elseif (Auth::guard('mentor')->user())
+                            <li><a class="dropdown-item" href="{{route('mentor.home')}}"><i class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
                         @endif
                         <li><a class="dropdown-item" href="{{ route('client.account.index') }}"><i
                                     class="bi bi-person fa-fw me-2"></i>Edit
