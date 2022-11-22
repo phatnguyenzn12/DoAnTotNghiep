@@ -23,7 +23,7 @@ class HomeController extends Controller
             ->get()
             ->count();
             // 'count(*) as number,courses.title,sum(courses.price) as total,courses.image'
-        $selling = Course::selectRaw('count(*) as number,sum(courses.price) as total')
+        $selling = Course::selectRaw('count(*) as number,courses.title,sum(courses.price) as total,courses.image')
             ->join('order_details', 'order_details.course_id', '=', 'courses.id')
             ->where('courses.mentor_id', auth()->guard('mentor')->user()->id)
             ->groupBy('courses.id')
