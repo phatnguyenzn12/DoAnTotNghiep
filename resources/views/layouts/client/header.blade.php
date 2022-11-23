@@ -1,3 +1,23 @@
+<style>
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+</style>
 <!-- Logo Nav START -->
 <nav class="navbar navbar-expand-xl">
     <div class="container">
@@ -44,15 +64,21 @@
                     <a class="nav-link dropdown-toggle" href="#" id="demoMenu" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">Menu</a>
                     <ul class="dropdown-menu" aria-labelledby="demoMenu">
-                        <li> <a class="dropdown-item" href="{{ route('client.mentor.list') }}">Người giảng dạy</a></li>
+                        <li> <a class="dropdown-item" href="{{ route('client.mentor.list') }}">Người giảng dạy</a>
+                        </li>
                         <li> <a class="dropdown-item" href="{{ route('client.mentor.index') }}">Trở thành giáo viên</a>
+                        </li>
+                        <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Danh sách khóa học</a>
                         </li>
                     </ul>
                 </li>
 
-                <!-- Nav item 2 Course -->
-                <li class="nav-item dropdown"><a class="nav-link" href="{{ route('client.account.myCourse') }}">Khoá học
-                        của tôi</a></li>
+                @if (Auth::guard('web')->user())
+                    <!-- Nav item 2 Course -->
+                    <li class="nav-item dropdown"><a class="nav-link" href="{{ route('client.account.myCourse') }}">Khoá
+                            học
+                            của tôi</a></li>
+                @endif
 
             </ul>
             <!-- Nav Main menu END -->
@@ -70,7 +96,7 @@
                     </a>
                     <!-- badge -->
                     <span
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle text-bg-success mt-2 mt-xl-3 ms-n3 smaller">5
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle text-bg-success mt-2 mt-xl-3 ms-n3 smaller">{{ $carts->count() }}
                         <span class="visually-hidden">unread messages</span>
                     </span>
 
@@ -81,7 +107,10 @@
                             <div class="card-header bg-transparent border-bottom py-4">
                                 <h5 class="m-0">Giỏ hàng</h5>
                             </div>
-                            <div class="card-body p-0">
+                            <div class="card-body p-0"
+                                style="overflow: scroll;
+                            max-height: 300px;
+                            overflow-x: hidden;">
 
                                 @forelse ($carts as $cart)
                                     <!-- Cart item START -->
@@ -143,7 +172,7 @@
                             <div class="card bg-transparent">
                                 <div
                                     class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
-                                    <h6 class="m-0">Notifications <span
+                                    <h6 class="m-0"> Các thông báo <span
                                             class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ Auth::user()->unreadNotifications->count() }}
                                             new</span></h6>
                                     <a class="small" href="#">Clear all</a>
@@ -152,23 +181,26 @@
                                     <ul class="list-group list-unstyled list-group-flush">
 
                                         <!-- Notif item -->
-                                        @foreach (Auth::user()->unreadNotifications as $notification )
-                                        <li>
-                                            <a href="{{route('client.lesson.index',['course'=>$notification->data['course_id'], 'lesson'=>$notification->data['lesson_id']])}}"
-                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                                <div class="me-3">
-                                                    <div class="avatar avatar-md">
-                                                        <img class="avatar-img rounded-circle"
-                                                            src="{{Auth::user()->avatar}}" alt="avatar">
+                                        @foreach (Auth::user()->unreadNotifications as $notification)
+                                            <li>
+                                                <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                                    class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                    <div class="me-3">
+                                                        <div class="avatar avatar-md">
+                                                            <img class="avatar-img rounded-circle"
+                                                                src="{{ Auth::user()->avatar }}" alt="avatar">
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <p class="text-body small m-0"> <b>{{Auth::user()->name}}</b> commented on <b>{{$notification->data['lesson_id']}}</b></p>
-                                                    <u class="small">View detail</u>
-                                                </div>
-                                            </a>
-                                        </li>
+                                                    <div>
+                                                        <p class="text-body small m-0">
+                                                            <b>{{ Auth::user()->name }}</b> commented on
+                                                            <b>{{ $notification->data['lesson_id'] }}</b>
+                                                        </p>
+                                                        <u class="small">View detail</u>
+                                                    </div>
+                                                </a>
+                                            </li>
                                         @endforeach
 
                                         <!-- Notif item -->
@@ -285,12 +317,9 @@
                                     trị</a></li>
                         @endif
                         <li><a class="dropdown-item" href="{{ route('client.account.index') }}"><i
-                                    class="bi bi-person fa-fw me-2"></i>Edit
-                                Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account
-                                Settings</a></li>
-                        <li><a class="dropdown-item" href="#"><i
-                                    class="bi bi-info-circle fa-fw me-2"></i>Help</a>
+                                    class="bi bi-person fa-fw me-2"></i>Sửa thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Hỗ
+                                trợ</a>
                         </li>
                         <li>
                             @if (Auth::guard('admin')->user())

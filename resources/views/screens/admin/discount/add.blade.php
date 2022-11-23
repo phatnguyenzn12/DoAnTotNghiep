@@ -19,8 +19,14 @@
                             <div class="form-group">
                                 <label>Tiêu đề
                                     <span class="text-danger">*</span></label>
-                                <input type="text" value="" name="title" class="form-control"
+                                <input type="text" name="title" class="form-control"
                                     placeholder="Nhập tiêu đề">
+                            </div>
+                            <div class="form-group">
+                                <label>Đường dẫn
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" name="slug" class="form-control"
+                                    placeholder="Nhập đường dẫn">
                             </div>
                             {{-- @error('title')
                                     <p class="text-danger">{{ $message }}</p>
@@ -41,14 +47,12 @@
                             <div class="form-group">
                                 <label>Ngày bắt đầu
                                     <span class="text-danger">*</span></label>
-                                <input value="" type="datetime-local" name="start_time" class="form-control"
-                                    >
+                                <input value="" type="datetime-local" name="start_time" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Ngày kết thúc
                                     <span class="text-danger">*</span></label>
-                                <input value="" type="datetime-local" name="end_time" class="form-control"
-                                    >
+                                <input value="" type="datetime-local" name="end_time" class="form-control">
                             </div>
 
                             <div class="form-group">
@@ -72,7 +76,8 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
-                                <a href="{{route('admin.discount.index')}}" class="btn btn-success mr-2">Danh sách mã giảm</a>
+                                <a href="{{ route('admin.discount.index') }}" class="btn btn-success mr-2">Danh sách mã
+                                    giảm</a>
                             </div>
                         </form>
                     </div>
@@ -93,5 +98,13 @@
             .catch(error => {
                 console.error(error);
             });
+
+
+        $(document).ready(function() {
+            $('[name="title"]').blur(function() {
+                let title = $(this).val()
+                $('[name="slug"]').val(ChangeToSlug(title))
+            })
+        })
     </script>
 @endpush

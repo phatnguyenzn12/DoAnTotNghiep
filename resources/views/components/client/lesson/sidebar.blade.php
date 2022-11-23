@@ -1,96 +1,158 @@
-<!-- sidebar -->
-<div class="sidebar">
+<!-- Page content START -->
+<div class="justify-content-end position-relative">
+    <!-- Collapse button START -->
+    <button class="navbar-toggler btn btn-white mt-4 plyr-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+        <span class="navbar-toggler-animation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    </button>
+    <!-- Collapse button END -->
 
-    <!-- slide_menu for mobile -->
-    <span class="btn-close-mobi right-3 left-auto" uk-toggle="target: #wrapper ; cls: is-active" tabindex="0"
-        aria-expanded="false">
-    </span>
-
-    <!-- back to home link -->
-    <div class="flex justify-between lg:-ml-1 mt-1 mr-2">
-        <a href="{{ route('client.course.show', ['slug' => $course->slug,'course' => $course->id]) }}" class="flex items-center text-blue-500">
-            <ion-icon name="chevron-back-outline" class="md:text-lg text-2xl"></ion-icon>
-            <span class="text-sm md:inline hidden"> back</span>
-        </a>
-    </div>
-
-    <!-- title -->
-    <h1 class="lg:text-2xl text-lg font-bold mt-2 line-clamp-2"> {{ $course->title }} </h1>
-
-    <!-- sidebar list -->
-    <div class="sidebar_inner is-watch-2" data-simplebar="init">
-        <div class="simplebar-wrapper" style="margin: -15px;">
-            <div class="simplebar-height-auto-observer-wrapper">
-                <div class="simplebar-height-auto-observer"></div>
+    <!-- Collapse body START -->
+    <div class="collapse-horizontal collapse show" id="collapseWidthExample">
+        <div class="card vh-100 overflow-auto rounded-0 w-280px w-sm-400px">
+            <!-- Title -->
+            <div class="card-header bg-light rounded-0">
+                <h1 class="mt-2 fs-5">The Complete Digital Marketing Course - 12 Courses in 1</h1>
+                <h6 class="mb-0 fw-normal"><a href="#">By Jacqueline Miller</a></h6>
             </div>
-            <div class="simplebar-mask">
-                <div class="simplebar-offset" style="right: -17px; bottom: 0px;">
-                    <div class="simplebar-content" style="padding: 15px; height: 100%; overflow: hidden scroll;">
 
-                        <div id="curriculum">
-                            <div uk-accordion="multiple: true" class="divide-y space-y-3 uk-accordion">
+            <!-- Course content START -->
+            <div class="card-body">
+                <div class="d-sm-flex justify-content-sm-between">
+                    <h5>Course content</h5>
+                    <!-- Button -->
+                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#Notemodal">
+                        <i class="bi fa-fw bi-pencil-square me-2"></i>Add note
+                    </button>
+                </div>
+                <hr> <!-- Divider -->
 
-                                @forelse ($chapters as $key => $chapter)
-                                    <div class="uk-open">
-                                        <a class="uk-accordion-title text-md mx-2 font-semibold" href="#">
-                                            <div class="mb-1 text-sm font-medium"> Chương {{ ++$key }} </div>
-                                            {{ $chapter->title }}
-                                        </a>
-                                        <div class="uk-accordion-content mt-3">
-
-                                            <ul class="course-curriculum-list">
-                                                @forelse ($chapter->lessons as $key2 => $lesson)
-                                                    <li>
-                                                        <a href="{{ route('client.lesson.index', ['course'=>$course->id, 'lesson'=>$lesson->id]) }}" class="flex flex-col">
-                                                            <div class="flex justify-between items-center">
-                                                                <div class="">
-                                                                    <span>{{ ++$key2 }}.
-                                                                        {{ $lesson->title }}</span>
-                                                                    <div class="">
-                                                                        @if ($lesson->lesson_type == 'video')
-                                                                           <ion-icon name="caret-forward-circle-outline"></ion-icon>
-                                                                        @else
-                                                                            <ion-icon name="pencil"></ion-icon>
-                                                                        @endif
-                                                                        <span>
-                                                                            4:00
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                {{-- <ion-icon name="lock-closed" class="text-xl mr-2">
-                                                                </ion-icon> --}}
+                <!-- Course START -->
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Accordion START -->
+                        <div class="accordion accordion-flush-light accordion-flush" id="accordionExample">
+                            @forelse ($chapters as $chapter)
+                                <!-- Item -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseOne{{ $chapter->id }}"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                            <span class="mb-0 fw-bold">{{ $chapter->title }}</span>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne{{ $chapter->id }}" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body px-3">
+                                            <div class="vstack gap-3">
+                                                @forelse ($chapter->lessons as $lesson)
+                                                    <!-- Course lecture -->
+                                                    <div>
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2">
+                                                            <div
+                                                                class="position-relative d-flex align-items-center">
+                                                                <a href="{{ route('client.lesson.index',['course' => $course->id,'lesson' => $lesson->id]) }}"
+                                                                    class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+                                                                    <i class="fas fa-play me-0"></i>
+                                                                </a>
+                                                                <span
+                                                                    class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px">{{ $lesson->title }}</span>
                                                             </div>
-                                                        </a>
-                                                    </li>
+                                                            <p class="mb-0 text-truncate">2m 10s</p>
+                                                        </div>
+
+                                                        {{-- <!-- Add note button -->
+                                                <a class="btn btn-xs btn-warning" data-bs-toggle="collapse"
+                                                    href="#addnote-1" role="button" aria-expanded="false"
+                                                    aria-controls="addnote-1">
+                                                    View note
+                                                </a> --}}
+
+                                                        <!-- Notes START -->
+                                                        {{-- <div class="collapse" id="addnote-1">
+                                                    <div class="card card-body p-0">
+
+                                                        <!-- Note item -->
+                                                        <div
+                                                            class="d-flex justify-content-between bg-light rounded-2 p-2 mb-2">
+                                                            <!-- Content -->
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="badge bg-dark me-2">5:20</span>
+                                                                <h6
+                                                                    class="d-inline-block text-truncate w-40px w-sm-150px mb-0 fw-light">
+                                                                    Describe SEO Engine</h6>
+                                                            </div>
+                                                            <!-- Button -->
+                                                            <div class="d-flex">
+                                                                <a href="#"
+                                                                    class="btn btn-sm btn-light btn-round me-2 mb-0"><i
+                                                                        class="bi fa-fw bi-play-fill"></i></a>
+                                                                <a href="#"
+                                                                    class="btn btn-sm btn-light btn-round mb-0"><i
+                                                                        class="bi fa-fw bi-trash-fill"></i></a>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Note item -->
+                                                        <div
+                                                            class="d-flex justify-content-between bg-light rounded-2 p-2 mb-2">
+                                                            <!-- Content -->
+                                                            <div class="d-flex align-items-center">
+                                                                <span
+                                                                    class="badge bg-dark me-2">10:20</span>
+                                                                <h6
+                                                                    class="d-inline-block text-truncate w-40px w-sm-150px mb-0 fw-light">
+                                                                    Know about all marketing</h6>
+                                                            </div>
+                                                            <!-- Button -->
+                                                            <div class="d-flex">
+                                                                <a href="#"
+                                                                    class="btn btn-sm btn-light btn-round me-2 mb-0"><i
+                                                                        class="bi fa-fw bi-play-fill"></i></a>
+                                                                <a href="#"
+                                                                    class="btn btn-sm btn-light btn-round mb-0"><i
+                                                                        class="bi fa-fw bi-trash-fill"></i></a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- Notes END --> --}}
+
+                                                    </div>
                                                 @empty
                                                 @endforelse
-                                            </ul>
-
+                                            </div>
                                         </div>
                                     </div>
-                                @empty
-                                @endforelse
+                                </div>
+                                <!--end Item -->
+                            @empty
 
-                            </div>
+                            @endforelse
                         </div>
-
                     </div>
+                    <!-- Accordion END -->
                 </div>
             </div>
-            <div class="simplebar-placeholder" style="width: 359px; height: 867px;"></div>
+            <!-- Course END -->
         </div>
-        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-            <div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); visibility: hidden;">
+        <!-- Course content END -->
+
+        <div class="card-footer">
+            <div class="d-grid">
+                <a href="course-detail.html" class="btn btn-primary mb-0">Back to course</a>
             </div>
         </div>
-        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-            <div class="simplebar-scrollbar"
-                style="height: 79px; transform: translate3d(0px, 0px, 0px); visibility: visible;"></div>
-        </div>
     </div>
-
-    <!-- overly for mobile -->
-    <div class="side_overly" uk-toggle="target: #wrapper ; cls: is-collapse is-active" tabindex="0"
-        aria-expanded="false"></div>
-
 </div>
+<!-- Collapse body END -->
+</div>
+<!-- Page content END -->

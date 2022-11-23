@@ -1,10 +1,12 @@
 @extends('layouts.client.master')
 
+@section('head-links')
+@endsection
 @section('title', 'Trang chủ')
 
 @section('content')
     <!-- =======================
-                                                                        Page content START -->
+                                                                                                                                Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -34,32 +36,24 @@
                                     /5.0
                                 </li>
                                 <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i
-                                        class="fas fa-user-graduate me-2"></i>12k Người mua khóa học</li>
+                                        class="fas fa-user-graduate me-2"></i>{{ $course->users()->count() }} Người mua khóa
+                                    học</li>
                                 <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i
-                                        class="fas fa-signal me-2"></i>All levels</li>
+                                        class="fas fa-signal me-2"></i>{{ $course->skill->title }}</li>
                                 <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i
-                                        class="bi bi-patch-exclamation-fill me-2"></i>Last updated 09/2021</li>
-                                <li class="list-inline-item fw-light h6"><i class="fas fa-globe me-2"></i>English</li>
+                                        class="bi bi-patch-exclamation-fill me-2"></i>Cập nhật mới nhất
+                                    {{ $course->updated_at }}</li>
+                                <li class="list-inline-item fw-light h6"><i
+                                        class="fas fa-globe me-2"></i>{{ $course->language_rule }}</li>
                             </ul>
                         </div>
                         <!-- Title END -->
 
                         <!-- Image and video -->
-                        <div class="col-12 position-relative">
-                            <div class="video-player rounded-3">
-                                <video controls crossorigin="anonymous" playsinline
-                                    poster="/frontend/images/videos/poster.jpg">
-                                    <source src="/frontend/images/videos/360p.mp4" type="video/mp4" size="360">
-                                    <source src="/frontend/images/videos/720p.mp4" type="video/mp4" size="720">
-                                    <source src="/frontend/images/videos/1080p.mp4" type="video/mp4" size="1080">
-                                    <!-- Caption files -->
-                                    <track kind="captions" label="English" srclang="en"
-                                        src="/frontend/images/videos/en.vtt" default>
-                                    <track kind="captions" label="French" srclang="fr"
-                                        src="/frontend/images/videos/fr.vtt">
-                                </video>
-                            </div>
-                        </div>
+                        <iframe width="100%" height="400" src="{{ $course->video }}" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
 
                         <!-- About course START -->
                         <div class="col-12">
@@ -88,12 +82,13 @@
                                     <!-- List content -->
                                     <h5 class="mt-4"> Bạn học được gì từ khóa học này?</h5>
                                     <div class="mb-3">
-                                            <ul class="list-group list-group-borderless">
-                                                @foreach (explode(',',$course->description_details) as $description_detail)
+                                        <ul class="list-group list-group-borderless">
+                                            @foreach (explode(',', $course->description_details) as $description_detail)
                                                 <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                                    class="fas fa-check-circle text-success me-2"></i>{{ $description_detail }}</li>
-                                                @endforeach
-                                            </ul>
+                                                        class="fas fa-check-circle text-success me-2"></i>{{ $description_detail }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
                                 <!-- Card body START -->
@@ -119,26 +114,35 @@
                                                 <!-- Curriculum item -->
                                                 <h5 class="mb-4">{{ $chapter->title }} (3 lectures)</h5>
                                                 @foreach ($chapter->lessons as $key2 => $lesson)
-                                                    <div class="d-sm-flex justify-content-sm-between align-items-center">
-                                                        <div class="d-flex">
-                                                            <a href="#" class="btn btn-danger-soft btn-round mb-0"><i
-                                                                    class="fas fa-play"></i></a>
-                                                            <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
-                                                                <h6 class="mb-0">{{ $lesson->title }}</h6>
-                                                                <p class="mb-2 mb-sm-0 small">10m 56s</p>
+                                                    @if ($lesson->lessonVideo->is_check != 0 )
+                                                        <div
+                                                            class="d-sm-flex justify-content-sm-between align-items-center">
+                                                            <div class="d-flex">
+                                                                <a href="#"
+                                                                    class="btn btn-danger-soft btn-round mb-0"><i
+                                                                        class="fas fa-play"></i></a>
+                                                                <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
+                                                                    <h6 class="mb-0">{{ $lesson->title }}</h6>
+                                                                    <p class="mb-2 mb-sm-0 small">10m 56s</p>
+                                                                </div>
                                                             </div>
+                                                            <!-- Button -->
+                                                            @if ($lesson->lessonVideo->is_demo == 1)
+                                                                <a class="btn btn-sm btn-success mb-0" data-toggle="modal"
+                                                                    data-bs-target="#modal-example"data-bs-toggle="modal"
+                                                                    data-bs-target="#viewReview"
+                                                                    onclick="showAjaxModal('{{ route('client.course.lesson', $lesson->id) }}','Xem thử video')">Xem
+                                                                    thử</a>
+                                                            @else
+                                                                <a href="#" @disabled(true)
+                                                                    class="btn btn-sm btn-orange mb-0">Mua khóa
+                                                                    học</a>
+                                                            @endif
                                                         </div>
-                                                        <!-- Button -->
-                                                        @if ($lesson->lessonVideo->is_demo == 1)
-                                                            <a href="#" class="btn btn-sm btn-success mb-0">Xem
-                                                                thử</a>
-                                                        @else
-                                                            <a href="#" class="btn btn-sm btn-orange mb-0">Mua khóa
-                                                                học</a>
-                                                        @endif
-                                                    </div>
-                                                    <!-- Divider -->
-                                                    <hr>
+                                                        <!-- Divider -->
+                                                        <hr>
+                                                    @else
+                                                    @endif
                                                 @endforeach
                                             </div>
                                             <!-- Lecture item END -->
@@ -161,298 +165,7 @@
                         </div>
                         <!-- Curriculum END -->
 
-                        <!-- Content START -->
-                        <div class='col-12'>
-                            <!-- Review START -->
-                            <div class="row mb-4">
-                                <h5 class="mb-4">Các đánh giá của sinh viên đã mua khóa học</h5>
-
-                                <!-- Rating info -->
-                                <div class="col-md-4 mb-3 mb-md-0">
-                                    <div class="text-center">
-                                        <!-- Info -->
-                                        @if (count($result_vote) == 0)
-                                            <h1 class="text-5xl font-semibold">0</h1>
-                                        @else
-                                            <div hidden>
-                                                {{ $resultvote = 0 }}
-                                                @foreach ($result_vote as $vote)
-                                                    {{ $resultvote += $vote->vote }}
-                                                @endforeach
-                                            </div>
-                                            <h1 class="text-5xl font-semibold">
-                                                {{ round($resultvote / count($result_vote), 0) }}</h1>
-                                            @for ($j = 0; $j < 5; $j++)
-                                                @if ($j < round($resultvote / count($result_vote), 0))
-                                                    <ion-icon style="font-size: 18px" name="star"
-                                                        class="text-yellow-300"></ion-icon>
-                                                @else
-                                                    <ion-icon style="font-size: 18px" name="star"
-                                                        class="text-gray-300"></ion-icon>
-                                                @endif
-                                            @endfor
-                                        @endif
-                                        <p class="mb-0">(Based on todays review)</p>
-                                    </div>
-                                </div>
-
-                                <!-- Progress-bar and star -->
-                                <div class="col-md-8">
-                                    <div class="row align-items-center text-center">
-                                        @if (count($result_vote) == 0)
-                                        @else
-                                            <?php $s = count($result_vote);
-                                            count($start5);
-                                            $a = round(count($start5) / $s, 1) * 100;
-
-                                            count($start4);
-                                            $b = round(count($start4) / $s, 1) * 100;
-
-                                            count($start3);
-                                            $c = round(count($start3) / $s, 1) * 100;
-
-                                            count($start2);
-                                            $d = round(count($start2) / $s, 1) * 100;
-
-                                            count($start1);
-                                            $e = round(count($start1) / $s, 1) * 100;
-                                            ?>
-                                            <!-- Progress bar and Rating -->
-                                            <div class="col-6 col-sm-8">
-                                                <!-- Progress item -->
-                                                <div class="progress progress-sm bg-warning bg-opacity-15">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: {{ $a }}%"
-                                                        aria-valuenow="{{ $a }}" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6 col-sm-4">
-                                                <!-- Star item -->
-
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                </ul>
-                                            </div>
-
-                                            <!-- Progress bar and Rating -->
-                                            <div class="col-6 col-sm-8">
-                                                <!-- Progress item -->
-                                                <div class="progress progress-sm bg-warning bg-opacity-15">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: {{ $b }}%"
-                                                        aria-valuenow="{{ $b }}" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6 col-sm-4">
-                                                <!-- Star item -->
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                </ul>
-                                            </div>
-
-                                            <!-- Progress bar and Rating -->
-                                            <div class="col-6 col-sm-8">
-                                                <!-- Progress item -->
-                                                <div class="progress progress-sm bg-warning bg-opacity-15">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: {{ $c }}%"
-                                                        aria-valuenow="{{ $c }}" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6 col-sm-4">
-                                                <!-- Star item -->
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                </ul>
-                                            </div>
-
-                                            <!-- Progress bar and Rating -->
-                                            <div class="col-6 col-sm-8">
-                                                <!-- Progress item -->
-                                                <div class="progress progress-sm bg-warning bg-opacity-15">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: {{ $d }}%"
-                                                        aria-valuenow="{{ $d }}" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6 col-sm-4">
-                                                <!-- Star item -->
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                </ul>
-                                            </div>
-
-                                            <!-- Progress bar and Rating -->
-                                            <div class="col-6 col-sm-8">
-                                                <!-- Progress item -->
-                                                <div class="progress progress-sm bg-warning bg-opacity-15">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: {{ $e }}%"
-                                                        aria-valuenow="{{ $e }}" aria-valuemin="0"
-                                                        aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6 col-sm-4">
-                                                <!-- Star item -->
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="fas fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                    <li class="list-inline-item me-0 small"><i
-                                                            class="far fa-star text-warning"></i></li>
-                                                </ul>
-                                            </div>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <!-- Review END -->
-
-                            <!-- Student review START -->
-                            <div class="row">
-                                <!-- Review item START -->
-                                @foreach ($course->commentCourses as $i)
-                                    <hr>
-                                    <div class="d-md-flex my-4">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-xl me-4 flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/09.jpg"
-                                                alt="avatar">
-                                        </div>
-                                        <!-- Text -->
-                                        <div>
-                                            <div class="d-sm-flex mt-1 mt-md-0 align-items-center">
-                                                <h5 class="me-3 mb-0">
-                                                    {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}
-                                                </h5>
-                                                <!-- Review star -->
-                                                @for ($j = 0; $j < 5; $j++)
-                                                    <ul class="list-inline mb-0">
-                                                        @if ($j < $i->vote)
-                                                            <li class="list-inline-item me-0"><i
-                                                                    class="fas fa-star text-warning"></i>
-                                                            </li>
-                                                        @else
-                                                            <li class="list-inline-item me-0"><i
-                                                                    class="far fa-star text-warning"></i>
-                                                            </li>
-                                                        @endif
-                                                    </ul>
-                                                @endfor
-                                            </div>
-                                            <!-- Info -->
-                                            <p class="small mb-2">{{ date('d/m/Y', strtotime($i->created_at)) }}</p>
-                                            <p class="mb-2">{{ $i->comment }} </p>
-
-                                            <!-- Reply button -->
-                                            {{-- <a href="#" class="text-body mb-0"><i
-                                                    class="fas fa-reply me-2"></i>Reply</a> --}}
-                                        </div>
-                                    </div>
-                                    <hr>
-                                @endforeach
-                                <!-- Divider -->
-
-                                <!-- Review item END -->
-
-                                <!-- Review item START -->
-
-                                <!-- Review item END -->
-                                <!-- Divider -->
-
-                            </div>
-                            <!-- Student review END -->
-
-                            <!-- Leave Review START -->
-                            <div class="mt-2">
-                                <h5 class="mb-4">Đánh giá khoá học</h5>
-                                @if (auth()->user())
-                                    @if ($course->users()->get()->contains(auth()->user()->id))
-                                        <form class="row g-3" action="{{ route('commentcourse.store') }}" method="post">
-                                            @csrf
-                                            <!-- Rating -->
-                                            <div class="col-12">
-                                                <select id="inputState2" name="vote" class="form-select  js-choice">
-                                                    <option selected=""  value="5">★★★★★ (5/5)</option>
-                                                    <option  value="4">★★★★☆ (4/5)</option>
-                                                    <option  value="3">★★★☆☆ (3/5)</option>
-                                                    <option  value="2">★★☆☆☆ (2/5)</option>
-                                                    <option  value="1">★☆☆☆☆ (1/5)</option>
-                                                </select>
-                                            </div>
-                                            <!-- Message -->
-                                            <div class="col-12">
-                                                <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                                <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review" rows="3"></textarea>
-                                            </div>
-                                            <!-- Button -->
-                                            <div class="col-12">
-                                                <button type="submit" class="btn btn-primary mb-0">Đăng bình
-                                                    luận</button>
-                                            </div>
-                                        </form>
-                                    @endif
-                                @endif
-                            </div>
-                            <!-- Leave Review END -->
-
-                        </div>
-                        <!-- Content END -->
+                        @include('components.client.course.review')
 
                     </div>
                 </div>
@@ -469,15 +182,15 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Price -->
                                         <div class="d-flex align-items-center">
-                                            <h3 class="fw-bold mb-0 me-2">$150</h3>
-                                            <span class="text-decoration-line-through mb-0 me-2">$350</span>
-                                            <span class="badge text-bg-orange mb-0">60% off</span>
+                                            <h3 class="fw-bold mb-0 me-2">{{ $course->current_price }}đ</h3>
+                                            <span
+                                                class="text-decoration-line-through mb-0 me-2">{{ $course->price }}đ</span>
+                                            <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
                                         </div>
                                         <!-- Share button with dropdown -->
                                         <div class="dropdown">
-                                            <a href="#" class="btn btn-sm btn-light rounded mb-0 small"
-                                                role="button" id="dropdownShare" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
+                                            <a href="#" class="btn btn-sm btn-light rounded mb-0 small" role="button"
+                                                id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fas fa-fw fa-share-alt"></i>
                                             </a>
                                             <!-- dropdown button -->
@@ -494,7 +207,6 @@
                                             </ul>
                                         </div>
                                     </div>
-
 
                                     <!-- Buttons -->
                                     <div class="mt-3 d-grid">
@@ -532,7 +244,7 @@
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-fw fa-book-open text-primary"></i>bài học</span>
-                                            <span>30</span>
+                                            <span>{{ $course->chapters->count() }}</span>
                                         </li>
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
@@ -542,17 +254,17 @@
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-fw fa-signal text-primary"></i>Kỹ năng</span>
-                                            <span>Người bắt đầu</span>
+                                            <span>{{ $course->skill->title }}</span>
                                         </li>
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-fw fa-globe text-primary"></i>Ngôn ngữ</span>
-                                            <span>Tiếng việt</span>
+                                            <span>{{ $course->language_rule }}</span>
                                         </li>
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-fw fa-medal text-primary"></i>Chức chỉ</span>
-                                            <span>Không có</span>
+                                            <span>{{ $course->certificate->exists() ? 'có chứng chỉ' : 'không có chứng chỉ' }}</span>
                                         </li>
                                     </ul>
                                     <!-- Divider -->
@@ -567,7 +279,7 @@
                                         </div>
                                         <div class="ms-sm-3 mt-2 mt-sm-0">
                                             <h5 class="mb-0"><a href="#">{{ $course->mentor->name }}</a></h5>
-                                            <p class="mb-0 small">Founder Eduport company</p>
+                                            <p class="mb-0 small">{{ $course->mentor->specialize->title }}</p>
                                         </div>
                                     </div>
 
@@ -599,24 +311,15 @@
                             <!-- Tags START -->
                             <div class="col-md-6 col-xl-12">
                                 <div class="card card-body border p-4">
-                                    <h4 class="mb-3">Popular Tags</h4>
+                                    <h4 class="mb-3">Các thẻ sản phẩm</h4>
                                     <ul class="list-inline mb-0">
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">blog</a> </li>
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">business</a> </li>
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">theme</a> </li>
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">bootstrap</a> </li>
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">data science</a> </li>
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">web development</a> </li>
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">tips</a> </li>
-                                        <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                href="#">machine learning</a> </li>
+                                        @forelse (explode(',',$course->tags) as $tag)
+                                            <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
+                                                    href="#">{{ $tag }}</a> </li>
+                                        @empty
+                                        @endforelse
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -629,12 +332,71 @@
             </div><!-- Row END -->
         </div>
     </section>
-    <!-- =======================
-                                                                        Page content END -->
+
+
+    <!-- Modal-->
+    <div class="modal fade " id="modal-example" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Loading...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe
+                        src="https://player.vimeo.com/video/772157924?h=6d83673606&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                        frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;" title="tải xuống"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('js-links')
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 @endsection
 @push('js-handles')
-    <script type="module"></script>
+    <script>
+        function showAjaxModal(url, title) {
+            $('#modal-example').find('.modal-title').text(title)
+            $('#modal-example').find('.modal-body').html(
+                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            $.ajax({
+                url: url,
+                timeout: 1000,
+                success: function(res) {
+                    console.log(res);
+                    $.ajax({
+                        url: url,
+                        timeout: 1000,
+                        success: function(res) {
+                            axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' +
+                                    res.video_path)
+                                .then(
+                                    res => {
+                                        $('#modal-example').find('.modal-body').html(res.data.html)
+                                        $('.modal-body').find('iframe').css({
+                                            'width': '100%',
+                                            'height': '500px',
+                                            'top': 0,
+                                            'left': 0
+                                        });
+                                    }
+                                )
+                        }
+                    })
+                }
+            })
+        }
+    </script>
 @endpush

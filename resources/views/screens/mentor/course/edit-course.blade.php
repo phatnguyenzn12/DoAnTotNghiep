@@ -78,23 +78,10 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Giấy chứng nhận</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input file-image" name="certificate"
-                                    accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                            <div class="preview-image new"></div>
-                            <div class="preview-image old">
-                                <img src="/"
-                                    style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label>Thẻ
                                 <span class="text-danger">*</span></label>
                             <input id="kt_tagify_1" type="text" name="tags" class="form-control"
-                                value="{{ str_replace(',',', ', $course->tags) }}" placeholder="Thẻ">
+                                value="{{ str_replace(',', ', ', $course->tags) }}" placeholder="Thẻ">
                         </div>
                         <div class="form-group">
                             <label>Giới thiệu</label>
@@ -107,8 +94,8 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả chi tiết</label>
-                            <input id="kt_tagify_2" name="description_details" type="text" value="{{ str_replace(',',', ', $course->description_details) }}"
-                                class="form-control">
+                            <input id="kt_tagify_2" name="description_details" type="text"
+                                value="{{ str_replace(',', ', ', $course->description_details) }}" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Danh mục</label>
@@ -135,6 +122,19 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Khoá học có chứng chỉ</label>
+                            <select name="certificate_id" id="select2" class="form-control">
+                                <option value="">Chọn chứng chỉ</option>
+                                <optgroup label="">
+                                    @foreach ($certificates as $certificate)
+                                        <option @selected($course->certificate->id == $certificate->id ? true : false) value="{{ $certificate->id }}">
+                                            {{ $certificate->title }}</option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                             <a href="" class="btn btn-success mr-2">Danh sách slider</a>
                         </div>
@@ -149,4 +149,12 @@
     <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
+    <script>
+        $(document).ready(function() {
+            $('[name="title"]').blur(function() {
+                let title = $(this).val()
+                $('[name="slug"]').val(ChangeToSlug(title))
+            })
+        })
+    </script>
 @endpush

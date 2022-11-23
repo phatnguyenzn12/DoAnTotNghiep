@@ -18,7 +18,7 @@
                         <p class="mb-0 h6 fw-light">Let's learn something new today!</p>
                     </div>
                     <!-- SVG Image -->
-                    <img src="/frontend/images/element/02.svg" class="mt-5" alt="">
+                    <img src="/svg/censor.svg" class="mt-5" alt="">
                     <!-- Info -->
                     <div class="d-sm-flex mt-5 align-items-center justify-content-center">
                         <!-- Avatar group -->

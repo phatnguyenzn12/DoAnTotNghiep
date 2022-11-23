@@ -26,6 +26,12 @@
                             {{-- @error('title')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror --}}
+                            <div class="form-group">
+                                <label>Đường dẫn
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" value="{{ $discount->slug }}" name="slug" class="form-control"
+                                    placeholder="Nhập đường dẫn">
+                            </div>
 
                             <div class="form-group">
                                 <label>Mã giảm giá
@@ -85,4 +91,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
+<script>
+    $(document).ready(function() {
+            $('[name="title"]').blur(function() {
+                let title = $(this).val()
+                $('[name="slug"]').val(ChangeToSlug(title))
+            })
+        })
+</script>
 @endpush

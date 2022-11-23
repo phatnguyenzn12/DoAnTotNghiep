@@ -1,61 +1,13 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
+ <!-- Content START -->
+ <div class='col-12'>
+    <!-- Review START -->
+    <div class="row mb-4">
+        <h5 class="mb-4">Các đánh giá của sinh viên đã mua khóa học</h5>
 
-    .rate {
-        float: left;
-        height: 46px;
-        padding: 0 10px;
-    }
-
-    .rate:not(:checked)>input {
-        position: absolute;
-        top: -9999px;
-    }
-
-    .rate:not(:checked)>label {
-        float: right;
-        width: 1em;
-        overflow: hidden;
-        white-space: nowrap;
-        cursor: pointer;
-        font-size: 30px;
-        color: #ccc;
-
-    }
-
-    .rate:not(:checked)>label:before {
-        content: '★ ';
-    }
-
-    .rate>input:checked~label {
-        color: #ffc700;
-    }
-
-    .rate:not(:checked)>label:hover,
-    .rate:not(:checked)>label:hover~label {
-        color: #deb217;
-    }
-
-    .rate>input:checked+label:hover,
-    .rate>input:checked+label:hover~label,
-    .rate>input:checked~label:hover,
-    .rate>input:checked~label:hover~label,
-    .rate>label:hover~input:checked~label {
-        color: #c59b08;
-    }
-</style>
-<div id="reviews" class="tube-card p-5">
-    <h3 class="text-lg font-semibold mb-3"> Tất cả đánh giá ({{ count($course->commentCourses) }}) </h3>
-
-    <div class="flex space-x-5 mb-8">
-        <div class="lg:w-1/4 w-full">
-            <div class="bg-blue-100 space-y-1 py-5 rounded-md border border-blue-200 text-center shadow-xs">
+        <!-- Rating info -->
+        <div class="col-md-4 mb-3 mb-md-0">
+            <div class="text-center">
+                <!-- Info -->
                 @if (count($result_vote) == 0)
                     <h1 class="text-5xl font-semibold">0</h1>
                 @else
@@ -65,179 +17,275 @@
                             {{ $resultvote += $vote->vote }}
                         @endforeach
                     </div>
-                    <h1 class="text-5xl font-semibold"> {{ round($resultvote / count($result_vote), 0) }}</h1>
+                    <h1 class="text-5xl font-semibold">
+                        {{ round($resultvote / count($result_vote), 0) }}</h1>
                     @for ($j = 0; $j < 5; $j++)
-                        @if ($j < round($resultvote / count($result_vote), 1))
-                            <ion-icon style="font-size: 18px" name="star" class="text-yellow-300"></ion-icon>
+                        @if ($j < round($resultvote / count($result_vote), 0))
+                            <ion-icon style="font-size: 18px" name="star"
+                                class="text-yellow-300"></ion-icon>
                         @else
-                            <ion-icon style="font-size: 18px" name="star" class="text-gray-300"></ion-icon>
+                            <ion-icon style="font-size: 18px" name="star" class="text-gray-300">
+                            </ion-icon>
                         @endif
                     @endfor
                 @endif
-                <h5 class="mb-0 mt-1 text-sm"> Course Rating</h5>
+                <p class="mb-0">(Based on todays review)</p>
             </div>
         </div>
-        <!-- progress -->
-        <div class="w-2/4 hidden lg:flex flex-col justify-center space-y-5">
-            @if ((count($result_vote) == 0))
 
-            @else
-            <?php $s = count($result_vote);
-            count( $start5);
-            $a= round((count($start5)/$s), 1)*100;
+        <!-- Progress-bar and star -->
+        <div class="col-md-8">
+            <div class="row align-items-center text-center">
+                @if (count($result_vote) == 0)
+                @else
+                    <?php $s = count($result_vote);
+                    count($start5);
+                    $a = round(count($start5) / $s, 1) * 100;
 
-            count( $start4);
-            $b= round((count($start4)/$s), 1)*100;
+                    count($start4);
+                    $b = round(count($start4) / $s, 1) * 100;
 
-            count( $start3);
-            $c= round((count($start3)/$s), 1)*100;
+                    count($start3);
+                    $c = round(count($start3) / $s, 1) * 100;
 
-            count( $start2);
-            $d= round((count($start2)/$s), 1)*100;
+                    count($start2);
+                    $d = round(count($start2) / $s, 1) * 100;
 
-            count( $start1);
-            $e= round((count($start1)/$s), 1)*100;
-            ?>
-
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$a}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$b}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$c}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$d}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-            <div class="w-full h-2.5 rounded-lg bg-gray-300 shadow-xs relative">
-                <div style="width:{{$e}}%" class=" h-full rounded-lg bg-gray-800"> </div>
-            </div>
-        </div>
-        <!-- stars -->
-        <div class="w-1/4 hidden lg:flex flex-col justify-center space-y-2">
-
-            <div class="flex justify-center items-center">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$a}} %</span>
-            </div>
-            <div class="flex justify-center items-center">
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$b}} %</span>
-            </div>
-            <div class="flex justify-center items-center">
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$c}} %</span>
-            </div>
-            <div class="flex justify-center items-center">
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$d}} %</span>
-            </div>
-            <div class="flex justify-center items-center">
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star" class="text-gray-300"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <span class="ml-2"> {{$e}} %</span>
-            </div>
-
-        </div>
-        @endif
-    </div>
-    {{-- {{dd($course->commentCourses())}} --}}
-
-    @foreach ($course->commentCourses as $i)
-        <div class="space-y-4 my-5">
-
-            <div style="display: inline-block">
-                <div class="drop_content">
-                    <div style="display:inline-flex">
-                        <div>
-                            <img src="/frontend/assets/images/avatars/avatar-1.jpg" alt=""
-                                class="rounded-full shadow w-20 h-20">
-                        </div>
-                        <div style="margin-left: 20px">
-                            <strong>{{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}</strong> <br>
-                            <span class="time-ago text-gray-300">Nhận xét
-                                vào:{{ date('d/m/Y', strtotime($i->created_at)) }}</span>
-
+                    count($start1);
+                    $e = round(count($start1) / $s, 1) * 100;
+                    ?>
+                    <!-- Progress bar and Rating -->
+                    <div class="col-6 col-sm-8">
+                        <!-- Progress item -->
+                        <div class="progress progress-sm bg-warning bg-opacity-15">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                style="width: {{ $a }}%"
+                                aria-valuenow="{{ $a }}" aria-valuemin="0"
+                                aria-valuemax="100">
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        @for ($j = 0; $j < 5; $j++)
-                            @if ($j < $i->vote)
-                                <ion-icon style="font-size: 18px" name="star" class="text-yellow-300"></ion-icon>
-                            @else
-                                <ion-icon style="font-size: 18px" name="star" class="text-gray-300"></ion-icon>
-                            @endif
-                        @endfor
 
-                        {{-- số lượt vote {{($i->vote)}} --}}
+                    <div class="col-6 col-sm-4">
+                        <!-- Star item -->
+
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                        </ul>
                     </div>
-                    <br><i class="fa-solid fa-bullhorn"></i>
-                    <span style="font-size: 15px" class="text-gray-500">{{ $i->comment }} </span>
 
-                </div>
+                    <!-- Progress bar and Rating -->
+                    <div class="col-6 col-sm-8">
+                        <!-- Progress item -->
+                        <div class="progress progress-sm bg-warning bg-opacity-15">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                style="width: {{ $b }}%"
+                                aria-valuenow="{{ $b }}" aria-valuemin="0"
+                                aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-6 col-sm-4">
+                        <!-- Star item -->
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                        </ul>
+                    </div>
+
+                    <!-- Progress bar and Rating -->
+                    <div class="col-6 col-sm-8">
+                        <!-- Progress item -->
+                        <div class="progress progress-sm bg-warning bg-opacity-15">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                style="width: {{ $c }}%"
+                                aria-valuenow="{{ $c }}" aria-valuemin="0"
+                                aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4">
+                        <!-- Star item -->
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                        </ul>
+                    </div>
+
+                    <!-- Progress bar and Rating -->
+                    <div class="col-6 col-sm-8">
+                        <!-- Progress item -->
+                        <div class="progress progress-sm bg-warning bg-opacity-15">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                style="width: {{ $d }}%"
+                                aria-valuenow="{{ $d }}" aria-valuemin="0"
+                                aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4">
+                        <!-- Star item -->
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                        </ul>
+                    </div>
+
+                    <!-- Progress bar and Rating -->
+                    <div class="col-6 col-sm-8">
+                        <!-- Progress item -->
+                        <div class="progress progress-sm bg-warning bg-opacity-15">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                style="width: {{ $e }}%"
+                                aria-valuenow="{{ $e }}" aria-valuemin="0"
+                                aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4">
+                        <!-- Star item -->
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-0 small"><i
+                                    class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                            <li class="list-inline-item me-0 small"><i
+                                    class="far fa-star text-warning"></i></li>
+                        </ul>
+                    </div>
             </div>
-        </div>
-    @endforeach
-    <div>
-        <div class="flex justify-center mt-9">
-            <button type="submit" class="bg-gray-50 border hover:bg-gray-300 px-4 py-1.5 rounded-full text-sm">Xem
-                thêm
-                đánh giá</button>
-
-        </div>
-        @if (auth()->user())
-            @if ($course->users()->get()->contains(auth()->user()->id))
-                <form action="{{ route('commentcourse.store') }}" method="post">
-                    @csrf
-                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                        <div class="d-flex flex-start w-100">
-                            <input type="hidden" name="course_id" value="{{ $course->id }}">
-                            <textarea style="border: 1px solid rgba(92, 88, 88, 0.562)" name="comment" id="textAreaExample"
-                                placeholder="Đánh giá khóa học..."></textarea>
-                        </div>
-                        <div class="rate" name="" style="margin-left: 380px">
-                            <input type="radio" id="star5" name="vote" value="5" />
-                            <label for="star5" title="text">5 stars</label>
-                            <input type="radio" id="star4" name="vote" value="4" />
-                            <label for="star4" title="text">4 stars</label>
-                            <input type="radio" id="star3" name="vote" value="3" />
-                            <label for="star3" title="text">3 stars</label>
-                            <input type="radio" id="star2" name="vote" value="2" />
-                            <label for="star2" title="text">2 stars</label>
-                            <input type="radio" id="star1" name="vote" value="1" />
-                            <label for="star1" title="text">1 star</label>
-                        </div><br>
-                        <div class="float-end mt-2 pt-1">
-                            <input class="btn btn-primary" type="submit" value="Gửi">
-                        </div>
-                    </div>
-                </form>
             @endif
+        </div>
+    </div>
+    <!-- Review END -->
+
+    <!-- Student review START -->
+    <div class="row">
+        <!-- Review item START -->
+        @foreach ($course->commentCourses()->paginate(5) as $i)
+            <hr>
+            <div class="d-md-flex my-4">
+                <!-- Avatar -->
+                <div class="avatar avatar-xl me-4 flex-shrink-0">
+                    <img class="avatar-img rounded-circle" src="/frontend/images/avatar/09.jpg"
+                        alt="avatar">
+                </div>
+                <!-- Text -->
+                <div>
+                    <div class="d-sm-flex mt-1 mt-md-0 align-items-center">
+                        <h5 class="me-3 mb-0">
+                            {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}
+                        </h5>
+                        <!-- Review star -->
+                        @for ($j = 0; $j < 5; $j++)
+                            <ul class="list-inline mb-0">
+                                @if ($j < $i->vote)
+                                    <li class="list-inline-item me-0"><i
+                                            class="fas fa-star text-warning"></i>
+                                    </li>
+                                @else
+                                    <li class="list-inline-item me-0"><i
+                                            class="far fa-star text-warning"></i>
+                                    </li>
+                                @endif
+                            </ul>
+                        @endfor
+                    </div>
+                    <!-- Info -->
+                    <p class="small mb-2">{{ date('d/m/Y', strtotime($i->created_at)) }}</p>
+                    <p class="mb-2">{{ $i->comment }} </p>
+
+                    <!-- Reply button -->
+                    {{-- <a href="#" class="text-body mb-0"><i
+                            class="fas fa-reply me-2"></i>Reply</a> --}}
+                </div>
+            </div>
+            <hr>
+        @endforeach
+        <!-- Divider -->
+
+        <!-- Review item END -->
+
+        <!-- Review item START -->
+
+        <!-- Review item END -->
+        <!-- Divider -->
+
+    </div>
+    <!-- Student review END -->
+
+    <!-- Leave Review START -->
+    <div class="mt-2">
+        <h5 class="mb-4">Đánh giá khoá học</h5>
+        @if (auth()->user())
+            <form class="row g-3" action="{{ route('commentcourse.store') }}" method="post">
+                @csrf
+                <!-- Rating -->
+                <div class="col-12">
+                    <select id="inputState2" name="vote" class="form-select  js-choice">
+                        <option selected="" value="5">★★★★★ (5/5)</option>
+                        <option value="4">★★★★☆ (4/5)</option>
+                        <option value="3">★★★☆☆ (3/5)</option>
+                        <option value="2">★★☆☆☆ (2/5)</option>
+                        <option value="1">★☆☆☆☆ (1/5)</option>
+                    </select>
+                </div>
+                <!-- Message -->
+                <div class="col-12">
+                    <input type="hidden" name="course_id" value="{{ $course->id }}">
+                    <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review"
+                        rows="3"></textarea>
+                </div>
+                <!-- Button -->
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary mb-0">Đăng bình
+                        luận</button>
+                </div>
+            </form>
         @endif
     </div>
-
-
+    <!-- Leave Review END -->
 
 </div>
+<!-- Content END -->

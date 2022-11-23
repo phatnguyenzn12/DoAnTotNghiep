@@ -5,7 +5,7 @@
 @section('content')
 
     <!-- =======================
-                Page Banner START -->
+                                Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -29,10 +29,10 @@
         </div>
     </section>
     <!-- =======================
-                Page Banner END -->
+                                Page Banner END -->
 
     <!-- =======================
-                Page content START -->
+                                Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -44,8 +44,7 @@
                         role="alert">
                         <div>
                             <i class="bi bi-exclamation-octagon-fill me-2"></i>
-                            Already have an account? <a href="#" class="text-reset btn-link mb-0 fw-bold">Log
-                                in</a>
+                            Nhập mã để được <a href="#" class="text-reset btn-link mb-0 fw-bold">Giảm giá</a>
                         </div>
                         <button type="button" class="btn btn-link mb-0 text-end" data-bs-dismiss="alert"
                             aria-label="Close"><i class="bi bi-x-lg text-dark"></i></button>
@@ -252,17 +251,18 @@
                             <!-- Order summary START -->
                             <div class="card card-body shadow p-4 mb-4">
                                 <!-- Title -->
-                                <h4 class="mb-4">Order Summary</h4>
+                                <h4 class="mb-4">Gỉam giá đơn hàng </h4>
 
                                 <!-- Coupon START -->
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span>Transaction code</span>
+                                        <span>Mã giảm gía</span>
                                         <p class="mb-0 h6 fw-light">AB12365E</p>
                                     </div>
                                     <div class="input-group mt-2">
-                                        <input class="form-control form-control" placeholder="COUPON CODE">
-                                        <button type="button" class="btn btn-primary">Apply</button>
+                                        <input class="form-control form-control" placeholder="Nhập mã code" discountcode>
+                                        <button onclick="checkcode('{{ route('client.order.checkCode') }}')"
+                                            type="button" class="btn btn-primary">Kiểm tra mã</button>
                                     </div>
 
                                 </div>
@@ -273,7 +273,7 @@
 
                                     @csrf
                                     @foreach ($courses as $course)
-                                        <div>
+                                        <div id="remove">
                                             <!-- Course item START -->
                                             <div class="row g-3">
                                                 <!-- Image -->
@@ -291,12 +291,10 @@
                                                         <!-- Price -->
                                                         <span class="text-success">{{ $course->current_Price }}</span>
 
-                                                        <!-- Remove and edit button -->
                                                         <div class="text-primary-hover">
-                                                            <a href="#" class="text-body me-2"><i
-                                                                    class="bi bi-trash me-1"></i>Remove</a>
-                                                            <a href="#" class="text-body me-2"><i
-                                                                    class="bi bi-pencil-square me-1"></i>Edit</a>
+                                                            {{-- <button form="remove" type="submit"
+                                                                class="text-body me-2 btn-bg-light btn"><i
+                                                                    class="bi bi-trash me-1"></i>Xóa</button> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -312,26 +310,25 @@
 
                                 </form>
 
-
                                 <!-- Price and detail -->
-                                <ul class="list-group list-group-borderless mb-2">
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="h6 fw-light mb-0">Original Price</span>
-                                        <span class="h6 fw-light mb-0 fw-bold">$500</span>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="h6 fw-light mb-0">Coupon Discount</span>
-                                        <span class="text-danger">-$20</span>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="h5 mb-0">Total</span>
-                                        <span class="h5 mb-0">$480</span>
-                                    </li>
-                                </ul>
+                                <li class="list-group-item px-0 d-flex justify-content-between">
+                                    <span class="h6 fw-light mb-0">Tổng giá</span>
+                                    <span class="h6 fw-light mb-0 fw-bold">{{ $courses->sum('current_price') }}đ</span>
+                                    <input type="text" hidden value="{{ $courses->sum('current_price') }}" total_price>
+                                </li>
+                                <li class="list-group-item px-0 d-flex justify-content-between">
+                                    <span class="h6 fw-light mb-0">Giảm được</span>
+                                    <span class="text-danger" show_disount>0% - 0đ</span>
+                                </li>
+                                <li class="list-group-item px-0 d-flex justify-content-between">
+                                    <span class="h5 mb-0">Kết quả</span>
+                                    <span class="h5 mb-0" total_discount>{{ $courses->sum('current_price') }}đ</span>
+                                </li>
 
                                 <!-- Button -->
                                 <div class="d-grid">
-                                    <button form="payment"  name="redirect_vnpay"  value="1" class="btn btn-lg btn-success">Thanh toán</button>
+                                    <button form="payment" name="redirect_vnpay" value="1"
+                                        class="btn btn-lg btn-success">Thanh toán</button>
                                 </div>
 
                                 <!-- Content -->
@@ -370,12 +367,11 @@
                                 <!-- Body -->
                                 <div class="card-body">
                                     <!-- Title -->
-                                    <h5 class="card-title text-white mb-2">Access 25K Online courses from 120
-                                        institutions, Start today!</h5>
-                                    <p class="text-white text-opacity-75">Here is the description of premium features
-                                        which will allow users to get benefits and save a lot of money</p>
+                                    <h5 class="card-title text-white mb-2">Đang có sự kiện giảm giá lên tới 25% cho các đơn
+                                        hàng !</h5>
+                                    <p class="text-white text-opacity-75">Chọn vào để nhận được mã giảm giá</p>
                                     <!-- Button -->
-                                    <a href="#" class="btn btn-sm btn-warning mb-0">Purchase Premium</a>
+                                    <a href="#" class="btn btn-sm btn-warning mb-0">Chuyển hướng</a>
                                 </div>
                             </div>
                         </div>
@@ -387,7 +383,7 @@
         </div>
     </section>
     <!-- =======================
-                Page content END -->
+                                Page content END -->
 
 @endsection
 
@@ -395,4 +391,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
 @endsection
 @push('js-handles')
+    <script>
+        price = 0
+
+        function checkcode(url) {
+            axios.post(url, {
+                    code: js_$("[discountcode]").value
+                })
+                .then(
+                    res => {
+                        js_$('[input-code]').value = js_$("[discountcode]").value
+                        js_$('[show_disount]').innerHTML =
+                            `Giảm giá: ${res.data.discount == undefined ? '0' : res.data.discount} %`
+                        js_$('[total_discount]').innerHTML = res.data.discount != undefined ? js_$('[total_price]').value -
+                            (js_$('[total_price]').value * (res.data.discount / 100)) + ' đ' : js_$('[total_price]').value +
+                            ' đ'
+                    }
+                )
+        }
+    </script>
 @endpush

@@ -39,7 +39,10 @@
 
 <body>
     @include('_alert')
-
+    <!-- Header START -->
+    <header class="navbar-light navbar-sticky">
+        @include('layouts.client.header')
+    </header>
     <!-- Main Contents -->
     <main>
         @yield('content')

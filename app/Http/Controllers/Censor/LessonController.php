@@ -16,7 +16,7 @@ class LessonController extends Controller
 
     public function actived(LessonVideo $lesson_video,$check)
     {
-        $lesson_video->check = $check;
+        $lesson_video->is_check = $check;
         $lesson_video->save();
         return redirect()->route('censor.lesson.index')->with('success', 'Cập nhập thành công');
     }

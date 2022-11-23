@@ -31,20 +31,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             <div class="col d-sm-flex justify-content-between align-items-center">
                                 <div>
                                     <h1 class="my-1 fs-4">{{$user->name}}</h1>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                            <span class="h6">255</span>
-                                            <span class="text-body fw-light">points</span>
-                                        </li>
-                                        <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                            <span class="h6">7</span>
-                                            <span class="text-body fw-light">Completed courses</span>
-                                        </li>
-                                        <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                            <span class="h6">52</span>
-                                            <span class="text-body fw-light">Completed lessons</span>
-                                        </li>
-                                    </ul>
+
                                 </div>
                                 <!-- Button -->
                                 <div class="mt-2 mt-sm-0">
@@ -111,7 +98,6 @@ $user = \Illuminate\Support\Facades\Auth::user();
 
                 <!-- Main content START -->
                 <div class="col-xl-9">
-
                     <!-- Counter boxes START -->
                     <div class="row mb-4">
                         <!-- Counter item -->
@@ -122,9 +108,9 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="9" data-purecounter-delay="200">0</h5>
+                                            data-purecounter-end="{{$user->courses()->count()}}" data-purecounter-delay="200">0</h5>
                                     </div>
-                                    <p class="mb-0 h6 fw-light">Total Courses</p>
+                                    <p class="mb-0 h6 fw-light">Tổng khóa học</p>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +125,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
                                             data-purecounter-end="52" data-purecounter-delay="200">0</h5>
                                     </div>
-                                    <p class="mb-0 h6 fw-light">Complete lessons</p>
+                                    <p class="mb-0 h6 fw-light">Khóa học hoàn thiện</p>
                                 </div>
                             </div>
                         </div>
@@ -151,9 +137,9 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="8" data-purecounter-delay="300">0</h5>
+                                            data-purecounter-end="0" data-purecounter-delay="300">0</h5>
                                     </div>
-                                    <p class="mb-0 h6 fw-light">Achieved Certificates</p>
+                                    <p class="mb-0 h6 fw-light">Chứng chỉ đạt được</p>
                                 </div>
                             </div>
                         </div>

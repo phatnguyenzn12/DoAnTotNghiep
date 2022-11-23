@@ -11,10 +11,5 @@
 @endsection
 
 @push('js-handles')
-    <script>
-
-
-    </script>
-
     <script></script>
 @endpush

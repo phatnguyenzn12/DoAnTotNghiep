@@ -15,11 +15,11 @@
                 </div>
                 <!--end::User-->
                 <!--begin::Desc-->
-                <h4 class=" mb-7 font-weight-bold"><a class="text-dark text-hover-primary"
+                <h4 class="mb-7 font-weight-bold"><a class="text-dark text-hover-primary"
                         href="">{{ $course->title }}</a> </h4>
                 <!--end::Desc-->
                 <!--begin::Info-->
-                <div class="mb-7 p-5">
+                <div class="mb-7">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Danh mục</span>
                         <span
