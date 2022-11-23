@@ -22,7 +22,7 @@ class HomeController extends Controller
             ->groupBy('owner_course.user_id')
             ->get()
             ->count();
-            // 'count(*) as number,courses.title,sum(courses.price) as total,courses.image'
+
         $selling = Course::selectRaw('count(*) as number,courses.title,sum(courses.price) as total,courses.image')
             ->join('order_details', 'order_details.course_id', '=', 'courses.id')
             ->where('courses.mentor_id', auth()->guard('mentor')->user()->id)

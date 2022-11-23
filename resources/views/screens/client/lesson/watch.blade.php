@@ -399,8 +399,14 @@
                                         method="post">
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                        <input type="hidden" name="mentor_id" value="{{$course->mentor_id}}">
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+                                        @if (Auth::guard('web')->user())
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="mentor_id" value="{{ $course->mentor_id }}">
+                                        @else
+                                            <input type="hidden" name="mentor_id" value="{{ $course->mentor_id }}">
+                                        @endif
+                                        {{-- @dd(Auth::user()) --}}
                                         <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
                                         <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
                                             placeholder="Add a comment..."></textarea>
@@ -418,19 +424,31 @@
                                                 <li class="comment-item">
                                                     <div class="d-flex mb-3 ">
                                                         <!-- Avatar -->
-                                                        <div class="avatar avatar-sm flex-shrink-0">
-                                                            <a href="#"><img class="avatar-img rounded-circle"
-                                                                    src="{{ Auth::user()->avatar }}" alt=""></a>
-                                                        </div>
+                                                        @if (Auth::guard('web')->user())
+                                                            <div class="avatar avatar-sm flex-shrink-0">
+                                                                <a href="#"><img class="avatar-img rounded-circle"
+                                                                        src="{{ Auth::user()->avatar }}"
+                                                                        alt=""></a>
+                                                            </div>
+                                                        @else
+                                                            <div class="avatar avatar-sm flex-shrink-0">
+                                                                <a href="#"><img class="avatar-img rounded-circle"
+                                                                        src="/frontend/images/avatar/05.jpg"
+                                                                        alt=""></a>
+                                                            </div>
+                                                        @endif
                                                         <div class="ms-2">
                                                             <!-- Comment by -->
                                                             <div class="bg-light p-3 rounded">
                                                                 <div class="d-flex justify-content-center">
                                                                     <div class="me-2">
+                                                                        {{-- @if (Auth::guard('web')->user()) --}}
                                                                         <h6 class="mb-1 lead fw-bold"> <a href="#!">
                                                                                 {{ DB::table('users')->where('id', '=', $item->user_id)->first()->name }}
-                                                                                (Giảng viên)
-                                                                            </a></h6>
+                                                                            </a><span class="text-gray-300">(Học
+                                                                                sinh)</span></h6>
+
+
                                                                         <p class="h6 mb-0"> {{ $item->comment }}
                                                                         </p>
                                                                     </div>
@@ -444,8 +462,9 @@
                                                                         href="#">
                                                                         Like (3)</a> </li>
                                                                 <li class="nav-item"> <a class="text-primary-hover"
-                                                                        data-bs-toggle="collapse" href="" onclick="showform()"
-                                                                        role="button" aria-expanded="false"
+                                                                        data-bs-toggle="collapse" href=""
+                                                                        onclick="showform()" role="button"
+                                                                        aria-expanded="false"
                                                                         aria-controls="collapseComment">
                                                                         Reply</a> </li>
                                                                 <li class="nav-item"> <a class="text-primary-hover"
@@ -461,14 +480,23 @@
                                                                             <div class="avatar avatar-sm flex-shrink-0">
                                                                                 <a href="#"><img
                                                                                         class="avatar-img rounded-circle"
-                                                                                        src="/frontend/images/avatar/05.jpg"
+                                                                                        src="/frontend/images/avatar/06.jpg"
                                                                                         alt=""></a>
                                                                             </div>
                                                                             <div class="me-2">
-                                                                                <h6 class="mb-1 lead fw-bold"> <a
-                                                                                        href="#!">
-                                                                                        {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}
-                                                                                    </a></h6>
+                                                                                {{-- @if (Auth::guard('web')->user()) --}}
+                                                                                    <h6 class="mb-1 lead fw-bold"> <a
+                                                                                            href="#!">
+                                                                                            {{-- {{ DB::table('mentors')->where('id', '=', $i->user_id)->first()->name }} --}}
+                                                                                        </a><span
+                                                                                            class="text-gray-300">(Giảng
+                                                                                            viên)</span></h6>
+                                                                                {{-- @else
+                                                                                <h6 class="mb-1 lead fw-bold"> <a href="#!">
+                                                                                    {{ DB::table('users')->where('id', '=', $item->user_id)->first()->name }}
+                                                                                </a><span class="text-gray-300">(Học
+                                                                                    sinh)</span></h6> --}}
+                                                                                {{-- @endif --}}
                                                                                 <p class="h6 mb-0">{{ $i->comment }}
                                                                                 </p>
                                                                             </div>
@@ -496,7 +524,6 @@
                                                             @endforeach
                                                             <!-- Comment react -->
 
-                                                            @endif
                                                             <form style="display: none" id="reply"
                                                                 action="{{ route('client.lesson.reply', $item->id) }}"
                                                                 method="post">
@@ -506,7 +533,13 @@
                                                                         <input type="hidden" name="course_id"
                                                                             value="{{ $course->id }}">
 
-                                                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                                        @if (Auth::guard('web')->user())
+                                                                            <input type="hidden" name="user_id"
+                                                                                value="{{ Auth::user()->id }}">
+                                                                        @else
+                                                                            <input type="hidden" name="mentor_id"
+                                                                                value="{{ $course->mentor_id }}">
+                                                                        @endif
                                                                         <input type="hidden" name="lesson_id"
                                                                             value="{{ $lesson->id }}">
                                                                         <textarea class="form-control mb-0" name="replycmt" placeholder="Add a comment..." rows="2"
@@ -517,6 +550,7 @@
                                                                     </div>
                                                                 </div>
                                                             </form>
+                                            @endif
                                         @endforeach
 
                                 </div>
@@ -538,7 +572,7 @@
                         <!-- Comment item END -->
 
                         <!-- Comment item START -->
-                        {{-- <div class="border p-2 p-sm-4 rounded-3">
+                        <div class="border p-2 p-sm-4 rounded-3">
                             <ul class="list-unstyled mb-0">
                                 <li class="comment-item">
                                     <div class="d-flex">
@@ -574,7 +608,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div> --}}
+                        </div>
                         <!-- Comment item END -->
 
                     </div>
@@ -605,12 +639,12 @@
         //     })
         // }
         function showform() {
-        var x = document.getElementById("reply");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
+            var x = document.getElementById("reply");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
         }
-    }
     </script>
 @endpush

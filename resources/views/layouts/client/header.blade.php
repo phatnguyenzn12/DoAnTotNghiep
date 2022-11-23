@@ -145,7 +145,7 @@
                                 <div
                                     class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
                                     <h6 class="m-0">Notifications <span
-                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ App\Models\Mentor::has('notifications')->count() != null ? App\Models\Mentor::has('notifications')->count(): 0 }}
+                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ App\Models\Mentor::has('notifications')->count() != null ? App\Models\Mentor::has('notifications')->count() : 0 }}
                                             new</span></h6>
                                     <a class="small" href="#">Clear all</a>
                                 </div>
@@ -153,26 +153,34 @@
                                     <ul class="list-group list-unstyled list-group-flush">
 
                                         <!-- Notif item -->
+                                        @if (isset(App\Models\Mentor::has('notifications')->first()->unreadNotifications))
+                                            @forelse (App\Models\Mentor::has('notifications')->first()->unreadNotifications as $notification)
+                                                <li>
+                                                    @if (Auth::guard('mentor')->user())
+                                                        <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                                            class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                            <div class="me-3">
+                                                                <div class="avatar avatar-md">
+                                                                    <img class="avatar-img rounded-circle"
+                                                                        src="{{ App\Models\User::where('id', $notification->data['user_id'])->first()->avatar }}"
+                                                                        alt="avatar">
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-body small m-0">
+                                                                    <b>{{ App\Models\User::where('id', $notification->data['user_id'])->first()->name }}</b>
+                                                                    commented on
+                                                                    <b>{{ $notification->data['name'] }}</b>
+                                                                </p>
+                                                                <u class="small">View detail</u>
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                </li>
+                                            @empty
+                                            @endforelse
+                                        @endif
 
-                                        @forelse (App\Models\Mentor::has('notifications')->first()->unreadNotifications as $notification )
-                                        <li>
-                                            <a href="{{route('client.lesson.index',['course'=>$notification->data['course_id'], 'lesson'=>$notification->data['lesson_id']])}}"
-                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                                <div class="me-3">
-                                                    <div class="avatar avatar-md">
-                                                        <img class="avatar-img rounded-circle"
-                                                            src="{{App\Models\User::where('id', $notification->data['user_id'])->first()->avatar}}"
-                                                            alt="avatar">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <p class="text-body small m-0"> <b>{{App\Models\User::where('id', $notification->data['user_id'])->first()->name}}</b> commented on <b>{{$notification->data['name']}}</b></p>
-                                                    <u class="small">View detail</u>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        @empty
-                                        @endforelse
 
                                         <!-- Notif item -->
                                         {{-- <li>
@@ -250,8 +258,14 @@
                     <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button"
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img class="avatar-img rounded-circle" src="{{asset('app/'.Auth::user()->avatar)}}" alt="avatar">
-                 </a>
+                        @if (Auth::guard('admin')->user())
+                            <img src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}" alt="avatar">
+                        @elseif (Auth::guard('mentor')->user())
+                            <img src="{{ asset('app/' . Auth::guard('mentor')->user()->avatar) }}" alt="avatar">
+                        @else
+                            <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                        @endif
+                    </a>
 
                     <!-- Profile dropdown START -->
                     <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -261,8 +275,16 @@
                             <div class="d-flex align-items-center">
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
-                                    <img class="src="{{asset('app/'.Auth::user()->avatar)}} src="/frontend/images/avatar/01.jpg"
-                                        alt="avatar">
+                                    {{-- <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar"> --}}
+                                    @if (Auth::guard('admin')->user())
+                                        <img src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}"
+                                            alt="avatar">
+                                    @elseif (Auth::guard('mentor')->user())
+                                        <img src="{{ asset('app/' . Auth::guard('mentor')->user()->avatar) }}"
+                                            alt="avatar">
+                                    @else
+                                        <img src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                                    @endif
                                 </div>
                                 <div>
                                     @if (Auth::guard('admin')->user())

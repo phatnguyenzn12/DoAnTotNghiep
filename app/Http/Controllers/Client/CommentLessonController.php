@@ -24,6 +24,7 @@ class CommentLessonController extends Controller
                 CommentLesson::create([
                     'lesson_id' => $lesson->id,
                     'user_id' => Auth::user()->id,
+                    'mentor_id' => $request->mentor_id,
                     'comment' => $request->comment
                 ]);
                 // dd($lesson);
@@ -48,13 +49,15 @@ class CommentLessonController extends Controller
 
         $cmt = CommentLesson::create([
             'lesson_id' => $lesson->id,
-            'user_id' => Auth::user()->id,
+            // 'user_id' => Auth::user()->id,
+            'mentor_id' => $request->mentor_id,
             'comment' => $request->replycmt,
             'reply' => $id_comment
         ]);
-        $users= User::where('id', '=', auth()->user()->id)->first();
-                // dd($users);
-        Notification::send($users, new notifications($request->lesson_id,$request->course_id,  $request->replycmt, Auth::id()));
+        $mentor= Mentor::where('id','=', $request->mentor_id)->first();
+        // $users= User::where('id', '=', auth()->user()->id)->first();
+        //         // dd($users);
+        // Notification::send($users, new notifications($request->lesson_id,$request->course_id,  $request->replycmt, Auth::id()));
 
         // dd($cmt);
         return redirect()->back();
