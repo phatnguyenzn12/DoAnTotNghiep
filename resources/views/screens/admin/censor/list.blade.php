@@ -16,7 +16,7 @@
                         </h3>
                     </div>
                     <div class="card-toolbar">
-                        <a href="{{route('admin.censor.create')}}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ route('admin.censor.create') }}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -91,6 +91,7 @@
                                     <th>Avatar</th>
                                     <th>Phone</th>
                                     <th>Trạng thái</th>
+                                    <th>Kích hoạt</th>
                                     <th>Active</th>
                                 </tr>
                             </thead>
@@ -103,7 +104,11 @@
                                         <td>{{ $db->number_phone }}</td>
                                         <td>
                                             @if ($db->is_active == 1)
-                                                {{ 'Hoạt động' }} @else{{ 'Ngừng hoạt động' }}
+                                                <span class="label label-lg label-light-success label-inline">Hoạt
+                                                    động</span>
+                                            @else
+                                                <span class="label label-lg label-light-danger label-inline">Ngừng hoạt
+                                                    động</span>
                                             @endif
                                         </td>
                                         <td>
@@ -116,6 +121,11 @@
                                                     onclick="return confirm('Bạn có chắc muốn hoạt động')"
                                                     class="btn btn-success">Hoạt động</a>
                                             @endif
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
+                                                href="{{ route('admin.censor.delete', ['id' => $db->id]) }}">
+                                                <i class="flaticon2-trash text-danger"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

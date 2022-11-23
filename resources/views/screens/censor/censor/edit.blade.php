@@ -31,7 +31,7 @@
                                 <div class="col-xl-2"></div>
                                 <div class="col-xl-8">
                                     <div class="my-5">
-                                        <h3 class="text-dark font-weight-bold mb-10">Thông tin Admin:</h3>
+                                        <h3 class="text-dark font-weight-bold mb-10">Thông tin Censor:</h3>
                                         <div class="form-group row">
                                             <label class="col-3">Name</label>
                                             <div class="col-9">

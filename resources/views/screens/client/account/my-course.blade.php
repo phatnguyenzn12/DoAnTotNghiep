@@ -22,7 +22,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             <div class="col-auto">
                                 <div class="avatar avatar-xxl position-relative mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                        src="/frontend/images/avatar/09.jpg" alt="">
+                                    src="{{asset('app/'.Auth::user()->avatar)}}">
                                     <span
                                         class="badge text-bg-success rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Pro</span>
                                 </div>

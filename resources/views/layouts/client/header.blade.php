@@ -278,7 +278,16 @@
                     <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button"
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg" alt="avatar">
+                        @if (Auth::guard('admin')->user())
+                            <img class="avatar-img rounded-circle"
+                                src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}" alt="avatar">
+                        @elseif (Auth::guard('mentor')->user())
+                            <img class="avatar-img rounded-circle"
+                                src="{{ asset('app/' . Auth::guard('mentor')->user()->avatar) }}" alt="avatar">
+                        @else
+                            <img class="avatar-img rounded-circle" src="{{ asset('app/' . Auth::user()->avatar) }}"
+                                alt="avatar">
+                        @endif
                     </a>
 
                     <!-- Profile dropdown START -->
@@ -289,8 +298,18 @@
                             <div class="d-flex align-items-center">
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
-                                    <img class="avatar-img rounded-circle shadow" src="/frontend/images/avatar/01.jpg"
-                                        alt="avatar">
+                                    @if (Auth::guard('admin')->user())
+                                        <img class="avatar-img rounded-circle"
+                                            src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}"
+                                            alt="avatar">
+                                    @elseif (Auth::guard('mentor')->user())
+                                        <img class="avatar-img rounded-circle"
+                                            src="{{ asset('app/' . Auth::guard('mentor')->user()->avatar) }}"
+                                            alt="avatar">
+                                    @else
+                                        <img class="avatar-img rounded-circle"
+                                            src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                                    @endif
                                 </div>
                                 <div>
                                     @if (Auth::guard('admin')->user())
@@ -311,10 +330,12 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        @if (Auth::guard('admin')->user() || Auth::guard('mentor')->user())
+                        @if (Auth::guard('admin')->user())
                             <li><a class="dropdown-item" href="/admin"><i class="bi bi-person fa-fw me-2"></i>Trang
                                     quản
                                     trị</a></li>
+                        @elseif (Auth::guard('mentor')->user())
+                            <li><a class="dropdown-item" href="{{route('mentor.home')}}"><i class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
                         @endif
                         <li><a class="dropdown-item" href="{{ route('client.account.index') }}"><i
                                     class="bi bi-person fa-fw me-2"></i>Sửa thông tin cá nhân</a></li>

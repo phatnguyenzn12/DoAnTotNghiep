@@ -15,8 +15,8 @@ class AccountController extends Controller
 
     public function index()
     {
-      $mentor = Auth::guard('mentor')->user();
-        return view('screens.mentor.account.my-account',compact('mentor'));
+        $mentor = Auth::guard('mentor')->user();
+        return view('screens.mentor.account.my-account', compact('mentor'));
     }
     public function update(Request $request, Mentor $mentor, $id)
     {
@@ -25,11 +25,11 @@ class AccountController extends Controller
             return back();
         } else {
             $mentor->fill($request->except(['_method', '_token']));
-            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-                //  $params['cols']['avatar'] = $this->upLoadFile($request->file('avatar'));
-                $mentor->avatar =  $this->upLoadFile($request->file('avatar'));
+            if ($request->hasFile('avatar')) {
+                $imgPath = $request->file('avatar')->store('images');
+                $imgPath = str_replace('public/', '', $imgPath);
+                $mentor->avatar = $imgPath;
             }
-
             $mentor->update();
             return redirect()->back()->with('success', 'sửa thành công');
         }
@@ -64,9 +64,10 @@ class AccountController extends Controller
     {
         return view('screens.mentor.account.comment-teacher');
     }
-    public function uploadFile($file)
-    {
-        $fileName = time() . '_' . $file->getClientOriginalName();  //
-        return $file->storeAs('images', $fileName, 'public');
-    }
+    // public function uploadFile($file)
+    // {
+    //     $fileName = time() . '_' . $file->getClientOriginalName();  //
+    //     //   dd( $file->storeAs('image', $fileName, 'public'));
+    //     return $file->storeAs('images', $fileName, 'public');
+    // }
 }
