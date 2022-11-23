@@ -21,11 +21,11 @@ class Course extends BaseModel
         'mentor_id',
         'skill_id',
         'language',
-        'certificate',
         'tags',
         'type',
         'description',
         'description_details',
+        'certificate_id'
     ];
 
     protected $appends = [
@@ -37,6 +37,11 @@ class Course extends BaseModel
     public function chapters()
     {
         return $this->hasMany(Chapter::class);
+    }
+
+    public function certificate()
+    {
+        return $this->belongsTo(Certificate::class);
     }
 
     public function commentCourses()

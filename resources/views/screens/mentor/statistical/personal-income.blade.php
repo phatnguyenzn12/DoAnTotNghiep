@@ -121,31 +121,39 @@
         <div class="card-header h-auto">
             <!--begin::Title-->
             <div class="card-title py-5">
-                <h3 class="card-label">Thu nhập: 12000</h3>
+                <h3 class="card-label" total_price>Thu nhập: 12000</h3>
             </div>
             <div class="d-flex align-items-center justify-content-center">
                 <div class="my-2 my-md-0">
                     <div class="d-flex align-items-center">
-                        <label class="mr-3 mb-0 d-none d-md-block">Khoá học  </label>
-                        <select class="form-control" id="kt_datatable_search_status">
-                            <option value="">All</option>
-                            <option value="1">Pending</option>
-                            <option value="2">Delivered</option>
-                            <option value="3">Canceled</option>
-                            <option value="4">Success</option>
-                            <option value="5">Info</option>
-                            <option value="6">Danger</option>
+                        <label class="mr-3 mb-0 d-none d-md-block">Khoá học </label>
+                        <select class="form-control" id="kt_datatable_search_status" onchange="check_product(this)">
+                            <option value="0">Tất cả</option>
+                            @forelse ($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->title }}</option>
+                            @empty
+                            @endforelse
                         </select>
                     </div>
                 </div>
                 <div class="m-2 my-md-0">
                     <div class="d-flex align-items-center">
                         <label class="mr-3 mb-0 d-none d-md-block">Năm:</label>
-                        <select class="form-control" id="kt_datatable_search_type">
-                            <option value="">All</option>
-                            <option value="1">Online</option>
-                            <option value="2">Retail</option>
-                            <option value="3">Direct</option>
+                        <select class="form-control" id="kt_datatable_search_type" onchange="check_year(this)">
+                            <option value="0">Tất cả</option>
+                            <option value="2011">2011</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
                         </select>
                     </div>
                 </div>
@@ -167,7 +175,7 @@
     <div class="card card-custom gutter-b">
         <div class="card-header">
             <div class="card-title">
-                <h3 class="card-label">6 nguồn thu nhập hàng đầu</h3>
+                <h3 class="card-label">3 nguồn thu nhập hàng đầu</h3>
             </div>
         </div>
         <div class="card-body">
@@ -183,6 +191,7 @@
 @endsection
 
 @section('js-links')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
 
 @push('js-handles')
@@ -194,8 +203,9 @@
         const warning = '#FFA800';
         const danger = '#F64E60';
 
-       // Class definition
-       function generateBubbleData(baseval, count, yrange) {
+
+        // Class definition
+        function generateBubbleData(baseval, count, yrange) {
             var i = 0;
             var series = [];
             while (i < count) {
@@ -226,84 +236,128 @@
             return series;
         }
 
-        var KTApexChartsDemo = function() {
-            var _demo1 = function() {
-                const apexChart = "#chart_1";
-                var options = {
-                    series: [{
-                        name: "Desktops",
-                        data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 69, 91, 148]
-                    }],
-                    chart: {
-                        height: 350,
-                        type: 'line',
-                        zoom: {
-                            enabled: false
-                        }
-                    },
-                    dataLabels: {
+        var filter = {
+            'year': 0,
+            'course_id': 0
+        }
+
+        var KTApexChartsDemo = function(data) {
+            const apexChart = "#chart_1";
+            var options = {
+                series: [{
+                    name: "Desktops",
+                    data: data
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
                         enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3',
+                            'transparent'
+                        ], // takes an array which will be repeated on columns
+                        opacity: 0.5
                     },
-                    stroke: {
-                        curve: 'straight'
-                    },
-                    grid: {
-                        row: {
-                            colors: ['#f3f3f3',
-                                'transparent'
-                            ], // takes an array which will be repeated on columns
-                            opacity: 0.5
-                        },
-                    },
-                    xaxis: {
-                        categories: ['tháng 1', 'tháng 2', 'tháng 3', 'tháng 4', 'tháng 5', 'tháng 6',
-                            'tháng 7', 'tháng 8', 'tháng 9', 'tháng 10', 'tháng 11', 'tháng 12'
-                        ],
-                    },
-                    colors: [primary]
-                };
-
-                var chart = new ApexCharts(document.querySelector(apexChart), options);
-                chart.render();
-            }
-
-            var _demo12 = function() {
-                const apexChart = "#chart_12";
-                var options = {
-                    series: [44, 55, 13, 43, 22],
-                    chart: {
-                        width: 380,
-                        type: 'pie',
-                    },
-                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200
-                            },
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }],
-                    colors: [primary, success, warning, danger, info]
-                };
-
-                var chart = new ApexCharts(document.querySelector(apexChart), options);
-                chart.render();
-            }
-            return {
-                // public functions
-                init: function() {
-                    _demo12();
-                    _demo1();
-                }
+                },
+                xaxis: {
+                    categories: ['tháng 1', 'tháng 2', 'tháng 3', 'tháng 4', 'tháng 5', 'tháng 6',
+                        'tháng 7', 'tháng 8', 'tháng 9', 'tháng 10', 'tháng 11', 'tháng 12'
+                    ],
+                },
+                colors: [primary]
             };
-        }();
+
+            var chart = new ApexCharts(document.querySelector(apexChart), options);
+            chart.render();
+        };
 
         jQuery(document).ready(function() {
-            KTApexChartsDemo.init();
+            axiosApi()
+        });
+
+
+        function total(data) {
+            console.log(data);
+            $('[total_price]').html(
+                'Thu nhập: ' + data.reduce((
+                    partialSum, a) => partialSum + Number(a), 0)
+            )
+        }
+
+        function check_product(elm) {
+            filter.course_id = elm.value
+            axiosApi()
+        }
+
+        function check_year(elm) {
+            filter.year = elm.value
+            axiosApi()
+        }
+
+        function axiosApi() {
+
+            axios.get('{{ route('api.mentor.statistical.turnover') }}', {
+                    params: filter
+                })
+                .then(
+                    res => {
+                        total(res.data);
+                        KTApexChartsDemo(res.data);
+                    }
+                )
+        }
+
+
+        var KTApexChartsDemo1 = function(data) {
+            const apexChart = "#chart_12";
+
+            const arrOfNum = data.total.map(str => {
+                return Number(str);
+            });
+
+            var options = {
+                series: arrOfNum,
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                labels: data.title,
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }],
+                colors: [primary, success, warning]
+            };
+
+            var chart = new ApexCharts(document.querySelector(apexChart), options);
+            chart.render();
+
+        };
+
+        jQuery(document).ready(function() {
+            axios.get('{{ route('api.mentor.statistical.apiCourseSellingTop') }}')
+                .then(
+                    res => {
+                        KTApexChartsDemo1(res.data);
+                    }
+                )
         });
     </script>
 

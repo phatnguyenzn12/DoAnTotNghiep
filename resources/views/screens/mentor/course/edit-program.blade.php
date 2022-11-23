@@ -84,7 +84,6 @@
                     course: {{ $course_id }}
                 },
                 success: function(res) {
-                    console.log(res);
                     $('#modal-example').find('.modal-body').html(res)
                 }
             })

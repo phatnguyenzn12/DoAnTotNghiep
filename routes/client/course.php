@@ -14,6 +14,8 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
         Route::get('list', 'index')->name('list');
 
         Route::get('all-course','filterCourse')->name('filterCourse');
+
+        Route::get('lesson/lesson_video/{lesson_video}', 'demo')->name('lesson');
     }
 );
 Route::name('commentcourse.')->controller(CommentCourseController::class)->group(

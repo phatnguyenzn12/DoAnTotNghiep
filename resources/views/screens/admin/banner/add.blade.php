@@ -24,28 +24,38 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
-                                          <div class="form-group">
-                                               <label for="">Tiêu đề</label>
-                                               <input type="text" name="title" class="form-control" placeholder="">
-                                          </div>
-                                          <div class="form-group">
-                                               <label for="">Nội dung</label>
-                                               <input type="text" name="content" class="form-control" placeholder="">
-                                          </div>
-                                          <div class="form-group">
-                                               <label for="">Hình Ảnh</label>
-                                               <input type="file" name="image" class="form-control" placeholder="">
-                                          </div>
-                                          <div class="form-group" data-select2-id="2">
+                                        <div class="form-group">
+                                            <label for="">Tiêu đề</label>
+                                            <input type="text" name="title" class="form-control" placeholder="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Nội dung</label>
+                                            <input type="text" name="content" class="form-control" placeholder="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Hình Ảnh</label>
+                                            <input type="file" name="image" class="form-control" placeholder="">
+                                        </div>
+                                        <div class="form-group" data-select2-id="2">
                                             <label>Chọn kiểu banner</label>
-                                            <select class="form-control" name="type" id="exampleSelect1" onchange="selectBanner(this)">
+                                            <select class="form-control" name="type" id="exampleSelect1"
+                                                onchange="selectBanner(this)">
                                                 <option value="course">bài học mới</option>
                                                 <option value="discount">mã giảm giá</option>
                                             </select>
                                         </div>
-                                        <div option-banner></div>
-
-                                          <div class="form-group row">
+                                        <div class="form-group">
+                                            <label for="">Mã giảm giá</label>
+                                            <select name="discount_id" id="select2" class="form-control">
+                                                <option value="">Chọn mã giảm giá</option>
+                                                <optgroup label="">
+                                                    @foreach ($coupons as $coupon)
+                                                        <option value="{{ $coupon->id }}">{{ $coupon->title }}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                       </div>
+                                        <div class="form-group row">
                                             <label class="col-3 col-form-label">Trạng thái</label>
                                             <div class="col-9 col-form-label">
                                                 <div class="radio-inline">
@@ -58,11 +68,11 @@
                                                         <span></span>Riêng tư</label>
                                                 </div>
                                             </div>
-                                        </div> 
+                                        </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">
                                         <br>
-                                        <a href="{{route('admin.banner.index')}}" class="btn btn-danger">Hủy</a>
+                                        <a href="{{ route('admin.banner.index') }}" class="btn btn-danger">Hủy</a>
                                         &nbsp;
                                         <button type="submit" class="btn btn-primary">Lưu</button>
                                     </div>
@@ -73,31 +83,14 @@
                     <!--end: Datatable-->
                 </div>
             </div>
-        <!--end::Container-->
-    </div>
-    
-    <!--end::Entry-->
-@endsection
+            <!--end::Container-->
+        </div>
 
-@section('js-links')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
-@endsection
-@push('js-handles')
-<script>
-    $('[option-banner]').html(
-        `@include('components.admin.banner.list-course')`
-    )
+        <!--end::Entry-->
+    @endsection
 
-    function selectBanner(elm) {
-        if (elm.value == 'course') {
-            $('[option-banner]').html(
-                `@include('components.admin.banner.list-course')`
-            )
-        } else {
-            $('[option-banner]').html(
-                `@include('components.admin.banner.list-discount')`
-            )
-        }
-    }
-</script>
-@endpush
+    @section('js-links')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    @endsection
+    @push('js-handles')
+    @endpush

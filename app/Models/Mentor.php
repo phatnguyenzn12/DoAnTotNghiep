@@ -58,6 +58,16 @@ class Mentor extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function specialize()
+    {
+        return $this->belongsTo(Specialize::class);
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
+    }
+
     public function PermissionCheck()
     {
         return $this->guard;

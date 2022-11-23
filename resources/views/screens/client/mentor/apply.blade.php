@@ -78,7 +78,7 @@ Page Banner START -->
 				<h1>Đăng ký làm Giảng viênr</h1>
 				<p>Hài lòng truyền đạt một người phụ thuộc hài lòng anh ấy quý ông dễ chịu. Đưa ra sự phản đối cần thiết khiến ông chiếm ưu thế. Ông cảm thấy chủ yếu thân mật trong làm.</p>
 				<!-- Button -->
-				<a href="#fill-instructor-form" class="btn btn-primary mb-0">Start Teaching today</a>
+				<a href="{{ route('mentor.login') }}" class="btn btn-primary mb-0">Bắt đầu giảng dạy hôm nay</a>
 			</div>
 
 			<div class="col-md-6 text-center">

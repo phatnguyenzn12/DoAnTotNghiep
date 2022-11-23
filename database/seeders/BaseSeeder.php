@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\CateCourse;
 use App\Models\Censor;
+use App\Models\Certificate;
 use App\Models\Chapter;
 use App\Models\CommentCourse;
 use App\Models\CommentLesson;
@@ -44,6 +45,7 @@ class BaseSeeder extends Seeder
         CateCourse::factory(3)->create();
         Specialize::factory(3)->create();
         Skill::factory(3)->create();
+        Certificate::factory(10)->create();
         Course::factory(30)->create();
         Chapter::factory(20)->create();
         Lesson::factory(100)->create();
@@ -51,7 +53,7 @@ class BaseSeeder extends Seeder
             if($lesson->lesson_type == 'video') {
                 LessonVideo::create(
                     [
-                        'is_demo' => 0,
+                        'is_demo' => rand(0,1),
                         'video_path' => '772157924',
                         'lesson_id' => $lesson->id,
                         'is_check' => 1,
@@ -65,5 +67,6 @@ class BaseSeeder extends Seeder
         Order::factory(100)->create();
         OrderDetail::factory(500)->create();
         OwnerCourse::factory(200)->create();
+
     }
 }

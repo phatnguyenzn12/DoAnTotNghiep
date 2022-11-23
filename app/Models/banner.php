@@ -16,7 +16,10 @@ class Banner extends Model
         'type',
         'sort',
         'discount_code_id',
+        'image'
     ];
 
-   
+    public function discountCode(){
+        return $this->belongsTo(DiscountCode::class,'discount_code_id');
+    }
 }

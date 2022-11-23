@@ -14,7 +14,7 @@ class ChapterController extends Controller
         $course_id = $course_id->course;
         $data = view('components.mentor.course.modal.chapter.add',compact('course_id'))->render();
 
-        return response()->json($data, 200);
+        return response()->json($data);
     }
 
     public function store(Request $request)

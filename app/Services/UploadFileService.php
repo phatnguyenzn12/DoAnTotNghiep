@@ -10,7 +10,7 @@ class UploadFileService
      * @param  mixed $request_img
      * @return string
      */
-    function storage_image($request_img): string
+    public static function storage_image($request_img): string
     {
         $img_name = $request_img->hashName();
         $image = $request_img->storeAs('/images', $img_name);

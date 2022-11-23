@@ -17,5 +17,6 @@ class DiscountCode extends Model
         'discount',
         'start_time',
         'end_time',
+        'slug'
     ];
 }
