@@ -3,6 +3,15 @@
 @section('title', 'Trang chủ')
 
 @section('content')
+    <style>
+        .block {
+            display: block;
+        }
+
+        .none {
+            display: none;
+        }
+    </style>
     <section class="py-0 position-relative">
 
         <div class="row g-0">
@@ -373,11 +382,6 @@
 
                 </div>
                 <!-- Content END -->
-
-
-
-
-
                 <div class="container">
                     <!-- Content START -->
                     <div class="tab-pane fade active show" id="course-pills-4" role="tabpanel"
@@ -396,19 +400,19 @@
                                     </div>
 
                                     <form class="w-100 d-flex" action="{{ route('client.lesson.storecmt') }}"
-                                        method="post">
+                                        method="post" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
-
                                         @if (Auth::guard('web')->user())
                                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                             <input type="hidden" name="mentor_id" value="{{ $course->mentor_id }}">
                                         @else
                                             <input type="hidden" name="mentor_id" value="{{ $course->mentor_id }}">
                                         @endif
-                                        {{-- @dd(Auth::user()) --}}
                                         <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
-                                        <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
+                                        <input type="file" class="custom-file-input bg-light" id="inputGroupFile01"
+                                            name="image">
+                                        <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="2"
                                             placeholder="Add a comment..."></textarea>
                                         <button type="submit"
                                             class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
@@ -420,6 +424,9 @@
                                 <div class="border p-2 p-sm-4 rounded-3 mb-4">
                                     <ul class="list-unstyled mb-0">
                                         @foreach ($cmt as $item)
+                                            @php
+                                                // $i++
+                                            @endphp
                                             @if ($item->reply == null)
                                                 <li class="comment-item">
                                                     <div class="d-flex mb-3 ">
@@ -440,17 +447,19 @@
                                                         <div class="ms-2">
                                                             <!-- Comment by -->
                                                             <div class="bg-light p-3 rounded">
-                                                                <div class="d-flex justify-content-center">
+                                                                <div class="d-flex ">
                                                                     <div class="me-2">
-                                                                        {{-- @if (Auth::guard('web')->user()) --}}
-                                                                        <h6 class="mb-1 lead fw-bold"> <a href="#!">
+                                                                        <h6 class="mb-0 lead fw-bold"> <a href="#!">
                                                                                 {{ DB::table('users')->where('id', '=', $item->user_id)->first()->name }}
                                                                             </a><span class="text-gray-300">(Học
                                                                                 sinh)</span></h6>
 
-
-                                                                        <p class="h6 mb-0"> {{ $item->comment }}
+                                                                        <img src="{{ DB::table('users')->where('id', '=', $item->user_id)->first()->avatar }}"
+                                                                            alt="">
+                                                                        <p class="h6 mb-1 text-dark"> {{ $item->comment }}
                                                                         </p>
+                                                                        <img src="{{ asset('app/' . $item->image) }}"
+                                                                            alt="image" class="img-fluid">
                                                                     </div>
                                                                     <small>
                                                                         {{ date('d/m/Y', strtotime($item->created_at)) }}</small>
@@ -475,32 +484,47 @@
                                                             @foreach ($cmt as $i)
                                                                 @if ($i->reply == $item->id)
                                                                     <div class="bg-light p-3 rounded"
-                                                                        style="margin-left: 50px">
-                                                                        <div class="d-flex justify-content-center">
-                                                                            <div class="avatar avatar-sm flex-shrink-0">
-                                                                                <a href="#"><img
-                                                                                        class="avatar-img rounded-circle"
-                                                                                        src="/frontend/images/avatar/06.jpg"
-                                                                                        alt=""></a>
-                                                                            </div>
+                                                                        style="margin-left: 80px">
+                                                                        <div class="d-flex ">
+                                                                            @if (isset($i->mentor_id))
+                                                                                <div
+                                                                                    class="avatar avatar-sm flex-shrink-0">
+                                                                                    <a href="#"><img
+                                                                                            class="avatar-img rounded-circle"
+                                                                                            src="{{ DB::table('mentors')->where('id', '=', $i->mentor_id)->first()->avatar }}"
+                                                                                            alt=""></a>
+                                                                                </div>
+                                                                            @else
+                                                                                <div
+                                                                                    class="avatar avatar-sm flex-shrink-0">
+                                                                                    <a href="#"><img
+                                                                                            class="avatar-img rounded-circle"
+                                                                                            src="/frontend/images/avatar/02.jpg"
+                                                                                            alt=""></a>
+                                                                                </div>
+                                                                            @endif
                                                                             <div class="me-2">
-                                                                                {{-- @if (Auth::guard('web')->user()) --}}
+                                                                                @if (isset($i->mentor_id))
                                                                                     <h6 class="mb-1 lead fw-bold"> <a
                                                                                             href="#!">
-                                                                                            {{-- {{ DB::table('mentors')->where('id', '=', $i->user_id)->first()->name }} --}}
+                                                                                            {{ DB::table('mentors')->where('id', '=', $i->mentor_id)->first()->name }}
                                                                                         </a><span
                                                                                             class="text-gray-300">(Giảng
                                                                                             viên)</span></h6>
-                                                                                {{-- @else
-                                                                                <h6 class="mb-1 lead fw-bold"> <a href="#!">
-                                                                                    {{ DB::table('users')->where('id', '=', $item->user_id)->first()->name }}
-                                                                                </a><span class="text-gray-300">(Học
-                                                                                    sinh)</span></h6> --}}
-                                                                                {{-- @endif --}}
-                                                                                <p class="h6 mb-0">{{ $i->comment }}
+                                                                                @else
+                                                                                    <h6 class="mb-1 lead fw-bold"> <a
+                                                                                            href="#!">
+                                                                                            {{ DB::table('users')->where('id', '=', $item->user_id)->first()->name }}
+                                                                                        </a><span
+                                                                                            class="text-gray-300">(Học
+                                                                                            sinh)</span></h6>
+                                                                                @endif
+                                                                                <p class="h6 mb-2">{{ $i->comment }}
                                                                                 </p>
+                                                                                <img src="{{ asset('app/' . $i->image) }}"
+                                                                                    alt="image" class="img-fluid">
                                                                             </div>
-                                                                            <small>5hr</small>
+                                                                            <small>{{ date('d/m/Y', strtotime($i->created_at)) }}</small>
                                                                         </div>
                                                                         <ul class="nav nav-divider py-2 small">
                                                                             <li class="nav-item"> <a
@@ -510,7 +534,8 @@
                                                                             <li class="nav-item"> <a
                                                                                     class="text-primary-hover"
                                                                                     data-bs-toggle="collapse"
-                                                                                    href="#collapseComment1"
+                                                                                    onclick="showform({{ $loop->iteration }})"
+                                                                                    href="#collapseComment1{{ $item->id }}"
                                                                                     role="button" aria-expanded="false"
                                                                                     aria-controls="collapseComment">
                                                                                     Reply</a> </li>
@@ -524,11 +549,12 @@
                                                             @endforeach
                                                             <!-- Comment react -->
 
-                                                            <form style="display: none" id="reply"
+                                                            <form class="reply"
                                                                 action="{{ route('client.lesson.reply', $item->id) }}"
-                                                                method="post">
+                                                                method="post" enctype="multipart/form-data">
                                                                 @csrf
-                                                                <div class="collapse show" id="collapseComment1">
+                                                                <div class="collapse show"
+                                                                    id="collapseComment1{{ $item->id }}">
                                                                     <div class="d-flex mt-3">
                                                                         <input type="hidden" name="course_id"
                                                                             value="{{ $course->id }}">
@@ -542,6 +568,7 @@
                                                                         @endif
                                                                         <input type="hidden" name="lesson_id"
                                                                             value="{{ $lesson->id }}">
+                                                                        <input type="file" name="image">
                                                                         <textarea class="form-control mb-0" name="replycmt" placeholder="Add a comment..." rows="2"
                                                                             spellcheck="false"></textarea>
                                                                         <button
@@ -638,13 +665,15 @@
         //         }
         //     })
         // }
-        function showform() {
-            var x = document.getElementById("reply");
-            if (x.style.display === "none") {
-                x.style.display = "block";
+        function showform(index) {
+            var x = document.querySelectorAll(".reply")
+            if (x.classlist.contains("none")) {
+                x.classlist.add("block");
             } else {
-                x.style.display = "none";
+                x.classlist.add("none");
+                x.classlist.remove("block");
             }
+            // console.log(x[index]);
         }
     </script>
 @endpush

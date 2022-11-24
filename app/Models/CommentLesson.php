@@ -12,9 +12,10 @@ class CommentLesson extends Model
     protected $fillable = [
         'comment',
         // 'vote',
+        'image',
         'reply',
         'status',
-        // 'mentor_id',
+        'mentor_id',
         'lesson_id',
         'user_id',
     ];
