@@ -138,9 +138,8 @@
                                                     src="/frontend/images/avatar/09.jpg" alt=""> </a>
                                         </div>
 
-                                        <<<<<<< HEAD <form class="w-100 d-flex"
-                                            action="{{ route('client.lesson.storecmt') }}" method="post"
-                                            enctype="multipart/form-data">
+                                        <form class="w-100 d-flex" action="{{ route('client.lesson.storecmt') }}"
+                                            method="post" enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="course_id" value="{{ $course->id }}">
                                             @if (Auth::guard('web')->user())
@@ -152,14 +151,11 @@
                                             <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
                                             <input type="file" class="custom-file-input bg-light"
                                                 id="inputGroupFile01" name="image">
-                                            <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="2"=======<form
-                                                class="w-100 d-flex">
-                                        <textarea class="one form-control pe-4 bg-light" id="autoheighttextarea" rows="1"
->>>>>>> main
-                                            placeholder="Add a comment..."></textarea>
+                                            <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="2"
+                                                placeholder="Add a comment..."></textarea>
                                             <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
                                                     class="fas fa-paper-plane fs-5"></i></button>
-                                            </form>
+                                        </form>
                                     </div>
 
                                     <!-- Comment item START -->
