@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('social_networks')->nullable();
             $table->string('educations')->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('group_id');
             $table->string('skills')->nullable();
             $table->integer('years_in_experience')->nullable();
             $table->unsignedBigInteger('specialize_id');
