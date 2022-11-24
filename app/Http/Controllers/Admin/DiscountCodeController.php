@@ -38,8 +38,15 @@ class DiscountCodeController extends Controller
     public function store(Request $request)
     {
         DiscountCode::create(
-            array_merge(
-                $request->all()
+            $request->only(
+                "title",
+                "slug",
+                "code",
+                "discount",
+                "start_time",
+                "end_time",
+                "content",
+                "status",
             )
         );
 
@@ -89,6 +96,7 @@ class DiscountCodeController extends Controller
         $discount->start_time = $request->start_time;
         $discount->end_time = $request->end_time;
         $discount->save();
+
         return redirect()
             ->back()
             ->with('success', 'sửa mã giảm thành công');

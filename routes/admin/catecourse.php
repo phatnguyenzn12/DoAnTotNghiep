@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\CateCourseController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/cate-course')->name('admin.cate-course.')->middleware('role:admin|mentor')->controller(CateCourseController::class)->group(
+Route::prefix('admin/cate-course')->name('admin.cate-course.')->middleware('role:admin')->controller(CateCourseController::class)->group(
     function () {
         Route::get('','index')->name('index');
         Route::get('listdelete','listdelete')->name('listdelete');

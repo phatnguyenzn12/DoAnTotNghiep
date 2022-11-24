@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Course;
 use App\Models\DiscountCode;
+use App\Services\UploadFileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,7 +34,7 @@ class BannerController extends Controller
         $courses = Course::select('id', 'title')->get();
         // dd( $courses);
         $coupons = DiscountCode::select('id', 'title')->get();
-        return view('screens.admin.banner.add', compact('courses','coupons'));
+        return view('screens.admin.banner.add', compact('courses', 'coupons'));
     }
 
     /**
@@ -43,19 +44,24 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        $courses = Course::select('id', 'title')->get();
-        // dd( $courses);
-        $coupons = DiscountCode::select('id', 'title')->get();
-        $store = new Banner();
-        if($request->hasFile('image')){
-            $imgPath = $request->file('image')->store('images');
-            $imgPath = str_replace('public/', '', $imgPath);
-            $store->image = $imgPath;
-        }
-        $store->fill($request->all());
-        $store->save();
-        return redirect()->route('admin.banner.index')->with('success', 'Thêm mới thành công');
+    {
+        $imgPath = UploadFileService::storage_image($request->image);
+
+        $banner = $request->only(
+            [
+                "title",
+                "content",
+                "type",
+                "status",
+                "discount_code_id"
+            ]
+        );
+        $banner['sort'] =  1;
+        $banner['image'] =  $imgPath;
+
+        Banner::create($banner);
+
+        return redirect()->back()->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -77,13 +83,9 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $courses = Course::select('id', 'title')->get();
-       
         $edit = Banner::find($id);
-        if(!$edit){
-            return back();
-        }
-        return view('screens.admin.banner.update', compact('edit'));
+        $discountCodes = DiscountCode::get();
+        return view('screens.admin.banner.update', compact('edit','discountCodes'));
     }
 
     /**
@@ -96,9 +98,18 @@ class BannerController extends Controller
     public function update(Request $request, $id)
     {
         $update = Banner::find($id);
-          
-        $update->fill($request->all());
-        $update->save();
+        $banner = $request->only(
+            "title",
+            "content",
+            "type",
+            "status",
+            "discount_code_id"
+        );
+        if ($request->has('image')) {
+            $imgPath = UploadFileService::storage_image($request->image);
+            $banner['image'] = $imgPath;
+        }
+        $update->update($banner);
         return redirect()->route('admin.banner.index')->with('success', 'sửa thành công');
     }
 
@@ -111,14 +122,12 @@ class BannerController extends Controller
     public function destroy($id)
     {
         $destroy = Banner::find($id);
-        if(!empty($destroy->image)){
+        if (!empty($destroy->image)) {
             $imgPath = str_replace('storage/', 'public/', $destroy->image);
             Storage::delete($imgPath);
         }
         $destroy->delete();
-        
+
         return redirect()->route('admin.banner.index')->with('success', 'Xoá thành công');
     }
-
-    
 }

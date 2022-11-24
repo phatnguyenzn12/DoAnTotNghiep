@@ -7,9 +7,11 @@ use App\Models\Cart;
 use App\Models\Course;
 use App\Models\DiscountCode;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Services\VnPayService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+
 class OrderController extends Controller
 {
     public function cartList()
@@ -42,6 +44,7 @@ class OrderController extends Controller
 
     public function pay()
     {
+
         $courses = auth()->user()->load('carts')->carts;
         return view('screens.client.order.pay', compact('courses'));
     }
@@ -54,7 +57,7 @@ class OrderController extends Controller
 
     public function vnpay(Request $request)
     {
-        $courses = Course::whereIn('id', $request->course_id)->get();
+        $courses = auth()->user()->load('carts')->carts()->get();
 
         $courses->transform(
             function ($course) {
@@ -73,14 +76,25 @@ class OrderController extends Controller
         $id = Order::select('id')->max('id');
         $code = '#' . str_pad($id == null ? 0 : $id, 8, "0", STR_PAD_LEFT);
 
-        Cookie::queue('courses', json_encode($courses->toArray()), 3600 * 1000);
+        // Cookie::queue('courses', json_encode($courses->toArray()), 3600 * 1000);
 
         VnPayService::create($request, $code, $total_price);
     }
 
     public function resDataVnpay()
     {
-        $courses = collect(json_decode(Cookie::get('courses'), true));
+        $courses = auth()->user()
+            ->load('carts')
+            ->carts()
+            ->get()
+            ->map(
+                function ($val) {
+                    $course = $val->only('price');
+                    $course['course_id'] = $val->id;
+                    return $course;
+                }
+            );
+
         $course_id = $courses->pluck('course_id')->toArray();
 
         $order = Order::create([
@@ -90,15 +104,16 @@ class OrderController extends Controller
             'status' => 1
         ]);
 
-        $order->orderDetails()->attach($courses->toArray());
+        $order->orderDetails()->attach($courses->keyby('course_id')->toArray());
 
         auth()->user()->load('courses')
             ->courses()
             ->attach($course_id);
 
-        Cart::destroy($course_id);
 
-        Cookie::queue('courses', 0);
+        $cart_id = Cart::whereIn('course_id', $course_id)->get()->pluck('id');
+
+        Cart::destroy($cart_id);
 
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }

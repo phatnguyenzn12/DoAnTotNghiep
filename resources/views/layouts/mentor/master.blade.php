@@ -198,7 +198,8 @@
                     <i class="symbol-badge bg-success"></i>
                 </div>
                 <div class="d-flex flex-column">
-                    <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ auth()->guard('mentor')->user()->name }}</a>
+                    <a href="#"
+                        class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ auth()->guard('mentor')->user()->name }}</a>
                     <div class="text-muted mt-1">Giáo viên tại trung tâm</div>
                     <div class="navi mt-2">
                         <a href="#" class="navi-item">
@@ -224,7 +225,8 @@
                                 <span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
                             </span>
                         </a>
-                        <a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Đăng xuất</a>
+                        <a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Đăng
+                            xuất</a>
                     </div>
                 </div>
             </div>
@@ -411,9 +413,7 @@
     <!--sweet alert 2-->
     <script src="/backend/js/pages/features/miscellaneous/sweetalert2.js"></script>
     <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
-        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="/backend/js/pages/my-script.js"></script>
     <script src="/js/var-global.js"></script>
     <!-- custom js tag -->

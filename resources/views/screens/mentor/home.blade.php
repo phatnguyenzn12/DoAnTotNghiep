@@ -115,24 +115,8 @@
     </div>
     <!--end::Section-->
 
-    <!--begin::Card-->
-    <div class="card card-custom gutter-b">
-        <!--begin::Header-->
-        <div class="card-header h-auto">
-            <!--begin::Title-->
-            <div class="card-title py-5">
-                <h3 class="card-label"> Thu nhập năm nay</h3>
-            </div>
-            <!--end::Title-->
-        </div>
-        <!--end::Header-->
-        <div class="card-body">
-            <!--begin::Chart-->
-            <div id="chart_1"></div>
-            <!--end::Chart-->
-        </div>
-    </div>
-    <!--end::Card-->
+
+    @include('components.mentor.statistical.chart-home')
 
 
 
@@ -281,10 +265,11 @@
                     <tbody>
                         @forelse ($selling as $item)
                             <tr>
-                                <td><img src="{{$item->image}}" width="100px" alt=""> {{$item->title }}</td>
-                                <td>{{$item->total }}</td>
-                                <td>{{$item->number }}</td>
-                                <td>{{$item->title }}</td>
+                                <td><img src="{{ $item->image }}" width="100px" alt=""> {{ $item->title }}
+                                </td>
+                                <td>{{ $item->total }}</td>
+                                <td>{{ $item->number }}</td>
+                                <td>{{ $item->title }}</td>
                             </tr>
                         @empty
                         @endforelse
@@ -297,11 +282,10 @@
         </div>
     </div>
 
-
-
 @endsection
 
 @section('js-links')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
 
 @push('js-handles')
@@ -346,15 +330,16 @@
         }
 
         var KTApexChartsDemo = function() {
-            var _demo1 = function() {
+            var _demo1 = function(data) {
+
                 const apexChart = "#chart_1";
                 var options = {
                     series: [{
                         name: "Desktops",
-                        data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 69, 91, 148]
+                        data: data
                     }],
                     chart: {
-                        height: 350,
+                        height: 500,
                         type: 'line',
                         zoom: {
                             enabled: false
@@ -388,7 +373,14 @@
             return {
                 // public functions
                 init: function() {
-                    _demo1();
+                    axios.get('{{ route('api.mentor.statistical.turnover') }}')
+                        .then(
+                            (res) => {
+                                js_$('[total_price]').innerHTML = 'Thu nhập năm nay: ' + res.data.reduce((
+                                    partialSum, a) => partialSum + Number(a), 0);;
+                                _demo1(res.data);
+                            }
+                        )
                 }
             };
         }();
@@ -396,7 +388,8 @@
         jQuery(document).ready(function() {
             KTApexChartsDemo.init();
         });
-    </script>
 
-    <script></script>
+
+  
+    </script>
 @endpush

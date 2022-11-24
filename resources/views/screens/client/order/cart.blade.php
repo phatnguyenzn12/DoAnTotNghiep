@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-                                    Page Banner START -->
+                                        Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -27,10 +27,10 @@
         </div>
     </section>
     <!-- =======================
-                                    Page Banner END -->
+                                        Page Banner END -->
 
     <!-- =======================
-                                    Page content START -->
+                                        Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -43,7 +43,7 @@
                             role="alert">
                             <div>
                                 <span class="fs-5 me-1">🔥</span>
-                                Đang có sự kiện giảm giá khóa học<strong class="text-danger ms-1">Mời bạn nhập mã</strong>
+                                Đang có sự kiện giảm giá khóa học<strong class="text-danger ms-1">Mời bạn tìm mã</strong>
                             </div>
                             <button type="button" class="btn btn-link mb-0 text-end" data-bs-dismiss="alert"
                                 aria-label="Close"><i class="bi bi-x-lg text-dark"></i></button>
@@ -58,61 +58,48 @@
                                 <!-- Table body START -->
                                 <tbody class="border-top-0">
 
-                                        @forelse ($carts as $cart)
-                                            <!-- Table item -->
-                                            <tr>
-                                                <!-- Course item -->
-                                                <td>
-                                                    <div class="d-lg-flex align-items-center">
-                                                        <!-- Image -->
-                                                        <div class="w-100px w-md-80px mb-2 mb-md-0">
-                                                            <img src="assets/images/courses/4by3/08.jpg" class="rounded"
-                                                                alt="">
-                                                        </div>
-                                                        <!-- Title -->
-                                                        <h6 class="mb-0 ms-lg-3 mt-2 mt-lg-0">
-                                                            <a href="#">{{ $cart->title }}</a>
-                                                        </h6>
+                                    @forelse ($carts as $cart)
+                                        <!-- Table item -->
+                                        <tr>
+                                            <!-- Course item -->
+                                            <td>
+                                                <div class="d-lg-flex align-items-center">
+                                                    <!-- Image -->
+                                                    <div class="w-100px w-md-80px mb-2 mb-md-0">
+                                                        <img src="/frontend/images/courses/4by3/08.jpg" class="rounded"
+                                                            alt="">
                                                     </div>
-                                                </td>
+                                                    <!-- Title -->
+                                                    <h6 class="mb-0 ms-lg-3 mt-2 mt-lg-0">
+                                                        <a href="#">{{ $cart->title }}</a>
+                                                    </h6>
+                                                </div>
+                                            </td>
 
-                                                <!-- Amount item -->
-                                                <td class="text-center">
-                                                    <h5 class="text-success mb-0">{{ $cart->current_price }} đ</h5>
-                                                </td>
-                                                <!-- Action item -->
-                                                <td>
-                                                    <a href="#"
-                                                        class="btn btn-sm btn-success-soft px-2 me-1 mb-1 mb-md-0"><i
-                                                            class="far fa-fw fa-edit"></i></a>
-                                                    <button class="btn btn-sm btn-danger-soft px-2 mb-0"><i
-                                                            class="fas fa-fw fa-times"></i></button>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
-                                                <h5>
-                                                    <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
-                                                </h5>
-                                            </div>
-                                        @endforelse
+                                            <!-- Amount item -->
+                                            <td class="text-center">
+                                                <h5 class="text-success mb-0">{{ $cart->current_price }} đ / {{ $cart->price }} đ</h5>
+                                            </td>
+                                            <!-- Action item -->
+                                            <form action="{{ route('client.order.cartRemove',$cart->id ) }}" id="remove" method="post">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                            <td>
+                                                <button form="remove" type="submit" class="btn btn-sm btn-danger-soft px-2 mb-0"><i
+                                                        class="fas fa-fw fa-times"></i></button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
+                                            <h5>
+                                                <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
+                                            </h5>
+                                        </div>
+                                    @endforelse
 
                                 </tbody>
                             </table>
-                        </div>
-
-                        <!-- Coupon input and button -->
-                        <div class="row g-3 mt-2">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input class="form-control form-control " placeholder="COUPON CODE">
-                                    <button type="button" class="btn btn-primary">Nhập mã giảm giá</button>
-                                </div>
-                            </div>
-                            <!-- Update button -->
-                            <div class="col-md-6 text-md-end">
-                                <button class="btn btn-primary mb-0" disabled>Cập nhật giỏ hàng</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,21 +116,22 @@
                         <ul class="list-group list-group-borderless mb-2">
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Tổng giá</span>
-                                <span class="h6 fw-light mb-0 fw-bold">$500</span>
+                                <span class="h6 fw-light mb-0 fw-bold">{{ $carts->sum('price') }}đ</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Giảm được</span>
-                                <span class="text-danger">-$20</span>
+                                <span class="text-danger">0% - 0đ</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h5 mb-0">Kết quả</span>
-                                <span class="h5 mb-0" total>$480</span>
+                                <span class="h5 mb-0">{{ $carts->sum('current_price') }}đ</span>
                             </li>
                         </ul>
 
                         <!-- Button -->
                         <div class="d-grid">
-                            <a href="{{ route('client.order.pay') }}" class="btn btn-lg btn-success">Chuyển qua thanh toán</a>
+                            <a href="{{ route('client.order.pay') }}" class="btn btn-lg btn-success">Chuyển qua thanh
+                                toán</a>
                         </div>
 
                         <!-- Content -->
@@ -159,7 +147,7 @@
         </div>
     </section>
     <!-- =======================
-                                    Page content END -->
+                                        Page content END -->
 @endsection
 
 @section('js-links')
@@ -168,17 +156,4 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 @push('js-handles')
-    <script>
-        function checkCart(a) {
-            $i = 0
-            js_$$('.divide-y [type="checkbox"]').forEach(element => {
-                if (element.checked == true) {
-                    $i = $i + Number(element.attributes.price.value)
-                    js_$('[total]').innerHTML = $i
-                } else {
-                    js_$('[total]').innerHTML = $i
-                }
-            });
-        }
-    </script>
 @endpush

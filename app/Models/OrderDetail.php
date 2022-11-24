@@ -15,4 +15,6 @@ class OrderDetail extends Model
         'order_id',
         'price'
     ];
+
+    public $timestamps = false;
 }

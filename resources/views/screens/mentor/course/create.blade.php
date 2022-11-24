@@ -66,19 +66,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Giấy chứng nhận</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input file-image" name="certificate"
-                                        accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                </div>
-                                <div class="preview-image new"></div>
-                                <div class="preview-image old">
-                                    <img src="/"
-                                        style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label>Thẻ
                                     <span class="text-danger">*</span></label>
                                 <input id="kt_tagify_1" class="form-control" name='tags' placeholder='Thẻ'
@@ -108,6 +95,19 @@
                                     </optgroup>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label>Khoá học có chứng chỉ</label>
+                                <select name="certificate_id" id="select2" class="form-control">
+                                    <option value="">Chọn chứng chỉ</option>
+                                    <optgroup label="">
+                                        @foreach ($certificates as $certificate)
+                                            <option value="{{ $certificate->id }}">{{ $certificate->title }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Ảnh slide</label>
                                 <div class="custom-file">
@@ -122,6 +122,8 @@
                                 </div>
                             </div>
 
+
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
                                 <a href="" class="btn btn-success mr-2">Danh sách slider</a>
@@ -135,7 +137,6 @@
 @endsection
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
     <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
@@ -145,5 +146,12 @@
             .catch(error => {
                 console.error(error);
             });
+
+        $(document).ready(function() {
+            $('[name="title"]').blur(function() {
+                let title = $(this).val()
+                $('[name="slug"]').val(ChangeToSlug(title))
+            })
+        })
     </script>
 @endpush

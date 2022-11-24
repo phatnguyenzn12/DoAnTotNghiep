@@ -23,16 +23,16 @@ return new class extends Migration
             $table->integer('discount');
             $table->integer('participant')->default(0);
             $table->integer('status')->default(0);
-            $table->char('video');
+            $table->text('video');
             $table->text('image');
             $table->integer('language');
-            $table->char('certificate');
             $table->char('tags');
             $table->integer('type')->default(0);
             $table->char('slug');
             $table->unsignedBigInteger('skill_id');
             $table->unsignedBigInteger('mentor_id');
             $table->unsignedBigInteger('cate_course_id');
+            $table->unsignedBigInteger('certificate_id')->default(0);
             $table->timestamps();
         });
     }

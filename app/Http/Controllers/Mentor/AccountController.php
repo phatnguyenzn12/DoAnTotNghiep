@@ -35,23 +35,17 @@ class AccountController extends Controller
         }
     }
 
-    public function password()
-    {
+      public function password(){
 
         return view('screens.mentor.account.forgot-password');
-    }
+      }
 
     public function forgotPassword(Request $request, $id)
     {
 
         $mentor = Auth::guard('mentor')->user($id);
         if (Hash::check($request->password, $mentor->password)) {
-            // Hash::make($request->password_1);
-            //  dd($abc);
-            //  Hash::make($request->password_2);
-            //dd($bc);
             if ($request->password_1 == $request->password_2) {
-                //  dd(Hash::check($abc, $request->password_2));
                 $passnew = Hash::make($request->password_2);
                 $us = new Mentor();
                 $us->updatePass($id, $passnew);
@@ -64,10 +58,7 @@ class AccountController extends Controller
         }
     }
 
-    public function listStudent()
-    {
-        return view('screens.mentor.account.student-list');
-    }
+
 
     public function commentMentor()
     {

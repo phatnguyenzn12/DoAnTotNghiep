@@ -80,6 +80,12 @@
                                 </i>
                                 <span class="menu-text">SỬA THÔNG TIN</span>
                             </a>
+                            <a href="{{route('censor.updatepassword')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">ĐỔI MẬT KHẨU</span>
+                            </a>
                         </li>
                     </ul>
                 </div>

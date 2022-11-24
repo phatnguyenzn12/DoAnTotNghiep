@@ -54,12 +54,13 @@ class MentorController extends Controller
 
     public function list()
     {
-        $mentor = Mentor::all();
+        $mentor = Mentor::paginate(8);
         return view('screens.client.mentor.list',compact('mentor'));
     }
 
     public function show(Mentor $mentor)
     {
-        return view('screens.client.mentor.intro',compact('mentor'));
+        $mentorRelated = Mentor::where('specialize_id',$mentor->specialize_id)->get();
+        return view('screens.client.mentor.intro',compact('mentor','mentorRelated'));
     }
 }
