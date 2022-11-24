@@ -43,28 +43,37 @@
 
                             <!-- Title -->
                             <span class="mb-0 fs-1">🤔</span>
-                            <h1 class="fs-2">Quên mật khẩu?</h1>
-                            <h5 class="fw-light mb-4">Để nhận mật khẩu mới, hãy nhập địa chỉ email của bạn bên dưới.
-                                Địa chỉ email *</h5>
+                            <h1 class="fs-2">Đổi mật khẩu mới?</h1>
+                            <h5 class="fw-light mb-4">Nhập mật khẩu mới và xác nhận để sử dụng</h5>
 
                             <!-- Form START -->
                             <form method="POST">
                                 @csrf
                                 <!-- Email -->
                                 <div class="mb-4">
-                                    <label for="exampleInputEmail1" class="form-label">Email address *</label>
+                                    <label for="exampleInputEmail1" class="form-label">Nhập mật khẩu mới *</label>
                                     <div class="input-group input-group-lg">
                                         <span
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="bi bi-envelope-fill"></i></span>
-                                        <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="E-mail" id="exampleInputEmail1" name="email">
+                                        <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
+                                            placeholder="********" id="exampleInputEmail1" name="password">
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="exampleInputEmail1" class="form-label">Nhập lại mật khẩu mới *</label>
+                                    <div class="input-group input-group-lg">
+                                        <span
+                                            class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
+                                                class="bi bi-envelope-fill"></i></span>
+                                        <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
+                                            placeholder="********" id="exampleInputEmail1" name="password_1">
                                     </div>
                                 </div>
                                 <!-- Button -->
                                 <div class="align-items-center">
                                     <div class="d-grid">
-                                        <button class="btn btn-primary mb-0" type="submit">Reset password</button>
+                                        <button class="btn btn-primary mb-0" type="submit">Đổi mật khẩu</button>
                                     </div>
                                 </div>
                             </form>

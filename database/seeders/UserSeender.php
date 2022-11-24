@@ -24,17 +24,14 @@ class UserSeender extends Seeder
 
         Role::create(
             [
-                'name' => 'admin',
-            ]
-        );
-        Role::create(
-            [
-                'name' => 'manager',
+                'name' => 'lead',
+                'guard_name' => 'mentor',
             ]
         );
         Role::create(
             [
                 'name' => 'teacher',
+                'guard_name' => 'mentor',
             ]
         );
         Role::create(

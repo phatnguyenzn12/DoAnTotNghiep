@@ -10,7 +10,7 @@
         <p>Tóm tắt bản thân: {{$db->Summary}}</p>
 
         <p>
-            <a href="{{route('mentor.accept',['id' => $db->id])}}"
+            <a href="{{route('mentor.apply')}}"
                 style="display: inline-block; background: rgb(80, 95, 234); color: #fff; padding: 10px 15px; font-weight: bold">Xác nhận giảng viên</a>
         </p>
 
