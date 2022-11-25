@@ -30,10 +30,14 @@ class AuthMentorController extends Controller
             ])
             // && $request->{'g-recaptcha-response'} != null
         ) {
-            if (Auth::guard('mentor')->user()->is_active == 0) {
+            $mentor = Mentor::where('id',Auth::guard('mentor')->user()->id)->first();
+            if ($mentor->is_active == 0) {
                 return redirect()->route('mentor.login')->with('failed', 'Tài khoản chưa được xét duyệt');
             }
-            return redirect()->route('mentor.home')->with('success', 'bạn đăng nhập thành công');
+            else if ($mentor->hasRole('lead')) {
+                return redirect()->route('mentor.home')->with('success', 'bạn đăng nhập thành công');
+            }
+            return redirect()->route('teacher.home')->with('success', 'bạn đăng nhập thành công');
         } else {
             return redirect()->route('mentor.login')->with('failed', 'bạn đăng nhập thất bại');
         }
