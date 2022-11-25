@@ -1,6 +1,6 @@
 @extends('layouts.mentor.master')
 
-@section('title', 'Trang danh sách người dùng')
+@section('title', 'Trang tạo mới khóa học')
 @section('content')
     <div class="container">
         <div class="row">
@@ -31,7 +31,7 @@
                                 <input value="" type="text" name="slug" class="form-control"
                                     placeholder="Đường dẫn">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Giá
                                     <span class="text-danger">*</span></label>
                                 <input value="" type="text" name="price" class="form-control"
@@ -42,7 +42,7 @@
                                     <span class="text-danger">*</span></label>
                                 <input value="" type="text" name="discount" class="form-control"
                                     placeholder="Video demo">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label>Video demo</label>
                                 <input type="url" name="video" rows="5" class="form-control"
@@ -95,6 +95,7 @@
                                     </optgroup>
                                 </select>
                             </div>
+
 
                             <div class="form-group">
                                 <label>Khoá học có chứng chỉ</label>

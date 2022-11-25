@@ -35,7 +35,7 @@
                         <span
                             class="text-dark font-weight-bolder font-weight-bold">{{ $course->lessons->count() }}</span>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center">
+                    {{-- <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Giá khóa học</span>
                         <span class="text-dark font-weight-bolder font-weight-bold">{{ $course->price }}</span>
                     </div>
@@ -43,7 +43,7 @@
                         <span class="text-dark-75 mr-2">Giảm giá</span>
                         <span class="text-dark font-weight-bolder font-weight-bold">{{ $course->discount }}% -
                             {{ $course->current_price }}</span>
-                    </div>
+                    </div> --}}
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 mr-2">Ngôn ngữ</span>
                         <span class="text-success font-weight-bolder">{{ $course->language }}</span>

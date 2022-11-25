@@ -5,26 +5,34 @@ namespace App\Http\Controllers\Mentor;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Mentor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChapterController extends Controller
 {
-    public function create(Request $course_id)
+    public function create(Request $course)
     {
-        $course_id = $course_id->course;
-        $data = view('components.mentor.course.modal.chapter.add',compact('course_id'))->render();
+        $course = Course::select('id', 'title')->get();
+        // dd($course);
+      $mentor= Mentor::get();
 
-        return response()->json($data);
+        return view('screens.mentor.chapter.create',compact('course', 'mentor'));
+        // response()->json($data);
     }
 
     public function store(Request $request)
     {
-        Chapter::create(
-            array_merge(
-                $request->all('title', 'course_id'),
-                ['sort' => Chapter::where('course_id', $request->course_id)->max('sort') + 1 ?? 0]
-            )
-        );
+        $course = Course::where('id', $request->course_id);
+        // dd($request->course_id);
+        Chapter::create([
+           'title'=> $request->title,
+        //    'mentor_id' => $course->mentor_id,
+           'number_chapter'=> $request->number_chapter,
+           'course_id'=> $course->id,
+           'sort' => Chapter::where('course_id', $request->course_id)->max('sort') + 1 ?? 0
+        ]);
+        // dd($request->number_chapter);
         if ($request->ajax()) {
             session()->flash('success', 'Thêm chương học thành công');
             return response()->json(['success' => true], 201);
