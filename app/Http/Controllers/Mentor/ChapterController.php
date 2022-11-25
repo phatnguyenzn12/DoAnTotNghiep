@@ -8,39 +8,48 @@ use App\Models\Course;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ChapterController extends Controller
 {
-    public function create(Request $course)
+    public function create(Request $course_id)
     {
-        $course = Course::select('id', 'title')->get();
+        // $course = Course::where('id', $course_id)->first();
         // dd($course);
-      $mentor= Mentor::get();
-
-        return view('screens.mentor.chapter.create',compact('course', 'mentor'));
-        // response()->json($data);
+        $mentor = Mentor::get();
+        $course_id = $course_id->course;
+        $data = view('components.mentor.course.modal.chapter.add', compact('course_id', 'mentor'))->render();
+        return response()->json($data);
     }
 
     public function store(Request $request)
     {
+
         $course = Course::where('id', $request->course_id);
-        // dd($request->course_id);
-        Chapter::create([
-           'title'=> $request->title,
-        //    'mentor_id' => $course->mentor_id,
-           'number_chapter'=> $request->number_chapter,
-           'course_id'=> $course->id,
-           'sort' => Chapter::where('course_id', $request->course_id)->max('sort') + 1 ?? 0
-        ]);
-        // dd($request->number_chapter);
+        // dd($course);
+        Chapter::create(
+            array_merge(
+                $request->all('title', 'mentor_id', 'number_chapter', 'course_id'),
+                // ['sort' => Chapter::where('course_id', $request->course_id)->max('sort') + 1 ?? 0]
+            )
+        );
+        $chapter = Chapter::where('title', 'like', $request->title)->first();
+        $gv = Mentor::where('id', $request->mentor_id)->first();
+        // dd($gv);
+        Mail::send('screens.email.mentor.acceptTeach', compact('gv', 'chapter'), function ($email) use ($gv) {
+            $email->subject('Bạn được giao 1 chương học');
+            $email->to($gv->email, $gv->name);
+        });
         if ($request->ajax()) {
             session()->flash('success', 'Thêm chương học thành công');
             return response()->json(['success' => true], 201);
         }
         return redirect()
             ->back()
-            ->with('success', 'Thêm bài học chương công');
+            ->with('success', 'Thêm chương học thành công');
     }
+
+
 
     public function destroy($chapter)
     {
@@ -58,6 +67,8 @@ class ChapterController extends Controller
     {
         $data = Chapter::findOrFail($chapter);
         $data->title = $request->title;
+        $data->number_chapter = $request->number_chapter;
+        $data->mentor_id = $request->mentor_id;
         $data->save();
         if ($request->ajax()) {
             session()->flash('success', 'Sửa chương học thành công');

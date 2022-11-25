@@ -16,10 +16,10 @@ class ChapterFactory extends Factory
      */
     public function definition()
     {
-        static $number = 1; 
+        static $number = 1;
         return [
             'title' => fake()->name(),
-            'sort' => $number++,
+            // 'sort' => $number++,
             'course_id' => rand(1,10)
         ];
     }

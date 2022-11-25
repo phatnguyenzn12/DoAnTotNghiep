@@ -1,4 +1,4 @@
-@extends('layouts.mentor.master')
+{{-- @extends('layouts.mentor.master')
 
 @section('title', 'Trang tạo mới chương học')
 @section('content')
@@ -9,7 +9,7 @@
                     <div class="card-header card-header-tabs-line">
                         <div class="card-toolbar">
                             <div class="card-title">
-                                <h3 class="card-label">Tạo chương học</h3>
+                                <h3 class="card-label">Tạo chương họcccccccc</h3>
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,8 @@
                             <label>Tên chương học</label>
                             <input type="text" name="title" placeholder="Nhập tên chương học..." class="form-control">
                             <label>Số lượng bài học </label>
-                            <input type="number" name="number_chapter" placeholder="Nhập số bài học của chương ..." class="form-control">
+                            <input type="number" name="number_chapter" placeholder="Nhập số bài học của chương ..."
+                                class="form-control">
                             <label for="">Khóa học</label>
                             <select name="course_id" id="">
                                 <optgroup label="">
@@ -33,18 +34,17 @@
                             <label for="">Giao cho GV</label>
                             <select name="mentor_id" id="">
                                 <optgroup label="">
-                                    @foreach ($mentor as $cateCourse)
-                                    @if ($cateCourse->hasRole('teacher'))
-                                    <option value="{{ $cateCourse->id }}">{{ $cateCourse->name }}</option>
-                                    @endif
-
+                                    @foreach ($mentor as $m)
+                                        @if ($m->hasRole('teacher'))
+                                            <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                        @endif
                                     @endforeach
                                 </optgroup>
                             </select>
-                            {{-- <input type="hidden" name="mentor_id" value="{{$mentor_id}}"> --}}
+                            <input type="hidden" name="mentor_id" value="{{$mentor_id}}">  --}}
                             {{-- @dd($mentor_id) --}}
                             {{-- @dd($course->id) --}}
-                            {{-- <input type="hidden" name="course_id" value="{{$course_id}}"> --}}
+                            {{-- <input type="hidden" name="course_id" value="{{$course_id}}">
                             <p class="text-danger errors title"></p>
                         </div>
                         <button type="submit" class="btn btn-primary font-weight-bold">Thêm</button>

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->integer('sort');
             $table->unsignedBigInteger('mentor_id')->nullable();
             $table->integer('number_chapter')->nullable();
             $table->unsignedBigInteger('course_id')->nullable();
