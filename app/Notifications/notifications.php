@@ -17,11 +17,13 @@ class notifications extends Notification
      * @return void
      */
 
-    public function __construct($lesson_id, $course_id, $name  )
+    public function __construct($lesson_id, $course_id, $name, $user_id  )
     {
         $this->name=$name;
         $this->lesson_id=$lesson_id;
         $this->course_id=$course_id;
+        $this->user_id=$user_id;
+
     }
 
     /**
@@ -61,6 +63,7 @@ class notifications extends Notification
             'name'=> $this->name,
             'lesson_id'=> $this->lesson_id,
             'course_id'=> $this->course_id,
+            'user_id'=> $this->user_id,
          ];
     }
 }

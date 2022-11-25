@@ -55,7 +55,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-50 flex-shrink-0 mr-4">
                                             <div class="symbol-label">
-                                                <img src="{{ asset('app/' . $db->avatar) }}" alt="">
+                                                <img src="{{ asset('app/' . $db->avatar) }}" alt="" width="50" height="50">
                                             </div>
                                         </div>
                                         <div>
