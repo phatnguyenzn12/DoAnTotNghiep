@@ -50,6 +50,7 @@
                     </thead>
                     <tbody>
                         @foreach ($db as $db)
+                            @if($db->hasRole('teacher'))
                             <tr>
                                 <td class="pl-0 py-8">
                                     <div class="d-flex align-items-center">
@@ -92,24 +93,25 @@
 
                                 </td>
                                 <td>
-                                    {{-- @if ($db->is_active == 1)
-                                        <a href="{{ route('mentor.actived', $db->id) }}"
+                                    @if ($db->is_active == 1)
+                                        <a href="{{ route('mentor.teacher.actived', $db->id) }}"
                                             onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
                                             class="btn btn-danger">
                                             Ngừng hoạt động
                                         </a>
                                     @else
-                                        <a href="{{ route('mentor.actived', $db->id) }}"
+                                        <a href="{{ route('mentor.teacher.actived', $db->id) }}"
                                             onclick="return confirm('Bạn có chắc muốn hoạt động')" class="btn btn-success">
                                             Hoạt động
                                         </a>
-                                    @endif --}}
+                                    @endif
                                 </td>
-                                {{-- <td>
-                                    <a class="btn btn-light btn-sm"  onclick="return confirm('Bạn có chắc muốn xóa')" href="{{route('mentor.delete',['id' => $db->id])}}">
+                                <td>
+                                    <a class="btn btn-light btn-sm"  onclick="return confirm('Bạn có chắc muốn xóa')" href="{{route('mentor.teacher.delete',['id' => $db->id])}}">
                                         <i class="flaticon2-trash text-danger"></i></a>
-                                </td> --}}
+                                </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
