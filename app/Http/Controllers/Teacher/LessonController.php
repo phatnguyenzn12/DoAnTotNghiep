@@ -6,11 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Mentor;
 use App\Services\VimeoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class LessonController extends Controller
 {
+     public function index()
+    {
+       $lesson = Lesson::all();
+       return view('screens.teacher.lesson.list', compact('lesson'));
+    }
     public function create($id)
     {
         $chapters = Chapter::where('id', $id)->first();
@@ -31,7 +38,6 @@ class LessonController extends Controller
                             'title',
                             'content',
                             'lesson_type',
-                            'attachment',
                             'time',
                             'chapter_id'
                         ]
@@ -39,7 +45,7 @@ class LessonController extends Controller
                     //     ['sort' => Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0]
                 )
             );
-
+           //     dd( $request->video_path);
             $url = $vimeoService->create(
                 $request->video_path,
                 $request->title,
@@ -51,11 +57,20 @@ class LessonController extends Controller
             //     'is_demo'
             // ]);
             $lessonVideo['video_path'] = $url;
+            
 
             $lesson->lessonVideo()
                 ->create($lessonVideo);
         }
-
+       $mentor = Chapter::where('id',  $request->chapter_id)->first();
+       $lead = Mentor::where('id',$mentor->mentor_id)->first();
+        $chap = Lesson::where('title', $request->title)->first();
+        // dd($gv);
+        Mail::send('screens.email.mentor.acceptTeach', compact('chap','lead'), function ($email) use ($lead) {
+            $email->subject('Duyệt bài học');
+            $email->to($lead->email, $lead->name);
+            dd($lead->email, $lead->name);
+        });
         // if ($request->ajax()) {
         //     session()->flash('success', 'Thêm bài học thành công');
         //     return response()->json(['success' => true], 201);

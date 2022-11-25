@@ -2,7 +2,7 @@
 
 @section('title', 'Trang danh sách người dùng')
 @section('content')
-<form action="{{ route('mentor.lesson.add') }}" class="has-validation-ajax" method="POST">
+<form action="{{ route('teacher.lesson.store') }}" class="has-validation-ajax" method="POST" enctype="multipart/form-data">
     @csrf
     <p class="text-danger errors system"></p>
 
@@ -16,6 +16,12 @@
         <label>Chương học</label>
         <input type="text" value="{{$chapters->title}}" class="form-control" placeholder="Nhập tên bài học" >
         <input type="hidden" value="{{$chapters->id}}" class="form-control"  name="chapter_id">
+        <p class="text-danger errors section_id"></p>
+    </div>
+    <div class="form-group">
+        <label>thời lượng video</label>
+        <input type="time"  class="form-control" placeholder="" >
+       
         <p class="text-danger errors section_id"></p>
     </div>
 
