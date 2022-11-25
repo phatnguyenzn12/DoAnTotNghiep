@@ -1,3 +1,7 @@
+@extends('layouts.teacher.master')
+
+@section('title', 'Trang danh sách người dùng')
+@section('content')
 <form action="{{ route('mentor.lesson.add') }}" class="has-validation-ajax" method="POST">
     @csrf
     <p class="text-danger errors system"></p>
@@ -10,11 +14,8 @@
 
     <div class="form-group">
         <label>Chương học</label>
-        <select name="chapter_id" id="section_id" class="form-control">
-            @foreach ($chapters as $chapter)
-                <option value="{{ $chapter->id }}">{{ $chapter->title }}</option>
-            @endforeach
-        </select>
+        <input type="text" value="{{$chapters->title}}" class="form-control" placeholder="Nhập tên bài học" >
+        <input type="hidden" value="{{$chapters->id}}" class="form-control"  name="chapter_id">
         <p class="text-danger errors section_id"></p>
     </div>
 
@@ -38,18 +39,32 @@
 
 <script>
     $('[option-lesson]').html(
-        `@include('components.mentor.course.modal.lesson.video')`
+        `@include('screens.teacher.lesson.video')`
     )
 
     function selectLesson(elm) {
         if (elm.value == 'video') {
             $('[option-lesson]').html(
-                `@include('components.mentor.course.modal.lesson.video')`
+                `@include('screens.teacher.lesson.video')`
             )
         } else {
             $('[option-lesson]').html(
-                `@include('components.mentor.course.modal.lesson.exercise')`
+                `@include('screens.teacher.lesson.exercise')`
             )
         }
     }
 </script>
+@endsection
+@section('js-links')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+@push('js-handles')
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endpush
+

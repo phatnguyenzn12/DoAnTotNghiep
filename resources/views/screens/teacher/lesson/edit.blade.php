@@ -1,3 +1,7 @@
+@extends('layouts.teacher.master')
+
+@section('title', 'Trang danh sách người dùng')
+@section('content')
 <form action="{{ route('mentor.lesson.put', $lesson->id) }}" class="has-validation-ajax" method="POST"
     enctype="multipart/form-data">
     @csrf
@@ -97,3 +101,17 @@
 
     <button class="btn btn-success d-block m-auto">Cập nhật bài học</button>
 </form>
+@endsection
+@section('js-links')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+@push('js-handles')
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endpush
+

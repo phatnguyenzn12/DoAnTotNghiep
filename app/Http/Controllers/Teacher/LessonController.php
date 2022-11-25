@@ -11,11 +11,13 @@ use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
-    public function create(Request $course_id)
+    public function create($id)
     {
-        $chapters = Chapter::where('course_id', $course_id->course)->get();
-        $data = view('screens.teacher.lesson.add', compact('chapters'))->render();
-        return response()->json($data, 200);
+        $chapters = Chapter::where('id', $id)->first();
+        //dd($chapters);
+        // dd($course_id->course);
+        return view('screens.teacher.lesson.add', compact('chapters'));
+        // return response()->json($data, 200);
     }
 
     public function store(Request $request, VimeoService $vimeoService)
@@ -30,10 +32,11 @@ class LessonController extends Controller
                             'content',
                             'lesson_type',
                             'attachment',
+                            'time',
                             'chapter_id'
                         ]
                     ),
-                    ['sort' => Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0]
+                    //     ['sort' => Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0]
                 )
             );
 
@@ -44,19 +47,19 @@ class LessonController extends Controller
                 $request->is_demo
             );
 
-            $lessonVideo = $request->only([
-                'is_demo'
-            ]);
+            // $lessonVideo = $request->only([
+            //     'is_demo'
+            // ]);
             $lessonVideo['video_path'] = $url;
 
             $lesson->lessonVideo()
                 ->create($lessonVideo);
         }
 
-        if ($request->ajax()) {
-            session()->flash('success', 'Thêm bài học thành công');
-            return response()->json(['success' => true], 201);
-        }
+        // if ($request->ajax()) {
+        //     session()->flash('success', 'Thêm bài học thành công');
+        //     return response()->json(['success' => true], 201);
+        // }
         return redirect()
             ->back()
             ->with('success', 'Thêm bài học thành công');
