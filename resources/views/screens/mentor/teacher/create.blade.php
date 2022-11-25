@@ -35,14 +35,23 @@
                                     placeholder="+543 5445 0543">
                             </div>
                             <div class="form-group">
-                                <label>Avatar</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input file-image" name="avatar"
-                                        accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                </div>
+                                <label>Chuyên môn</label>
+                                <select id="select2" class="form-control" name="specialize_id" id="">
+                                    <option value="">Chọn chuyên môn</option>
+                                    @foreach ($specializes as $specialize)
+                                        <option value="{{ $specialize->id }}">{{ $specialize->title }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            
+                            <div class="form-group">
+                                <label>Kỹ năng</label>
+                                <select id="select2" class="form-control" name="skills" id="">
+                                    <option value="">Chọn kỹ năng</option>
+                                    @foreach ($skills as $skill)
+                                        <option value="{{ $skill->id }}">{{ $skill->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
                                 <a href="{{route('mentor.teacher.index')}}" class="btn btn-success mr-2">Back</a>
