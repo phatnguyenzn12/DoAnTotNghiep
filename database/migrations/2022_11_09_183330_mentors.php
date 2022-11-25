@@ -25,9 +25,11 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('social_networks')->nullable();
             $table->string('educations')->nullable();
+            $table->unsignedBigInteger('course_id')->nullable();;
+            $table->unsignedBigInteger('group_id')->nullable();;
             $table->string('skills')->nullable();
             $table->integer('years_in_experience')->nullable();
-            $table->unsignedBigInteger('specialize_id');
+            $table->unsignedBigInteger('specialize_id')->nullable();;
             $table->integer('is_active')->default(0); //Không sửa thằng này
             $table->rememberToken();
             $table->timestamps();

@@ -33,6 +33,14 @@ class Lesson extends Model
     {
         return $this->belongsTo(Mentor::class);
     }
+    public function getDemoAttribute()
+    {
+        if ($this->is_demo == 1) {
+            return "Công khai";
+        } else {
+            return "Không công khai";
+        }
+    }
 
 
 }

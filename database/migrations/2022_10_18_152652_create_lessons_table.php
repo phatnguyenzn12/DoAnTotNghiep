@@ -17,9 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content')->nullable();
-            $table->string('lesson_type');
-            $table->string('attachment')->nullable();
-            $table->tinyInteger('sort');
+            $table->string('lesson_type')->nullable();
+            //$table->string('attachment')->nullable();
+            $table->string('download_progress')->nullable();
+            //$table->tinyInteger('sort');
+            $table->time('time')->nullable();
+            $table->integer('is_demo')->default(0);
+            $table->integer('is_check')->default(0);
+          //  $table->integer('is_block')->default(0);
             $table->unsignedBigInteger('chapter_id');
             $table->timestamps();
         });

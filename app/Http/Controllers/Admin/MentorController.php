@@ -64,6 +64,7 @@ class MentorController extends Controller
             } else {
                 $mentor = Mentor::create($data);
                 $mentor->assignRole('lead');
+              //  dd($mentor->getRoleNames());
                 return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
             }
         }
