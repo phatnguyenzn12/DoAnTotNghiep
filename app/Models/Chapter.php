@@ -22,4 +22,8 @@ class Chapter extends Model
     public function course(){
         return $this->belongsTo(Course::class);
     }
+
+    public function mentor(){
+        return $this->belongsTo(Mentor::class);
+    }
 }
