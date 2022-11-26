@@ -26,7 +26,6 @@ class ChapterController extends Controller
     {
 
         $course = Course::where('id', $request->course_id);
-        // dd($course);
         Chapter::create(
             array_merge(
                 $request->all('title', 'mentor_id', 'number_chapter', 'course_id'),
