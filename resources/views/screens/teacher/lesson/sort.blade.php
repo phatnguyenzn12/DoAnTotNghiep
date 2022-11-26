@@ -1,4 +1,4 @@
-<form action="{{route('mentor.lesson.sort',$chapter->id)}}" class="has-validation-ajax" method="POST">
+{{-- <form action="{{route('mentor.lesson.sort',$chapter->id)}}" class="has-validation-ajax" method="POST">
     @csrf
     @method('PUT')
     <div class="card bg-light card-custom gutter-b">
@@ -28,4 +28,4 @@
             cursor: "move"
         })
     })
-</script>
+</script> --}}

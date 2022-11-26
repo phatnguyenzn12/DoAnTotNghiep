@@ -9,14 +9,16 @@ use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Services\VimeoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class LessonController extends Controller
 {
-     public function index()
+     public function list($id)
     {
-       $lesson = Lesson::all();
-       return view('screens.teacher.lesson.list', compact('lesson'));
+       $lesson = Lesson::where('chapter_id',$id)->get();
+       $chapter = Chapter::where('id',$id)->first();
+       return view('screens.teacher.lesson.list', compact('lesson','chapter'));
     }
     public function create($id)
     {

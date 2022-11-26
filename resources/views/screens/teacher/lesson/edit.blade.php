@@ -1,4 +1,4 @@
-@extends('layouts.teacher.master')
+@extends('layouts.mentor.master')
 
 @section('title', 'Trang danh sách người dùng')
 @section('content')
