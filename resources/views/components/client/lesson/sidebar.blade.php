@@ -60,12 +60,16 @@
                                                                 class="position-relative d-flex align-items-center">
                                                                 <a href="{{ route('client.lesson.index',['course' => $course->id,'lesson' => $lesson->id]) }}"
                                                                     class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+                                                                    @if ()
+                                                                    <i class="bi bi-lock-fill"></i>
+                                                                    @else
                                                                     <i class="fas fa-play me-0"></i>
+                                                                    @endif
                                                                 </a>
                                                                 <span
                                                                     class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px">{{ $lesson->title }}</span>
                                                             </div>
-                                                            <p class="mb-0 text-truncate">2m 10s</p>
+                                                            <p class="mb-0 text-truncate">{{ $lesson->time }}</p>
                                                         </div>
 
                                                         {{-- <!-- Add note button -->

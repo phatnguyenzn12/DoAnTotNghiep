@@ -123,7 +123,7 @@
                                                                         class="fas fa-play"></i></a>
                                                                 <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
                                                                     <h6 class="mb-0">{{ $lesson->title }}</h6>
-                                                                    <p class="mb-2 mb-sm-0 small">10m 56s</p>
+                                                                    <p class="mb-2 mb-sm-0 small"> {{ $lesson->time }}</p>
                                                                 </div>
                                                             </div>
                                                             <!-- Button -->

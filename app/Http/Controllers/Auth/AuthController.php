@@ -29,9 +29,9 @@ class AuthController extends Controller
             ])
             // && $request->{'g-recaptcha-response'} != null
         ) {
-            if (!Auth::guard('web')->user()->remember_token == null) {
-                return redirect()->route('auth.login')->with('success', 'Vui lòng xác minh tài khoản');
-            }
+            // if (!Auth::guard('web')->user()->remember_token == null) {
+            //     return redirect()->route('auth.login')->with('success', 'Vui lòng xác minh tài khoản');
+            // }
             return redirect()->route('client')->with('success', 'bạn đăng nhập thành công');
         } else {
             return redirect()->route('auth.login')->with('failed', 'bạn đăng nhập thất bại');
@@ -73,7 +73,7 @@ class AuthController extends Controller
             }
             // else if ($request->hasFile('avatar') == null) {
             //     return redirect()->route($method_route)->with('failed', 'Vui lòng nhập đủ');
-            // } 
+            // }
             else {
                 $admin = new User();
                 $res = $admin->saveNew($data);
@@ -155,7 +155,7 @@ class AuthController extends Controller
             return redirect()->route('auth.login')->with('failed', 'Mã xác minh không hợp lệ');
         }
 
-        return view('auth.change_password'); 
+        return view('auth.change_password');
     }
 
     public function logout()

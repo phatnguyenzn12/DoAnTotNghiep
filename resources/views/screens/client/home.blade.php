@@ -70,11 +70,11 @@
         </div>
     </div>
     <!-- =======================
-                Main Banner END -->
+                            Main Banner END -->
 
 
     <!-- =======================
-                                        Counter START -->
+                                                    Counter START -->
     <section class="py-0 py-xl-5">
         <div class="container">
             <div class="row g-4">
@@ -142,10 +142,10 @@
         </div>
     </section>
     <!-- =======================
-                                        Counter END -->
+                                                    Counter END -->
 
     <!-- =======================
-                                        Popular course START -->
+                                                    Popular course START -->
     <section>
         <div class="container">
             <!-- Title -->
@@ -207,9 +207,10 @@
                                     <div class="card-footer pt-0 pb-3">
                                         <hr>
                                         <div class="d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="far fa-clock text-danger me-2"></i>12h
-                                                56m</span>
+                                            <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>
+                                                {{ $course->total_time }}
+
+                                            </span>
 
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-table text-orange me-2"></i>{{ $course->lessons()->count() }}
@@ -229,10 +230,10 @@
         </div>
     </section>
     <!-- =======================
-                                        Popular course END -->
+                                                    Popular course END -->
 
     <!-- =======================
-                                        Action box START -->
+                                                    Action box START -->
     <section class="pt-0 pt-lg-5">
         <div class="container position-relative">
             <!-- SVG decoration START -->
@@ -283,10 +284,10 @@
         </div>
     </section>
     <!-- =======================
-                                        Action box END -->
+                                                    Action box END -->
 
     <!-- =======================
-                                        Trending courses START -->
+                                                    Trending courses START -->
     <section class="pb-5 pt-0 pt-lg-5">
         <div class="container">
             <!-- Title -->
@@ -569,10 +570,10 @@
         </div>
     </section>
     <!-- =======================
-                                        Trending courses END -->
+                                                    Trending courses END -->
 
     <!-- =======================
-                                        Reviews START -->
+                                                    Reviews START -->
     <section class="bg-light">
         <div class="container">
             <div class="row g-4 g-lg-5 align-items-center">
@@ -840,7 +841,7 @@
         </div>
     </section>
     <!-- =======================
-                                        Reviews END -->
+                                                    Reviews END -->
 
 @endsection
 @section('js-links')
