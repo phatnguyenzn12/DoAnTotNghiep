@@ -25,7 +25,9 @@
                             <div class="col-md-5">
                                 <!-- Title -->
                                 <h1 class="mb-3">We will help you Grow your Knowledge and Skills</h1>
-                                <h6 class="mb-3">{{ $discount->code }}</h6>
+                                <h6 class="mb-3">KH01</h6>
+                                {{-- {{ $discount->code }} --}}
+                                {{-- <h6 class="mb-3">{{ $discount->code }}</h6> --}}
                                 <!-- Button -->
                                 <a href="#" class="btn btn-primary">Get Started</a>
                             </div>

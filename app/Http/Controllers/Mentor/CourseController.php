@@ -26,13 +26,16 @@ class CourseController extends Controller
 
     public function program($course_id)
     {
+        // $course= Course::where('id', )
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
-            ->orderBy('sort')
-            ->paginate();
-
+            // ->orderBy('sort')
+            ->paginate(10);
         return view('screens.mentor.course.edit-program', compact('chapters', 'course_id'));
     }
+    // Route::get('edit-program/{course_id}', 'program')->name('program');
+    //     Route::get('edit-course/{id}', 'edit')->name('edit');
+    //     Route::put('update-course/{course}', 'update')->name('update');
 
     public function edit($id)
     {
@@ -41,7 +44,7 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $cateCourses = CateCourse::select('id', 'name')->get();
 
-        return view('screens.mentor.course.edit-course', compact('course', 'cateCourses', 'id', 'skills','certificates'));
+        return view('screens.mentor.course.edit-course', compact('course', 'cateCourses', 'id', 'skills', 'certificates'));
     }
     public function create()
     {
@@ -49,7 +52,7 @@ class CourseController extends Controller
         $cateCourses = CateCourse::select('id', 'name')->get();
         $skills = Skill::select('id', 'title')->get();
 
-        return view('screens.mentor.course.create', compact('cateCourses', 'skills','certificates'));
+        return view('screens.mentor.course.create', compact('cateCourses', 'skills', 'certificates'));
     }
 
     public function store(Request $request)
@@ -81,8 +84,8 @@ class CourseController extends Controller
         );
 
         return redirect()
-        ->back()
-        ->with('success', 'Thêm khóa học thành công');
+            ->back()
+            ->with('success', 'Thêm khóa học thành công');
     }
 
     public function destroy($id)

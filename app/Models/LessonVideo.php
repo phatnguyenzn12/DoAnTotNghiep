@@ -10,10 +10,10 @@ class LessonVideo extends Model
     use HasFactory;
     protected $table = 'lesson_videos';
     protected $fillable = [
-        'is_demo',
+       // 'is_demo',
         'video_path',
-        'lesson_id',
-        'is_check'
+       'lesson_id',
+      //  'is_check'
     ];
 
     protected $append = [
@@ -31,12 +31,12 @@ class LessonVideo extends Model
         }
     }
 
-    public function getDemoAttribute()
-    {
-        if ($this->is_demo == 1) {
-            return "Công khai";
-        } else {
-            return "Không công khai";
-        }
-    }
+    // public function getDemoAttribute()
+    // {
+    //     if ($this->is_demo == 1) {
+    //         return "Công khai";
+    //     } else {
+    //         return "Không công khai";
+    //     }
+    // }
 }

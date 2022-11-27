@@ -261,11 +261,6 @@
                                                     class="fas fa-fw fa-globe text-primary"></i>Ngôn ngữ</span>
                                             <span>{{ $course->language_rule }}</span>
                                         </li>
-                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-fw fa-medal text-primary"></i>Chức chỉ</span>
-                                            <span>{{ $course->certificate->exists() ? 'có chứng chỉ' : 'không có chứng chỉ' }}</span>
-                                        </li>
                                     </ul>
                                     <!-- Divider -->
                                     <hr>

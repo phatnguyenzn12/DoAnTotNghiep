@@ -29,7 +29,7 @@ class AuthController extends Controller
             ])
             // && $request->{'g-recaptcha-response'} != null
         ) {
-            if(!Auth::guard('web')->user()->remember_token == null){
+            if (!Auth::guard('web')->user()->remember_token == null) {
                 return redirect()->route('auth.login')->with('success', 'Vui lòng xác minh tài khoản');
             }
             return redirect()->route('client')->with('success', 'bạn đăng nhập thành công');
@@ -58,10 +58,10 @@ class AuthController extends Controller
             //     $params['cols']['avatar'] = $this->upLoadFile($request->file('avatar'));
             // }
             $data = array_merge($params['cols'], [
-                'avatar'=>'placeholder.png',
-                'about_me'=>'Nam',
-                'education'=>'Cao đẳng',
-                'location'=>'Hà Nội',
+                'avatar' => 'placeholder.png',
+                'about_me' => 'Nam',
+                'education' => 'Cao đẳng',
+                'location' => 'Hà Nội',
                 'email_verified_at' => now(),
                 'password' => Hash::make($params['cols']['password']),
                 'remember_token' => Str::random(10),
@@ -70,7 +70,7 @@ class AuthController extends Controller
             ]);
             if ($request->post('re_password') != $request->post('password')) {
                 return redirect()->route($method_route)->with('failed', 'Mật khẩu không khớp');
-            } 
+            }
             // else if ($request->hasFile('avatar') == null) {
             //     return redirect()->route($method_route)->with('failed', 'Vui lòng nhập đủ');
             // } 
@@ -115,36 +115,47 @@ class AuthController extends Controller
     public function forgotPassword(Request $request)
     {
         if ($request->isMethod('post')) {
-            $db = DB::table('users')->where('email', 'like', $request->email)->first();
-            $token = Str::random(10);
-            $db_user = new User();
-            $db_user->updateToken($db->id, $token);
-            $db = $db_user->loadOne($db->id);
+            if (DB::table('users')->where('email', 'like', $request->email)->first()) {
+                $db = DB::table('users')->where('email', 'like', $request->email)->first();
+                $token = Str::random(10);
+                $db_user = new User();
+                $db_user->updateToken($db->id, $token);
+                $db = $db_user->loadOne($db->id);
 
-            Mail::send('screens.email.userChangePassword', compact('db'), function ($email) use ($db) {
-                $email->subject('Quên mật khẩu');
-                $email->to($db->email, $db->name);
-            });
-            return redirect()->route('auth.login')->with('success', 'Vui lòng xác nhận email quên mật khẩu');
+                Mail::send('screens.email.userChangePassword', compact('db'), function ($email) use ($db) {
+                    $email->subject('Quên mật khẩu');
+                    $email->to($db->email, $db->name);
+                });
+                return redirect()->route('auth.login')->with('success', 'Vui lòng xác nhận email quên mật khẩu');
+            } else {
+                return redirect()->route('auth.forgotPassword')->with('failed', 'Email không tồn tại');
+            }
         }
         return view('auth.forgot_password');
     }
 
     public function handleChangePassword($id, $token, Request $request)
     {
-        if ($request->isMethod('post')) {
-            $password = Hash::make($request->password);
-            $db = new User();
-            $db_user = $db->loadOne($id);
-            if ($db_user->remember_token === $token) {
-                $db_user = new User();
-                $db_user->updatePass($id, $password);
-                return redirect()->route('auth.login')->with('success', 'Đổi mật khẩu thành công');
-            } else {
-                return redirect()->route('auth.login')->with('failed', 'Mã xác minh không hợp lệ');
+        $db = new User();
+        $db_user = $db->loadOne($id);
+        if($db_user->remember_token === $token){
+            if ($request->isMethod('post')) {
+                if ($request->password == $request->password_1) {
+                    $password = Hash::make($request->password);
+                    $db_user = new User();
+                    $db_user->updatePass($id, $password);
+                    return redirect()->route('auth.login')->with('success', 'Đổi mật khẩu thành công');
+                }
+                else {
+                    return redirect()->route('auth.handleChangePassword', ['id' => $id, 'token' => $token])->with('failed', 'Mật khẩu không đúng');
+                }
             }
         }
-        return view('auth.change_password');
+        else{
+            return redirect()->route('auth.login')->with('failed', 'Mã xác minh không hợp lệ');
+        }
+
+        return view('auth.change_password'); 
     }
 
     public function logout()
