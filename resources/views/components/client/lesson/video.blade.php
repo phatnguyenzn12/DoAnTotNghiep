@@ -1,4 +1,4 @@
-<div class="overflow-hidden fullscreen-video w-100">
+
     <!-- Full screen video START -->
 
     <div class="video uk-responsive-width">
@@ -30,4 +30,3 @@
     <!-- Full screen video END -->
 
     <!-- Plyr resources and browser polyfills are specified in the pen settings -->
-</div>

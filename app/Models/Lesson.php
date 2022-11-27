@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Lesson extends Model
 {
@@ -13,19 +14,32 @@ class Lesson extends Model
         'content',
         'lesson_type',
         'attachment',
+        'time',
         'sort',
         'chapter_id'
     ];
 
-    public function lessonVideo() {
-        return $this->hasOne(LessonVideo::class,'lesson_id','id');
+    protected $appends = [
+        'time_edited'
+    ];
+
+    public function lessonVideo()
+    {
+        return $this->hasOne(LessonVideo::class, 'lesson_id', 'id');
     }
 
-    public function commentLessons(){
-        return $this->hasMany(CommentLesson::class,'lesson_id','id');
+    public function lesson_user()
+    {
+        return $this->belongsToMany(User::class,LessonUser::class);
     }
 
-    public function chapter(){
+    public function commentLessons()
+    {
+        return $this->hasMany(CommentLesson::class, 'lesson_id', 'id');
+    }
+
+    public function chapter()
+    {
         return $this->belongsTo(Chapter::class);
     }
 
@@ -41,6 +55,4 @@ class Lesson extends Model
             return "Không công khai";
         }
     }
-
-
 }

@@ -34,11 +34,8 @@ class BaseSeeder extends Seeder
     public function run()
     {
         $users = User::factory()
-            ->count(46)
+            ->count(5)
             ->create();
-        foreach ($users as $user) {
-            $user->assignRole('student');
-        }
         Admin::factory(1)->create();
         Mentor::factory(10)->create();
         Censor::factory(1)->create();
@@ -46,9 +43,9 @@ class BaseSeeder extends Seeder
         Specialize::factory(3)->create();
         Skill::factory(3)->create();
         Certificate::factory(10)->create();
-        Course::factory(30)->create();
-        Chapter::factory(20)->create();
-        Lesson::factory(100)->create();
+        Course::factory(10)->create();
+        Chapter::factory(100)->create();
+        Lesson::factory(1000)->create();
         foreach(Lesson::select('*')->get() as $lesson) {
             if($lesson->lesson_type == 'video') {
                 LessonVideo::create(

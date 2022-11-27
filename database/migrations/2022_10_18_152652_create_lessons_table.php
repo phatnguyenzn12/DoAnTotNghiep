@@ -21,7 +21,7 @@ return new class extends Migration
             //$table->string('attachment')->nullable();
             $table->string('download_progress')->nullable();
             //$table->tinyInteger('sort');
-            $table->time('time')->nullable();
+            $table->time('time');
             $table->integer('is_demo')->default(0);
             $table->integer('is_check')->default(0);
           //  $table->integer('is_block')->default(0);

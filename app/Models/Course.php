@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 
 class Course extends BaseModel
 {
@@ -29,7 +30,7 @@ class Course extends BaseModel
     ];
 
     protected $appends = [
-        'current_price','active','language_rule'
+        'current_price', 'active', 'language_rule', 'total_time'
     ];
 
     ////////////////////////////////////////////////////////////////
@@ -84,8 +85,31 @@ class Course extends BaseModel
         return $this->belongsTo(Mentor::class);
     }
 
-    public function skill(){
+    public function skill()
+    {
         return $this->belongsTo(Skill::class);
+    }
+
+    public function getTotalTimeAttribute()
+    {
+        if ($this->lessons->isEmpty() == true) {
+            return 0;
+        }
+        $time =  $this->lessons()
+            ->selectRaw("TIME_FORMAT(SUM(SEC_TO_TIME(time)), '%H %I %S') AS time_total")
+            ->first()
+            ->time_total;
+
+        $arr = ['h','m','s'];
+
+        $time = collect(explode(' ', $time))
+            ->map(
+                function ($val,$index) use ($arr) {
+                    return $val.':'.$arr[$index];
+                }
+            )->implode(' ');
+
+        return $time;
     }
 
     public function getCurrentPriceAttribute()
@@ -110,6 +134,17 @@ class Course extends BaseModel
             ? 'Tiếng việt'
             : 'english';
         return $language;
+    }
+
+    public function getProgress()
+    {
+        if(!auth()->user()->courses->contains($this->id)) return null;
+        $totalLesson = $this->lessons()->count();
+        $totalHistory = LessonUser::where('course_id', $this->id)
+                                    ->where('user_id', auth()->user()->id)
+                                    ->count();
+        $progress = ($totalLesson > 0) ? ($totalHistory/$totalLesson)*100 : 0;
+        return round($progress, 2, PHP_ROUND_HALF_DOWN);
     }
 
 }
