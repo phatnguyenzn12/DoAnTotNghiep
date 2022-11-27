@@ -30,8 +30,7 @@ class CourseController extends Controller
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
             // ->orderBy('sort')
-            ->paginate();
-
+            ->paginate(10);
         return view('screens.mentor.course.edit-program', compact('chapters', 'course_id'));
     }
     // Route::get('edit-program/{course_id}', 'program')->name('program');

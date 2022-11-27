@@ -50,69 +50,75 @@
                     </thead>
                     <tbody>
                         @foreach ($db as $db)
-                            <tr>
-                                <td class="pl-0 py-8">
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                            <div class="symbol-label">
-                                                <img src="{{ asset('app/' . $db->avatar) }}" alt="" width="50" height="50">
+                            @if ($db->hasRole('lead'))
+                                <tr>
+                                    <td class="pl-0 py-8">
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-50 flex-shrink-0 mr-4">
+                                                <div class="symbol-label">
+                                                    <img src="{{ asset('app/' . $db->avatar) }}" alt=""
+                                                        width="50" height="50">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <a href="#"
+                                                    class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ $db->name }}</a>
+                                                <span class="text-muted font-weight-bold d-block">{{ $db->email }}</span>
                                             </div>
                                         </div>
-                                        <div>
-                                            <a href="#"
-                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ $db->name }}</a>
-                                            <span class="text-muted font-weight-bold d-block">{{ $db->email }}</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                        @foreach (DB::table('specializations')->where('id', $db->specialize_id)->get() as $specialize)
-                                            {{ $specialize->title }}
-                                        @endforeach
-                                    </span>
-                                    <span class="text-muted font-weight-bold">{{ $db->skills }}</span>
-                                </td>
-                                <td>
-                                    <span
-                                        class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->educations }}</span>
-                                    <span class="text-muted font-weight-bold">{{ $db->years_in_experience }} năm</span>
-                                </td>
-                                <td>
-                                    <span
-                                        class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->number_phone }}</span>
-                                    <span class="text-muted font-weight-bold">{{ $db->address }}</span>
-                                </td>
-                                <td>
-                                    @if ($db->is_active == 1)
-                                        <span class="label label-lg label-light-success label-inline">Hoạt động</span>
-                                    @else
-                                        <span class="label label-lg label-light-danger label-inline">Ngừng hoạt động</span>
-                                    @endif
+                                    </td>
+                                    <td>
+                                        <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                                            @foreach (DB::table('specializations')->where('id', $db->specialize_id)->get() as $specialize)
+                                                {{ $specialize->title }}
+                                            @endforeach
+                                        </span>
+                                        <span class="text-muted font-weight-bold">{{ $db->skills }}</span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->educations }}</span>
+                                        <span class="text-muted font-weight-bold">{{ $db->years_in_experience }} năm</span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->number_phone }}</span>
+                                        <span class="text-muted font-weight-bold">{{ $db->address }}</span>
+                                    </td>
+                                    <td>
+                                        @if ($db->is_active == 1)
+                                            <span class="label label-lg label-light-success label-inline">Hoạt động</span>
+                                        @else
+                                            <span class="label label-lg label-light-danger label-inline">Ngừng hoạt
+                                                động</span>
+                                        @endif
 
-                                </td>
-                                <td>
-                                    @if ($db->is_active == 1)
-                                        <a href="{{ route('mentor.actived', $db->id) }}"
-                                            onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
-                                            class="btn btn-danger">
-                                            Ngừng hoạt động
-                                        </a>
-                                    @else
-                                        <a href="{{ route('mentor.actived', $db->id) }}"
-                                            onclick="return confirm('Bạn có chắc muốn hoạt động')" class="btn btn-success">
-                                            Hoạt động
-                                        </a>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a class="btn btn-light btn-sm" href="detail/${val.id}">
-                                        <i class="flaticon2-pen text-warning"></i></a>
-                                    <a class="btn btn-light btn-sm"  onclick="return confirm('Bạn có chắc muốn xóa')" href="{{route('mentor.delete',['id' => $db->id])}}">
-                                        <i class="flaticon2-trash text-danger"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($db->is_active == 1)
+                                            <a href="{{ route('mentor.actived', $db->id) }}"
+                                                onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
+                                                class="btn btn-danger">
+                                                Ngừng hoạt động
+                                            </a>
+                                        @else
+                                            <a href="{{ route('mentor.actived', $db->id) }}"
+                                                onclick="return confirm('Bạn có chắc muốn hoạt động')"
+                                                class="btn btn-success">
+                                                Hoạt động
+                                            </a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-light btn-sm" href="detail/${val.id}">
+                                            <i class="flaticon2-pen text-warning"></i></a>
+                                        <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
+                                            href="{{ route('mentor.delete', ['id' => $db->id]) }}">
+                                            <i class="flaticon2-trash text-danger"></i></a>
+                                    </td>
+                                </tr>
+                                @endif
+                            @endforeach
                     </tbody>
                 </table>
             </div>

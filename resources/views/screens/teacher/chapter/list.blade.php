@@ -26,7 +26,7 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>Add New Chapter</a>
+                    </span>Thêm mới bài học</a>
             </div>
         </div>
         <!--end::Header-->

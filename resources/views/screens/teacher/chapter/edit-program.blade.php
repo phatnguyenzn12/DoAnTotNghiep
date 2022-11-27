@@ -9,15 +9,9 @@
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('mentor.course.program', $course_id) }}">
+                                <a class="nav-link active" href="{{ route('teacher.chapter.program', $mentor_id) }}">
                                     <span class="nav-icon"><i class="fas fa-align-left"></i></span>
                                     <span class="nav-text">Chương Trình Học</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('mentor.course.edit', $course_id) }}">
-                                    <span class="nav-icon"><i class="far fa-bookmark"></i></span>
-                                    <span class="nav-text">Thông Tin Khóa Học</span>
                                 </a>
                             </li>
                         </ul>
@@ -27,13 +21,9 @@
 
                     <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
                         <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm chương
+                            onclick="showAjaxModal('{{ route('teacher.lesson.create') }}','Thêm bài học')"
+                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
                             học</button>
-                        <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.chapter.showSort', ['course' => $course_id]) }}','Sắp xếp chương học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
-                            Sắp xếp chương học</button>
                     </div>
 
                     @foreach ($chapters as $key => $chapter)
@@ -41,39 +31,17 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4 class="card-label">
-                                        Chương {{ $key + 1 }}: <a href="{{route('mentor.lesson.list',$chapter->id)}}">{{ $chapter->title }}</a>
+                                        Chương {{ $key + 1 }}: {{ $chapter->title }}
                                     </h4>
-                                    <h5 class="card-label">
-                                        | Số bài học cần đăng : {{ $chapter->number_chapter }}
-                                    </h5>
                                 </div>
                                 <div class="card-toolbar">
                                     <div class="card-toolbar">
                                         <a data-toggle="modal" data-target="#modal-example"
-                                            onclick="showAjaxModal('{{ route('mentor.chapter.show', $chapter->id) }}' ,'Cập nhật chương học')"
+                                            onclick="showAjaxModal('{{ route('teacher.chapter.show', $chapter->id) }}' ,'Chi tiết chương học')"
                                             class="btn btn-icon btn-sm btn-primary mr-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a data-toggle="modal" data-target="#modal-example"
-                                            onclick="showAjaxModal('{{ route('mentor.lesson.showSort', ['chapter' => $chapter->id]) }}','Sắp xếp bài học')"
-                                            class="btn btn-icon btn-sm btn-success mr-1">
-                                            <i class="fas fa-sort-amount-down-alt"></i>
-                                        </a>
-                                        <form action="" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-icon btn-sm btn-danger delete-item">
-                                                <i class="ki ki-close icon-nm"></i>
-                                            </button>
-                                        </form>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <p class="card-label">
-                                        Số bài học đã đăng: {{ count($chapter->lessons) }}
-                                    </p>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -99,6 +67,11 @@
                                                 @csrf
                                             </form>
                                             <p class="lession-tool m-0">
+                                                <a data-toggle="modal" data-target="#modal-example"
+                                                    onclick="showAjaxModal('{{ route('teacher.lesson.show', $lesson->id) }}','Cập nhật bài học')"
+                                                    class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                                 <button type="button"
                                                     class="btn btn-text-warning-50 btn-icon-warning font-weight-bold btn-hover-bg-light">
                                                     <i class="flaticon-refresh"></i>
@@ -167,7 +140,7 @@
                 url: url,
                 timeout: 1000,
                 data: {
-                    course: {{ $course_id }}
+                    chapter: {{ $mentor_id }}
                 },
                 success: function(res) {
                     $('#modal-example').find('.modal-body').html(res)

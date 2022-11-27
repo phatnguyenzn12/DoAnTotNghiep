@@ -14,8 +14,6 @@ class ChapterController extends Controller
 {
     public function create(Request $course_id)
     {
-        // $course = Course::where('id', $course_id)->first();
-        // dd($course);
         $mentor = Mentor::get();
         $course_id = $course_id->course;
         $data = view('components.mentor.course.modal.chapter.add', compact('course_id', 'mentor'))->render();
@@ -26,7 +24,6 @@ class ChapterController extends Controller
     {
 
         $course = Course::where('id', $request->course_id);
-        // dd($course);
         Chapter::create(
             array_merge(
                 $request->all('title', 'mentor_id', 'number_chapter', 'course_id'),
@@ -34,11 +31,9 @@ class ChapterController extends Controller
             )
         );
         $chapter = Chapter::where('title', 'like', $request->title)->first();
-        $gv = Mentor::where('id', $request->mentor_id)->first();
-        // dd($gv);
-        Mail::send('screens.email.mentor.acceptTeach', compact('gv', 'chapter'), function ($email) use ($gv) {
+        Mail::send('screens.email.mentor.acceptTeach', compact('chapter'), function ($email) use ($chapter) {
             $email->subject('Bạn được giao 1 chương học');
-            $email->to($gv->email, $gv->name);
+            $email->to($chapter->mentor->email, $chapter->mentor->name);
         });
         if ($request->ajax()) {
             session()->flash('success', 'Thêm chương học thành công');
@@ -59,7 +54,8 @@ class ChapterController extends Controller
 
     public function show(Chapter $chapter)
     {
-        $data = view('components.mentor.course.modal.chapter.edit', compact('chapter'))->render();
+        $mentors = Mentor::all();
+        $data = view('components.mentor.course.modal.chapter.edit', compact('chapter','mentors'))->render();
         return response()->json($data, 200);
     }
 

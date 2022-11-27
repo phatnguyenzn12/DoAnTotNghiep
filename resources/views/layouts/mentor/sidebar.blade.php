@@ -121,6 +121,19 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="menu-submenu">
+                            <i class="menu-arrow"></i>
+                            <ul class="menu-subnav">
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ route('mentor.lesson.index') }}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">DANH SÁCH BÀI HỌC</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
@@ -329,18 +342,19 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-text">QUẢN LÝ BÀI HỌC</span>
+                            <span class="menu-text">QUẢN LÝ CHƯƠNG HỌC</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="" class="menu-link">
+                                    <a href="{{ route('teacher.chapter.program',auth()->guard('mentor')->user()->id) }}"
+                                        class="menu-link">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
                                         </i>
-                                        <span class="menu-text">DANH SÁCH BÀi HỌC</span>
+                                        <span class="menu-text">DANH SÁCH CHƯƠNG HỌC</span>
                                     </a>
                                 </li>
                             </ul>
