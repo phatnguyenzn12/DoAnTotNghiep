@@ -41,8 +41,7 @@ class HomeController extends Controller
             }
         );
 
-        $discount = Banner::first()->discountCode;
 
-        return view('screens.client.home', compact('courses', 'interView', 'cate', 'coursesAll', 'mentorAll', 'studentAll','certificateAll','discount'));
+        return view('screens.client.home', compact('courses', 'interView', 'cate', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
     }
 }

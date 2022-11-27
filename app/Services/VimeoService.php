@@ -16,7 +16,7 @@ class VimeoService
 
     public function create($file_video, $title, $content, $is_demo)
     {
-
+      //  dd($file_video, $title, $content, $is_demo);
         if ($is_demo == 0) {
             $privacy = array(
                 'view' => 'disable',

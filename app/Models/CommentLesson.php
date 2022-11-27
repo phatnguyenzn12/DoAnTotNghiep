@@ -12,9 +12,10 @@ class CommentLesson extends Model
     protected $fillable = [
         'comment',
         // 'vote',
+        'image',
         'reply',
         'status',
-        // 'id_mentor',
+        'mentor_id',
         'lesson_id',
         'user_id',
     ];
@@ -25,4 +26,7 @@ class CommentLesson extends Model
     public function lesson(){
         return $this->belongsTo(Lesson::class,'lesson_id','id');
     }
+    // public function mentor(){
+    //     return $this->belongsTo(Mentor::class,'mentor_id','id');
+    // }
 }

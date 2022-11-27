@@ -43,18 +43,6 @@
                                 placeholder="Đường dẫn">
                         </div>
                         <div class="form-group">
-                            <label>Giá
-                                <span class="text-danger">*</span></label>
-                            <input value="{{ $course->price }}" type="text" name="price" class="form-control"
-                                placeholder="Giá khóa học ">
-                        </div>
-                        <div class="form-group">
-                            <label>Giảm giá
-                                <span class="text-danger">*</span></label>
-                            <input value="{{ $course->discount }}" type="text" name="discount" class="form-control"
-                                placeholder="Video demo">
-                        </div>
-                        <div class="form-group">
                             <label>Video demo</label>
                             <input type="url" value="{{ $course->video }}" name="video" rows="5"
                                 class="form-control" placeholder="nhập đường dẫn video youtube" />

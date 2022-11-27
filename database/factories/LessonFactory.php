@@ -25,8 +25,8 @@ class LessonFactory extends Factory
             'title' => fake()->name(),
             'content' => fake()->text(40),
             'lesson_type' => 'video',
-            'attachment' => '0',
-            'sort' =>  $number++,
+            // 'attachment' => '0',
+          //  'sort' =>  $number++,
             'chapter_id' => rand(1,20)
         ];
     }

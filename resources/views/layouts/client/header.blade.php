@@ -166,42 +166,50 @@
                     <span class="notif-badge animation-blink"></span>
 
                     <!-- Notification dropdown menu START -->
+
                     @if (Auth::guard('web')->user() || Auth::guard('admin')->user() || Auth::guard('mentor')->user())
                         <div
                             class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
                             <div class="card bg-transparent">
                                 <div
                                     class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
-                                    <h6 class="m-0"> Các thông báo <span
-                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ Auth::user()->unreadNotifications->count() }}
-                                            new</span></h6>
+                                    <h6 class="m-0">Notifications <span
+                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ App\Models\Mentor::has('notifications')->count() != null ? App\Models\Mentor::has('notifications')->count() : 0 }}
+
                                     <a class="small" href="#">Clear all</a>
                                 </div>
                                 <div class="card-body p-0">
                                     <ul class="list-group list-unstyled list-group-flush">
 
                                         <!-- Notif item -->
-                                        @foreach (Auth::user()->unreadNotifications as $notification)
-                                            <li>
-                                                <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
-                                                    class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                                    <div class="me-3">
-                                                        <div class="avatar avatar-md">
-                                                            <img class="avatar-img rounded-circle"
-                                                                src="{{ Auth::user()->avatar }}" alt="avatar">
+                                        @if (isset(App\Models\Mentor::has('notifications')->first()->unreadNotifications))
+                                            @forelse (App\Models\Mentor::has('notifications')->first()->unreadNotifications as $notification)
+                                                <li>
+                                                    @if (Auth::guard('mentor')->user())
+                                                        <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                                            class="list-group-item-action border-0 border-bottom d-flex p-3">
+                                                            <div class="me-3">
+                                                                <div class="avatar avatar-md">
+                                                                    <img class="avatar-img rounded-circle"
+                                                                        src="{{ App\Models\User::where('id', $notification->data['user_id'])->first()->avatar }}"
+                                                                        alt="avatar">
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-body small m-0">
+                                                                    <b>{{ App\Models\User::where('id', $notification->data['user_id'])->first()->name }}</b>
+                                                                    commented on
+                                                                    <b>{{ $notification->data['name'] }}</b>
+                                                                </p>
+                                                                <u class="small">View detail</u>
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                </li>
+                                            @empty
+                                            @endforelse
+                                        @endif
 
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <p class="text-body small m-0">
-                                                            <b>{{ Auth::user()->name }}</b> commented on
-                                                            <b>{{ $notification->data['lesson_id'] }}</b>
-                                                        </p>
-                                                        <u class="small">View detail</u>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        @endforeach
 
                                         <!-- Notif item -->
                                         {{-- <li>
@@ -268,6 +276,7 @@
                             </div>
                         </div>
                         <!-- Notification dropdown menu END -->
+
                     @endif
                 </li>
                 <!-- Notification dropdown END -->
@@ -279,6 +288,7 @@
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         @if (Auth::guard('admin')->user())
+
                             <img class="avatar-img rounded-circle"
                                 src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}" alt="avatar">
                         @elseif (Auth::guard('mentor')->user())
@@ -299,6 +309,7 @@
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
                                     @if (Auth::guard('admin')->user())
+
                                         <img class="avatar-img rounded-circle"
                                             src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}"
                                             alt="avatar">
