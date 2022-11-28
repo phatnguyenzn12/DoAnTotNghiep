@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Models\Skill;
 use App\Models\Specialize;

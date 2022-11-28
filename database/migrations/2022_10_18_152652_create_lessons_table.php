@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content')->nullable();
-            $table->string('lesson_type')->nullable();
+            $table->string('lesson_type')->default('video');
             //$table->string('attachment')->nullable();
             $table->string('download_progress')->nullable();
             //$table->tinyInteger('sort');

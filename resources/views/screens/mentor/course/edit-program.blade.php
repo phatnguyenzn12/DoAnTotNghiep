@@ -51,7 +51,7 @@
                                     <div class="card card-custom gutter-b card-stretch" >
                                         <!--begin::Body-->
                                         <a class="card-body pt-4 ribbon ribbon-right"
-                                            href="{{ route('mentor.course.program', $chapter->id) }}">
+                                            href="{{ route('mentor.lesson.list', $chapter->id) }}">
                                             <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
                                                 <font style="vertical-align: inherit;">
                                                     <font style="vertical-align: inherit;">{{ $chapter->active }}</font>

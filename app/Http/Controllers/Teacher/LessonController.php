@@ -1,29 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Mentor;
+namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Mentor;
 use App\Services\VimeoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class LessonController extends Controller
 {
-    public function list($id)
+     public function list($id)
     {
-        $lessons = Lesson::with('chapter')->orderBy('id', 'DESC')->paginate(10);
-
-    //    $lesson = Lesson::where('chapter_id',$id)->get();
+       $lesson = Lesson::where('chapter_id',$id)->get();
        $chapter = Chapter::where('id',$id)->first();
-       return view('screens.mentor.lesson.list-lesson', compact('lessons','chapter'));
+       return view('screens.teacher.lesson.list', compact('lesson','chapter'));
     }
-    public function create(Request $course_id)
+    public function create($id)
     {
-        $chapters = Chapter::where('course_id', $course_id->course)->get();
-        $data = view('components.mentor.course.modal.lesson.add', compact('chapters'))->render();
-        return response()->json($data, 200);
+        $chapters = Chapter::where('id', $id)->first();
+        //dd($chapters);
+        // dd($course_id->course);
+        return view('screens.teacher.lesson.add', compact('chapters'));
+        // return response()->json($data, 200);
     }
 
     public function store(Request $request, VimeoService $vimeoService)
@@ -37,14 +40,14 @@ class LessonController extends Controller
                             'title',
                             'content',
                             'lesson_type',
-                            'attachment',
+                            'time',
                             'chapter_id'
                         ]
                     ),
-                    ['sort' => Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0]
+                    //     ['sort' => Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0]
                 )
             );
-
+           //     dd( $request->video_path);
             $url = $vimeoService->create(
                 $request->video_path,
                 $request->title,
@@ -52,19 +55,28 @@ class LessonController extends Controller
                 $request->is_demo
             );
 
-            $lessonVideo = $request->only([
-                'is_demo'
-            ]);
+            // $lessonVideo = $request->only([
+            //     'is_demo'
+            // ]);
             $lessonVideo['video_path'] = $url;
+            
 
             $lesson->lessonVideo()
                 ->create($lessonVideo);
         }
-
-        if ($request->ajax()) {
-            session()->flash('success', 'Thêm bài học thành công');
-            return response()->json(['success' => true], 201);
-        }
+       $mentor = Chapter::where('id',  $request->chapter_id)->first();
+       $lead = Mentor::where('id',$mentor->mentor_id)->first();
+        $chap = Lesson::where('title', $request->title)->first();
+        // dd($gv);
+        Mail::send('screens.email.mentor.acceptTeach', compact('chap','lead'), function ($email) use ($lead) {
+            $email->subject('Duyệt bài học');
+            $email->to($lead->email, $lead->name);
+            dd($lead->email, $lead->name);
+        });
+        // if ($request->ajax()) {
+        //     session()->flash('success', 'Thêm bài học thành công');
+        //     return response()->json(['success' => true], 201);
+        // }
         return redirect()
             ->back()
             ->with('success', 'Thêm bài học thành công');

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->char('status')->default(1);
             $table->integer('user_id');
             // $table->integer('mentor_id');
+            // $table->string('image');
             $table->integer('lesson_id');
             $table->timestamps();
         });

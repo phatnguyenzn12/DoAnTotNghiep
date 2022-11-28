@@ -7,9 +7,8 @@
         <p>Chương: {{$chapter->title}}</p>
         <p>Số lượng bài học trong chương: {{$chapter->number_chapter}}</p>
         <p>
-            <a href="{{route('mentor/chapter/show', $chapter->id)}}"
+            <a href="{{route('teacher.lesson.add', $chapter->id)}}"
                 style="display: inline-block; background: rgb(80, 95, 234); color: #fff; padding: 10px 15px; font-weight: bold">Thực hiện</a>
         </p>
-
     </div>
 </div>

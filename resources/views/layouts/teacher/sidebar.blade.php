@@ -73,7 +73,7 @@
                 <h4 class="menu-text">CỬA HÀNG</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
             </li>
-            {{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -90,34 +90,24 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">QUẢN LÝ NGƯỜI DÙNG</span>
+                    <span class="menu-text">Quản Lý Bài Học</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="menu-submenu">
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('admin.user.index') }}" class="menu-link">
+                            <a href="" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">DANH SÁCH NGƯỜI DÙNG</span>
+                                <span class="menu-text">Danh Sách Bài Học</span>
                             </a>
                         </li>
                     </ul>
                     <i class="menu-arrow"></i>
-                    <ul class="menu-subnav">
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('admin.user.index') }}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">THỐNG KÊ NGƯỜI DÙNG</span>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
-            </li> --}}
+            </li>
         </ul>
         <!--end::Menu Nav-->
     </div>
