@@ -30,7 +30,7 @@ class Course extends BaseModel
     ];
 
     protected $appends = [
-        'current_price', 'active', 'language_rule', 'total_time'
+        'current_price', 'active', 'language_rule', 'total_time','progress'
     ];
 
     ////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ class Course extends BaseModel
         $time = collect(explode(' ', $time))
             ->map(
                 function ($val,$index) use ($arr) {
-                    return $val.':'.$arr[$index];
+                    return $val.''.$arr[$index];
                 }
             )->implode(' ');
 
@@ -136,7 +136,7 @@ class Course extends BaseModel
         return $language;
     }
 
-    public function getProgress()
+    public function getProgressAttribute()
     {
         if(!auth()->user()->courses->contains($this->id)) return null;
         $totalLesson = $this->lessons()->count();

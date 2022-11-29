@@ -22,7 +22,7 @@ class OwnerCourseFactory extends Factory
         $user = User::all()->random();
         return [
             'course_id' => $course->id,
-            'user_id' => $user->id
+            'user_id' => 1
         ];
     }
 }

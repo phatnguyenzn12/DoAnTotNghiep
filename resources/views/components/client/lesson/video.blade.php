@@ -1,32 +1,36 @@
+<!-- Full screen video START -->
 
-    <!-- Full screen video START -->
+<div class="video uk-responsive-width">
 
-    <div class="video uk-responsive-width">
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + '{{ $lesson->lessonVideo->video_path }}')
+        .then(
+            res => {
+                $('.video.uk-responsive-width').html(res.data.html)
+                $('iframe').css({
+                    'width': '100%',
+                    'height': '100%',
+                    'position': 'absolute',
+                    'top': 0,
+                    'left': 0
+                });
 
-        <iframe
-            src="https://player.vimeo.com/video/772157924?h=6d83673606&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-            frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen
-            style="position:absolute;top:0;left:0;width:100%;height:100%;" title="tải xuống"></iframe>
-    </div>
+                var player = new Vimeo.Player(document.querySelector('iframe'));
 
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + '{{ $lesson->lessonVideo->video_path }}')
-            .then(
-                res => {
-                    console.log(res)
-                    $('.video.uk-responsive-width .content').html(res.data.html)
-                    $('iframe').css({
-                        'width': '100%',
-                        'height': '100%',
-                        'position': 'absolute',
-                        'top': 0,
-                        'left': 0
-                    });
-                }
-            )
-    </script>
-    <!-- Full screen video END -->
+                player.on('play', function(data) {
+                    console.log('played the video!',data);
+                });
 
-    <!-- Plyr resources and browser polyfills are specified in the pen settings -->
+                // player.on('playing', function(data) {
+                //     console.log(data);
+                // });
+            }
+        )
+
+</script>
+<!-- Full screen video END -->
+
+<!-- Plyr resources and browser polyfills are specified in the pen settings -->

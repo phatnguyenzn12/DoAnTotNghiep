@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
 use App\Models\CommentLesson;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -14,46 +15,47 @@ class LessonController extends Controller
     {
         $chapters = $course->load('chapters')->chapters()->get();
 
-<<<<<<< HEAD
         $lesson = $chapters->first()->lessons()->first();
 
-        $check_course = auth()->user()->load('course_user')->course_user->isEmpty();
+        $check_course = auth()->user()->load('course_user')->course_user->where('id', $course->id)->isEmpty();
 
-        if ($check_course == true 
-        ) {
+        if ($check_course == true) {
             auth()->user()
                 ->load('course_user')
                 ->course_user()
-                ->attach(['lesson_id' => $lesson->id]);
+                ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]);
         }
-=======
-        // dd(auth()->user()->load('lesson_user')->lesson_user()->where('course_id', $course->id)->first());
-
-        // dd( $lessonId = auth()->user()->load('course_user')
-        // ->course_user()->where('id', $course->id)->first()
-        // ->chapters()->first()
-        // ->lessons()->first()); // khi khong dung ajax
-
-        // dung ajax $course->chapters()->first()->lessons()->first()->id]
-
-        auth()->user()->load('course_user')->course_user()->where('id', $course->id)->first() == null ??
-            auth()->user()
-            ->load('course_user')
-            ->course_user()
-            ->attach([$course->id => ['lesson_id' => $lesson->id]]);
->>>>>>> 24d0ed59da037fb5a01abaf4f3b371cfe00911ef
 
         $cmt = CommentLesson::where('lesson_id', $lesson->id)->get();
 
         return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt'));
     }
 
-    public function show(Lesson $lesson)
+    public function show(Course $course, Lesson $lesson)
     {
-        $data = [
-           'video' =>  view('components.client.lesson.video', compact('lesson'))->render()
-        ];
+        // auth()->user()
+        //     ->load('course_user')
+        //     ->course_user()
+        //     ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]);
 
-        return response()->json($data);
+        $chapters = $course->load('chapters')->chapters()->get();
+
+        $cmt = CommentLesson::where('lesson_id', $lesson->id)->get();
+
+        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt'));
+    }
+
+    public function completeVideo(Course $course, Lesson $lesson)
+    {
+        auth()->user()
+            ->load('course_user')
+            ->course_user()
+            ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]); //lấy id tiếp theo dựa vào id hiện tại
+
+        $chapters = $course->load('chapters')->chapters()->get();
+
+        $html = view('components.client.lesson.sidebar', compact('course', 'chapters'))->render();
+
+        return response()->json($html);
     }
 }

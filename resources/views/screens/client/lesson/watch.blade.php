@@ -18,9 +18,14 @@
             <div class="d-flex">
 
                 <div class="overflow-hidden fullscreen-video w-100" id="show-video">
+                    @include('components.client.lesson.video')
                 </div>
 
-                @include('components.client.lesson.sidebar')
+                <!-- Page content START -->
+                <div class="justify-content-end position-relative" id="show-sidebar">
+                    @include('components.client.lesson.sidebar')
+                </div>
+
 
             </div>
             <div class="col-12">
@@ -351,36 +356,14 @@
 @endsection
 @push('js-handles')
     <script>
-        function showAjax(url) {
-            $.ajax({
-                url: url,
-                timeout: 1000,
-                success: function(res) {
-                    $('#show-video').html(res.video)
-                }
-            })
-        }
-
-        function sideBar(elm, url) {
-            showAjax(url)
-
-            $('.remove-all-click').css({
-                color: '#d6293e',
-                backgroundColor: 'rgba(214, 41, 62, 0.1)'
-            })
-
-            $(elm).css({
-                color: '#fff',
-                backgroundColor: '#d6293e',
-                borderColor: '#d6293e',
-            })
-
-            console.log($('#remove-all-click'),elm);
-        }
-
-        window.onload = () => {
-            showAjax('{{ route('client.lesson.show', $lesson->id) }}')
-        }
+        // $.ajax({
+        //     url: '{{ route('client.lesson.complete', ['course' => $course->id, 'lesson' => $lesson->id]) }}',
+        //     timeout: 3000,
+        //     success: function(res) {
+        //         console.log(res);
+        //         $('#show-sidebar').html(res)
+        //     }
+        // })
 
         function showform(index) {
             var x = document.querySelectorAll(".reply")

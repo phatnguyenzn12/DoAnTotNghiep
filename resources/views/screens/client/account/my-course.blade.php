@@ -194,10 +194,11 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                     <!-- Table head -->
                                     <thead>
                                         <tr>
-                                            <th scope="col" class="border-0 rounded-start">Course Title</th>
-                                            <th scope="col" class="border-0">Total Lectures</th>
-                                            <th scope="col" class="border-0">Completed Lecture</th>
-                                            <th scope="col" class="border-0 rounded-end">Action</th>
+                                            <th scope="col" class="border-0 rounded-start">Tên khóa học</th>
+                                            <th scope="col" class="border-0">Tổng bài học</th>
+                                            <th scope="col" class="border-0">Số bài học hoàn thành</th>
+                                            <th scope="col" class="border-0">Hoạt động</th>
+                                            <th scope="col" class="border-0 rounded-end">Chứng chỉ</th>
                                         </tr>
                                     </thead>
 
@@ -219,13 +220,13 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                                         <h6><a href="{{ route('client.course.show', ['slug' => $course['slug'],'course' => $course['id']]) }}"> {{ $course->title }}</a></h6>
                                                         <!-- Info -->
                                                         <div class="overflow-hidden">
-                                                            <h6 class="mb-0 text-end">85%</h6>
+                                                            <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
                                                             <div class="progress progress-sm bg-primary bg-opacity-10">
                                                                 <div class="progress-bar bg-primary aos"
                                                                     role="progressbar" data-aos="slide-right"
                                                                     data-aos-delay="200" data-aos-duration="1000"
-                                                                    data-aos-easing="ease-in-out" style="width: 85%"
-                                                                    aria-valuenow="85" aria-valuemin="0"
+                                                                    data-aos-easing="ease-in-out" style="width: {{ $course->progress }}%"
+                                                                    aria-valuenow="{{ $course->progress }}" aria-valuemin="0"
                                                                     aria-valuemax="100">
                                                                 </div>
                                                             </div>
@@ -244,6 +245,9 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                             <td>
                                                 <a href="{{ route('client.course.show', ['slug' => $course['slug'],'course' => $course['id']]) }}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
                                                         class="bi bi-play-circle me-1"></i>Continue</a>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary">Xem chứng chỉ</button>
                                             </td>
                                         </tr>
                                     @empty

@@ -44,7 +44,7 @@ class AccountController extends Controller
                 $imgPath = $request->file('avatar')->store('images');
                 $imgPath = str_replace('public/', '', $imgPath);
                 $user->avatar = $imgPath;
-               
+
             }
           //  $user->fill($request->all());
 

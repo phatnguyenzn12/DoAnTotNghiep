@@ -244,12 +244,12 @@
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-fw fa-book-open text-primary"></i>bài học</span>
-                                            <span>{{ $course->chapters->count() }}</span>
+                                            <span>{{ $course->lessons->count() }}</span>
                                         </li>
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-fw fa-clock text-primary"></i>Thời gian</span>
-                                            <span>4h 50m</span>
+                                            <span>{{ $course->totalTime }}</span>
                                         </li>
                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i

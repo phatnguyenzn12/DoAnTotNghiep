@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('lesson')->name('client.lesson.')->controller(LessonController::class)->group(
     function () {
-        Route::get('exercise/{course}','index')->name('index');
-        Route::get('exercise-lesson/{lesson}','show')->name('show');
+        Route::get('exercise/{course}', 'index')->name('index');
+        Route::get('exercise-lesson/{course}/{lesson}', 'show')->middleware('check-lesson-user')->name('show');
+        Route::get('video-complete/{course}/{lesson}', 'completeVideo')->name('complete');
     }
 );
 
