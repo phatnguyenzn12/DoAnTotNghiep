@@ -86,7 +86,7 @@ class UserSeender extends Seeder
             ],
         ];
         DB::table('users')->insert($users);
-        //---create roles for users---
+        //    ---create roles for users---
         // foreach ($users as $userItem) {
         //     switch ($userItem['email']) {
         //         case 'manager@example.com':
@@ -95,15 +95,7 @@ class UserSeender extends Seeder
         //             break;
         //         case 'teacher@example.com':
         //             $mentorSetRole = Mentor::where('email', 'frontend@example.com')->first();
-        //             $mentorSetRole->assignRole('lead');
-        //             break;
-        //         case 'teacher@example.com':
-        //             $mentorSetRole = Mentor::where('email', 'frontend@example.com')->first();
-        //             $mentorSetRole->assignRole('lead');
-        //             break;
-        //         case 'student@example.com':
-        //             $user = User::create($userItem);
-        //             $user = User::where('email', 'student@example.com')->first();
+        //             $mentorSetRole->assignRole('teacher');
         //             break;
         //     }
         // }

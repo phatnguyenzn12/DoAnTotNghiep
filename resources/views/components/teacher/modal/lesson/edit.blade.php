@@ -9,6 +9,10 @@
         <label>Nội dung</label>
         <textarea name="content" class="form-control" placeholder="Nhập nội dung">{{ $lesson->content }}</textarea>
     </div>
+    <div class="form-group">
+        <label>Thời lượng video</label>
+        <textarea name="time" class="form-control" placeholder="Nhập nội dung">{{ $lesson->time }}</textarea>
+    </div>
     @if ($lesson->lesson_type == 'video')
         <div class="form-group" video>
             <label>Tải video lên</label>
