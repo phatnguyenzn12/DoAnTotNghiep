@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -45,7 +46,7 @@ class UserSeender extends Seeder
         $users = [
             [
                 'name' => fake()->name(),
-                'email' => 'admin@example.com',
+                'email' => 'backend@example.com',
                 'password' => '$2a$12$7jg/HO6Q2c1.gxdxBNwKcur.IHdWRpsDARlgLM.LOPWcRnkc/R79m',
                 'avatar' => 'placeholder.png',
                 'number_phone' => '012345678',
@@ -55,7 +56,7 @@ class UserSeender extends Seeder
             ],
             [
                 'name' => fake()->name(),
-                'email' => 'manager@example.com',
+                'email' => 'frontend@example.com',
                 'password' => '$2a$12$7jg/HO6Q2c1.gxdxBNwKcur.IHdWRpsDARlgLM.LOPWcRnkc/R79m',
                 'avatar' => 'placeholder.png',
                 'number_phone' => '012345678',
@@ -87,27 +88,24 @@ class UserSeender extends Seeder
         DB::table('users')->insert($users);
         //---create roles for users---
         // foreach ($users as $userItem) {
-        //     $user = User::create($userItem);
         //     switch ($userItem['email']) {
-        //         case 'admin@example.com':
-        //             $userSetRole = User::where('email', 'admin@example.com')->first();
-        //             $userSetRole->assignRole('admin');
-        //             break;
         //         case 'manager@example.com':
-        //             $userSetRole = User::where('email', 'manager@example.com')->first();
-        //             $userSetRole->assignRole('manager');
+        //             $mentorSetRole = Mentor::where('email', 'backend@example.com')->first();
+        //             $mentorSetRole->assignRole('lead');
         //             break;
         //         case 'teacher@example.com':
-        //             $userSetRole = User::where('email', 'teacher@example.com')->first();
-        //             $userSetRole->assignRole('teacher');
+        //             $mentorSetRole = Mentor::where('email', 'frontend@example.com')->first();
+        //             $mentorSetRole->assignRole('lead');
+        //             break;
+        //         case 'teacher@example.com':
+        //             $mentorSetRole = Mentor::where('email', 'frontend@example.com')->first();
+        //             $mentorSetRole->assignRole('lead');
         //             break;
         //         case 'student@example.com':
-        //             $userSetRole = User::where('email', 'student@example.com')->first();
-        //             $userSetRole->assignRole('student');
+        //             $user = User::create($userItem);
+        //             $user = User::where('email', 'student@example.com')->first();
         //             break;
         //     }
         // }
-
-
     }
 }

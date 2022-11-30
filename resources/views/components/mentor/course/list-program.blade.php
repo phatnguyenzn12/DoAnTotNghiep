@@ -33,7 +33,9 @@
                 <div class="col-md-12 mb-3 ribbon ribbon-right">
                     <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
                         <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->active }}</font>
+                            <font style="vertical-align: inherit;">
+                                {{-- {{ $lesson->lessonVideo->active }} --}}
+                            </font>
                         </font>
                     </div>
                     <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">

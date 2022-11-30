@@ -83,4 +83,36 @@ class VimeoService
             dd('Your video encountered an error during transcoding.');
         }
     }
+
+    public function getVimeoVideoDuration(string $url)
+    {
+        $authorization = env('ACCESS_TOKEN_VIMEO');
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.vimeo.com/{$url}",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "authorization: Bearer {$authorization}",
+                "cache-control: no-cache",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        if (empty($err)) {
+            $info = json_decode($response);
+            if(isset($info->duration)){
+                return (int)$info->duration;
+            }
+        }
+        return false;
+    }
 }

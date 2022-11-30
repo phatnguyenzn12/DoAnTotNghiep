@@ -29,6 +29,9 @@
                                             Chương {{ $key + 1 }}: <a
                                                 href="{{ route('teacher.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                         </h4>
+                                        <h5 class="card-label">
+                                            | Deadline: {{$chapter->deadline}}
+                                        </h5>
                                     </div>
                                     <div class="card-toolbar">
                                         <div class="card-toolbar">

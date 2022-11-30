@@ -13,6 +13,7 @@ class Certificate extends Model
         'title',
         'description',
         'image',
-        'mentor_id'
+        'mentor_id',
+        'course_id'
     ];
 }

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image');
-            $table->unsignedBigInteger('mentor_id')->nullable();
+            $table->unsignedBigInteger('mentor_id');
+            $table->unsignedBigInteger('course_id');
             $table->timestamps();
         });
     }

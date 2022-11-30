@@ -50,13 +50,14 @@ class LessonController extends Controller
         }
         $lessons = Lesson::where('chapter_id', $request->chapter_id)->get();
         foreach ($lessons as $lesson) {}
-        if ($lesson->lessonVideo->video_path != null) {
+        if ($lesson->lessonVideo->video_path != 0) {
             $chapter = Chapter::where('id', $request->chapter_id)->first();
             Mail::send('screens.email.teacher.lessonLead', compact('chapter'), function ($email) use ($chapter) {
                 $email->subject('Duyệt bài học');
                 $email->to($chapter->course->mentor->email, $chapter->course->mentor->name);
             });
         }
+
 
         if ($request->ajax()) {
             session()->flash('success', 'Sửa bài học thành công');

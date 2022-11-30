@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('lesson_user', function (Blueprint $table) {
+            $table->id();
             $table->unsignedInteger('lesson_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('course_id');
