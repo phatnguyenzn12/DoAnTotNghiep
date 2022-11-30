@@ -16,6 +16,7 @@ class Lesson extends Model
         'attachment',
         'time',
         'sort',
+        'deadline',
         'chapter_id'
     ];
 

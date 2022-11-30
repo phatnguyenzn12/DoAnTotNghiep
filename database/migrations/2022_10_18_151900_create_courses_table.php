@@ -32,7 +32,6 @@ return new class extends Migration
             $table->unsignedBigInteger('skill_id');
             $table->unsignedBigInteger('mentor_id')->nullable();
             $table->unsignedBigInteger('cate_course_id');
-            $table->unsignedBigInteger('certificate_id')->nullable();
             $table->timestamps();
         });
     }

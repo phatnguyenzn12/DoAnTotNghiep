@@ -26,7 +26,6 @@ class Course extends BaseModel
         'type',
         'description',
         'description_details',
-        'certificate_id'
     ];
 
     protected $appends = [

@@ -10,10 +10,8 @@ class LessonVideo extends Model
     use HasFactory;
     protected $table = 'lesson_videos';
     protected $fillable = [
-       // 'is_demo',
         'video_path',
        'lesson_id',
-      //  'is_check'
     ];
 
     protected $append = [
