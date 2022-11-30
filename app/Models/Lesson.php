@@ -13,13 +13,12 @@ class Lesson extends Model
         'title',
         'content',
         'lesson_type',
-        'attachment',
         'time',
         'sort',
         'chapter_id',
-        'download_progress',
         'is_demo',
-        'is_check'
+        'is_check',
+        'is_edit'
     ];
 
     protected $appends = [
@@ -59,5 +58,4 @@ class Lesson extends Model
             return "Không công khai";
         }
     }
-
 }

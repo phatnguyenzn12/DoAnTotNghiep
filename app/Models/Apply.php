@@ -15,7 +15,8 @@ class Apply extends Model
         'name',
         'email',
         'number_phone',
-        'Summary'
+        'Summary',
+        'attachment'
     ];
 
     public function saveNew($params)
