@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('description_details');
             $table->integer('price')->nullable();
-            $table->integer('discount')->nullable();;
+            $table->integer('discount')->nullable();
             $table->integer('participant')->default(0);
             $table->integer('status')->default(0);
             $table->text('video');
@@ -30,9 +30,8 @@ return new class extends Migration
             $table->integer('type')->default(0);
             $table->char('slug');
             $table->unsignedBigInteger('skill_id');
-            $table->unsignedBigInteger('mentor_id')->nullable();;
+            $table->unsignedBigInteger('mentor_id')->nullable();
             $table->unsignedBigInteger('cate_course_id');
-            $table->unsignedBigInteger('certificate_id')->nullable();
             $table->timestamps();
         });
     }

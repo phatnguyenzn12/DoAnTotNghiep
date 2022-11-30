@@ -36,6 +36,7 @@ class Mentor extends Authenticatable
         'specialize_id',
         'skills',
         'about_me',
+        'point',
         'years_in_experience',
     ];
 

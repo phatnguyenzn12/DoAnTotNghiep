@@ -1,6 +1,3 @@
-@php
-    $user = \Illuminate\Support\Facades\Auth::user();
-@endphp
 @extends('layouts.client.master')
 @section('title', 'Trang cá nhân')
 
@@ -131,7 +128,7 @@
                                                     src="/frontend/images/avatar/07.jpg" alt="">
                                             </span>
                                             <!-- Remove btn -->
-                                            {{-- <button type="button" class="uploadremove"><i class="bi bi-x text-white"></i></button> 
+                                            {{-- <button type="button" class="uploadremove"><i class="bi bi-x text-white"></i></button>
                                         </label>
                                         <!-- Upload button -->
                                         <label class="btn btn-primary-soft mb-0" for="uploadfile-1">Change</label>
@@ -155,7 +152,7 @@
                                                     class="img-fluid" />
                                                     <label for="cmt_truoc">Mặt trước</label>
                                             </span><br />
-                                            
+
                                             <input type="file" name="avatar" class="form-control" placeholder=""> --}}
                                         </label>
                                     </div>
@@ -167,7 +164,7 @@
                                     {{-- <label class="form-label">Họ và tên </label>
 								<div class="input-group">
 									<input type="text" name="name" class="form-control" value="" placeholder="Tên">
-									{{-- <input type="text" class="form-control" value="" placeholder="Tên"> 
+									{{-- <input type="text" class="form-control" value="" placeholder="Tên">
 								</div> --}}
                                 </div>
 

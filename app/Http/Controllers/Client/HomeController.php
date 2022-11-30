@@ -41,7 +41,6 @@ class HomeController extends Controller
             }
         );
 
-
         return view('screens.client.home', compact('courses', 'interView', 'cate', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
     }
 }
