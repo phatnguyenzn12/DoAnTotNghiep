@@ -15,12 +15,12 @@ class ChapterController extends Controller
       return view('screens.teacher.chapter.list', compact('chapter'));
    }
 
-   public function program($mentor_id)
+   public function program($course_id)
    {
       $chapters = Chapter::select('*')
-         ->where('mentor_id', $mentor_id)
+         ->where('course_id', $course_id)
          ->paginate(10);
-      return view('screens.teacher.chapter.edit-program', compact('chapters', 'mentor_id'));
+      return view('screens.teacher.chapter.edit-program', compact('chapters', 'course_id'));
    }
 
    public function show(Chapter $chapter)

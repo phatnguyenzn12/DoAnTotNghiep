@@ -9,7 +9,7 @@
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('teacher.chapter.program', $mentor_id) }}">
+                                <a class="nav-link active" href="{{ route('teacher.chapter.program', $course_id) }}">
                                     <span class="nav-icon"><i class="fas fa-align-left"></i></span>
                                     <span class="nav-text">Chương Trình Học</span>
                                 </a>
@@ -19,85 +19,87 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
-                        <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('teacher.lesson.create') }}','Thêm bài học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
-                            học</button>
-                    </div>
-
                     @foreach ($chapters as $key => $chapter)
-                        <div class="card bg-light card-custom gutter-b">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h4 class="card-label">
-                                        Chương {{ $key + 1 }}: {{ $chapter->title }}
-                                    </h4>
-                                </div>
-                                <div class="card-toolbar">
+                        @if ($chapter->mentor_id ==
+                            auth()->guard('mentor')->user()->id)
+                            <div class="card bg-light card-custom gutter-b">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <h4 class="card-label">
+                                            Chương {{ $key + 1 }}: <a
+                                                href="{{ route('teacher.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
+                                        </h4>
+                                        <h5 class="card-label">
+                                            | Deadline: {{$chapter->deadline}}
+                                        </h5>
+                                    </div>
                                     <div class="card-toolbar">
-                                        <a data-toggle="modal" data-target="#modal-example"
-                                            onclick="showAjaxModal('{{ route('teacher.chapter.show', $chapter->id) }}' ,'Chi tiết chương học')"
-                                            class="btn btn-icon btn-sm btn-primary mr-1">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                        <div class="card-toolbar">
+                                            <a data-toggle="modal" data-target="#modal-example"
+                                                onclick="showAjaxModal('{{ route('teacher.chapter.show', $chapter->id) }}' ,'Chi tiết chương học')"
+                                                class="btn btn-icon btn-sm btn-primary mr-1">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
-                                    <div class="col-md-12 mb-3 ribbon ribbon-right">
-                                        <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->active }}
+                                <div class="card-body">
+                                    @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
+                                        <div class="col-md-12 mb-3 ribbon ribbon-right">
+                                            <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->video }}
+                                                    </font>
                                                 </font>
-                                            </font>
-                                        </div>
-                                        <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
-                                            <p class="lession-name m-0 font-weight-bold">
-                                                @if ($lesson->lesson_type == 'exercise')
-                                                    <i class="fas fa-file"></i>
-                                                @elseif ($lesson->lesson_type == 'video')
-                                                    <i class="fab fa-youtube"></i>
-                                                @endif
-                                                Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
-                                            </p>
-                                            <form action="" method="POST" id="delete-lesson1" class="d-inline" hidden>
-                                                @method('DELETE')
-                                                @csrf
-                                            </form>
-                                            <p class="lession-tool m-0">
-                                                <a data-toggle="modal" data-target="#modal-example"
-                                                    onclick="showAjaxModal('{{ route('teacher.lesson.show', $lesson->id) }}','Cập nhật bài học')"
-                                                    class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <button type="button"
-                                                    class="btn btn-text-warning-50 btn-icon-warning font-weight-bold btn-hover-bg-light">
-                                                    <i class="flaticon-refresh"></i>
-                                                </button>
-                                                <button form="delete-lesson1"
-                                                    class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light delete-item">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </p>
-                                        </span>
-                                    </div>
-                                    @if ($lesson->type == 'exercise')
-                                        <div class="col-md-12 mb-3">
-                                            <div class="col-md-11 offset-1 p-0">
-                                                <span
-                                                    class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
-                                                    <p class="lession-name m-0 font-weight-bold"><i
-                                                            class="flaticon-questions-circular-button"></i>
-                                                        Câu hỏi: 32435</p>
-                                                </span>
                                             </div>
+                                            <span
+                                                class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
+                                                <p class="lession-name m-0 font-weight-bold">
+                                                    @if ($lesson->lesson_type == 'exercise')
+                                                        <i class="fas fa-file"></i>
+                                                    @elseif ($lesson->lesson_type == 'video')
+                                                        <i class="fab fa-youtube"></i>
+                                                    @endif
+                                                    Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
+                                                </p>
+                                                <form action="" method="POST" id="delete-lesson1" class="d-inline"
+                                                    hidden>
+                                                    @method('DELETE')
+                                                    @csrf
+                                                </form>
+                                                <p class="lession-tool m-0">
+                                                    <a data-toggle="modal" data-target="#modal-example"
+                                                        onclick="showAjaxModal('{{ route('teacher.lesson.show', $lesson->id) }}','Cập nhật bài học')"
+                                                        class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button type="button"
+                                                        class="btn btn-text-warning-50 btn-icon-warning font-weight-bold btn-hover-bg-light">
+                                                        <i class="flaticon-refresh"></i>
+                                                    </button>
+                                                    <button form="delete-lesson1"
+                                                        class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light delete-item">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </p>
+                                            </span>
                                         </div>
-                                    @endif
-                                @endforeach
+                                        @if ($lesson->type == 'exercise')
+                                            <div class="col-md-12 mb-3">
+                                                <div class="col-md-11 offset-1 p-0">
+                                                    <span
+                                                        class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
+                                                        <p class="lession-name m-0 font-weight-bold"><i
+                                                                class="flaticon-questions-circular-button"></i>
+                                                            Câu hỏi: 32435</p>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
 
                 </div>
@@ -120,8 +122,7 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold"
-                        data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -140,7 +141,7 @@
                 url: url,
                 timeout: 1000,
                 data: {
-                    chapter: {{ $mentor_id }}
+                    course: {{ $course_id }}
                 },
                 success: function(res) {
                     $('#modal-example').find('.modal-body').html(res)
