@@ -10,15 +10,19 @@ class LessonVideo extends Model
     use HasFactory;
     protected $table = 'lesson_videos';
     protected $fillable = [
-       // 'is_demo',
+       'is_demo',
         'video_path',
        'lesson_id',
       //  'is_check'
     ];
 
     protected $append = [
-        'active'
+        'active', 'video',
     ];
+
+    public function lesson(){
+        return $this->belongsTo(Lesson::class);
+    }
 
     public function getActiveAttribute()
     {
@@ -28,6 +32,16 @@ class LessonVideo extends Model
             return "Cần sửa lại";
         } else {
             return "Video chưa được duyệt";
+        }
+    }
+
+    public function getVideoAttribute()
+    {
+        if($this->video_path === null){
+            return "Video chưa upload";
+        }
+        else{
+            return "Video upload";
         }
     }
 

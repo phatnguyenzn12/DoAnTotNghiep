@@ -31,6 +31,10 @@
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm chương
                             học</button>
                         <button type="button" class="btn btn-outline-primary btn-pill"
+                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
+                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
+                            học</button>
+                        <button type="button" class="btn btn-outline-primary btn-pill"
                             onclick="showAjaxModal('{{ route('mentor.chapter.showSort', ['course' => $course_id]) }}','Sắp xếp chương học')"
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
                             Sắp xếp chương học</button>
@@ -41,10 +45,14 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4 class="card-label">
-                                        Chương {{ $key + 1 }}: <a href="{{route('mentor.lesson.list',$chapter->id)}}">{{ $chapter->title }}</a>
+                                        Chương {{ $key + 1 }}: <a
+                                            href="{{ route('mentor.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                     </h4>
                                     <h5 class="card-label">
-                                        | Số bài học cần đăng : {{ $chapter->number_chapter }}
+                                        | Giáo viên : {{ $chapter->mentor->name }}
+                                    </h5>
+                                    <h5 class="card-label">
+                                        | Deadline: {{$chapter->deadline}}
                                     </h5>
                                 </div>
                                 <div class="card-toolbar">
@@ -71,8 +79,14 @@
                             </div>
                             <div class="card-header">
                                 <div class="card-title">
+                                    <p hidden>{{ $count = 0 }}</p>
+                                    @foreach ($chapter->lessons()->get() as $lesson)
+                                        @if ($lesson->lessonVideo != null)
+                                            <p hidden>{{ $count++ }}</p>
+                                        @endif
+                                    @endforeach
                                     <p class="card-label">
-                                        Số bài học đã đăng: {{ count($chapter->lessons) }}
+                                        Giáo viên đã đăng: {{ $count }}
                                     </p>
                                 </div>
                             </div>

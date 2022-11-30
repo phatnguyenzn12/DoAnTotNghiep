@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\LessonVideo;
 use App\Models\Mentor;
 use App\Services\VimeoService;
 use Illuminate\Http\Request;
@@ -16,71 +17,9 @@ class LessonController extends Controller
 {
     public function list($id)
     {
-        $lesson = Lesson::where('chapter_id', $id)->get();
         $chapter = Chapter::where('id', $id)->first();
-        return view('screens.teacher.lesson.list', compact('lesson', 'chapter'));
+        return view('screens.teacher.lesson.list-video', compact('chapter'));
     }
-
-    public function create()
-    {
-        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)->get();
-        $data = view('components.teacher.modal.lesson.add', compact('chapters'))->render();
-        return response()->json($data, 200);
-    }
-
-    public function store(Request $request, VimeoService $vimeoService)
-    {
-        $chapter = Chapter::where('id', $request->chapter_id)->first();
-        if ($chapter->number_chapter <= count($chapter->lessons)) {
-            session()->flash('failed', 'Bài học đã đủ');
-        } else {
-            if ($request->lesson_type === "video") {
-
-                $lesson = Lesson::create(
-                    $request->only(
-                        [
-                            'title',
-                            'content',
-                            'lesson_type',
-                            'time',
-                            'chapter_id'
-                        ]
-                    ),
-                );
-                $url = $vimeoService->create(
-                    $request->video_path,
-                    $request->title,
-                    $request->content,
-                    $request->is_demo
-                );
-
-                // $lessonVideo = $request->only([
-                //     'is_demo'
-                // ]);
-                $lessonVideo['video_path'] = $url;
-
-
-                $lesson->lessonVideo()
-                    ->create($lessonVideo);
-            }
-            $chapter = Chapter::where('id', $request->chapter_id)->first();
-            if ($chapter->number_chapter == count($chapter->lessons)) {
-                Mail::send('screens.email.teacher.lessonLead', compact('chapter'), function ($email) use ($chapter) {
-                    $email->subject('Duyệt chương học');
-                    $email->to($chapter->course->mentor->email, $chapter->course->mentor->name);
-                });
-            }
-
-            if ($request->ajax()) {
-                session()->flash('success', 'Thêm bài học thành công');
-                return response()->json(['success' => true], 201);
-            }
-            return redirect()
-                ->back()
-                ->with('success', 'Thêm bài học thành công');
-        }
-    }
-
 
     public function destroy($lesson)
     {
@@ -93,11 +32,7 @@ class LessonController extends Controller
         if ($lesson->lesson_type == "video") {
 
             $lesson->update($request->only(
-                [
-                    'title',
-                    'content',
-                    'chapter_id'
-                ]
+                'content',
             ));
 
             $lessonVideo = $request->only([
@@ -112,6 +47,15 @@ class LessonController extends Controller
                 $lessonVideo['video_path'] = $lesson->lessonVideo->video_path;
             }
             $lesson->lessonVideo()->update($lessonVideo);
+        }
+        $lessons = Lesson::where('chapter_id', $request->chapter_id)->get();
+        foreach ($lessons as $lesson) {}
+        if ($lesson->lessonVideo->video_path != null) {
+            $chapter = Chapter::where('id', $request->chapter_id)->first();
+            Mail::send('screens.email.teacher.lessonLead', compact('chapter'), function ($email) use ($chapter) {
+                $email->subject('Duyệt bài học');
+                $email->to($chapter->course->mentor->email, $chapter->course->mentor->name);
+            });
         }
 
         if ($request->ajax()) {
@@ -130,8 +74,7 @@ class LessonController extends Controller
     }
     public function show(Request $request, Lesson $lesson)
     {
-        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)->get();
-        $data = view('components.teacher.modal.lesson.edit', compact('lesson', 'chapters'))->render();
+        $data = view('components.teacher.modal.lesson.edit', compact('lesson'))->render();
         return response()->json($data, 200);
     }
 
