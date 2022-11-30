@@ -35,6 +35,12 @@
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
                             Sắp xếp chương học</button>
                     </div>
+                    <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
+                        <button type="button" class="btn btn-outline-primary btn-pill"
+                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
+                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
+                            học chuo chươngggg</button>
+                    </div>
 
 
 
@@ -43,7 +49,8 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4 class="card-label">
-                                        Chương {{ $key + 1 }}: <a href="{{route('mentor.lesson.list',$chapter->id)}}">{{ $chapter->title }}</a>
+                                        Chương {{ $key + 1 }}: <a
+                                            href="{{ route('mentor.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                     </h4>
                                     <h5 class="card-label">
                                         | Số bài học cần đăng : {{ $chapter->number_chapter }}
@@ -161,6 +168,7 @@
 @endsection
 @push('js-handles')
     <script>
+        // thêm lesson
         function showAjaxModal(url, title) {
             $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
@@ -169,7 +177,7 @@
                 url: url,
                 timeout: 1000,
                 data: {
-                    course: {{ $course_id }}
+
                 },
                 success: function(res) {
                     $('#modal-example').find('.modal-body').html(res)
@@ -205,5 +213,51 @@
                 }
             })
         })
+        // end thêm lesson
+        // function showAjaxModal(url, title) {
+        //     $('#modal-example').find('.modal-title').text(title)
+        //     $('#modal-example').find('.modal-body').html(
+        //         '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+        //     $.ajax({
+        //         url: url,
+        //         timeout: 1000,
+        //         data: {
+        //             course: {{ $course_id }}
+
+        //         },
+        //         success: function(res) {
+        //             $('#modal-example').find('.modal-body').html(res)
+        //         }
+        //     })
+        // }
+
+        // $(document).on('submit', 'form.has-validation-ajax', function(e) {
+        //     e.preventDefault()
+        //     $('#modal-example').find('.modal-body').html(
+        //         '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+        //     $(this).find('.errors').text('')
+        //     let _form = $(this)
+        //     let data = new FormData(this)
+        //     let _url = $(this).attr('action')
+        //     let _method = $(this).attr('method')
+        //     let _redirect = $(this).data('redirect') ?? ""
+        //     $.ajax({
+        //         url: _url,
+        //         type: _method,
+        //         data: data,
+        //         contentType: false,
+        //         processData: false,
+        //         success: function(res) {
+        //             window.location.href = _redirect
+        //         },
+        //         error: function(err) {
+        //             $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
+        //             let errors = err.responseJSON.errors
+        //             Object.keys(errors).forEach(key => {
+        //                 $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
+        //             })
+        //         }
+        //     })
+        // })
     </script>
 @endpush

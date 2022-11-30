@@ -17,12 +17,12 @@
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
+                {{-- <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
                     <button type="button" class="btn btn-outline-primary btn-pill"
                         onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
                         data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
                         học chuo chươngggg</button>
-                </div>
+                </div> --}}
 
                 <div class="card-body">
                     <!--begin: Search Form-->
@@ -181,50 +181,7 @@
 @endsection
 @push('js-handles')
 <script>
-    function showAjaxModal(url, title) {
-        $('#modal-example').find('.modal-title').text(title)
-        $('#modal-example').find('.modal-body').html(
-            '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
-        $.ajax({
-            url: url,
-            timeout: 1000,
-            data: {
-                chapter: {{ $mentor_id }}
-            },
-            success: function(res) {
-                $('#modal-example').find('.modal-body').html(res)
-            }
-        })
-    }
-
-    $(document).on('submit', 'form.has-validation-ajax', function(e) {
-        e.preventDefault()
-        $('#modal-example').find('.modal-body').html(
-            '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
-        $(this).find('.errors').text('')
-        let _form = $(this)
-        let data = new FormData(this)
-        let _url = $(this).attr('action')
-        let _method = $(this).attr('method')
-        let _redirect = $(this).data('redirect') ?? ""
-        $.ajax({
-            url: _url,
-            type: _method,
-            data: data,
-            contentType: false,
-            processData: false,
-            success: function(res) {
-                window.location.href = _redirect
-            },
-            error: function(err) {
-                $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
-                let errors = err.responseJSON.errors
-                Object.keys(errors).forEach(key => {
-                    $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
-                })
-            }
-        })
-    })
+   
 </script>
     <script>
         function showModal(id_video) {
