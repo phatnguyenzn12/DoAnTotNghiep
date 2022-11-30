@@ -5,7 +5,7 @@
 @section('content')
 
     <!-- =======================
-                                Page Banner START -->
+                                                                Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -29,10 +29,10 @@
         </div>
     </section>
     <!-- =======================
-                                Page Banner END -->
+                                                                Page Banner END -->
 
     <!-- =======================
-                                Page content START -->
+                                                                Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -53,192 +53,24 @@
                     <!-- Personal info START -->
                     <div class="card card-body shadow p-4">
                         <!-- Title -->
-                        <h5 class="mb-0">Personal Details</h5>
+                        <h5 class="mb-0">Chọn ngân hàng thanh toán</h5>
 
                         <!-- Form START -->
-                        <form class="row g-3 mt-0">
-                            <!-- Name -->
-                            <div class="col-md-6 bg-light-input">
-                                <label for="yourName" class="form-label">Your name *</label>
-                                <input type="text" class="form-control" id="yourName" placeholder="Name">
-                            </div>
-                            <!-- Email -->
-                            <div class="col-md-6 bg-light-input">
-                                <label for="emailInput" class="form-label">Email address *</label>
-                                <input type="email" class="form-control" id="emailInput" placeholder="Email">
-                            </div>
-                            <!-- Number -->
-                            <div class="col-md-6 bg-light-input">
-                                <label for="mobileNumber" class="form-label">Mobile number *</label>
-                                <input type="text" class="form-control" id="mobileNumber" placeholder="Mobile number">
-                            </div>
-                            <!-- Country option -->
-                            <div class="col-md-6 bg-light-input">
-                                <label for="mobileNumber" class="form-label">Select country *</label>
-                                <select class="form-select js-choice" aria-label=".form-select-lg">
-                                    <option value="">Select country</option>
-                                    <option>India</option>
-                                    <option>China</option>
-                                    <option>USA</option>
-                                    <option>Canada</option>
-                                    <option>Paris</option>
-                                    <option>Australia</option>
-                                    <option>Japan</option>
-                                    <option>Brazil</option>
-                                </select>
-                            </div>
-                            <!-- State option -->
-                            <div class="col-md-6 bg-light-input">
-                                <label for="mobileNumber" class="form-label">Select state *</label>
-                                <select class="form-select js-choice" aria-label=".form-select-lg">
-                                    <option value="">Select state</option>
-                                    <option>Maharashtra</option>
-                                    <option>Delhi</option>
-                                    <option>Punjab</option>
-                                    <option>London</option>
-                                    <option>New york</option>
-                                    <option>California</option>
-                                </select>
-                            </div>
-                            <!-- Postal code -->
-                            <div class="col-md-6 bg-light-input">
-                                <label for="postalCode" class="form-label">Postal code *</label>
-                                <input type="text" class="form-control" id="postalCode" placeholder="PIN code">
-                            </div>
-                            <!-- Address -->
-                            <div class="col-md-6 bg-light-input">
-                                <label for="address" class="form-label">Address *</label>
-                                <input type="text" class="form-control" id="address" placeholder="Address">
-                            </div>
+                        <div class="row g-3 mt-0">
+
                             <!-- Cards -->
                             <div class="col-12">
                                 <label class="form-label">Your saved cards *</label>
-                                <div class="row g-2">
-                                    <div class="col-2 col-sm-1 border rounded me-2">
-                                        <a href="#"><img src="/frontend/images/client/mastercard.svg"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="col-2 col-sm-1 border rounded me-2">
-                                        <a href="#"><img src="/frontend/images/client/visa.svg" alt=""></a>
-                                    </div>
-                                    <div class="col-2 col-sm-1 border rounded me-2">
-                                        <a href="#"><img src="/frontend/images/client/ae-card.svg" alt=""></a>
-                                    </div>
+                                <div class="row g-2 " show-list-bank>
+
                                 </div>
                             </div>
                             <!-- Button -->
                             <div class="col-12 text-end">
                                 <button type="submit" class="btn btn-primary mb-0" disabled>Save changes</button>
                             </div>
-                        </form>
-                        <!-- Form END -->
-
-                        <!-- Payment method START -->
-                        <div class="row g-3 mt-4">
-                            <!-- Title -->
-                            <h5 class="">Payment method</h5>
-                            <div class="col-12">
-                                <div class="accordion accordion-circle" id="accordioncircle">
-                                    <!-- Credit or debit card START -->
-                                    <div class="accordion-item mb-3">
-                                        <h6 class="accordion-header" id="heading-1">
-                                            <button class="accordion-button rounded collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapse-1"
-                                                aria-expanded="true" aria-controls="collapse-1">
-                                                Credit or Debit Card
-                                            </button>
-                                        </h6>
-                                        <div id="collapse-1" class="accordion-collapse collapse show"
-                                            aria-labelledby="heading-1" data-bs-parent="#accordioncircle">
-                                            <!-- Accordion body -->
-                                            <div class="accordion-body">
-                                                <!-- Form START -->
-                                                <form class="row g-3">
-
-                                                    <!-- Card number -->
-                                                    <div class="col-12">
-                                                        <label class="form-label">Card Number <span
-                                                                class="text-danger">*</span></label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="xxxx xxxx xxxx xxxx">
-                                                            <img src="/frontend/images/client/visa.svg"
-                                                                class="w-40px position-absolute top-50 end-0 translate-middle-y me-2 d-none d-sm-block"
-                                                                alt="">
-                                                        </div>
-                                                    </div>
-                                                    <!-- Expiration Date -->
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Expiration date <span
-                                                                class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" maxlength="2"
-                                                                placeholder="Month">
-                                                            <input type="text" class="form-control" maxlength="4"
-                                                                placeholder="Year">
-                                                        </div>
-                                                    </div>
-                                                    <!--Cvv code  -->
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">CVV / CVC <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" maxlength="3"
-                                                            placeholder="xxx">
-                                                    </div>
-                                                    <!-- Card name -->
-                                                    <div class="col-12">
-                                                        <label class="form-label">Name on Card <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control"
-                                                            aria-label="name of card holder"
-                                                            placeholder="Enter card holder name">
-                                                    </div>
-                                                </form>
-                                                <!-- Form END -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Credit or debit card END -->
-
-                                    <!-- Net banking START -->
-                                    <div class="accordion-item mb-3">
-                                        <h6 class="accordion-header" id="heading-2">
-                                            <button class="accordion-button collapsed rounded" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapse-2"
-                                                aria-expanded="false" aria-controls="collapse-2">
-                                                Pay with Net Banking
-                                            </button>
-                                        </h6>
-                                        <div id="collapse-2" class="accordion-collapse collapse"
-                                            aria-labelledby="heading-2" data-bs-parent="#accordioncircle">
-                                            <!-- Accordion body -->
-                                            <div class="accordion-body">
-                                                <!-- Form START -->
-                                                <form class="row text-start g-3">
-                                                    <p class="mb-1">In order to complete your transaction, we will
-                                                        transfer you over to Eduport secure servers.</p>
-                                                    <p class="my-0">Select your bank from the drop-down list and
-                                                        click proceed to continue with your payment.</p>
-                                                    <!-- Select bank -->
-                                                    <div class="col-md-6">
-                                                        <select class="form-select form-select-sm js-choice border-0"
-                                                            aria-label=".form-select-sm">
-                                                            <option value="">Please choose one</option>
-                                                            <option>Bank of America</option>
-                                                            <option>Bank of India</option>
-                                                            <option>Bank of London</option>
-                                                        </select>
-                                                    </div>
-                                                </form>
-                                                <!-- Form END -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Net banking END -->
-                                </div>
-                            </div>
                         </div>
-                        <!-- Payment method END -->
+                        <!-- Form END -->
                     </div>
                     <!-- Personal info END -->
                 </div>
@@ -261,8 +93,8 @@
                                     </div>
                                     <div class="input-group mt-2">
                                         <input class="form-control form-control" placeholder="Nhập mã code" discountcode>
-                                        <button onclick="checkcode('{{ route('client.order.checkCode') }}')"
-                                            type="button" class="btn btn-primary">Kiểm tra mã</button>
+                                        <button onclick="checkcode('{{ route('client.order.checkCode') }}')" type="button"
+                                            class="btn btn-primary">Kiểm tra mã</button>
                                     </div>
 
                                 </div>
@@ -307,6 +139,10 @@
 
                                     <input class="form-control with-border" type="text" name="code"
                                         placeholder="Nhập code" input-code hidden>
+
+
+                                    <input class="form-control with-border" type="text" name="bank"
+                                        placeholder="Nhập code" input-pay hidden>
 
                                 </form>
 
@@ -383,7 +219,7 @@
         </div>
     </section>
     <!-- =======================
-                                Page content END -->
+                                                                Page content END -->
 
 @endsection
 
@@ -409,5 +245,27 @@
                     }
                 )
         }
+
+        axios.get('https://api.vietqr.io/v2/banks')
+            .then(
+                res => {
+                    html = res.data.data.map(
+                        (item) => {
+                            return `<div code="${item.code}" class="col-2 border rounded me-2">
+                                <a href="#"><img src="${item.logo}"
+                                                alt=""></a></div>`
+                        }
+                    ).join('')
+
+                    $('[show-list-bank]').html(html)
+
+                    $('[code]').on('click',
+                        (val) => {
+                            js_$('[input-pay]').value = $(val.currentTarget).attr('code')
+                        }
+                    )
+                }
+            )
+
     </script>
 @endpush

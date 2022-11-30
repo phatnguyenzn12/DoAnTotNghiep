@@ -16,7 +16,10 @@ class Lesson extends Model
         'attachment',
         'time',
         'sort',
-        'chapter_id'
+        'chapter_id',
+        'download_progress',
+        'is_demo',
+        'is_check'
     ];
 
     protected $appends = [
@@ -30,7 +33,7 @@ class Lesson extends Model
 
     public function lesson_user()
     {
-        return $this->belongsToMany(User::class,LessonUser::class);
+        return $this->belongsToMany(User::class, LessonUser::class);
     }
 
     public function commentLessons()
@@ -47,6 +50,7 @@ class Lesson extends Model
     {
         return $this->belongsTo(Mentor::class);
     }
+
     public function getDemoAttribute()
     {
         if ($this->is_demo == 1) {
@@ -55,4 +59,5 @@ class Lesson extends Model
             return "Không công khai";
         }
     }
+
 }

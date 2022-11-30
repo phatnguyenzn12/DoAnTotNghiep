@@ -31,7 +31,6 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             <div class="col d-sm-flex justify-content-between align-items-center">
                                 <div>
                                     <h1 class="my-1 fs-4">{{$user->name}}</h1>
-
                                 </div>
                                 <!-- Button -->
                                 <div class="mt-2 mt-sm-0">
@@ -236,15 +235,15 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                             </td>
 
                                             <!-- Table data -->
-                                            <td>56</td>
+                                            <td>{{ $course->lessons->count() }}</td>
 
                                             <!-- Table data -->
-                                            <td>40</td>
+                                            <td>{{ $course->number_lessons_complete }}</td>
 
                                             <!-- Table data -->
                                             <td>
                                                 <a href="{{ route('client.course.show', ['slug' => $course['slug'],'course' => $course['id']]) }}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
-                                                        class="bi bi-play-circle me-1"></i>Continue</a>
+                                                        class="bi bi-play-circle me-1"></i>Tiếp tục</a>
                                             </td>
                                             <td>
                                                 <button class="btn btn-primary">Xem chứng chỉ</button>

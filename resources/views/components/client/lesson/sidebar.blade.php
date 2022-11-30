@@ -14,8 +14,25 @@
     <div class="card vh-100 overflow-auto rounded-0 w-280px w-sm-400px">
         <!-- Title -->
         <div class="card-header bg-light rounded-0">
-            <h1 class="mt-2 fs-5">Hoành thành khóa học {{ $course->title }} - {{ $course->lessons->count() }} bài học trên 1</h1>
+            <h1 class="mt-2 fs-5">Hoành thành khóa học {{ $course->title }}:
+                <br>
+                {{ $course->number_lessons_complete }} bài học
+                trên {{ $course->lessons->count() }}</h1>
+
+            <div class="overflow-hidden">
+                <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
+                <div class="progress progress-sm bg-primary bg-opacity-10">
+                    <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"
+                        data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
+                        style="width: {{ $course->progress }}%" aria-valuenow="{{ $course->progress }}"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
 
         <!-- Course content START -->
         <div class="card-body">
@@ -45,7 +62,7 @@
                                                 <div>
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <div class="position-relative d-flex align-items-center">
-                                                            <a href="{{ route('client.lesson.show', ['course' => $course->id,'lesson' => $lesson->id]) }}"
+                                                            <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
                                                                 class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->lesson_user->isEmpty() == false ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
                                                                 @if ($lesson->lesson_user->isEmpty() == false)
                                                                     <i class="fas fa-play me-0"></i>
@@ -72,6 +89,7 @@
 
                         @endforelse
                     </div>
+                    <a href="course-detail.html" class="btn btn-primary mb-0">Nhận chứng chỉ</a>
                 </div>
                 <!-- Accordion END -->
             </div>

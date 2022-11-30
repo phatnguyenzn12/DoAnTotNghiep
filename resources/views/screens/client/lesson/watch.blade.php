@@ -356,14 +356,6 @@
 @endsection
 @push('js-handles')
     <script>
-        // $.ajax({
-        //     url: '{{ route('client.lesson.complete', ['course' => $course->id, 'lesson' => $lesson->id]) }}',
-        //     timeout: 3000,
-        //     success: function(res) {
-        //         console.log(res);
-        //         $('#show-sidebar').html(res)
-        //     }
-        // })
 
         function showform(index) {
             var x = document.querySelectorAll(".reply")

@@ -10,6 +10,7 @@
         .then(
             res => {
                 $('.video.uk-responsive-width').html(res.data.html)
+
                 $('iframe').css({
                     'width': '100%',
                     'height': '100%',
@@ -17,16 +18,6 @@
                     'top': 0,
                     'left': 0
                 });
-
-                var player = new Vimeo.Player(document.querySelector('iframe'));
-
-                player.on('play', function(data) {
-                    console.log('played the video!',data);
-                });
-
-                // player.on('playing', function(data) {
-                //     console.log(data);
-                // });
             }
         )
 

@@ -17,7 +17,7 @@ class CommentLessonController extends Controller
     public function store(Request $request)
     {
         if (Auth::check()) {
-
+            
             $lesson = Lesson::where('id', $request->lesson_id)->first();
             $comment_lesson = new CommentLesson();
             $comment_lesson->lesson_id= $lesson->id;

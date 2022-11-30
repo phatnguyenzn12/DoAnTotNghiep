@@ -33,29 +33,15 @@ class LessonController extends Controller
 
     public function show(Course $course, Lesson $lesson)
     {
-        // auth()->user()
-        //     ->load('course_user')
-        //     ->course_user()
-        //     ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]);
+        auth()->user()
+            ->load('course_user')
+            ->course_user()
+            ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]);
 
         $chapters = $course->load('chapters')->chapters()->get();
 
         $cmt = CommentLesson::where('lesson_id', $lesson->id)->get();
 
         return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'cmt'));
-    }
-
-    public function completeVideo(Course $course, Lesson $lesson)
-    {
-        auth()->user()
-            ->load('course_user')
-            ->course_user()
-            ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]); //lấy id tiếp theo dựa vào id hiện tại
-
-        $chapters = $course->load('chapters')->chapters()->get();
-
-        $html = view('components.client.lesson.sidebar', compact('course', 'chapters'))->render();
-
-        return response()->json($html);
     }
 }

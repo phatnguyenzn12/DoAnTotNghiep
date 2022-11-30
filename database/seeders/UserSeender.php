@@ -29,12 +29,12 @@ class UserSeender extends Seeder
                 'guard_name' => 'mentor',
             ]
         );
-        // Role::create(
-        //     [
-        //         'name' => 'teacher',
-        //         'guard_name' => 'mentor',
-        //     ]
-        // );
+        Role::create(
+           [
+                'name' => 'teacher',
+                'guard_name' => 'mentor',
+           ]
+        );
         Role::create(
             [
                 'name' => 'student',
