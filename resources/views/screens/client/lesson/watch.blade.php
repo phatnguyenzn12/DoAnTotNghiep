@@ -17,10 +17,14 @@
         <div class="row g-0">
             <div class="d-flex">
 
-                @include('components.client.lesson.video')
+                <div class="overflow-hidden fullscreen-video w-100" id="show-video">
+                    @include('components.client.lesson.video')
+                </div>
 
-
-                @include('components.client.lesson.sidebar')
+                <!-- Page content START -->
+                <div class="justify-content-end position-relative" id="show-sidebar">
+                    @include('components.client.lesson.sidebar')
+                </div>
 
 
             </div>
@@ -31,13 +35,13 @@
                     <li class="nav-item me-2 me-sm-4" role="presentation">
                         <button class="nav-link mb-0" id="course-pills-tab-1" data-bs-toggle="pill"
                             data-bs-target="#course-pills-1" type="button" role="tab" aria-controls="course-pills-1"
-                            aria-selected="false" tabindex="-1">Overview</button>
+                            aria-selected="false" tabindex="-1">Tổng quan</button>
                     </li>
                     <!-- Tab item -->
                     <li class="nav-item me-2 me-sm-4" role="presentation">
                         <button class="nav-link mb-0 active" id="course-pills-tab-4" data-bs-toggle="pill"
                             data-bs-target="#course-pills-4" type="button" role="tab" aria-controls="course-pills-4"
-                            aria-selected="false" tabindex="-1">Comment</button>
+                            aria-selected="false" tabindex="-1">Bình luận</button>
                     </li>
                 </ul>
                 <!-- Tabs END -->
@@ -47,77 +51,46 @@
                     <!-- Content START -->
                     <div class="tab-pane fade" id="course-pills-1" role="tabpanel" aria-labelledby="course-pills-tab-1">
                         <!-- Course detail START -->
-                        <h5 class="mb-3">Course Description</h5>
-                        <p class="mb-3">Welcome to the <strong> Digital Marketing Ultimate Course Bundle - 12 Courses in 1
-                                (Over 36 hours of content)</strong></p>
-                        <p class="mb-3">In this practical hands-on training, you’re going to learn to become a digital
-                            marketing expert with this <strong> ultimate course bundle that includes 12 digital marketing
-                                courses in 1!</strong></p>
-                        <p class="mb-3">If you wish to find out the skills that should be covered in a basic digital
-                            marketing course syllabus in India or anywhere around the world, then reading this blog will
-                            help.
-                            Before we delve into the advanced <strong><a href="#"
-                                    class="text-reset text-decoration-underline">digital marketing course</a></strong>
-                            syllabus, let’s look at the scope of digital marketing and what the future holds.</p>
-                        <p class="mb-0">We focus a great deal on the understanding of behavioral psychology and influence
-                            triggers which are crucial for becoming a well rounded Digital Marketer. We understand that
-                            theory
-                            is important to build a solid foundation, we understand that theory alone isn’t going to get the
-                            job
-                            done so that’s why this course is packed with practical hands-on examples that you can follow
-                            step
-                            by step.</p>
+                        <!-- About course START -->
+                        <div class="col-12">
+                            <div class="card border">
+                                <!-- Card header START -->
+                                <div class="card-header border-bottom">
+                                    <h3 class="mb-0">Mô tả khóa học</h3>
+                                </div>
+                                <!-- Card header END -->
 
-                        <!-- List content -->
-                        <h5 class="mt-4">What you’ll learn</h5>
+                                <!-- Card body START -->
+                                <div class="card-body">
+                                    <p class="mb-3">{{ $course->description }}.</p>
+                                    <!-- Collapse body -->
+                                    <div class="collapse" id="collapseContent">
+                                        <p class="my-3">{{ $course->description }}.</p>
+                                    </div>
+                                    <!-- Collapse button -->
+                                    <a class="p-0 mb-0 mt-2 btn-more d-flex align-items-center" data-bs-toggle="collapse"
+                                        href="#collapseContent" role="button" aria-expanded="false"
+                                        aria-controls="collapseContent">
+                                        See <span class="see-more ms-1">more</span><span class="see-less ms-1">less</span><i
+                                            class="fas fa-angle-down ms-2"></i>
+                                    </a>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <ul class="list-group list-group-borderless">
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Digital marketing course
-                                        introduction</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Customer Life cycle</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>What is Search engine
-                                        optimization(SEO)</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Facebook ADS</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Facebook Messenger Chatbot
-                                    </li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Search engine optimization
-                                        tools
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="col-md-6">
-                                <ul class="list-group list-group-borderless">
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Why SEO</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>URL Structure</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Featured Snippet</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>SEO tips and tricks</li>
-                                    <li class="list-group-item h6 fw-light d-flex mb-0"><i
-                                            class="fas fa-check-circle text-success me-2"></i>Google tag manager</li>
-                                </ul>
+                                    <!-- List content -->
+                                    <h5 class="mt-4"> Bạn học được gì từ khóa học này?</h5>
+                                    <div class="mb-3">
+                                        <ul class="list-group list-group-borderless">
+                                            @foreach (explode(',', $course->description_details) as $description_detail)
+                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i
+                                                        class="fas fa-check-circle text-success me-2"></i>{{ $description_detail }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Card body START -->
                             </div>
                         </div>
-
-                        <p class="mb-0">As it so contrasted oh estimating instrument. Size like body someone had. Are
-                            conduct
-                            viewing boy minutes warrant the expense? Tolerably behavior may admit daughters offending her
-                            ask
-                            own. Praise effect wishes change way and any wanted. Lively use looked latter regard had. Do he
-                            it
-                            part more last in. </p>
-                        <!-- Course detail END -->
+                        <!-- About course END -->
 
                     </div>
                     <!-- Content END -->
@@ -149,8 +122,6 @@
                                                 <input type="hidden" name="mentor_id" value="{{ $course->mentor_id }}">
                                             @endif
                                             <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
-                                            <input type="file" class="custom-file-input bg-light"
-                                                id="inputGroupFile01" name="image">
                                             <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="2"
                                                 placeholder="Add a comment..."></textarea>
                                             <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
@@ -385,15 +356,15 @@
 @endsection
 @push('js-handles')
     <script>
-        // function showAjax(url) {
-        //     $.ajax({
-        //         url: url,
-        //         timeout: 1000,
-        //         success: function(res) {
-        //             $('.embed-video').html(res)
-        //         }
-        //     })
-        // }
+        // $.ajax({
+        //     url: '{{ route('client.lesson.complete', ['course' => $course->id, 'lesson' => $lesson->id]) }}',
+        //     timeout: 3000,
+        //     success: function(res) {
+        //         console.log(res);
+        //         $('#show-sidebar').html(res)
+        //     }
+        // })
+
         function showform(index) {
             var x = document.querySelectorAll(".reply")
             if (x.classlist.contains("none")) {

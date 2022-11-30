@@ -10,7 +10,7 @@ class OwnerCourse extends Model
     use HasFactory;
     protected $table = 'owner_course';
     protected $fillable = [
-        'course_id', 
+        'course_id',
         'user_id'
     ];
 }

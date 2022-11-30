@@ -17,17 +17,18 @@ class LessonFactory extends Factory
      */
     public function definition()
     {
-        static $number = 1;
-        $lesson_type = ['video','exercise'];
-        $random_key= array_rand($lesson_type,1);
+        // static $number = 1;
+        // $lesson_type = ['video', 'exercise'];
+        // $random_key = array_rand($lesson_type, 1);
         // $lesson_type[$random_key]
         return [
             'title' => fake()->name(),
             'content' => fake()->text(40),
             'lesson_type' => 'video',
             // 'attachment' => '0',
-          //  'sort' =>  $number++,
-            'chapter_id' => rand(1,20)
+            //  'sort' =>  $number++,
+            'time' => '00:01:00',
+            'chapter_id' => rand(1, 20)
         ];
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('number_phone');
             $table->string('Summary');
+            $table->string('attachment')->nullable();
             $table->timestamps();
         });
     }

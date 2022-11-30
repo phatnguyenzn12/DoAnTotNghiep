@@ -12,6 +12,14 @@
     </script>
 @endif
 
+@if(Session::has('null'))
+    <script type="module">
+        import {salert} from '/js/sweet-alert.js'
+        salert('null','{{Session::get('null')}}')
+    </script>
+@endif
+
+
 @if($errors->all())
     <script type="module">
         import {salert} from '/js/sweet-alert.js'

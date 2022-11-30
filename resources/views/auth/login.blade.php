@@ -14,8 +14,8 @@
                     <div class="p-3 p-lg-5">
                         <!-- Title -->
                         <div class="text-center">
-                            <h2 class="fw-bold">Welcome to our largest community</h2>
-                            <p class="mb-0 h6 fw-light">Let's learn something new today!</p>
+                            <h2 class="fw-bold">Chào mừng bạn đến khóa học online</h2>
+                            <p class="mb-0 h6 fw-light">Hãy học một cái gì đó mới ngày hôm nay!</p>
                         </div>
                         <!-- SVG Image -->
                         <img src="/frontend/images/element/02.svg" class="mt-5" alt="">
@@ -52,8 +52,8 @@
                         <div class="col-sm-10 col-xl-8 m-auto">
                             <!-- Title -->
                             <span class="mb-0 fs-1">👋</span>
-                            <h1 class="fs-2">Login into Eduport!</h1>
-                            <p class="lead mb-4">Nice to see you! Please log in with your account.</p>
+                            <h1 class="fs-2">Đăng nhập vào Eduport!</h1>
+                            <p class="lead mb-4">Rất vui được gặp bạn! Vui lòng đăng nhập bằng tài khoản của bạn.</p>
 
                             <!-- Form START -->
                             <form method="POST" action="{{ route('auth.handleLogin') }}">
@@ -99,7 +99,7 @@
                                 <!-- Button -->
                                 <div class="align-items-center mt-0">
                                     <div class="d-grid">
-                                        <button class="btn btn-primary mb-0" type="submit">Login</button>
+                                        <button class="btn btn-primary mb-0" type="submit">Đăng nhập</button>
                                     </div>
                                 </div>
                             </form>
