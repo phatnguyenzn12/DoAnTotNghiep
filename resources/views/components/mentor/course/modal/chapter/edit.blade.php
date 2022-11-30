@@ -6,21 +6,24 @@
         <label>Tên chương học</label>
         <input type="text" name="title" placeholder="Nhập tên chương học..." class="form-control"
             value="{{ $chapter->title }}">
-        <p class="text-danger errors title"></p>
-        <label>Số lượng bài học</label>
-        <input type="text" name="number_chapter" placeholder="Số lượng bài học..." class="form-control"
-            value="{{ $chapter->number_chapter }}">
-        <label>Giáo viên phụ trách </label>
-        <select name="mentor_id" id="">
-            <optgroup label="">
-                @foreach ($mentor as $gv)
-                    @if ($gv->hasRole('teacher'))
-                        <option value="{{ $gv->id }}">{{ $gv->name }}</option>
-                    @endif
-                @endforeach
-            </optgroup>
-        </select>
-        <input type="hidden" index value="{{$chapter->id}}">
     </div>
-    <button type="submit"  class="btn btn-primary font-weight-bold">cập nhật</button>
+    <div class="form-group">
+        <label>Số bài học</label>
+        <input type="text" name="number_chapter" placeholder="Nhập số bài học " class="form-control"
+            value="{{ $chapter->number_chapter }}">
+    </div>
+    <div class="form-group">
+        <label>Giáo viên</label>
+        <select name="mentor_id" id="" class="form-control">
+            @foreach ($mentors as $mentor)
+                @if ($mentor->hasRole('teacher'))
+                    <option value="{{ $mentor->id }}" @selected($mentor->id == $chapter->mentor_id ? true : '')>{{ $mentor->name }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
+    <p class="text-danger errors title"></p>
+    <input type="hidden" index value="{{ $chapter->id }}">
+    </div>
+    <button type="submit" class="btn btn-primary font-weight-bold">cập nhật</button>
 </form>

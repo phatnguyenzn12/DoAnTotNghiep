@@ -1,4 +1,4 @@
-@extends('layouts.mentor.master')
+@extends('layouts.admin.master')
 
 @section('title', 'Trang danh sách người dùng')
 @section('content')
@@ -9,13 +9,13 @@
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('mentor.course.program', $course_id) }}">
+                                <a class="nav-link active" href="{{ route('admin.course.program', $course_id) }}">
                                     <span class="nav-icon"><i class="fas fa-align-left"></i></span>
                                     <span class="nav-text">Chương Trình Học</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('mentor.course.edit', $course_id) }}">
+                                <a class="nav-link" href="{{ route('admin.course.edit', $course_id) }}">
                                     <span class="nav-icon"><i class="far fa-bookmark"></i></span>
                                     <span class="nav-text">Thông Tin Khóa Học</span>
                                 </a>
@@ -24,24 +24,61 @@
                     </div>
                 </div>
                 <div class="card-body">
-
-                    <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
-                        <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm chương
-                            học</button>
-                        {{-- <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
-                            học</button> --}}
-                        <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.chapter.showSort', ['course' => $course_id]) }}','Sắp xếp chương học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
-                            Sắp xếp chương học</button>
-                    </div>
-
-
-                    @include('components.mentor.course.list-program')
+                    @foreach ($chapters as $key => $chapter)
+                        <div class="card bg-light card-custom gutter-b">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h4 class="card-label">
+                                        Chương {{ $key + 1 }}: {{ $chapter->title }}
+                                    </h4>
+                                    <h5 class="card-label">
+                                        | Số bài học cần đăng : {{ $chapter->number_chapter }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <p class="card-label">
+                                        Số bài học đã đăng: {{ count($chapter->lessons) }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
+                                    <div class="col-md-12 mb-3 ribbon ribbon-right">
+                                        <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->active }}
+                                                </font>
+                                            </font>
+                                        </div>
+                                        <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
+                                            <p class="lession-name m-0 font-weight-bold">
+                                                @if ($lesson->lesson_type == 'exercise')
+                                                    <i class="fas fa-file"></i>
+                                                @elseif ($lesson->lesson_type == 'video')
+                                                    <i class="fab fa-youtube"></i>
+                                                @endif
+                                                Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
+                                            </p>
+                                        </span>
+                                    </div>
+                                    @if ($lesson->type == 'exercise')
+                                        <div class="col-md-12 mb-3">
+                                            <div class="col-md-11 offset-1 p-0">
+                                                <span
+                                                    class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
+                                                    <p class="lession-name m-0 font-weight-bold"><i
+                                                            class="flaticon-questions-circular-button"></i>
+                                                        Câu hỏi: 32435</p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
 
                 </div>
 

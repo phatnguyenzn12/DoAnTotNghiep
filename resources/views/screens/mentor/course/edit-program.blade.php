@@ -25,81 +25,109 @@
                 </div>
                 <div class="card-body">
 
-                    {{-- <a href="{{route('mentor/chapter/create', $chapter->id )}}">Tạo mới chương học</a> --}}
                     <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
                         <button type="button" class="btn btn-outline-primary btn-pill"
-
                             onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm chương
                             học</button>
-                        {{-- <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
-                            học</button> --}}
                         <button type="button" class="btn btn-outline-primary btn-pill"
                             onclick="showAjaxModal('{{ route('mentor.chapter.showSort', ['course' => $course_id]) }}','Sắp xếp chương học')"
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
                             Sắp xếp chương học</button>
                     </div>
-                    <div>
-                        <h1>Danh sách Chương học của {{ $course_id }}</h1>
-                        <div>
-                            @foreach ($chapters as $chapter)
-                            {{-- @dd($chapter->id); --}}
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6" >
-                                    <!--begin::Card-->
-                                    <div class="card card-custom gutter-b card-stretch" >
-                                        <!--begin::Body-->
-                                        <a class="card-body pt-4 ribbon ribbon-right"
-                                            href="{{ route('mentor.lesson.list', $chapter->id) }}">
-                                            <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
-                                                <font style="vertical-align: inherit;">
-                                                    <font style="vertical-align: inherit;">{{ $chapter->active }}</font>
-                                                </font>
-                                            </div>
-                                            <!--begin::User-->
-                                            <div class="d-flex align-items-center mb-7"
-                                                style="aspect-ratio:1/1;overflow:hidden">
-                                                <img src="{{ $chapter->image }}"
-                                                    style="width: 100%;height:100%;object-fit:cover" alt="image">
-                                            </div>
-                                            <!--end::User-->
-                                            <!--begin::Desc-->
-                                            <h4 class="mb-7 font-weight-bold"><a class="text-dark text-hover-primary"
-                                                    href="">{{ $chapter->title }}</a> </h4>
-                                            <!--end::Desc-->
-                                            <!--begin::Info-->
-                                            <div class="mb-7">
 
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="text-dark-75 mr-2">Số lượng bài học</span>
-                                                    <span
-                                                        class="text-dark font-weight-bolder font-weight-bold">{{ $chapter->number_chapter }}</span>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="text-dark-75 mr-2">Số bài học đã upvideo</span>
-                                                    <span
-                                                        class="text-dark font-weight-bolder font-weight-bold">{{ $chapter->lessons->count() }}</span>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="text-dark-75 mr-2">Giảng viên phụ trách</span>
-                                                    <span class="text-dark font-weight-bolder font-weight-bold">{{$chapter->mentor_id}}</span>
-                                                </div>
-                                            </div>
-                                            <!--end::Info-->
-                                        </a>
-                                        <!--end::Body-->
-                                    </div>
-                                    <!--end:: Card-->
+
+
+                    @foreach ($chapters as $key => $chapter)
+                        <div class="card bg-light card-custom gutter-b">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h4 class="card-label">
+                                        Chương {{ $key + 1 }}: <a href="{{route('mentor.lesson.list',$chapter->id)}}">{{ $chapter->title }}</a>
+                                    </h4>
+                                    <h5 class="card-label">
+                                        | Số bài học cần đăng : {{ $chapter->number_chapter }}
+                                    </h5>
                                 </div>
-                            @endforeach
-
+                                <div class="card-toolbar">
+                                    <div class="card-toolbar">
+                                        <a data-toggle="modal" data-target="#modal-example"
+                                            onclick="showAjaxModal('{{ route('mentor.chapter.show', $chapter->id) }}' ,'Cập nhật chương học')"
+                                            class="btn btn-icon btn-sm btn-primary mr-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#modal-example"
+                                            onclick="showAjaxModal('{{ route('mentor.lesson.showSort', ['chapter' => $chapter->id]) }}','Sắp xếp bài học')"
+                                            class="btn btn-icon btn-sm btn-success mr-1">
+                                            <i class="fas fa-sort-amount-down-alt"></i>
+                                        </a>
+                                        <form action="" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-icon btn-sm btn-danger delete-item">
+                                                <i class="ki ki-close icon-nm"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <p class="card-label">
+                                        Số bài học đã đăng: {{ count($chapter->lessons) }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
+                                    <div class="col-md-12 mb-3 ribbon ribbon-right">
+                                        <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->active }}
+                                                </font>
+                                            </font>
+                                        </div>
+                                        <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
+                                            <p class="lession-name m-0 font-weight-bold">
+                                                @if ($lesson->lesson_type == 'exercise')
+                                                    <i class="fas fa-file"></i>
+                                                @elseif ($lesson->lesson_type == 'video')
+                                                    <i class="fab fa-youtube"></i>
+                                                @endif
+                                                Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
+                                            </p>
+                                            <form action="" method="POST" id="delete-lesson1" class="d-inline" hidden>
+                                                @method('DELETE')
+                                                @csrf
+                                            </form>
+                                            <p class="lession-tool m-0">
+                                                <button type="button"
+                                                    class="btn btn-text-warning-50 btn-icon-warning font-weight-bold btn-hover-bg-light">
+                                                    <i class="flaticon-refresh"></i>
+                                                </button>
+                                                <button form="delete-lesson1"
+                                                    class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light delete-item">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </p>
+                                        </span>
+                                    </div>
+                                    @if ($lesson->type == 'exercise')
+                                        <div class="col-md-12 mb-3">
+                                            <div class="col-md-11 offset-1 p-0">
+                                                <span
+                                                    class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
+                                                    <p class="lession-name m-0 font-weight-bold"><i
+                                                            class="flaticon-questions-circular-button"></i>
+                                                        Câu hỏi: 32435</p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
-
-                    </div>
-
-
-                    {{-- @include('components.mentor.course.list-program') --}}
+                    @endforeach
 
                 </div>
 
@@ -121,7 +149,8 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>

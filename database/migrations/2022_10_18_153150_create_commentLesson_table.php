@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('reply')->default(0);
             $table->char('status')->default(1);
             $table->integer('user_id');
-            // $table->integer('mentor_id');
-            // $table->string('image');
+            $table->integer('mentor_id')->nullable();
+            $table->string('image')->nullable();
             $table->integer('lesson_id');
             $table->timestamps();
         });

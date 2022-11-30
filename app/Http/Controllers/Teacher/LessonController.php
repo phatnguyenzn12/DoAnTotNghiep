@@ -14,27 +14,29 @@ use Illuminate\Support\Facades\Mail;
 
 class LessonController extends Controller
 {
-     public function list($id)
+    public function list($id)
     {
-       $lesson = Lesson::where('chapter_id',$id)->get();
-       $chapter = Chapter::where('id',$id)->first();
-       return view('screens.teacher.lesson.list', compact('lesson','chapter'));
+        $lesson = Lesson::where('chapter_id', $id)->get();
+        $chapter = Chapter::where('id', $id)->first();
+        return view('screens.teacher.lesson.list', compact('lesson', 'chapter'));
     }
-    public function create($id)
+
+    public function create()
     {
-        $chapters = Chapter::where('id', $id)->first();
-        //dd($chapters);
-        // dd($course_id->course);
-        return view('screens.teacher.lesson.add', compact('chapters'));
-        // return response()->json($data, 200);
+        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)->get();
+        $data = view('components.teacher.modal.lesson.add', compact('chapters'))->render();
+        return response()->json($data, 200);
     }
 
     public function store(Request $request, VimeoService $vimeoService)
     {
-        if ($request->lesson_type === "video") {
+        $chapter = Chapter::where('id', $request->chapter_id)->first();
+        if ($chapter->number_chapter <= count($chapter->lessons)) {
+            session()->flash('failed', 'Bài học đã đủ');
+        } else {
+            if ($request->lesson_type === "video") {
 
-            $lesson = Lesson::create(
-                array_merge(
+                $lesson = Lesson::create(
                     $request->only(
                         [
                             'title',
@@ -44,43 +46,41 @@ class LessonController extends Controller
                             'chapter_id'
                         ]
                     ),
-                    //     ['sort' => Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0]
-                )
-            );
-           //     dd( $request->video_path);
-            $url = $vimeoService->create(
-                $request->video_path,
-                $request->title,
-                $request->content,
-                $request->is_demo
-            );
+                );
+                $url = $vimeoService->create(
+                    $request->video_path,
+                    $request->title,
+                    $request->content,
+                    $request->is_demo
+                );
 
-            // $lessonVideo = $request->only([
-            //     'is_demo'
-            // ]);
-            $lessonVideo['video_path'] = $url;
-            
+                // $lessonVideo = $request->only([
+                //     'is_demo'
+                // ]);
+                $lessonVideo['video_path'] = $url;
 
-            $lesson->lessonVideo()
-                ->create($lessonVideo);
+
+                $lesson->lessonVideo()
+                    ->create($lessonVideo);
+            }
+            $chapter = Chapter::where('id', $request->chapter_id)->first();
+            if ($chapter->number_chapter == count($chapter->lessons)) {
+                Mail::send('screens.email.teacher.lessonLead', compact('chapter'), function ($email) use ($chapter) {
+                    $email->subject('Duyệt chương học');
+                    $email->to($chapter->course->mentor->email, $chapter->course->mentor->name);
+                });
+            }
+
+            if ($request->ajax()) {
+                session()->flash('success', 'Thêm bài học thành công');
+                return response()->json(['success' => true], 201);
+            }
+            return redirect()
+                ->back()
+                ->with('success', 'Thêm bài học thành công');
         }
-       $mentor = Chapter::where('id',  $request->chapter_id)->first();
-       $lead = Mentor::where('id',$mentor->mentor_id)->first();
-        $chap = Lesson::where('title', $request->title)->first();
-        // dd($gv);
-        Mail::send('screens.email.mentor.acceptTeach', compact('chap','lead'), function ($email) use ($lead) {
-            $email->subject('Duyệt bài học');
-            $email->to($lead->email, $lead->name);
-            dd($lead->email, $lead->name);
-        });
-        // if ($request->ajax()) {
-        //     session()->flash('success', 'Thêm bài học thành công');
-        //     return response()->json(['success' => true], 201);
-        // }
-        return redirect()
-            ->back()
-            ->with('success', 'Thêm bài học thành công');
     }
+
 
     public function destroy($lesson)
     {
@@ -96,7 +96,6 @@ class LessonController extends Controller
                 [
                     'title',
                     'content',
-                    'attachment',
                     'chapter_id'
                 ]
             ));
@@ -131,8 +130,8 @@ class LessonController extends Controller
     }
     public function show(Request $request, Lesson $lesson)
     {
-        $chapters = Course::findOrFail($request->course)->chapters;
-        $data = view('components.mentor.course.modal.lesson.edit', compact('lesson', 'chapters'))->render();
+        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)->get();
+        $data = view('components.teacher.modal.lesson.edit', compact('lesson', 'chapters'))->render();
         return response()->json($data, 200);
     }
 

@@ -6,143 +6,66 @@ use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\LessonVideo;
 use App\Services\VimeoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class LessonController extends Controller
 {
-    public function list($id)
-    {
-        $lessons = Lesson::with('chapter')->orderBy('id', 'DESC')->paginate(10);
+    // public function list($id)
+    // {
+    //     $lessons = Lesson::with('chapter')->orderBy('id', 'DESC')->paginate(10);
 
-    //    $lesson = Lesson::where('chapter_id',$id)->get();
-       $chapter = Chapter::where('id',$id)->first();
-       return view('screens.mentor.lesson.list-lesson', compact('lessons','chapter'));
-    }
-    public function create(Request $course_id)
+    // //    $lesson = Lesson::where('chapter_id',$id)->get();
+    //    $chapter = Chapter::where('id',$id)->first();
+    //    return view('screens.mentor.lesson.list-lesson', compact('lessons','chapter'));
+    // }
+    // public function create(Request $course_id)
+    // {
+    //     $chapters = Chapter::where('course_id', $course_id->course)->get();
+    //     $data = view('components.mentor.course.modal.lesson.add', compact('chapters'))->render();
+    //     return response()->json($data, 200);
+
+    public function create()
     {
-        $chapters = Chapter::where('course_id', $course_id->course)->get();
-        $data = view('components.mentor.course.modal.lesson.add', compact('chapters'))->render();
+        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)->get();
+        $data = view('components.mentor.lesson.add', compact('chapters'))->render();
         return response()->json($data, 200);
     }
 
-    public function store(Request $request, VimeoService $vimeoService)
-    {
-        if ($request->lesson_type === "video") {
-
-            $lesson = Lesson::create(
-                array_merge(
-                    $request->only(
-                        [
-                            'title',
-                            'content',
-                            'lesson_type',
-                            'attachment',
-                            'chapter_id'
-                        ]
-                    ),
-                    ['sort' => Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0]
-                )
-            );
-
-            $url = $vimeoService->create(
-                $request->video_path,
-                $request->title,
-                $request->content,
-                $request->is_demo
-            );
-
-            $lessonVideo = $request->only([
-                'is_demo'
-            ]);
-            $lessonVideo['video_path'] = $url;
-
-            $lesson->lessonVideo()
-                ->create($lessonVideo);
-        }
-
-        if ($request->ajax()) {
-            session()->flash('success', 'Thêm bài học thành công');
-            return response()->json(['success' => true], 201);
-        }
-        return redirect()
-            ->back()
-            ->with('success', 'Thêm bài học thành công');
+    public function index(){
+        $courses = Course::where('mentor_id',auth()->guard('mentor')->user()->id)->get();
+        // $lessons = Lesson::with('chapter')->orderBy('id', 'DESC')->paginate(10);
+        return view('screens.mentor.lesson.list-video',compact('courses'));
     }
 
-    public function destroy($lesson)
-    {
-        $data = Lesson::destroy($lesson);
-        return response()->json(null, 200);
+    public function list($id){
+        $chapter = Chapter::where('id',$id)->first();
+        return view('screens.mentor.lesson.list-video-id',compact('chapter'));
     }
 
-    public function update(Request $request, Lesson $lesson, VimeoService $vimeoService)
+    public function actived(LessonVideo $lesson_video,$check)
     {
-        if ($lesson->lesson_type == "video") {
-
-            $lesson->update($request->only(
-                [
-                    'title',
-                    'content',
-                    'attachment',
-                    'chapter_id'
-                ]
-            ));
-
-            $lessonVideo = $request->only([
-                'is_demo'
-            ]);
-
-            if ($request->video_path) {
-                $url = $vimeoService->create($request->video_path, $request->title, $request->content, $request->is_demo);
-                $lessonVideo['video_path'] = $url;
-            } else {
-                $vimeoService->update($lesson->lessonVideo->video_path, $request->title, $request->content, $request->is_demo);
-                $lessonVideo['video_path'] = $lesson->lessonVideo->video_path;
-            }
-            $lesson->lessonVideo()->update($lessonVideo);
-        }
-
-        if ($request->ajax()) {
-            session()->flash('success', 'Sửa bài học thành công');
-            return response()->json(['success' => true], 201);
-        }
-
-        return redirect()
-            ->back()
-            ->with('success', 'Sửa bài học thành công');
+        $lesson_video->is_check = $check;
+        $lesson_video->save();
+        $lesson =  Lesson::where('id',$lesson_video->lesson_id)->first();
+        Mail::send('screens.email.mentor.browseLesson', compact('lesson','lesson_video'), function ($email) use ($lesson) {
+            $email->subject('Duyệt bài học');
+            $email->to($lesson->chapter->course->mentor->email, $lesson->chapter->course->mentor->name);
+        });
+        return redirect()->route('mentor.lesson.index')->with('success', 'Cập nhập thành công');
     }
 
-    public function updateDomain(Lesson $lesson)
+    public function actived_id(LessonVideo $lesson_video,$check)
     {
-        dd($lesson);
-    }
-    public function show(Request $request, Lesson $lesson)
-    {
-        $chapters = Course::findOrFail($request->course)->chapters;
-        $data = view('components.mentor.course.modal.lesson.edit', compact('lesson', 'chapters'))->render();
-        return response()->json($data, 200);
-    }
-
-    public function showSort(Chapter $chapter)
-    {
-        $data = view('components.mentor.course.modal.lesson.sort', compact('chapter'))->render();
-        return response()->json($data, 201);
-    }
-
-    public function sort(Request $request)
-    {
-        foreach ($request->lessons as $key => $lesson_id) {
-            $lesson = Lesson::findOrFail($lesson_id);
-            $lesson->sort = $key;
-            $lesson->save();
-        }
-        if ($request->ajax()) {
-            session()->flash('success', 'sắp xếp thành công');
-            return response()->json(['success' => true], 201);
-        }
-        return redirect()
-            ->back()
-            ->with('success', 'sắp xếp thành công');
+        $lesson_video->is_check = $check;
+        $lesson_video->save();
+        $lesson =  Lesson::where('id',$lesson_video->lesson_id)->first();
+        Mail::send('screens.email.mentor.browseLesson', compact('lesson','lesson_video'), function ($email) use ($lesson) {
+            $email->subject('Duyệt bài học');
+            $email->to($lesson->chapter->course->mentor->email, $lesson->chapter->course->mentor->name);
+        });
+        return redirect()->route('mentor.lesson.list',$lesson->chapter_id)->with('success', 'Cập nhập thành công');
     }
 }

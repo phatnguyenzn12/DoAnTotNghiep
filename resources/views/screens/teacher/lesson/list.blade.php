@@ -10,7 +10,7 @@
                 <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
             </h3>
             <div class="card-toolbar">
-                <a href="" class="btn btn-success font-weight-bolder font-size-sm">
+                <a href="{{route('teacher.lesson.add',$chapter->id)}}" class="btn btn-success font-weight-bolder font-size-sm">
                     <span class="svg-icon svg-icon-md svg-icon-white">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -26,7 +26,7 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>Add New Teacher</a>
+                    </span>Thêm mới bài học</a>
                     <span class="svg-icon svg-icon-md svg-icon-white">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
