@@ -28,12 +28,7 @@ class LessonController extends Controller
     //     $data = view('components.mentor.course.modal.lesson.add', compact('chapters'))->render();
     //     return response()->json($data, 200);
 
-    public function create()
-    {
-        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)->get();
-        $data = view('components.mentor.lesson.add', compact('chapters'))->render();
-        return response()->json($data, 200);
-    }
+
 
     public function index()
     {
@@ -113,8 +108,8 @@ class LessonController extends Controller
         else {
             echo '<br> đủ';
         }
-        
-        
+
+
         // return redirect()->route('mentor.lesson.list', $lesson->chapter_id)->with('success', 'Cập nhập thành công');
     }
 }

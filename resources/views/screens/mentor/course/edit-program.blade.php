@@ -39,12 +39,6 @@
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
                             Sắp xếp chương học</button>
                     </div>
-                    <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
-                        <button type="button" class="btn btn-outline-primary btn-pill"
-                            onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
-                            data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
-                            học chuo chươngggg</button>
-                    </div>
 
 
 
@@ -60,8 +54,13 @@
                                         | Giáo viên : {{ $chapter->mentor->name }}
                                     </h5>
                                     <h5 class="card-label">
-                                        | Deadline: {{$chapter->deadline}}
+                                        | Deadline: {{ $chapter->deadline }}
                                     </h5>
+                                    @if ($chapter->deadline > now())
+                                        <button
+                                            class="btn btn-text-white btn-bg-danger font-weight-bold ">Quá
+                                            hạn</button>
+                                    @endif
                                 </div>
                                 <div class="card-toolbar">
                                     <div class="card-toolbar">
