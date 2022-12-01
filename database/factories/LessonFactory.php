@@ -17,7 +17,7 @@ class LessonFactory extends Factory
      */
     public function definition()
     {
-        // static $number = 1;
+        static $number = 1;
         // $lesson_type = ['video', 'exercise'];
         // $random_key = array_rand($lesson_type, 1);
         // $lesson_type[$random_key]
@@ -26,10 +26,12 @@ class LessonFactory extends Factory
             'content' => fake()->text(40),
             'lesson_type' => 'video',
             // 'attachment' => '0',
-            //  'sort' =>  $number++,
+            'sort' =>  $number++,
             'time' => '00:01:00',
             'chapter_id' => rand(1, 20),
-            'is_check' => ''
+            'is_check' => 1,
+            'is_demo' => rand(0,1),
+            'is_edit' => 0
         ];
     }
 }

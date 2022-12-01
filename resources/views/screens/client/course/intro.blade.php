@@ -114,7 +114,7 @@
                                                 <!-- Curriculum item -->
                                                 <h5 class="mb-4">{{ $chapter->title }} (3 lectures)</h5>
                                                 @foreach ($chapter->lessons as $key2 => $lesson)
-                                                    @if ($lesson->lessonVideo->is_check == 1 )
+                                                    @if ($lesson->is_check == 1 )
                                                         <div
                                                             class="d-sm-flex justify-content-sm-between align-items-center">
                                                             <div class="d-flex">
@@ -127,7 +127,7 @@
                                                                 </div>
                                                             </div>
                                                             <!-- Button -->
-                                                            @if ($lesson->lessonVideo->is_demo == 1)
+                                                            @if ($lesson->is_demo == 1)
                                                                 <a class="btn btn-sm btn-success mb-0" data-toggle="modal"
                                                                     data-bs-target="#modal-example"data-bs-toggle="modal"
                                                                     data-bs-target="#viewReview"

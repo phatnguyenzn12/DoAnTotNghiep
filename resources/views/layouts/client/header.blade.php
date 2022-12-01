@@ -348,7 +348,7 @@
                         @elseif (Auth::guard('mentor')->user())
                             <li><a class="dropdown-item" href="{{route('mentor.home')}}"><i class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
                         @endif
-                        <li><a class="dropdown-item" href="{{ route('client.account.index') }}"><i
+                        <li><a class="dropdown-item" href="{{ route('client.account.detail') }}"><i
                                     class="bi bi-person fa-fw me-2"></i>Sửa thông tin cá nhân</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Hỗ
                                 trợ</a>

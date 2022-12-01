@@ -5,7 +5,7 @@
 @section('content')
 
     <!-- =======================
-                                                                Page Banner START -->
+                                                                            Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -29,10 +29,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                Page Banner END -->
+                                                                            Page Banner END -->
 
     <!-- =======================
-                                                                Page content START -->
+                                                                            Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -67,7 +67,7 @@
                             </div>
                             <!-- Button -->
                             <div class="col-12 text-end">
-                                <button type="submit" class="btn btn-primary mb-0" disabled>Save changes</button>
+                                <button type="submit" class="btn btn-primary mb-0">Sử dụng VNPAY</button>
                             </div>
                         </div>
                         <!-- Form END -->
@@ -219,7 +219,7 @@
         </div>
     </section>
     <!-- =======================
-                                                                Page content END -->
+                                                                            Page content END -->
 
 @endsection
 
@@ -250,22 +250,26 @@
             .then(
                 res => {
                     html = res.data.data.map(
-                        (item) => {
-                            return `<div code="${item.code}" class="col-2 border rounded me-2">
+                            (item) => {
+                                return `<div code="${item.code}" class="col-2 border rounded me-2" class="remove_code">
                                 <a href="#"><img src="${item.logo}"
                                                 alt=""></a></div>`
-                        }
-                    ).join('')
+                            }
+                        )
+                        .join('')
 
-                    $('[show-list-bank]').html(html)
+                    $('[show-list-bank]').html(`<div code="VNPAY" class="col-2 border rounded me-2" class="remove_code">
+                                <a href="#"><img src="https://th.bing.com/th/id/R.0d4ecea0b6e472589c4c94b8e8afc17f?rik=5J7F3iDg2ZwJtw&pid=ImgRaw&r=0"
+                                                alt=""></a></div>` + html)
 
                     $('[code]').on('click',
                         (val) => {
-                            js_$('[input-pay]').value = $(val.currentTarget).attr('code')
+                            $('[input-pay]').val($(val.currentTarget).attr('code'))
+                            $('.remove_code').css('background-color','white')
+                            $(val.currentTarget).css('background-color','beige')
                         }
                     )
                 }
             )
-
     </script>
 @endpush

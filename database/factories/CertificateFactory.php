@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Mentor;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,12 +17,11 @@ class CertificateFactory extends Factory
      */
     public function definition()
     {
-        $mentor = Mentor::all()->random();
+        $course = Course::all()->random();
         return [
             'title' => fake()->title(),
             'description' => fake()->text(200),
-            'image' => fake()->imageUrl(),
-            'mentor_id' => $mentor->id
+            'course_id' => $course->id
         ];
     }
 }

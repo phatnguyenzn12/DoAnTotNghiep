@@ -95,10 +95,10 @@ class Course extends BaseModel
             return 0;
         }
         $time =  $this->lessons()
-            ->selectRaw("TIME_FORMAT(SUM(SEC_TO_TIME(time)), '%H %I %S') AS time_total")
+            ->selectRaw("TIME_FORMAT(SUM(SEC_TO_TIME(time)), '%H') AS time_total")
             ->first()
             ->time_total;
-
+            
         $arr = ['h','m','s'];
 
         $time = collect(explode(' ', $time))
@@ -107,7 +107,7 @@ class Course extends BaseModel
                     return $val.''.$arr[$index];
                 }
             )->implode(' ');
-
+        
         return $time;
     }
 

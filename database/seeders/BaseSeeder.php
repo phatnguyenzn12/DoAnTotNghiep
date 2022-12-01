@@ -42,24 +42,22 @@ class BaseSeeder extends Seeder
         CateCourse::factory(3)->create();
         Specialize::factory(3)->create();
         Skill::factory(3)->create();
-        Certificate::factory(10)->create();
         Course::factory(10)->create();
         Chapter::factory(100)->create();
         Lesson::factory(1000)->create();
+        Certificate::factory(10)->create();
         foreach(Lesson::select('*')->get() as $lesson) {
             if($lesson->lesson_type == 'video') {
                 LessonVideo::create(
                     [
-                        'is_demo' => rand(0,1),
                         'video_path' => '775480738',
                         'lesson_id' => $lesson->id,
-                        'is_check' => 1,
                     ]
                 );
             }
         }
         CommentCourse::factory(300)->create();
-        // CommentLesson::factory(1000)->create();
+        CommentLesson::factory(1000)->create();
         Cart::factory(10)->create();
         Order::factory(100)->create();
         OrderDetail::factory(500)->create();

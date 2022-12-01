@@ -22,7 +22,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             <div class="col-auto">
                                 <div class="avatar avatar-xxl position-relative mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                    src="{{asset('app/'.Auth::user()->avatar)}}">
+                                    src="/images/{{Auth::user()->avatar}}">
                                     <span
                                         class="badge text-bg-success rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Pro</span>
                                 </div>
@@ -34,8 +34,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                 </div>
                                 <!-- Button -->
                                 <div class="mt-2 mt-sm-0">
-                                    <a href="student-course-list.html" class="btn btn-outline-primary mb-0">View my
-                                        courses</a>
+                                    <a href="student-course-list.html" class="btn btn-outline-primary mb-0">Xem tất cả khóa học của tôi</a>
                                 </div>
                             </div>
                         </div>
@@ -81,10 +80,10 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
                                 <!-- Dashboard menu -->
                                 <div class="list-group list-group-dark list-group-borderless">
-                                    <a class="list-group-item active" href={{ route('client.account.myCourse') }}><i
-                                        class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
-                                <a class="list-group-item" href="{{ route('client.account.detail') }}"><i
-                                        class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                    <a class="list-group-item" href={{ route('client.account.myCourse') }}><i
+                                        class="bi bi-ui-checks-grid fa-fw me-2"></i>Khóa học của tôi</a>
+                                <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
+                                        class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
                                     <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i
                                             class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                 </div>

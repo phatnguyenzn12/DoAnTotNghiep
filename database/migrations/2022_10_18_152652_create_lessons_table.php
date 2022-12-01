@@ -25,8 +25,6 @@ return new class extends Migration
             $table->integer('is_edit')->default(1); // được sửa hoặc không được sửa
             $table->unsignedBigInteger('chapter_id');
             $table->timestamps();
-
-
         });
     }
 
