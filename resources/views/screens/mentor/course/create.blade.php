@@ -74,17 +74,6 @@
                                     placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
                             </div>
                             <div class="form-group">
-                                <label>Danh mục</label>
-                                <select name="cate_course_id" id="select2" class="form-control">
-                                    <option value="">Chọn danh mục</option>
-                                    <optgroup label="">
-                                        @foreach ($cateCourses as $cateCourse)
-                                            <option value="{{ $cateCourse->id }}">{{ $cateCourse->name }}</option>
-                                        @endforeach
-                                    </optgroup>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label>Khoá học có chứng chỉ</label>
                                 <select name="certificate_id" id="select2" class="form-control">
                                     <option value="">Chọn chứng chỉ</option>
@@ -109,7 +98,7 @@
                                         style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
                                 </div>
                             </div>
-
+                            <input type="text" name="cate_course_id" id="" value="{{auth()->guard('mentor')->user()->cate_course_id}}" hidden>
 
 
                             <div class="form-group">

@@ -32,20 +32,28 @@
                                         <h5 class="card-label">
                                             | Deadline: {{ $chapter->deadline }}
                                         </h5>
-                                        <h5 class="card-label">
-                                            | Số bài học: {{ count($chapter->lessons) }}
-
-                                        </h5>
                                     </div>
                                     <div class="card-toolbar">
-
-                                        {{-- <div class="card-toolbar">
+                                        <div class="card-toolbar">
+                                            <p hidden>{{ $item = 0 }}</p>
+                                            @foreach ($chapter->lessons as $lesson)
+                                                @if ($lesson->is_edit == 0)
+                                                    <p hidden>{{ $item++ }}</p>
+                                                @endif
+                                            @endforeach
+                                            @if ($item > 0)
+                                                <a data-toggle="modal" data-target="#modal-example"
+                                                    onclick="showAjaxModal('{{ route('teacher.lesson.request-all', $chapter->id) }}','Yêu cầu chỉnh sửa')"
+                                                    class="btn btn-icon btn-sm btn-primary mr-1">
+                                                    <i class="flaticon-refresh"></i>
+                                                </a>
+                                            @endif
                                             <a data-toggle="modal" data-target="#modal-example"
                                                 onclick="showAjaxModal('{{ route('teacher.chapter.show', $chapter->id) }}' ,'Chi tiết chương học')"
                                                 class="btn btn-icon btn-sm btn-primary mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -65,11 +73,6 @@
                                                     </font>
                                                 @endif
 
-                                                {{-- <font style="vertical-align: inherit;">
-                                                    <font style="vertical-align: inherit;">{{$lesson->edit}}
-                                                    </font>
-                                                </font> --}}
-
                                             </div>
                                             <span
                                                 class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
@@ -80,7 +83,21 @@
                                                         <i class="fab fa-youtube"></i>
                                                     @endif
                                                     Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
+
                                                 </p>
+                                                @if ($lesson->lessonVideo->video_path != 0 && $lesson->time != 0)
+                                                    <div class="text-center">
+                                                        <span>
+                                                            <button class="btn btn-primary" data-toggle="modal"
+                                                                data-target="#modal-example"
+                                                                onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
+                                                                video</button>
+                                                        </span>
+                                                        <span>
+                                                            {{ $lesson->time }}
+                                                        </span>
+                                                    </div>
+                                                @endif
                                                 <form action="" method="POST" id="delete-lesson1" class="d-inline"
                                                     hidden>
                                                     @method('DELETE')
@@ -95,10 +112,12 @@
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     @else
-                                                      abc
+                                                        <a data-toggle="modal" data-target="#modal-example"
+                                                            onclick="showAjaxModal('{{ route('teacher.lesson.request', $lesson->id) }}','Yêu cầu chỉnh sửa')"
+                                                            class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
+                                                            <i class="flaticon-refresh"></i>
+                                                        </a>
                                                     @endif
-
-                                                    {{-- and update video --}}
 
                                                     <a data-toggle="modal" data-target="#modal-example"
                                                         onclick="showAjaxModal('{{ route('teacher.lesson.detail', $lesson->id) }}','Bài học')"
@@ -124,7 +143,7 @@
                                                         </span>
                                                     </a>
                                                     <button form="delete-lesson1"
-                                                        class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light delete-item">
+                                                        class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light ">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </p>
@@ -224,5 +243,21 @@
                 }
             })
         })
+
+        function showModal(id_video) {
+            $('#modal-example').find('.modal-body').html(
+                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
+                .then(
+                    res => {
+                        console.log(res)
+                        $('#modal-example').find('.modal-body').html(res.data.html)
+                        $('iframe').css({
+                            'width': '100%',
+                            'height': '100%',
+                        });
+                    }
+                )
+        }
     </script>
 @endpush

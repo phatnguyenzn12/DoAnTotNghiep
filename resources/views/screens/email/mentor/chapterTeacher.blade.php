@@ -5,7 +5,7 @@
         <p>Chương: {{$chapter->title}}</p>
         <p>
             <a href="{{route('teacher.chapter.program',$chapter->course_id)}}"
-                style="display: inline-block; background: rgb(80, 95, 234); color: #fff; padding: 10px 15px; font-weight: bold">Thực hiện</a>
+                style="display: inline-block; background: rgb(80, 95, 234); color: #fff; padding: 10px 15px; font-weight: bold">Xem chi tiết</a>
         </p>
     </div>
 </div>

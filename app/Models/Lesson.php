@@ -18,6 +18,8 @@ class Lesson extends Model
         'time',
         'sort',
         'deadline',
+        'is_edit',
+        'is_check',
         'chapter_id'
     ];
 

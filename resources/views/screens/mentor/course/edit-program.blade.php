@@ -160,7 +160,7 @@
                                                 @endif
                                                 Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
                                             </p>
-                                            <form action="" method="POST" id="delete-lesson1" class="d-inline" hidden>
+                                            <form action=""  method="POST" id="delete-lesson1" class="d-inline" hidden>
                                                 @method('DELETE')
                                                 @csrf
                                             </form>

@@ -9,7 +9,7 @@
                     <div class="card-header card-header-tabs-line">
                         <div class="card-toolbar">
                             <div class="card-title">
-                                <h3 class="card-label">Tạo mới Giảng viên</h3>
+                                <h3 class="card-label">Tạo mới Giáo viên</h3>
                             </div>
                         </div>
                     </div>
@@ -35,15 +35,17 @@
                                     placeholder="+543 5445 0543">
                             </div>
                             <div class="form-group">
-                                <label>Danh mục</label>
-                                <select name="cate_course_id" id="select2" class="form-control">
-                                    <option value="">--.--</option>
-                                        @foreach ($cateCourses as $cateCourse)
-                                            <option value="{{ $cateCourse->id }}">{{ $cateCourse->name }}</option>
-                                        @endforeach
-                                </select>
+                                <label>Giáo dục
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" value="" name="educations" class="form-control"
+                                    placeholder="Giáo dục">
                             </div>
-
+                            <div class="form-group">
+                                <label>Năm kinh nghiệm
+                                    <span class="text-danger">*</span></label>
+                                <input type="number" value="" name="years_in_experience" class="form-control"
+                                    placeholder="Năm kinh nghiệm">
+                            </div>
                             <div class="form-group">
                                 <label>Chuyên môn</label>
                                 <select id="select2" class="form-control" name="specialize_id" id="">
@@ -62,9 +64,10 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <input type="text" name="cate_course_id" id="" value="{{auth()->guard('mentor')->user()->cate_course_id}}" hidden>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
-                                <a href="{{route('mentor.teacher.index')}}" class="btn btn-success mr-2">Back</a>
+                                <a href="{{ route('mentor.teacher.index') }}" class="btn btn-success mr-2">Back</a>
                             </div>
                         </form>
                     </div>

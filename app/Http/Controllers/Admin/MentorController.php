@@ -7,6 +7,8 @@ use App\Models\Apply;
 use App\Models\CateCourse;
 use App\Models\CommentCourse;
 use App\Models\Mentor;
+use App\Models\Skill;
+use App\Models\Specialize;
 use App\Services\UploadFileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,21 +39,24 @@ class MentorController extends Controller
 
     public function create(Request $request)
     {
-        $cate = DB::table('cate_courses')->select('*')->get();
+        $cate_courses = DB::table('cate_courses')->select('*')->get();
+        $skills = Skill::all();
+        $specializes = Specialize::all();
         if ($request->isMethod('post')) {
             $avatar = UploadFileService::storage_image($request->avatar);
-
+            $password = 12345678;
             $mentor = Mentor::create(
                 array_merge(
                     $request->all(),
+                    ['email_verified_at' => now()],
                     ['avatar' => $avatar],
-                    ['password' => Hash::make($request->password)],
+                    ['password' => Hash::make($password)],
                 )
             );
             $mentor->assignRole('lead');
             return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
         }
-        return view('screens.admin.mentor.create', compact('cate'));
+        return view('screens.admin.mentor.create', compact('cate_courses','skills','specializes'));
     }
 
     public function actived($id)
