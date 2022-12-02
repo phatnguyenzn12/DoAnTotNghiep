@@ -33,6 +33,7 @@ class LessonController extends Controller
 
             $lesson->update($request->only(
                 'content',
+                'time',
             ));
 
             $lessonVideo = $request->only([
@@ -49,7 +50,8 @@ class LessonController extends Controller
             $lesson->lessonVideo()->update($lessonVideo);
         }
         $lessons = Lesson::where('chapter_id', $request->chapter_id)->get();
-        foreach ($lessons as $lesson) {}
+        foreach ($lessons as $lesson) {
+        }
         if ($lesson->lessonVideo->video_path != 0) {
             $chapter = Chapter::where('id', $request->chapter_id)->first();
             Mail::send('screens.email.teacher.lessonLead', compact('chapter'), function ($email) use ($chapter) {
@@ -67,6 +69,51 @@ class LessonController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Sửa bài học thành công');
+    }
+
+    public function request(Lesson $lesson)
+    {
+        $data = view('components.teacher.modal.lesson.edit-request', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
+
+    public function editRequest(Request $request, Lesson $lesson)
+    {
+        if ($lesson->is_edit == 0) {
+            Mail::send('screens.email.teacher.edit-lesson', compact('lesson', 'request'), function ($email) use ($lesson) {
+                $email->subject('Yêu cầu chỉnh sửa');
+                $email->to($lesson->chapter->course->mentor->email, $lesson->chapter->course->mentor->name);
+            });
+            return redirect()
+                ->back()
+                ->with('success', 'Gửi yêu cầu thành công');
+        }
+    }
+
+    public function requestAll(Chapter $chapter)
+    {
+        $data = view('components.teacher.modal.lesson.edit-request', compact('chapter'))->render();
+        return response()->json($data, 200);
+    }
+
+    public function editAllRequest(Request $request, Chapter $chapter)
+    {
+        $item = 0;
+        foreach ($chapter->lessons as $lesson) {
+            if ($lesson->is_edit == 0) {
+                $item++;
+            }
+        }
+        if ($item > 0) {
+            Mail::send('screens.email.teacher.edit-lesson', compact('chapter', 'request'), function ($email) use ($lesson) {
+                $email->subject('Yêu cầu chỉnh sửa');
+                $email->to($lesson->chapter->course->mentor->email, $lesson->chapter->course->mentor->name);
+            });
+        }
+
+        return redirect()
+        ->back()
+        ->with('success', 'Gửi yêu cầu thành công');
     }
 
     public function updateDomain(Lesson $lesson)

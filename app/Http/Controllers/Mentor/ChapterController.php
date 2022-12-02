@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mentor;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,7 @@ class ChapterController extends Controller
     public function show(Chapter $chapter)
     {
         $mentors = Mentor::all();
+        // return view('screens.mentor.course.edit', compact('chapter','mentors'));
         $data = view('components.mentor.course.modal.chapter.edit', compact('chapter','mentors'))->render();
         return response()->json($data, 200);
     }
@@ -71,6 +73,9 @@ class ChapterController extends Controller
         $chapter->save();
         
         if($chapter->mentor->id != $chapter_old->mentor->id){
+            foreach($chapter->lessons as $lesson){
+                $lesson->update(['is_edit' => 0]);
+            }
             Mail::send('screens.email.mentor.changeTeacher', compact('chapter_old'), function ($email) use ($chapter_old) {
                 $email->subject('Chương học thay đổi');
                 $email->to($chapter_old->mentor->email, $chapter_old->mentor->name);
@@ -80,7 +85,6 @@ class ChapterController extends Controller
                 $email->to($chapter->mentor->email, $chapter->mentor->name);
             });
         }
-
         
         if ($request->ajax()) {
             session()->flash('success', 'Sửa chương học thành công');

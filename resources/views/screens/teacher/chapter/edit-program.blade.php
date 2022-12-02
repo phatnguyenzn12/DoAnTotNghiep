@@ -30,11 +30,24 @@
                                                 href="{{ route('teacher.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                         </h4>
                                         <h5 class="card-label">
-                                            | Deadline: {{$chapter->deadline}}
+                                            | Deadline: {{ $chapter->deadline }}
                                         </h5>
                                     </div>
                                     <div class="card-toolbar">
                                         <div class="card-toolbar">
+                                            <p hidden>{{ $item = 0 }}</p>
+                                            @foreach ($chapter->lessons as $lesson)
+                                                @if ($lesson->is_edit == 0)
+                                                    <p hidden>{{ $item++ }}</p>
+                                                @endif
+                                            @endforeach
+                                            @if ($item > 0)
+                                                <a data-toggle="modal" data-target="#modal-example"
+                                                    onclick="showAjaxModal('{{ route('teacher.lesson.request-all', $chapter->id) }}','Yêu cầu chỉnh sửa')"
+                                                    class="btn btn-icon btn-sm btn-primary mr-1">
+                                                    <i class="flaticon-refresh"></i>
+                                                </a>
+                                            @endif
                                             <a data-toggle="modal" data-target="#modal-example"
                                                 onclick="showAjaxModal('{{ route('teacher.chapter.show', $chapter->id) }}' ,'Chi tiết chương học')"
                                                 class="btn btn-icon btn-sm btn-primary mr-1">
@@ -68,17 +81,26 @@
                                                     @csrf
                                                 </form>
                                                 <p class="lession-tool m-0">
-                                                    <a data-toggle="modal" data-target="#modal-example"
-                                                        onclick="showAjaxModal('{{ route('teacher.lesson.show', $lesson->id) }}','Cập nhật bài học')"
-                                                        class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
+                                                    @if ($lesson->is_edit == 1)
+                                                        <a data-toggle="modal" data-target="#modal-example"
+                                                            onclick="showAjaxModal('{{ route('teacher.lesson.show', $lesson->id) }}','Cập nhật bài học')"
+                                                            class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    @else
+                                                        <a data-toggle="modal" data-target="#modal-example"
+                                                            onclick="showAjaxModal('{{ route('teacher.lesson.request', $lesson->id) }}','Yêu cầu chỉnh sửa')"
+                                                            class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
+                                                            <i class="flaticon-refresh"></i>
+                                                        </a>
+                                                    @endif
+
                                                     <button type="button"
                                                         class="btn btn-text-warning-50 btn-icon-warning font-weight-bold btn-hover-bg-light">
                                                         <i class="flaticon-refresh"></i>
                                                     </button>
                                                     <button form="delete-lesson1"
-                                                        class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light delete-item">
+                                                        class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light ">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </p>

@@ -65,36 +65,71 @@ class LessonController extends Controller
         return redirect()->route('mentor.lesson.index')->with('success', 'Cập nhập thành công');
     }
 
-    public function actived_id(LessonVideo $lesson_video, $check)
+    public function actived_id(Lesson $lesson, $check)
     {
-        $lesson_video->is_check = $check;
-        $lesson_video->save();
-        // $lesson =  Lesson::where('id', $lesson_video->lesson_id)->first();
-        // Mail::send('screens.email.mentor.browseLesson', compact('lesson', 'lesson_video'), function ($email) use ($lesson) {
-        //     $email->subject('Duyệt bài học');
-        //     $email->to($lesson->chapter->course->mentor->email, $lesson->chapter->course->mentor->name);
-        // });
-        // dd($lesson_video->lesson->chapter->lessons);
-        // $lesson = Lesson::where('id', $lesson_video->lesson_id)->first();
-        // dd($lesson);
-        // dd($lesson_video->lesson->chapter->lessons);
-        foreach ($lesson_video->lesson->chapter->lessons as $lesson) {
-            // if($lesson->lessonVideo->is_check != 1){
-            //     echo '<br>thiếu thêm vào' . $lesson->lessonVideo->is_check ;
-            // }
-            // else {
-            //     echo '<br>oke đủ'. $lesson->lessonVideo->is_check ;
-            // }
-            // echo '<br> oke';
+        $lesson->is_check = $check;
+        $lesson->save();
+
+        if ($lesson->is_check == 0) {
+            Mail::send('screens.email.mentor.browse-lesson', compact('lesson'), function ($email) use ($lesson) {
+                $email->subject('Duyệt bài học');
+                $email->to($lesson->chapter->mentor->email, $lesson->chapter->mentor->name);
+            });
         }
-        if($lesson->lessonVideo->is_check != 1){
-            echo '<br>thiếu thêm vào';
+        if ($lesson->is_check == 2) {
+            Mail::send('screens.email.mentor.browse-lesson', compact('lesson'), function ($email) use ($lesson) {
+                $email->subject('Duyệt bài học');
+                $email->to($lesson->chapter->mentor->email, $lesson->chapter->mentor->name);
+            });
         }
-        else {
-            echo '<br> đủ';
+
+        $item = 0;
+
+        foreach ($lesson->chapter->lessons as $lesson) {
+            if ($lesson->is_check != 1) {
+                $item++;
+            }
         }
-        
-        
-        // return redirect()->route('mentor.lesson.list', $lesson->chapter_id)->with('success', 'Cập nhập thành công');
+        if ($item == 0) {
+            Mail::send('screens.email.mentor.full-lesson', compact('lesson'), function ($email) use ($lesson) {
+                $email->subject('Duyệt bài học');
+                $email->to($lesson->chapter->mentor->email, $lesson->chapter->mentor->name);
+            });
+        }
+
+        return redirect()->route('mentor.lesson.list', $lesson->chapter_id)->with('success', 'Cập nhập thành công');
+    }
+
+    public function activedLesson(Lesson $lesson, $check)
+    {
+        $lesson->is_edit = $check;
+        $lesson->save();
+
+        Mail::send('screens.email.mentor.active-lesson', compact('lesson'), function ($email) use ($lesson) {
+            $email->subject('Duyệt bài học');
+            $email->to($lesson->chapter->mentor->email, $lesson->chapter->mentor->name);
+        });
+
+
+        return redirect()->route('mentor.lesson.list', $lesson->chapter->id)->with('success', 'Cập nhập thành công');
+    }
+
+    public function activedAllLesson(Chapter $chapter)
+    {
+        $item = 0;
+        foreach ($chapter->lessons as $lesson) {
+            if ($lesson->is_edit == 0) {
+                $item++;
+                $lesson->update(['is_edit' => 1]);
+            }
+        }
+        if ($item > 0) {
+            Mail::send('screens.email.mentor.active-lesson', compact('chapter'), function ($email) use ($chapter) {
+                $email->subject('Duyệt bài học');
+                $email->to($chapter->mentor->email, $chapter->mentor->name);
+            });
+        }
+
+        return redirect()->route('mentor.lesson.list', $lesson->chapter->id)->with('success', 'Cập nhập thành công');
     }
 }
