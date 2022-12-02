@@ -3,13 +3,17 @@
     @csrf
     @method('PUT')
     <p class="text-danger errors system"></p>
-    <input type="text" name="title" value="{{ $lesson->title }}" hidden>
-    <input type="text" name="chapter_id" value="{{ $lesson->chapter_id }}" hidden>
     <div class="form-group">
-        <label hidden>Nội dung</label>
-        <textarea name="content" class="form-control" hidden placeholder="Nhập nội dung">{{ $lesson->content }}</textarea>
+        <label>Tên bài học</label>
+        <input  type="text" class="form-control" value=" {{ $lesson->title }}">
     </div>
+    {{-- <input type="text" name="title" value="{{ $lesson->title }}" hidden>
+    <input type="text" name="chapter_id" value="{{ $lesson->chapter_id }}" hidden> --}}
     <div class="form-group">
+        <label >Nội dung</label>
+        <textarea name="content" style="padding-bottom: 250px" class="form-control" >{{ $lesson->content }}</textarea>
+    </div>
+    {{-- <div class="form-group">
         <label>Thời lượng video</label>
         <input name="time" type="time" class="form-control" {{ $lesson->time }}>
     </div>
@@ -30,7 +34,9 @@
                 <option @selected($lesson->lessonVideo->is_demo == 1 ? true:false)  value="1">Học thử</option>
             </select>
             <p class="text-danger errors"></p>
-        </div> --}}
+        </div> 
+
+           tách từ đoạn nằy  /***/
     @else
         <div class="d-flex align-content-center justify-content-around">
             <div class="form-group">
@@ -80,7 +86,7 @@
 
             </tbody>
         </table>
-        <p class="text-danger errors quizs"></p>
+        <p class="text-danger errors quizs"></p> 
     @endif
-    <button class="btn btn-success d-block m-auto">Thêm mới video</button>
+    {{-- <button class="btn btn-success d-block m-auto">Đóng</button> --}}
 </form>

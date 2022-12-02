@@ -30,27 +30,46 @@
                                                 href="{{ route('teacher.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                         </h4>
                                         <h5 class="card-label">
-                                            | Deadline: {{$chapter->deadline}}
+                                            | Deadline: {{ $chapter->deadline }}
+                                        </h5>
+                                        <h5 class="card-label">
+                                            | Số bài học: {{ count($chapter->lessons) }}
+
                                         </h5>
                                     </div>
                                     <div class="card-toolbar">
-                                        <div class="card-toolbar">
+
+                                        {{-- <div class="card-toolbar">
                                             <a data-toggle="modal" data-target="#modal-example"
                                                 onclick="showAjaxModal('{{ route('teacher.chapter.show', $chapter->id) }}' ,'Chi tiết chương học')"
                                                 class="btn btn-icon btn-sm btn-primary mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
                                         <div class="col-md-12 mb-3 ribbon ribbon-right">
                                             <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
-                                                <font style="vertical-align: inherit;">
-                                                    <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->video }}
+                                                @if ($lesson->lessonVideo->video_path != 0)
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">{{ $lesson->edit }}
+                                                        </font>
                                                     </font>
-                                                </font>
+                                                @else
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">
+                                                            {{ $lesson->lessonVideo->video }}
+                                                        </font>
+                                                    </font>
+                                                @endif
+
+                                                {{-- <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">{{$lesson->edit}}
+                                                    </font>
+                                                </font> --}}
+
                                             </div>
                                             <span
                                                 class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
@@ -68,15 +87,42 @@
                                                     @csrf
                                                 </form>
                                                 <p class="lession-tool m-0">
+                                                    {{-- Btn update video --}}
+                                                    @if ($lesson->is_edit == 1)
+                                                        <a data-toggle="modal" data-target="#modal-example"
+                                                            onclick="showAjaxModal('{{ route('teacher.lesson.show', $lesson->id) }}','Thêm mới video')"
+                                                            class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    @else
+                                                      abc
+                                                    @endif
+
+                                                    {{-- and update video --}}
+
                                                     <a data-toggle="modal" data-target="#modal-example"
-                                                        onclick="showAjaxModal('{{ route('teacher.lesson.show', $lesson->id) }}','Cập nhật bài học')"
+                                                        onclick="showAjaxModal('{{ route('teacher.lesson.detail', $lesson->id) }}','Bài học')"
                                                         class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
-                                                        <i class="fas fa-edit"></i>
+                                                        <span class="svg-icon svg-icon-primary svg-icon-2x">
+                                                            <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Code\Info-circle.svg--><svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                                height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                <g stroke="none" stroke-width="1" fill="none"
+                                                                    fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24"
+                                                                        height="24" />
+                                                                    <circle fill="#000000" opacity="0.3" cx="12"
+                                                                        cy="12" r="10" />
+                                                                    <rect fill="#000000" x="11" y="10"
+                                                                        width="2" height="7" rx="1" />
+                                                                    <rect fill="#000000" x="11" y="7"
+                                                                        width="2" height="2" rx="1" />
+                                                                </g>
+                                                            </svg>
+                                                            <!--end::Svg Icon-->
+                                                        </span>
                                                     </a>
-                                                    <button type="button"
-                                                        class="btn btn-text-warning-50 btn-icon-warning font-weight-bold btn-hover-bg-light">
-                                                        <i class="flaticon-refresh"></i>
-                                                    </button>
                                                     <button form="delete-lesson1"
                                                         class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light delete-item">
                                                         <i class="fas fa-trash-alt"></i>
@@ -122,7 +168,8 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
