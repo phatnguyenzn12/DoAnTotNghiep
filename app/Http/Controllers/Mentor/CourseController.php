@@ -7,8 +7,12 @@ use App\Models\CateCourse;
 use App\Models\Certificate;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\LessonVideo;
+use App\Models\Mentor;
 use App\Models\Skill;
 use App\Services\UploadFileService;
+use Http\Message\Authentication\Chain;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -20,18 +24,19 @@ class CourseController extends Controller
             ->user()
             ->load('courses')
             ->courses;
-
         return view('screens.mentor.course.list', compact('courses'));
     }
 
     public function program($course_id)
     {
-        // $course= Course::where('id', )
+        $mentor= Mentor::all();
+        // dd($mentor);
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
+            ->orderBy('id', 'DESC')
             // ->orderBy('sort')
             ->paginate(10);
-        return view('screens.mentor.course.edit-program', compact('chapters', 'course_id'));
+        return view('screens.mentor.course.edit-program', compact('chapters', 'course_id', 'mentor'));
     }
     // Route::get('edit-program/{course_id}', 'program')->name('program');
     //     Route::get('edit-course/{id}', 'edit')->name('edit');

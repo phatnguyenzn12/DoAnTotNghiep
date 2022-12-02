@@ -15,8 +15,12 @@ class LessonVideo extends Model
     ];
 
     protected $append = [
-        'active'
+        'active', 'video',
     ];
+
+    public function lesson(){
+        return $this->belongsTo(Lesson::class);
+    }
 
     public function getActiveAttribute()
     {
@@ -26,6 +30,16 @@ class LessonVideo extends Model
             return "Cần sửa lại";
         } else {
             return "Video chưa được duyệt";
+        }
+    }
+
+    public function getVideoAttribute()
+    {
+        if($this->video_path == 0){
+            return "Video chưa upload";
+        }
+        else{
+            return "Video upload";
         }
     }
 

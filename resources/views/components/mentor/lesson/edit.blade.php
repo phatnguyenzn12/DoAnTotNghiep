@@ -1,8 +1,4 @@
-@extends('layouts.mentor.master')
-
-@section('title', 'Trang danh sách người dùng')
-@section('content')
-<form action="{{ route('mentor.lesson.put', $lesson->id) }}" class="has-validation-ajax" method="POST"
+<form action="{{ route('teacher.lesson.put', $lesson->id) }}" class="has-validation-ajax" method="POST"
     enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -42,8 +38,8 @@
         <div class="form-group">
             <label>Cho học thử</label>
             <select class="custom-select form-control" name="is_demo">
-                <option @selected($lesson->lessonVideo->is_demo == 0 ? true:false) value="0">Không học thử</option>
-                <option @selected($lesson->lessonVideo->is_demo == 1 ? true:false)  value="1">Học thử</option>
+                <option @selected($lesson->lessonVideo->is_demo == 0 ? true : false) value="0">Không học thử</option>
+                <option @selected($lesson->lessonVideo->is_demo == 1 ? true : false) value="1">Học thử</option>
             </select>
             <p class="text-danger errors"></p>
         </div>
@@ -101,17 +97,3 @@
 
     <button class="btn btn-success d-block m-auto">Cập nhật bài học</button>
 </form>
-@endsection
-@section('js-links')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
-@push('js-handles')
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-@endpush
-

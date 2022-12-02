@@ -8,9 +8,9 @@
             value="{{ $chapter->title }}">
     </div>
     <div class="form-group">
-        <label>Số bài học</label>
-        <input type="text" name="number_chapter" placeholder="Nhập số bài học " class="form-control"
-            value="{{ $chapter->number_chapter }}">
+        <label>Deadline</label>
+        <input type="datetime-local" name="deadline" class="form-control"
+            value="{{$chapter->deadline}}">
     </div>
     <div class="form-group">
         <label>Giáo viên</label>
