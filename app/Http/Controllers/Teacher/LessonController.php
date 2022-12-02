@@ -50,16 +50,19 @@ class LessonController extends Controller
             $lesson->lessonVideo()->update($lessonVideo);
         }
         $lessons = Lesson::where('chapter_id', $request->chapter_id)->get();
+        $item = 0;
         foreach ($lessons as $lesson) {
+            if ($lesson->lessonVideo->video_path == 0) {
+                $item++;
+            }
         }
-        if ($lesson->lessonVideo->video_path != 0) {
+        if ($item == 0) {
             $chapter = Chapter::where('id', $request->chapter_id)->first();
             Mail::send('screens.email.teacher.lessonLead', compact('chapter'), function ($email) use ($chapter) {
                 $email->subject('Duyệt bài học');
                 $email->to($chapter->course->mentor->email, $chapter->course->mentor->name);
             });
         }
-
 
         if ($request->ajax()) {
             session()->flash('success', 'Sửa bài học thành công');
@@ -112,8 +115,8 @@ class LessonController extends Controller
         }
 
         return redirect()
-        ->back()
-        ->with('success', 'Gửi yêu cầu thành công');
+            ->back()
+            ->with('success', 'Gửi yêu cầu thành công');
     }
 
     public function updateDomain(Lesson $lesson)
@@ -123,6 +126,11 @@ class LessonController extends Controller
     public function show(Request $request, Lesson $lesson)
     {
         $data = view('components.teacher.modal.lesson.edit', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
+    public function detail(Request $request, Lesson $lesson)
+    {
+        $data = view('components.teacher.modal.lesson.detail', compact('lesson'))->render();
         return response()->json($data, 200);
     }
 

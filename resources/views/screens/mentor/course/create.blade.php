@@ -31,18 +31,7 @@
                                 <input value="" type="text" name="slug" class="form-control"
                                     placeholder="Đường dẫn">
                             </div>
-                            {{-- <div class="form-group">
-                                <label>Giá
-                                    <span class="text-danger">*</span></label>
-                                <input value="" type="text" name="price" class="form-control"
-                                    placeholder="Giá khóa học ">
-                            </div>
-                            <div class="form-group">
-                                <label>Giảm giá
-                                    <span class="text-danger">*</span></label>
-                                <input value="" type="text" name="discount" class="form-control"
-                                    placeholder="Video demo">
-                            </div> --}}
+
                             <div class="form-group">
                                 <label>Video demo</label>
                                 <input type="url" name="video" rows="5" class="form-control"
@@ -85,19 +74,6 @@
                                     placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
                             </div>
                             <div class="form-group">
-                                <label>Danh mục</label>
-                                <select name="cate_course_id" id="select2" class="form-control">
-                                    <option value="">Chọn danh mục</option>
-                                    <optgroup label="">
-                                        @foreach ($cateCourses as $cateCourse)
-                                            <option value="{{ $cateCourse->id }}">{{ $cateCourse->name }}</option>
-                                        @endforeach
-                                    </optgroup>
-                                </select>
-                            </div>
-
-
-                            <div class="form-group">
                                 <label>Khoá học có chứng chỉ</label>
                                 <select name="certificate_id" id="select2" class="form-control">
                                     <option value="">Chọn chứng chỉ</option>
@@ -122,7 +98,7 @@
                                         style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
                                 </div>
                             </div>
-
+                            <input type="text" name="cate_course_id" id="" value="{{auth()->guard('mentor')->user()->cate_course_id}}" hidden>
 
 
                             <div class="form-group">

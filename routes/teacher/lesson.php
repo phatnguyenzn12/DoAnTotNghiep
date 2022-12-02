@@ -9,6 +9,7 @@ Route::prefix('teacher/lesson')->name('teacher.lesson.')->middleware(['role:ment
         Route::get('list/{id}', 'list')->name('list');
         Route::put('put/{lesson}', 'update')->name('put');
         Route::get('show/{lesson}', 'show')->name('show');
+        Route::get('detail/{lesson}', 'detail')->name('detail');
         Route::delete('delete', 'destroy')->name('delete');
         Route::get('edit-program/{course_id}', 'program')->name('program');
         Route::get('edit-course/{id}', 'edit')->name('edit');

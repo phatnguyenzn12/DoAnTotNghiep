@@ -16,6 +16,14 @@
                         </h3>
                     </div>
                 </div>
+
+                {{-- <div class="d-flex align-items-center p-4 justify-content-center mb-5" style="column-gap:15px">
+                    <button type="button" class="btn btn-outline-primary btn-pill"
+                        onclick="showAjaxModal('{{ route('mentor.lesson.create') }}','Thêm bài học')"
+                        data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm bài
+                        học chuo chươngggg</button>
+                </div> --}}
+
                 <div class="card-body">
                     <!--begin: Search Form-->
                     <!--begin::Search Form-->
@@ -204,6 +212,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
 @push('js-handles')
+<script>
+   
+</script>
     <script>
         function showModal(id_video) {
             $('#modal-example').find('.modal-body').html(
@@ -221,4 +232,8 @@
                 )
         }
     </script>
+{{-- @endpush
+@push('js-handles') --}}
+
 @endpush
+

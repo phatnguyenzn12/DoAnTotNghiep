@@ -19,7 +19,7 @@
             @endforeach
         </select>
     </div>
-    <input type="hidden" name="course_id" value="{{ $course_id }}">
+    <input type="text" name="course_id" value="{{ $course_id }}" hidden>
     <p class="text-danger errors title"></p>
     </div>
     <button type="submit" class="btn btn-primary font-weight-bold">Thêm</button>
