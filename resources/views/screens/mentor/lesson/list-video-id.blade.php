@@ -111,7 +111,7 @@
                                                 <button class="btn btn-secondary dropdown-toggle" type="button"
                                                     id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
-                                                    @if ($lesson->lessonVideo->is_check == 0)
+                                                    @if ($lesson->edit == 0)
                                                         chưa được kiểm duyệt
                                                     @elseif($lesson->lessonVideo->is_check == 2)
                                                         Cần Sửa lại

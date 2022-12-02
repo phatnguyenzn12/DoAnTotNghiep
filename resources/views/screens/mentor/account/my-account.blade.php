@@ -40,7 +40,7 @@
                                 style="background-image: url(assets/media/users/blank.png)">
                                 <div class="image-input-wrapper"
                                     style="background-image: url(assets/media/users/300_21.jpg)">
-                                    <img id="mat_truoc_preview" src="{{asset('app/'.$mentor->avatar)}} alt="your image"
+                                    <img id="mat_truoc_preview" src="{{ asset('app/' . $mentor->avatar) }} alt="your image"
                                         style="max-width: 200px; height:100px; margin-bottom: 10px;" class="img-fluid" />
                                 </div>
                                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
@@ -65,17 +65,25 @@
                             <span id="cmt_truoc" class="form-text text-muted">mặt trước</span>
                         </div>
                     </div>
+                    @if (Auth::guard('mentor')->user()->hasRole('teacher'))
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Điểm</label>
+                            <div class="col-lg-9 col-xl-6">
+                                <p class="form-control form-control-lg form-control-solid">{{ $mentor->point }} </p>
+                            </div>
+                        </div>
+                    @endif
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Họ và tên</label>
                         <div class="col-lg-9 col-xl-6">
-                            <input name="name" value="{{$mentor->name}}" class="form-control form-control-lg form-control-solid" type="text" />
+                            <p class="form-control form-control-lg form-control-solid">{{ $mentor->name }} </p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Địa chỉ</label>
                         <div class="col-lg-9 col-xl-6">
-                            <input value="{{$mentor->address}}" required name="address" class="form-control form-control-lg form-control-solid"
-                                type="text" />
+                            <input value="{{ $mentor->address }}" required name="address"
+                                class="form-control form-control-lg form-control-solid" type="text" />
                             <span class="form-text text-muted">Ghi rõ địa chỉ hiện đang sinh sống.</span>
                         </div>
                     </div>
@@ -83,8 +91,8 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Trình độ học vấn</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <input value="{{$mentor->educations}}" required name="educations" type="text"
-                                    class="form-control form-control-lg form-control-solid" />
+                                <p class="form-control form-control-lg form-control-solid">{{ $mentor->educations }}</p>
+
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
                                 </div>
@@ -95,8 +103,9 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Kinh nghiệm</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <input required value="{{$mentor->years_in_experience}}" name="years_in_experience" type="text"
-                                    class="form-control form-control-lg form-control-solid" />
+                                <p class="form-control form-control-lg form-control-solid">
+                                    {{ $mentor->years_in_experience }}</p>
+
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
                                 </div>
@@ -107,7 +116,7 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Bản thân</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <input value="{{$mentor->about_me}}" required name="about_me" type="text"
+                                <input value="{{ $mentor->about_me }}" required name="about_me" type="text"
                                     class="form-control form-control-lg form-control-solid" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
@@ -119,8 +128,8 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Ngôn ngữ lập trình</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <input required value="{{$mentor->skills}}" name="skills" type="text"
-                                    class="form-control form-control-lg form-control-solid" />
+                                <p class="form-control form-control-lg form-control-solid">{{ $mentor->skills }}" </p>
+
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
                                 </div>
@@ -142,7 +151,7 @@
                                         <i class="la la-phone"></i>
                                     </span>
                                 </div>
-                                <input required value="{{$mentor->number_phone}}" name="number_phone" type="number"
+                                <input required value="{{ $mentor->number_phone }}" name="number_phone" type="number"
                                     class="form-control form-control-lg form-control-solid" placeholder="Phone" />
                             </div>
                             <span class="form-text text-muted">Chúng tôi sẽ đảm bảo thông tin của bạn được bảo mật an toàn
@@ -158,8 +167,9 @@
                                         <i class="la la-at"></i>
                                     </span>
                                 </div>
-                                <input required value="{{$mentor->social_networks}}" name="social_networks" type="text"
-                                    class="form-control form-control-lg form-control-solid" placeholder="facebook" />
+                                <input required value="{{ $mentor->social_networks }}" name="social_networks"
+                                    type="text" class="form-control form-control-lg form-control-solid"
+                                    placeholder="facebook" />
                             </div>
                         </div>
                     </div>

@@ -75,7 +75,7 @@
                                     <th>Tên bài học</th>
                                     <th>Nội dung</th>
                                     <th>Video</th>
-                                    <th>Công khai</th>
+                                    {{-- <th>Công khai</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,7 +89,7 @@
                                                 onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
                                                 video</button>
                                         </td>
-                                        <th>
+                                        {{-- <th>
                                             @if ($lesson->lessonVideo->is_demo == 1)
                                                 <span class="label label-lg label-light-success label-inline">Học
                                                     thử</span>
@@ -97,7 +97,7 @@
                                                 <span class="label label-lg label-light-danger label-inline">Không học
                                                     thử</span>
                                             @endif
-                                        </th>
+                                        </th> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

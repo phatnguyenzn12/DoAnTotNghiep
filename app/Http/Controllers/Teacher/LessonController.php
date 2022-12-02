@@ -78,6 +78,21 @@ class LessonController extends Controller
         $data = view('components.teacher.modal.lesson.edit', compact('lesson'))->render();
         return response()->json($data, 200);
     }
+    public function detail(Request $request, Lesson $lesson)
+    {
+        $data = view('components.teacher.modal.lesson.detail', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
+    // public function request(Request $request, Lesson $lesson)
+    // {
+    //     $a =  ;
+    //     Mail::send('screens.email.teacher.lessonLead', compact('chapter'), function ($email) use ($chapter) {
+    //         $email->subject('Duyệt bài học');
+    //         $email->to($chapter->course->mentor->email, $chapter->course->mentor->name);
+    //     });
+    //     $data = view('components.teacher.modal.lesson.detail', compact('lesson'))->render();
+    //     return response()->json($data, 200);
+    // }
 
     public function showSort(Chapter $chapter)
     {
