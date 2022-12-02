@@ -41,7 +41,8 @@
                                 <span class="text-dark-75">Tên</span>
                             </th>
                             <th style="min-width: 100px">Chuyên ngành</th>
-                            <th style="min-width: 100px">Giáo dục</th>
+                            {{-- <th style="min-width: 100px">Giáo dục</th> --}}
+                            <th style="min-width: 100px">Số điểm</th>
                             <th style="min-width: 150px">Giới thiệu</th>
                             <th style="min-width: 120px">Trạng thái</th>
                             <td style="min-width: 120px">Kích hoạt</td>
@@ -72,13 +73,14 @@
                                             {{ $specialize->title }}
                                         @endforeach
                                     </span>
-                                    <span class="text-muted font-weight-bold">{{ $db->skills }}</span>
+                                    {{-- <span class="text-muted font-weight-bold">{{ $db->skills }}</span> --}}
                                 </td>
-                                <td>
+                                <td>{{$db->point}}</td>
+                                {{-- <td>
                                     <span
                                         class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->educations }}</span>
                                     <span class="text-muted font-weight-bold">{{ $db->years_in_experience }} năm</span>
-                                </td>
+                                </td> --}}
                                 <td>
                                     <span
                                         class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->number_phone }}</span>

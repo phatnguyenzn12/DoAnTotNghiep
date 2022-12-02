@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Mail;
 
 class LessonController extends Controller
 {
+    // public function list($id)
+    // {
+    //     $lessons = Lesson::with('chapter')->orderBy('id', 'DESC')->paginate(10);
+
+    // //    $lesson = Lesson::where('chapter_id',$id)->get();
+    //    $chapter = Chapter::where('id',$id)->first();
+    //    return view('screens.mentor.lesson.list-lesson', compact('lessons','chapter'));
+    // }
+    // public function create(Request $course_id)
+    // {
+    //     $chapters = Chapter::where('course_id', $course_id->course)->get();
+    //     $data = view('components.mentor.course.modal.lesson.add', compact('chapters'))->render();
+    //     return response()->json($data, 200);
+
+
 
     public function index()
     {
@@ -93,8 +108,8 @@ class LessonController extends Controller
         else {
             echo '<br> đủ';
         }
-        
-        
+
+
         // return redirect()->route('mentor.lesson.list', $lesson->chapter_id)->with('success', 'Cập nhập thành công');
     }
 }

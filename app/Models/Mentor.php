@@ -21,7 +21,7 @@ class Mentor extends Authenticatable
      */
     protected $table = 'mentors';
     protected $guard = 'mentor';
-    
+
     protected $fillable = [
         'id',
         'name',
@@ -31,6 +31,7 @@ class Mentor extends Authenticatable
         'number_phone',
         'is_active',
         'address',
+        'cate_course_id',
         'social_networks',
         'educations',
         'specialize_id',

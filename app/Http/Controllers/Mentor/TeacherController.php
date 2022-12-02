@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Models\CateCourse;
 use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Models\Skill;
@@ -21,6 +22,8 @@ class TeacherController extends Controller
 
     public function create(Request $request)
     {
+        $cateCourses= CateCourse::all();
+        // dd($cateCourses);
         $skills = Skill::all();
         $specializes = Specialize::all();
         if ($request->isMethod('post')) {
@@ -47,7 +50,7 @@ class TeacherController extends Controller
                 ->route('mentor.teacher.index')
                 ->with('success', 'Thêm giảng viên thành công');
         }
-        return view('screens.mentor.teacher.create',compact('skills','specializes'));
+        return view('screens.mentor.teacher.create',compact('skills','specializes', 'cateCourses'));
     }
 
     public function actived($id)

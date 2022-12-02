@@ -35,6 +35,16 @@
                                     placeholder="+543 5445 0543">
                             </div>
                             <div class="form-group">
+                                <label>Danh mục</label>
+                                <select name="cate_course_id" id="select2" class="form-control">
+                                    <option value="">--.--</option>
+                                        @foreach ($cateCourses as $cateCourse)
+                                            <option value="{{ $cateCourse->id }}">{{ $cateCourse->name }}</option>
+                                        @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Chuyên môn</label>
                                 <select id="select2" class="form-control" name="specialize_id" id="">
                                     <option value="">Chọn chuyên môn</option>
