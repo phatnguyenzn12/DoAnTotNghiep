@@ -2,26 +2,30 @@
 
 @section('title', 'Trang danh sách người dùng')
 @section('content')
-<style>
-    .deadline ul {
-      list-style: none;
-    }
-    .deadline ul ul {
-      display: none;
-    }
-    .deadline ul li input{
-        color: #f1cd39;
-        background-color: #e93838;
-        border:none;
-        border-radius: 10px
-    }
-    .deadline ul li a:hover{
-        color: #e93838;
-    }
-    .deadline ul li:hover > ul {
-      display: block;
-    }
-  </style>
+    <style>
+        .deadline ul {
+            list-style: none;
+        }
+
+        .deadline ul ul {
+            display: none;
+        }
+
+        .deadline ul li input {
+            color: #f1cd39;
+            background-color: #e93838;
+            border: none;
+            border-radius: 10px
+        }
+
+        .deadline ul li a:hover {
+            color: #e93838;
+        }
+
+        .deadline ul li:hover>ul {
+            display: block;
+        }
+    </style>
     <div class="row">
         <div class="col-md-12">
             <div class="card card-custom gutter-b">
@@ -77,27 +81,25 @@
                                         | Deadline: {{ $chapter->deadline }}
                                     </h5>
                                     @if ($chapter->deadline > now())
-                                    <nav class="deadline">
-                                    <ul>
-                                        <li>
-                                          <input
-                                            style="backround-color: red;"
-                                            type="button"
-                                            value="Quá hạn"
-                                            name="nav_button"
-                                            id="nav_button"
-                                          />
-                                          <ul>
-                                            <li><a onclick="alert('Đã trừ 5 điểm')" href="">Trừ 5 điểm</a></li>
-                                            <li><a href=""> Gia hạn thêm</a></li>
-                                            <li><a href="">Giao cho gv khác</a></li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </nav>
+                                        <nav class="deadline">
+                                            <ul>
+                                                <li>
+                                                    <input style="backround-color: red;" type="button" value="Quá hạn"
+                                                        name="nav_button" id="nav_button" />
+                                                    <ul>
+                                                        <li><a onclick="alert('Đã trừ 5 điểm')" href="">Trừ 5
+                                                                điểm</a></li>
+                                                        <li><a href=""> Gia hạn thêm</a></li>
+                                                        <li><a href="">Giao cho gv khác</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     @endif
                                     {{-- <button onclick="alert('Đã trừ 5 điểm')">
-                                        @for ($i = auth()->guard('mentor')->user()->point; $i <= 100; $i++)
+                                        @for ($i = auth()->guard('mentor')->user()->point;
+    $i <= 100;
+    $i++)
                                             trừ 5 điểm, tổng bằng: {{ $i - 5 }}
                                         @endfor
                                     </button>
