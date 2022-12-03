@@ -7,7 +7,7 @@ use Omnipay\Omnipay;
 
 class VnPayService
 {
-    public static function create(Request $request,$order_code,$total_price)
+    public static function create(Request $request,$order_code,$total_price,$bank)
     {
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://127.0.0.1:8000/order/return-data-vnpay";
@@ -19,7 +19,7 @@ class VnPayService
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $total_price * 100;
         $vnp_Locale = 'vn';
-        $vnp_BankCode = 'NCB';
+        $vnp_BankCode = $bank;
         $vnp_IpAddr = request()->ip();
 
         $inputData = array(

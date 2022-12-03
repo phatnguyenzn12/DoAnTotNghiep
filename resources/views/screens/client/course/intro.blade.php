@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- =======================
-                                                                                                                                Page content START -->
+                                                                                                                                    Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -114,35 +114,30 @@
                                                 <!-- Curriculum item -->
                                                 <h5 class="mb-4">{{ $chapter->title }} (3 lectures)</h5>
                                                 @foreach ($chapter->lessons as $key2 => $lesson)
-                                                    @if ($lesson->lessonVideo->is_check != 0 )
-                                                        <div
-                                                            class="d-sm-flex justify-content-sm-between align-items-center">
-                                                            <div class="d-flex">
-                                                                <a href="#"
-                                                                    class="btn btn-danger-soft btn-round mb-0"><i
-                                                                        class="fas fa-play"></i></a>
-                                                                <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
-                                                                    <h6 class="mb-0">{{ $lesson->title }}</h6>
-                                                                    <p class="mb-2 mb-sm-0 small"> {{ $lesson->time }}</p>
-                                                                </div>
+                                                    <div class="d-sm-flex justify-content-sm-between align-items-center">
+                                                        <div class="d-flex">
+                                                            <a href="#" class="btn btn-danger-soft btn-round mb-0"><i
+                                                                    class="fas fa-play"></i></a>
+                                                            <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
+                                                                <h6 class="mb-0">{{ $lesson->title }}</h6>
+                                                                <p class="mb-2 mb-sm-0 small"> {{ $lesson->time }}</p>
                                                             </div>
-                                                            <!-- Button -->
-                                                            @if ($lesson->lessonVideo->is_demo == 1)
-                                                                <a class="btn btn-sm btn-success mb-0" data-toggle="modal"
-                                                                    data-bs-target="#modal-example"data-bs-toggle="modal"
-                                                                    data-bs-target="#viewReview"
-                                                                    onclick="showAjaxModal('{{ route('client.course.lesson', $lesson->id) }}','Xem thử video')">Xem
-                                                                    thử</a>
-                                                            @else
-                                                                <a href="#" @disabled(true)
-                                                                    class="btn btn-sm btn-orange mb-0">Mua khóa
-                                                                    học</a>
-                                                            @endif
                                                         </div>
-                                                        <!-- Divider -->
-                                                        <hr>
-                                                    @else
-                                                    @endif
+                                                        <!-- Button -->
+                                                        @if ($lesson->is_demo == 1)
+                                                            <a class="btn btn-sm btn-success mb-0" data-toggle="modal"
+                                                                data-bs-target="#modal-example"data-bs-toggle="modal"
+                                                                data-bs-target="#viewReview"
+                                                                onclick="showAjaxModal('{{ route('client.course.lesson', $lesson->id) }}','Xem thử video')">Xem
+                                                                thử</a>
+                                                        @else
+                                                            <a href="#" @disabled(true)
+                                                                class="btn btn-sm btn-orange mb-0">Mua khóa
+                                                                học</a>
+                                                        @endif
+                                                    </div>
+                                                    <!-- Divider -->
+                                                    <hr>
                                                 @endforeach
                                             </div>
                                             <!-- Lecture item END -->
@@ -212,7 +207,7 @@
                                     <div class="mt-3 d-grid">
                                         @if (auth()->user())
                                             @if ($course->users()->get()->contains(auth()->user()->id) && auth()->user())
-                                                <a href="{{ route('client.lesson.index',$course->id) }}"
+                                                <a href="{{ route('client.lesson.index',  $course->id) }}"
                                                     class="btn btn-success">
                                                     Vào học
                                                 </a>

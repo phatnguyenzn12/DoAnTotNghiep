@@ -14,17 +14,16 @@ class Lesson extends Model
         'title',
         'content',
         'lesson_type',
-        'attachment',
         'time',
         'sort',
-        'deadline',
-        'is_edit',
+        'chapter_id',
+        'is_demo',
         'is_check',
-        'chapter_id'
+        'is_edit'
     ];
 
     protected $appends = [
-        'time_edited'
+        'time_edited','demo','active'
     ];
 
     public function lessonVideo()
@@ -34,7 +33,7 @@ class Lesson extends Model
 
     public function lesson_user()
     {
-        return $this->belongsToMany(User::class,LessonUser::class);
+        return $this->belongsToMany(User::class, LessonUser::class);
     }
 
     public function commentLessons()
@@ -51,6 +50,7 @@ class Lesson extends Model
     {
         return $this->belongsTo(Mentor::class);
     }
+
     public function getDemoAttribute()
     {
         if ($this->is_demo == 1) {
@@ -59,6 +59,7 @@ class Lesson extends Model
             return "Không công khai";
         }
     }
+
     public function getActiveAttribute()
     {
         if ($this->is_check == 1) {
@@ -67,27 +68,6 @@ class Lesson extends Model
             return "Cần sửa lại";
         } else {
             return "Video chưa được duyệt";
-        }
-    }
-    public function getEditAttribute()
-    {
-        if ($this->is_check == 1) {
-            return "Đã được duyệt";
-        } elseif ($this->is_check == 2) {
-            return "Cần sửa lại";
-        } else {
-            return "Video chưa được duyệt";
-        }
-    }
-
-    public function getVideoAttribute()
-    {
-        $vdeo = DB::table('LessonVideo')->get();
-        if($vdeo->video_path == 0){
-            return "Video chưa upload";
-        }
-        else{
-            return "Video upload";
         }
     }
 }

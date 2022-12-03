@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Course;
+use App\Models\Mentor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Ramsey\Uuid\Type\Integer;
 
@@ -18,10 +19,11 @@ class CertificateFactory extends Factory
      */
     public function definition()
     {
+        static $course = 1;
         return [
             'title' => fake()->title(),
-            'description' => fake()->text(50),
-            'course_id' => fake()->randomNumber(),
+            'description' => fake()->text(200),
+            'course_id' => ++$course,
         ];
     }
 }

@@ -11,7 +11,6 @@ class CommentLesson extends Model
     protected $table = 'comment_lessons';
     protected $fillable = [
         'comment',
-        // 'vote',
         'image',
         'reply',
         'status',
@@ -20,13 +19,48 @@ class CommentLesson extends Model
         'user_id',
     ];
 
-    public function user() {
+    protected $appends = [
+        'info','role'
+    ];
+
+    public function user()
+    {
         return $this->belongsTo(User::class,'user_id','id');
     }
-    public function lesson(){
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class,'mentor_id','id');
+    }
+    public function lesson()
+    {
         return $this->belongsTo(Lesson::class,'lesson_id','id');
     }
-    // public function mentor(){
-    //     return $this->belongsTo(Mentor::class,'mentor_id','id');
-    // }
+    public function replies()
+    {
+        return $this->hasMany(CommentLesson::class,'reply');
+    }
+
+    public function reply_parent()
+    {
+        return $this->belongsTo(CommentLesson::class,'reply');
+    }
+
+    public function getInfoAttribute()
+    {
+        if($this->user){
+            return $this->user;
+        }
+
+        return $this->mentor;
+    }
+
+    public function getRoleAttribute()
+    {
+        if($this->user){
+            return "Người dùng" ;
+        }
+
+        return "Giảng viên";
+    }
+
 }

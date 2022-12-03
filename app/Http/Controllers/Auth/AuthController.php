@@ -36,7 +36,7 @@ class AuthController extends Controller
         } else {
             return redirect()->route('auth.login')->with('failed', 'bạn đăng nhập thất bại');
         }
-    }
+    }   
 
     public function register(Request $request)
     {

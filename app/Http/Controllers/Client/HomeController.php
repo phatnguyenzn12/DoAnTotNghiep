@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $cate = CateCourse::all();
 
-        $coursesAll = Course::select('*')->get();
+        $coursesAll = Course::select('*')->where('status',1)->get();
 
         $mentorAll = Mentor::select('*')->get();
 

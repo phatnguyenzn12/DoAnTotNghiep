@@ -44,7 +44,6 @@ class OrderController extends Controller
 
     public function pay()
     {
-
         $courses = auth()->user()->load('carts')->carts;
         return view('screens.client.order.pay', compact('courses'));
     }
@@ -78,7 +77,7 @@ class OrderController extends Controller
 
         // Cookie::queue('courses', json_encode($courses->toArray()), 3600 * 1000);
 
-        VnPayService::create($request, $code, $total_price);
+        VnPayService::create($request, $code, $total_price,$request->bank);
     }
 
     public function resDataVnpay()

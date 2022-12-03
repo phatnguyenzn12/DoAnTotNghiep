@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class notifications extends Notification
+class Notifications extends Notification
 {
     use Queueable;
 
@@ -17,13 +17,9 @@ class notifications extends Notification
      * @return void
      */
 
-    public function __construct($lesson_id, $course_id, $name, $user_id  )
+    public function __construct($post)
     {
-        $this->name=$name;
-        $this->lesson_id=$lesson_id;
-        $this->course_id=$course_id;
-        $this->user_id=$user_id;
-
+        $this->post = $post;
     }
 
     /**
@@ -46,9 +42,9 @@ class notifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -59,11 +55,6 @@ class notifications extends Notification
      */
     public function toArray($notifiable)
     {
-        return[
-            'name'=> $this->name,
-            'lesson_id'=> $this->lesson_id,
-            'course_id'=> $this->course_id,
-            'user_id'=> $this->user_id,
-         ];
+        return $this->post->toArray();
     }
 }

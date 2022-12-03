@@ -22,7 +22,7 @@
                             <div class="col-auto mt-4 mt-md-0">
                                 <div class="avatar avatar-xxl mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                    src="{{asset('app/'.Auth::user()->avatar)}}">
+                                    src="/frontend/asset/{{Auth::user()->avatar}}">
                                 </div>
                             </div>
                             <!-- Profile info -->
@@ -91,7 +91,7 @@
                                     <a class="list-group-item" href={{ route('client.account.myCourse') }}><i
                                             class="bi bi-ui-checks-grid fa-fw me-2"></i>Khóa học của tôi</a>
                                     <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
-                                            class="bi bi-pencil-square fa-fw me-2"></i>Chỉnh sửa thông tin cá nhân</a>
+                                            class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
                                     <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i
                                             class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                 </div>

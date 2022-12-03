@@ -29,7 +29,7 @@ class Course extends BaseModel
     ];
 
     protected $appends = [
-        'current_price', 'active', 'language_rule', 'total_time','progress'
+        'current_price', 'active', 'language_rule', 'total_time','progress','number_lessons_complete'
     ];
 
     ////////////////////////////////////////////////////////////////
@@ -100,10 +100,10 @@ class Course extends BaseModel
             return 0;
         }
         $time =  $this->lessons()
-            ->selectRaw("TIME_FORMAT(SUM(SEC_TO_TIME(time)), '%H %I %S') AS time_total")
+            ->selectRaw("TIME_FORMAT(SUM(SEC_TO_TIME(time)), '%H') AS time_total")
             ->first()
             ->time_total;
-
+            
         $arr = ['h','m','s'];
 
         $time = collect(explode(' ', $time))
@@ -112,7 +112,7 @@ class Course extends BaseModel
                     return $val.''.$arr[$index];
                 }
             )->implode(' ');
-
+        
         return $time;
     }
 
@@ -149,6 +149,16 @@ class Course extends BaseModel
                                     ->count();
         $progress = ($totalLesson > 0) ? ($totalHistory/$totalLesson)*100 : 0;
         return round($progress, 2, PHP_ROUND_HALF_DOWN);
+    }
+
+    public function getNumberLessonsCompleteAttribute()
+    {
+        if(!auth()->user()->courses->contains($this->id)) return null;
+        $totalLesson = LessonUser::where('course_id', $this->id)
+        ->where('user_id', auth()->user()->id)
+        ->count();
+
+        return $totalLesson;
     }
 
 }
