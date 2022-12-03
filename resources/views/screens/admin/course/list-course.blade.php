@@ -131,10 +131,10 @@
                                             </div>
 
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Giấy chứng nhận</span>
-                                                <span
-                                                    class="text-success font-weight-bolder">{{ $course->certificate != null ? 'có giấy chứng nhận' : ' không Có giấy chứng nhận' }}</span>
-                                            </div>
+                                                <span class="text-dark-75 mr-2" href="">giấy chứng nhận</span>
+                                                <a class="text-success font-weight-bolder" href="{{route('admin.course.create', ['id' => $course->id ])}}">thêm chứng chỉ</a>
+                                            </div>    
+                                            
 
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-dark-75 mr-2">tags</span>

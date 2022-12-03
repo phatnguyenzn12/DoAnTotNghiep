@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CateCourse;
+use App\Models\Certificate;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Skill;
@@ -38,18 +39,53 @@ class CourseController extends Controller
         $skills = Skill::select('id', 'title')->get();
         $course = Course::findOrFail($id);
         $cateCourses = CateCourse::select('id', 'name')->get();
-
         return view('screens.admin.course.edit-course', compact('course', 'cateCourses', 'id', 'skills'));
     }
 
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Course $course, Certificate $certificate)
     {
         $course->price = $request->price;
         $course->discount = $request->discount;
         $course->save();
-
+        dd($course, $certificate);
         return redirect()
             ->back()
             ->with('success', 'Sửa khóa học thành công');
     }
+
+    public function create($id){
+        // dd($id);
+        
+        return view('screens.admin.certificate.create', compact('id'));
+    }
+
+    public function store(Request $request, $id)
+    {
+        
+        $certificate = Certificate::updateOrCreate([
+            'title' => $request->title,
+            'description' => $request->description,
+            'course_id' => $id
+        ]);
+
+        // $certificate->unique('course_id')->each(function(Course $course){$course->save();});
+        return redirect()->route('admin.course.index')->with('success', 'Thêm mới thành công');
+    }
+    
+    // public function create(Request $course_id){
+    //     $certificates = Certificate::where('course_id', $course_id->course)->get();
+    //     return view('screens.admin.certificate.create', compact('certificates','course_id'));
+    // }
+
+    // public function store(Request $request)
+    // {
+    //     Certificate::create(
+    //         $request->all()
+    //     );
+    //     return redirect()
+    //         ->back()
+    //         ->route('admin.course.index')
+    //         ->with('success', 'Thêm bài học thành công');
+    // }
+
 }

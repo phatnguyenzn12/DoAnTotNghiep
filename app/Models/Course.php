@@ -41,7 +41,7 @@ class Course extends BaseModel
 
     public function certificate()
     {
-        return $this->belongsTo(Certificate::class);
+        return $this->hasOne(Certificate::class, 'course_id', 'id');
     }
 
     public function commentCourses()
