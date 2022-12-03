@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Ramsey\Uuid\Type\Integer;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Certificate>
@@ -20,7 +21,7 @@ class CertificateFactory extends Factory
         return [
             'title' => fake()->title(),
             'description' => fake()->text(50),
-            'course_id' => rand(1,5),
+            'course_id' => fake()->randomNumber(),
         ];
     }
 }

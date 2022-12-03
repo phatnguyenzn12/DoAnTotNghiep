@@ -9,7 +9,7 @@ use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Skill;
 use Illuminate\Http\Request;
-
+use Symfony\Component\Console\Input\Input;
 
 class CourseController extends Controller
 {
@@ -61,14 +61,18 @@ class CourseController extends Controller
 
     public function store(Request $request, $id)
     {
-        
-        $certificate = Certificate::updateOrCreate([
+        if(Certificate::where('course_id', $id)->doesntExist()){
+            Certificate::create([
             'title' => $request->title,
             'description' => $request->description,
             'course_id' => $id
         ]);
-
-        // $certificate->unique('course_id')->each(function(Course $course){$course->save();});
+        }
+        // Certificate::updateOrCreate([
+        //     'title' => $request->title,
+        //     'description' => $request->description],
+        //     ['course_id' => $id
+        // ]);
         return redirect()->route('admin.course.index')->with('success', 'Thêm mới thành công');
     }
     
