@@ -53,11 +53,10 @@ class CourseController extends Controller
     }
     public function create()
     {
-        $certificates = auth()->guard('mentor')->user()->load('certificates')->certificates()->get();
         $cateCourses = CateCourse::select('id', 'name')->get();
         $skills = Skill::select('id', 'title')->get();
 
-        return view('screens.mentor.course.create', compact('cateCourses', 'skills', 'certificates'));
+        return view('screens.mentor.course.create', compact('cateCourses', 'skills'));
     }
 
     public function store(Request $request)

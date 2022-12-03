@@ -16,17 +16,12 @@ class CateCourseController extends Controller
         $cate = CateCourse::all() ;
         return view('screens.admin.catecourse.list', compact('cate'));
     }
-    // public  function listdelete()
-    // {
-    //     $cate = CateCourse::where('type','!=' ,0)->get();
-    //    // $course = Course::where('type','!=' ,0)->get(); 
-    //     return view('components.admin.catecourse.listdelete', compact('course','cate'));
-    // }
+     
     public function create()
     {
-
         return view('components.admin.catecourse.create');
     }
+
     public function store(Request $request)
     {
         $cate = new CateCourse();
@@ -49,24 +44,15 @@ class CateCourseController extends Controller
         return redirect()->route('admin.cate-course.index')->with('success','sửa thành công');
 
     }
-    // public function destroy1($id)
-    // {
-    //     $data =CateCourse::destroy($id);
-    //     DB::table('courses')->where('cate_course_id', $id)->delete();
-    //     return redirect()->back();
-    // }
+     
     public function destroy($id)
     {
         //dd(catecourse::max('id'));
-        $a = CateCourse::create(['name'=>'Cate-course-'.catecourse::max('id')]);
-        $b = Course::where('cate_course_id',$id)->update(['cate_course_id'=>$a->id]);
+        $cate = CateCourse::find($id);
+        
+        $cate->delete();
+
         return redirect()->back();
     }
-    public function restore( Request $request, $id)
-    {
-      //  dd($request->all());
-        $model = new CateCourse();
-        $res = $model->restore($id,$request->input('cate_course_id'));
-        return redirect()->back();
-    }
+   
 }

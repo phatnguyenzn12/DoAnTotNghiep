@@ -21,6 +21,7 @@ use App\Models\OwnerCourse;
 use App\Models\Skill;
 use App\Models\Specialize;
 use App\Models\User;
+use App\Models\UserCertificate;
 use Database\Factories\CensorFactory;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -57,6 +58,7 @@ class BaseSeeder extends Seeder
         Specialize::factory(3)->create();
         Skill::factory(3)->create();
         Certificate::factory(10)->create();
+        UserCertificate::factory(10)->create();
         Course::factory(10)->create();
         Chapter::factory(100)->create();
         Lesson::factory(100)->create();
@@ -64,10 +66,8 @@ class BaseSeeder extends Seeder
             if($lesson->lesson_type == 'video') {
                 LessonVideo::create(
                     [
-                        // 'is_demo' => rand(0,1),
                         'video_path' => '775480738',
                         'lesson_id' => $lesson->id,
-                       // 'is_check' => 1,
                     ]
                 );
             }

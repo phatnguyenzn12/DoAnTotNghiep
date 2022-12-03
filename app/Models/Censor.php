@@ -102,4 +102,9 @@ class Censor extends Authenticatable
         $res = DB::table($this->table)->where('id', $params['cols']['id'])->update($dataUpdate);
         return $res;
     }
+ 
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

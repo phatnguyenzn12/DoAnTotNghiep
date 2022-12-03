@@ -109,18 +109,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Khoá học có chứng chỉ</label>
-                            <select name="certificate_id" id="select2" class="form-control">
-                                <option value="">Chọn chứng chỉ</option>
-                                <optgroup label="">
-                                    @foreach ($certificates as $certificate)
-                                        <option @selected($course->certificate->id == $certificate->id ? true : false) value="{{ $certificate->id }}">
-                                            {{ $certificate->title }}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </div>
+                        
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>

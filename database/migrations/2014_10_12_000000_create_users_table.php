@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('about_me');
             $table->string('education');
             $table->string('location');
+            $table->unsignedBigInteger('certificate_id');
             $table->rememberToken();
             $table->timestamps();
         });
