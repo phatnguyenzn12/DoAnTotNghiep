@@ -64,10 +64,10 @@ class BaseSeeder extends Seeder
             if($lesson->lesson_type == 'video') {
                 LessonVideo::create(
                     [
-                        'is_demo' => rand(0,1),
+                        // 'is_demo' => rand(0,1),
                         'video_path' => '775480738',
                         'lesson_id' => $lesson->id,
-                        'is_check' => 1,
+                       // 'is_check' => 1,
                     ]
                 );
             }
