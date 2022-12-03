@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Course;
 use App\Models\Mentor;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Ramsey\Uuid\Type\Integer;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Certificate>

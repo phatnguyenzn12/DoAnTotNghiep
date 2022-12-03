@@ -14,8 +14,9 @@ class Chapter extends Model
         'sort',
         'mentor_id',
         'title',
+       'deadline',
         'course_id',
-        'deadline'
+        'deadline',
     ];
 
     public function lessons()

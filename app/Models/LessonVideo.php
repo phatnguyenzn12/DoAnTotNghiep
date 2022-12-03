@@ -15,8 +15,7 @@ class LessonVideo extends Model
     ];
 
     protected $append = [
-        'active'
+        'active', 'video',
     ];
 
-   
 }

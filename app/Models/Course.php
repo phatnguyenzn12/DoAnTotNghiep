@@ -41,7 +41,7 @@ class Course extends BaseModel
 
     public function certificate()
     {
-        return $this->belongsTo(Certificate::class);
+        return $this->hasOne(Certificate::class, 'course_id', 'id');
     }
 
     public function commentCourses()
@@ -82,6 +82,11 @@ class Course extends BaseModel
     public function mentor()
     {
         return $this->belongsTo(Mentor::class);
+    }
+
+    public function censor()
+    {
+        return $this->belongsTo(Censor::class);
     }
 
     public function skill()

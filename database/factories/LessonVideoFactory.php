@@ -22,8 +22,6 @@ class LessonVideoFactory extends Factory
         return [
             'video_path' => 'https://www.youtube.com/watch?v=oQjcJBGIFsA',
             'lesson_id' => $lesson_id,
-          //  'is_demo' => rand(0),
-           // 'is_check' => 1,
         ];
     }
 }

@@ -23,6 +23,7 @@
                         </ul>
                     </div>
                 </div>
+                
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="{{ route('admin.course.update', $id) }}">
                         @csrf
@@ -39,6 +40,8 @@
                             <input value="{{ $course->discount }}" type="text" name="discount" class="form-control"
                                 placeholder="Video demo">
                         </div>
+                        
+                        
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                         </div>

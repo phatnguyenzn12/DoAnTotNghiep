@@ -26,8 +26,7 @@ return new class extends Migration
             $table->string('social_networks')->nullable();
             $table->string('educations')->nullable();
             $table->integer('point')->default(100); //Không sửa thằng này
-            $table->unsignedBigInteger('course_id')->nullable();
-            $table->unsignedBigInteger('group_id')->nullable();
+            $table->unsignedBigInteger('cate_course_id')->nullable();
             $table->string('skills')->nullable();
             $table->integer('years_in_experience')->nullable();
             $table->unsignedBigInteger('specialize_id')->nullable();

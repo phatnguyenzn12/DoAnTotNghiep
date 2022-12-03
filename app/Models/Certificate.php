@@ -12,6 +12,13 @@ class Certificate extends Model
     protected $fillable =[
         'title',
         'description',
+        'image',
+        'mentor_id',
         'course_id'
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
