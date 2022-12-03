@@ -29,7 +29,7 @@ class LessonFactory extends Factory
             //  'sort' =>  $number++,
             'time' => '00:01:00',
             'chapter_id' => rand(1, 20),
-            'is_check' => ''
+            'is_check' => 1
         ];
     }
 }

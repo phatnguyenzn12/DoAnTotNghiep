@@ -19,13 +19,11 @@ class CommentLessonFactory extends Factory
      */
     public function definition()
     {
-        $lesson = Lesson::all()->random();
         $user = User::all()->random();
         return [
             'comment' => fake()->name(30),
-            'reply' => rand(0,1000),          //rand(0,100)
-            'status' => '1',
-            'lesson_id' => $lesson->id,
+            'reply' => rand(0, 10),          //rand(0,100)
+            'lesson_id' => 6,
             'user_id' => $user->id,
         ];
     }

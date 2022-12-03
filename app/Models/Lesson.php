@@ -22,7 +22,7 @@ class Lesson extends Model
     ];
 
     protected $appends = [
-        'time_edited'
+        'time_edited','demo','active'
     ];
 
     public function lessonVideo()
@@ -56,6 +56,17 @@ class Lesson extends Model
             return "Công khai";
         } else {
             return "Không công khai";
+        }
+    }
+
+    public function getActiveAttribute()
+    {
+        if ($this->is_check == 1) {
+            return "Đã được duyệt";
+        } elseif ($this->is_check == 2) {
+            return "Cần sửa lại";
+        } else {
+            return "Video chưa được duyệt";
         }
     }
 }

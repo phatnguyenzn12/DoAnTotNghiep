@@ -8,6 +8,9 @@ Route::prefix('lesson')->name('client.lesson.')->controller(LessonController::cl
     function () {
         Route::get('exercise/{course}', 'index')->name('index');
         Route::get('exercise-lesson/{course}/{lesson}', 'show')->name('show');
+        Route::get('comment-details/{comment_lesson}', 'commentDetails')->name('commentdetails');
+        Route::post('comment-parent-add/{lesson}', 'parentComment')->name('parentComment');
+        Route::post('comment-child-add/{comment_parent}', 'childComment')->name('childComment');
     }
 );
 

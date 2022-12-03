@@ -41,7 +41,6 @@ class CourseFactory extends Factory
             'description_details' => fake()->text(30) . ',' . fake()->text(30) . ',' . fake()->text(30),
             'tags' => 'php,laravel,java',
             'type' => rand(0, 1),
-            'certificate_id' => $certificate->id
         ];
     }
 }
