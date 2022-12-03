@@ -84,6 +84,11 @@ class Course extends BaseModel
         return $this->belongsTo(Mentor::class);
     }
 
+    public function censor()
+    {
+        return $this->belongsTo(Censor::class);
+    }
+
     public function skill()
     {
         return $this->belongsTo(Skill::class);

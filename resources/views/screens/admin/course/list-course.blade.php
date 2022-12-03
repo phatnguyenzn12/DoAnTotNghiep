@@ -97,9 +97,14 @@
                                         <!--begin::Info-->
                                         <div class="mb-7 p-3">
                                             <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">giảng viên</span>
+                                                <span
+                                                    class="text-dark font-weight-bolder text-hover-primary">{{ $mentor->name }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-dark-75 mr-2">Danh mục</span>
                                                 <span
-                                                    class="text-dark font-weight-bolder text-hover-primary"></span>
+                                                    class="text-dark font-weight-bolder text-hover-primary">{{ $course->cateCourse->name }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-cente my-1">
                                                 <span class="text-dark-75 mr-2">Chương học</span>
@@ -148,11 +153,7 @@
                                                     class="text-success font-weight-bolder">{{ $course->skill->title }}</span>
                                             </div>
                                             @if ($course->price != null)
-                                                    @if ($course->id != null)
                                                     <a class="btn btn-success" href="{{route('admin.course.create', ['id' => $course->id ])}}">thêm chứng chỉ</a>
-                                                    @else
-
-                                                    @endif
 
                                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                                     

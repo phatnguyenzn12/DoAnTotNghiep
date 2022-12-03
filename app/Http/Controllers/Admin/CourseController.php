@@ -7,15 +7,16 @@ use App\Models\CateCourse;
 use App\Models\Certificate;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Mentor;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Input\Input;
 
 class CourseController extends Controller
 {
-    public function index(){
+    public function index(Mentor $mentor){
         $courses = Course::paginate(40);
-        return view('screens.admin.course.list-course',compact('courses'));
+        return view('screens.admin.course.list-course',compact('courses','mentor'));
     }
 
     public function actived(Course $course,$status)
@@ -47,7 +48,6 @@ class CourseController extends Controller
         $course->price = $request->price;
         $course->discount = $request->discount;
         $course->save();
-        dd($course, $certificate);
         return redirect()
             ->back()
             ->with('success', 'Sửa khóa học thành công');
