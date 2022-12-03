@@ -14,9 +14,9 @@ use Symfony\Component\Console\Input\Input;
 
 class CourseController extends Controller
 {
-    public function index(Mentor $mentor){
+    public function index(){
         $courses = Course::paginate(40);
-        return view('screens.admin.course.list-course',compact('courses','mentor'));
+        return view('screens.admin.course.list-course',compact('courses'));
     }
 
     public function actived(Course $course,$status)
@@ -61,19 +61,23 @@ class CourseController extends Controller
 
     public function store(Request $request, $id)
     {
-        if(Certificate::where('course_id', $id)->doesntExist()){
+        // dd(Certificate::where('course_id', $id)->doesntExist() == true);
+        if(Certificate::where('course_id', $id)->doesntExist() == true){
             Certificate::create([
             'title' => $request->title,
             'description' => $request->description,
             'course_id' => $id
         ]);
+        
+        return redirect()->route('admin.course.index')->with('success', 'thêm mới thành công');
+ 
         }
         // Certificate::updateOrCreate([
         //     'title' => $request->title,
         //     'description' => $request->description],
         //     ['course_id' => $id
         // ]);
-        return redirect()->route('admin.course.index')->with('success', 'Thêm mới thành công');
+        return redirect()->route('admin.course.index')->with('success', 'đã tồn tại');
     }
     
     // public function create(Request $course_id){

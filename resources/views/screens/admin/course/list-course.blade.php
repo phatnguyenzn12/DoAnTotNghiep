@@ -99,7 +99,7 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-dark-75 mr-2">giảng viên</span>
                                                 <span
-                                                    class="text-dark font-weight-bolder text-hover-primary">{{ $mentor->name }}</span>
+                                                    class="text-dark font-weight-bolder text-hover-primary"></span>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-dark-75 mr-2">Danh mục</span>
