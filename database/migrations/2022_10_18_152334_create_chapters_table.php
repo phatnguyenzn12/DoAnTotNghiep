@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->integer('sort')->nullable();
+            $table->dateTime('deadline')->nullable();
             $table->unsignedBigInteger('mentor_id')->nullable();
             $table->unsignedBigInteger('course_id')->nullable();
             $table->timestamps();

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->string('image');
+            $table->unsignedBigInteger('mentor_id');
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
         });

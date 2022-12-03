@@ -3,28 +3,16 @@
     @csrf
     @method('PUT')
     <p class="text-danger errors system"></p>
-
+    <input type="text" name="title" value="{{ $lesson->title }}" hidden>
+    <input type="text" name="chapter_id" value="{{ $lesson->chapter_id }}" hidden>
     <div class="form-group">
-        <label>Tên bài học</label>
-        <input type="text" class="form-control" placeholder="Nhập tên bài học" name="title"
-            value="{{ $lesson->title }}">
-        <p class="text-danger errors title"></p>
+        <label hidden>Nội dung</label>
+        <textarea name="content" class="form-control" hidden placeholder="Nhập nội dung">{{ $lesson->content }}</textarea>
     </div>
     <div class="form-group">
-        <label>Chương học</label>
-        <select name="chapter_id" id="section_id" class="form-control">
-            @foreach ($chapters as $chapter)
-                <option value="{{ $chapter->id }}" @selected($chapter->id == $lesson->chapter_id ? true : '')>{{ $chapter->title }}</option>
-            @endforeach
-        </select>
-        <p class="text-danger errors section_id"></p>
+        <label>Thời lượng video</label>
+        <input type="time" class="form-control" name="time" value="{{ $lesson->time }}">
     </div>
-
-    <div class="form-group">
-        <label>Nội dung</label>
-        <textarea name="content" class="form-control" placeholder="Nhập nội dung">{{ $lesson->content }}</textarea>
-    </div>
-
     @if ($lesson->lesson_type == 'video')
         <div class="form-group" video>
             <label>Tải video lên</label>
@@ -33,15 +21,6 @@
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
             <p class="text-danger errors video_url"></p>
-        </div>
-
-        <div class="form-group">
-            <label>Cho học thử</label>
-            <select class="custom-select form-control" name="is_demo">
-                <option @selected($lesson->lessonVideo->is_demo == 0 ? true : false) value="0">Không học thử</option>
-                <option @selected($lesson->lessonVideo->is_demo == 1 ? true : false) value="1">Học thử</option>
-            </select>
-            <p class="text-danger errors"></p>
         </div>
     @else
         <div class="d-flex align-content-center justify-content-around">
@@ -94,6 +73,5 @@
         </table>
         <p class="text-danger errors quizs"></p>
     @endif
-
-    <button class="btn btn-success d-block m-auto">Cập nhật bài học</button>
+    <button class="btn btn-success d-block m-auto">Thêm mới video</button>
 </form>

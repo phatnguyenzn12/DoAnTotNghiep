@@ -24,6 +24,7 @@ use App\Models\User;
 use App\Models\UserCertificate;
 use Database\Factories\CensorFactory;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class BaseSeeder extends Seeder
 {
@@ -34,6 +35,19 @@ class BaseSeeder extends Seeder
      */
     public function run()
     {
+        Role::create(
+            [
+                'name' => 'lead',
+                'guard_name' => 'mentor',
+            ]
+        );
+        Role::create(
+            [
+                'name' => 'teacher',
+                'guard_name' => 'mentor',
+            ]
+        );
+        
         $users = User::factory()
             ->count(5)
             ->create();
@@ -47,7 +61,7 @@ class BaseSeeder extends Seeder
         UserCertificate::factory(10)->create();
         Course::factory(10)->create();
         Chapter::factory(100)->create();
-        Lesson::factory(1000)->create();
+        Lesson::factory(100)->create();
         foreach(Lesson::select('*')->get() as $lesson) {
             if($lesson->lesson_type == 'video') {
                 LessonVideo::create(
