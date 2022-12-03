@@ -11,7 +11,7 @@ class LessonVideo extends Model
     protected $table = 'lesson_videos';
     protected $fillable = [
         'video_path',
-       'lesson_id',
+        'lesson_id',
     ];
 
     protected $append = [

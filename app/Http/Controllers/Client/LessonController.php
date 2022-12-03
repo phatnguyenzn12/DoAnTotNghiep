@@ -17,9 +17,9 @@ class LessonController extends Controller
 {
     public function index(Course $course)
     {
-        $chapters = $course->load('chapters')->chapters()->get();
+        $chapters = $course->load('chapters')->chapters()->orderBy('sort')->get();
 
-        $lesson = $chapters->first()->lessons()->first();
+        $lesson = $chapters->first()->lessons()->orderBy('sort')->first();
 
         $check_course = auth()->user()->load('course_user')->course_user->where('id', $course->id)->isEmpty();
 

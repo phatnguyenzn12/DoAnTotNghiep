@@ -47,7 +47,7 @@ class BaseSeeder extends Seeder
                 'guard_name' => 'mentor',
             ]
         );
-        
+
         $users = User::factory()
             ->count(5)
             ->create();
@@ -57,9 +57,9 @@ class BaseSeeder extends Seeder
         CateCourse::factory(3)->create();
         Specialize::factory(3)->create();
         Skill::factory(3)->create();
+        Course::factory(10)->create();
         Certificate::factory(10)->create();
         UserCertificate::factory(10)->create();
-        Course::factory(10)->create();
         Chapter::factory(100)->create();
         Lesson::factory(100)->create();
         foreach(Lesson::select('*')->get() as $lesson) {
