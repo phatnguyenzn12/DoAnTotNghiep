@@ -9,7 +9,7 @@
                     <div class="card-header card-header-tabs-line">
                         <div class="card-toolbar">
                             <div class="card-title">
-                                <h3 class="card-label">Tạo mới Mentor</h3>
+                                <h3 class="card-label">Tạo mới Lead</h3>
                             </div>
                         </div>
                     </div>
@@ -35,16 +35,49 @@
                                     placeholder="+543 5445 0543">
                             </div>
                             <div class="form-group">
-                                <label>Mật khẩu
+                                <label>Địa chỉ
                                     <span class="text-danger">*</span></label>
-                                <input value="" type="password" name="password" class="form-control"
-                                    placeholder="******">
+                                <input type="text" value="" name="address" class="form-control"
+                                    placeholder="Địa chỉ">
                             </div>
                             <div class="form-group">
-                                <label>Nhậplại mật khẩu
+                                <label>Giáo dục
                                     <span class="text-danger">*</span></label>
-                                <input value="" type="password" name="re_password" class="form-control"
-                                    placeholder="******">
+                                <input type="text" value="" name="educations" class="form-control"
+                                    placeholder="Giáo dục">
+                            </div>
+                            <div class="form-group">
+                                <label>Năm kinh nghiệm
+                                    <span class="text-danger">*</span></label>
+                                <input type="number" value="" name="years_in_experience" class="form-control"
+                                    placeholder="Năm kinh nghiệm">
+                            </div>
+                            <div class="form-group">
+                                <label>Danh mục</label>
+                                <select id="select2" class="form-control" name="cate_course_id" id="">
+                                    <option value="">Chọn danh mục</option>
+                                    @foreach ($cate_courses as $cate_course)
+                                        <option value="{{ $cate_course->id }}">{{ $cate_course->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Chuyên môn</label>
+                                <select id="select2" class="form-control" name="specialize_id" id="">
+                                    <option value="">Chọn chuyên môn</option>
+                                    @foreach ($specializes as $specialize)
+                                        <option value="{{ $specialize->id }}">{{ $specialize->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Kỹ năng</label>
+                                <select id="select2" class="form-control" name="skills" id="">
+                                    <option value="">Chọn kỹ năng</option>
+                                    @foreach ($skills as $skill)
+                                        <option value="{{ $skill->id }}">{{ $skill->title }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Avatar</label>
@@ -54,10 +87,10 @@
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
-                                <a href="{{route('mentor.index')}}" class="btn btn-success mr-2">Back</a>
+                                <a href="{{ route('mentor.index') }}" class="btn btn-success mr-2">Back</a>
                             </div>
                         </form>
                     </div>

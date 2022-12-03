@@ -12,6 +12,8 @@ class Certificate extends Model
     protected $fillable =[
         'title',
         'description',
+        'image',
+        'mentor_id',
         'course_id'
     ];
 }

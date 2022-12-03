@@ -186,7 +186,7 @@
                                             @forelse (App\Models\Mentor::has('notifications')->first()->unreadNotifications as $notification)
                                                 <li>
                                                     @if (Auth::guard('mentor')->user())
-                                                        <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                                        <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]),  $notification->markAsRead(); }}"
                                                             class="list-group-item-action border-0 border-bottom d-flex p-3">
                                                             <div class="me-3">
                                                                 <div class="avatar avatar-md">
