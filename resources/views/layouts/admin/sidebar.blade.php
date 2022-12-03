@@ -276,7 +276,7 @@
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="" class="menu-link">
+                            <a href="{{route('admin.cate-course.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
