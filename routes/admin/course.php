@@ -16,5 +16,7 @@ Route::prefix('admin/course')->name('admin.course.')->middleware('role:admin')->
         Route::get('edit-program/{course_id}', 'program')->name('program');
         Route::get('edit-course/{id}', 'edit')->name('edit');
         Route::put('update-course/{course}', 'update')->name('update');
+
+        Route::get('detail/{lesson}', 'detailLesson')->name('detailLesson');
     }
 );
