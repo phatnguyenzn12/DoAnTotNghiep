@@ -93,7 +93,8 @@
                                                 @endif
                                             @endforeach
                                             @if ($item > 0)
-                                                <a href="{{ route('mentor.lesson.activedAllLesson', $chapter->id) }}" onclick="return confirm('Bạn có đồng ý sửa bài học')"
+                                                <a href="{{ route('mentor.lesson.activedAllLesson', $chapter->id) }}"
+                                                    onclick="return confirm('Bạn có đồng ý sửa bài học')"
                                                     class="btn btn-primary">
                                                     All
                                                 </a>
@@ -108,9 +109,12 @@
                                         <td>{{ $lesson->chapter->course->title }}</td>
                                         <td>{{ $lesson->title }}</td>
                                         <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-example"
-                                                onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
-                                                video</button>
+                                            @if ($lesson->lessonVideo->video_path != 0 && $lesson->time != 0)
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#modal-example"
+                                                    onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
+                                                    video</button>
+                                            @endif
                                         </td>
                                         <th>
                                             @if ($lesson->lessonVideo->is_demo == 1)
@@ -135,7 +139,6 @@
                                                         đã đc kiểm duyệt
                                                     @endif
                                                 </button>
-
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item"
                                                         href="{{ route('mentor.lesson.actived_id', ['lesson' => $lesson->id, 'check' => 0]) }}"
@@ -212,9 +215,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
 @push('js-handles')
-<script>
-   
-</script>
+    <script></script>
     <script>
         function showModal(id_video) {
             $('#modal-example').find('.modal-body').html(
@@ -232,8 +233,6 @@
                 )
         }
     </script>
-{{-- @endpush
+    {{-- @endpush
 @push('js-handles') --}}
-
 @endpush
-

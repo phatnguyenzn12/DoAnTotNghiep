@@ -33,7 +33,7 @@ class CourseController extends Controller
         // dd($mentor);
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
-            ->orderBy('id', 'DESC')
+            // ->orderBy('id', 'DESC')
             // ->orderBy('sort')
             ->paginate(10);
         return view('screens.mentor.course.edit-program', compact('chapters', 'course_id', 'mentor'));

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -58,10 +59,6 @@ class LessonController extends Controller
         $lesson_video->is_check = $check;
         $lesson_video->save();
         $lesson =  Lesson::where('id', $lesson_video->lesson_id)->first();
-        // Mail::send('screens.email.mentor.browseLesson', compact('lesson', 'lesson_video'), function ($email) use ($lesson) {
-        //     $email->subject('Duyệt bài học');
-        //     $email->to($lesson->chapter->course->mentor->email, $lesson->chapter->course->mentor->name);
-        // });
         return redirect()->route('mentor.lesson.index')->with('success', 'Cập nhập thành công');
     }
 
@@ -71,6 +68,7 @@ class LessonController extends Controller
         $lesson->save();
 
         if ($lesson->is_check == 0) {
+            // gửi mail teacher
             Mail::send('screens.email.mentor.browse-lesson', compact('lesson'), function ($email) use ($lesson) {
                 $email->subject('Duyệt bài học');
                 $email->to($lesson->chapter->mentor->email, $lesson->chapter->mentor->name);
@@ -83,8 +81,9 @@ class LessonController extends Controller
             });
         }
 
-        $item = 0;
 
+        //duyệt đủ bài chương học teach
+        $item = 0;
         foreach ($lesson->chapter->lessons as $lesson) {
             if ($lesson->is_check != 1) {
                 $item++;
@@ -97,6 +96,24 @@ class LessonController extends Controller
             });
         }
 
+        //duyệt all bài học gửi admin
+        $itemAll = 0;
+        foreach ($lesson->chapter->course->chapters as $chapter) {
+            foreach ($chapter->lessons as $less) {
+                if ($less->is_check != 1) {
+                    $itemAll++;
+                }
+            }
+        }
+        if($itemAll == 0){
+            $admins = Admin::all();
+            foreach($admins as $admin){
+                Mail::send('screens.email.mentor.browse-course', compact('lesson','admin'), function ($email) use ($admin) {
+                    $email->subject('Duyệt khóa học');
+                    $email->to($admin->email, $admin->name);
+                });
+            }
+        }
         return redirect()->route('mentor.lesson.list', $lesson->chapter_id)->with('success', 'Cập nhập thành công');
     }
 
