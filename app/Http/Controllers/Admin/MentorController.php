@@ -48,12 +48,22 @@ class MentorController extends Controller
             $mentor = Mentor::create(
                 array_merge(
                     $request->all(),
-                    ['email_verified_at' => now()],
-                    ['avatar' => $avatar],
-                    ['password' => Hash::make($password)],
+                    [
+                        'is_active' => 1,
+                        'email_verified_at' => now(),
+                        'avatar' => $avatar,
+                        'password' => Hash::make($password),
+                    ],
                 )
             );
             $mentor->assignRole('lead');
+            $db = Mentor::where('email', 'like', $request->email)->first();
+            $skill = Skill::find($db->skills);
+            $specialize = Specialize::find($db->specialize_id);
+            Mail::send('screens.email.admin.actived-lead', compact('db', 'password', 'skill', 'specialize'), function ($email) use ($db) {
+                $email->subject('Yêu cầu đăng ký giảng viên');
+                $email->to($db->email, $db->name);
+            });
             return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
         }
         return view('screens.admin.mentor.create', compact('cate_courses','skills','specializes'));
@@ -64,6 +74,11 @@ class MentorController extends Controller
         $db = new Mentor();
         $db_mentor = $db->loadOne($id);
         $db->actived($id, $db_mentor->is_active);
+        $mentor = Mentor::find($id);
+        Mail::send('screens.email.admin.actived-lead', compact('mentor'), function ($email) use ($mentor) {
+            $email->subject('Cập nhật trạng thái tài khoản');
+            $email->to($mentor->email, $mentor->name);
+        });
         return redirect()->route('mentor.index')->with('success', 'Cập nhập thành công');
     }
 

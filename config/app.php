@@ -199,7 +199,6 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         ViewServiceProvider::class,
 
-        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
