@@ -86,8 +86,8 @@ class CourseController extends Controller
         }
         // Certificate::updateOrCreate([
         //     'title' => $request->title,
-        //     'description' => $request->description],
-        //     ['course_id' => $id
+        //     'description' => $request->description,
+        //     'course_id' => $id
         // ]);
         return redirect()->route('admin.course.index')->with('success', 'đã tồn tại');
     }
