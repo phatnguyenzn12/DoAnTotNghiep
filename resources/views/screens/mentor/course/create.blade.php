@@ -73,17 +73,7 @@
                                 <input id="kt_tagify_2" class="form-control" name='description_details'
                                     placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
                             </div>
-                            <div class="form-group">
-                                <label>Khoá học có chứng chỉ</label>
-                                <select name="certificate_id" id="select2" class="form-control">
-                                    <option value="">Chọn chứng chỉ</option>
-                                    <optgroup label="">
-                                        @foreach ($certificates as $certificate)
-                                            <option value="{{ $certificate->id }}">{{ $certificate->title }}</option>
-                                        @endforeach
-                                    </optgroup>
-                                </select>
-                            </div>
+                            
 
                             <div class="form-group">
                                 <label>Ảnh slide</label>

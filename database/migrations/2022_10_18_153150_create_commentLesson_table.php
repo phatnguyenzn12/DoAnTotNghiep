@@ -16,13 +16,12 @@ return new class extends Migration
         Schema::create('comment_lessons', function (Blueprint $table) {
             $table->id();
             $table->text('comment');
-            // $table->integer('vote');
             $table->integer('reply')->default(0);
-            $table->char('status')->default(1);
-            $table->integer('user_id');
-            $table->integer('mentor_id')->nullable();
-            $table->string('image')->nullable();
-            $table->integer('lesson_id');
+            $table->integer('status')->default(1);
+            $table->string('tag_name')->default(0);
+            $table->unsignedBigInteger('user_id')->default(0);
+            $table->unsignedBigInteger('mentor_id')->default(0);
+            $table->unsignedBigInteger('lesson_id');
             $table->timestamps();
         });
     }
