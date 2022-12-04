@@ -29,7 +29,6 @@
                             <li class="nav-item"> <a class="text-primary-hover" href="#">
                                     Hồi đáp {{ $comment->replies->count() }}</a> </li>
                         </ul>
-
                     </div>
 
                 </div>

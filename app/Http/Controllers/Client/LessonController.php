@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Models\User;
+use App\Notifications\CommentLessonNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\Notifications;
@@ -30,8 +31,14 @@ class LessonController extends Controller
                 ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]);
         }
 
-        $comments = CommentLesson::where('lesson_id', $lesson->id)->orderBy('id')->where('status', '1')->paginate(5);
-
+        $comments = CommentLesson::where('lesson_id', $lesson->id)
+            ->orderBy('id')
+            ->where([
+                ['status', '1'],
+                ['reply', '0']
+            ])
+            ->where('status', '1')
+            ->paginate(5);
 
         return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments'));
     }
@@ -45,13 +52,21 @@ class LessonController extends Controller
 
         $chapters = $course->load('chapters')->chapters()->get();
 
-        $comments = CommentLesson::where('lesson_id', $lesson->id)->orderBy('id', 'DESC')->where('status', '1')->paginate(5);
+        $comments = CommentLesson::where('lesson_id', $lesson->id)
+            ->orderBy('id', 'DESC')
+            ->where([
+                ['status', '1'],
+                ['reply', '0']
+            ])
+            ->paginate(5);
 
         return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments'));
     }
 
-    public function commentDetails(CommentLesson $comment_lesson)
+    public function commentDetails(Request $request, CommentLesson $comment_lesson)
     {
+        $course_id = $request->course_id;
+
         $comment_parent = $comment_lesson;
 
         $comment_lesson = $comment_lesson->replies()
@@ -59,7 +74,7 @@ class LessonController extends Controller
             ->where('status', '1')
             ->paginate(5);
 
-        $html = view('components.client.lesson.child-comment', compact('comment_lesson', 'comment_parent'))->render();
+        $html = view('components.client.lesson.child-comment', compact('course_id', 'comment_lesson', 'comment_parent'))->render();
 
         return response()->json($html);
     }
@@ -84,7 +99,7 @@ class LessonController extends Controller
         return response()->json($html);
     }
 
-    public function childComment(Request $request, CommentLesson $comment_parent)
+    public function childComment(Request $request, $course_id, CommentLesson $comment_parent)
     {
         $data = $request->only('comment');
 
@@ -94,49 +109,62 @@ class LessonController extends Controller
             ? $comment_parent->reply_parent
             : $comment_parent;
 
+        if ($comment_parent->reply != 0) {
+            return response()->json('Bạn chọn sai đối tượng');
+        }
+
         $data['reply'] = $comment_parent->id;
         $data['lesson_id'] = $comment_parent->lesson_id;
+        $user = auth()->user()
+            ? auth()->user()
+            : auth()->guard('mentor')->user();
 
-        $data['user_id'] = auth()->user()
-            ? auth()->user()->id
-            : auth()->guard('mentor')->user()->id;
+        $data['user_id'] = $user->id;
 
-        // $mentors_id = $comment_parent->replies->where('mentor_id', '!=', 0)->pluck('mentor_id');
+        $mentors_id = $comment_parent->replies->where('mentor_id', '!=', 0)->pluck('mentor_id');
 
-        // if ($mentors_id->isEmpty() == false) {
-        //     $mentors = Mentor::whereIn('id', $mentors_id)->get();
-        //     Notification::send(
-        //         $mentors,
-        //         new Notifications(
-        //             [
-        //                 'lesson_id' => $comment_parent->lesson_id,
-        //                 'course_id'  => $comment_parent->course->id,
-        //                 'name' => $comment_parent->name,
-        //                 'user_id' => $comment_parent->user_id,
-        //                 'mentor_id' => $comment_parent->mentor_id
-        //             ]
-        //         )
-        //     );
-        // }
+        if ($mentors_id->isEmpty() == false) {
 
-        // $users_id = $comment_parent->replies->where('user_id', '!=', 0)->pluck('user_id');
+            $mentors = Mentor::whereIn('id', $mentors_id)
+                ->where('id', '!=', $user->id)
+                ->get();
 
-        // if ($users_id->isEmpty() == false) {
-        //     $users = User::whereIn('id', $users_id)->get();
+            Notification::send(
+                $mentors,
+                new CommentLessonNotification(
+                    [
+                        'lesson_id' => $comment_parent->lesson_id,
+                        'course_id'  => $course_id,
+                        'content' => $data['comment'],
+                        'name' => $user->name,
+                        'id' => $comment_parent->id
+                    ]
+                )
+            );
+        }
 
-        //     Notification::send(
-        //         $users,
-        //         new Notifications(
-        //             [
-        //                 'lesson_id' => $comment_parent->lesson_id,
-        //                 'course_id'  => $comment_parent->course->id,
-        //                 'name' => $comment_parent->name,
-        //                 'user_id' => $comment_parent->user_id,
-        //                 'mentor_id' => $comment_parent->mentor_id
-        //             ]
-        //         )
-        //     );
-        // }
+        $users_id = $comment_parent->replies->where('user_id', '!=', 0)
+            ->pluck('user_id');
+
+        if ($users_id->isEmpty() == false) {
+
+            $users = User::whereIn('id', $users_id)
+                ->where('id', '!=', $user->id)
+                ->get();
+
+            Notification::send(
+                $users,
+                new CommentLessonNotification(
+                    [
+                        'lesson_id' => $comment_parent->lesson_id,
+                        'course_id'  => $course_id,
+                        'content' => $data['comment'],
+                        'name' => $user->name,
+                        'id' => $comment_parent->id
+                    ]
+                )
+            ); // hàm notify sẽ unique các id người dùng nên là nếu nhiều id giống nhau thì chỉ có 1 id đc nhận
+        }
 
         CommentLesson::create($data);
 
@@ -145,7 +173,7 @@ class LessonController extends Controller
             ->where('status', '1')
             ->paginate(5);
 
-        $html = view('components.client.lesson.child-comment', compact('comment_lesson', 'comment_parent'))->render();
+        $html = view('components.client.lesson.child-comment', compact('course_id', 'comment_lesson', 'comment_parent'))->render();
 
         return response()->json($html);
     }

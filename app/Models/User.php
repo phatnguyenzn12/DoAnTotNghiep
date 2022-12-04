@@ -78,6 +78,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class,LessonUser::class);
     }
 
+    public function notifications_custom()
+    {
+        return $this->hasMany(Notification::class,'notifiable_id');
+    }
+
+    public function certificate()
+    {
+        return $this->belongsToMany(Certificate::class,UserCertificate::class);
+    }
+
     function scopeName($query, Request $request)
     {
         if ($request->has('name') && $request->name != 0) {

@@ -1,5 +1,5 @@
 <form class="w-100 d-flex has-validation-ajax-child" method="POST"
-    action="{{ route('client.lesson.childComment', $comment_parent->id) }}">
+    action="{{ route('client.lesson.childComment', ['course_id' => $course_id,'comment_parent' => $comment_parent->id]) }}">
     @csrf
     <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
         placeholder="Thêm bình luận..."></textarea>
@@ -34,7 +34,7 @@
                     <!-- Comment react -->
                     <ul class="nav nav-divider py-2 small">
                         <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                Like (3)</a> </li>
+                                Thời gian ({{ $comment_reply->created_at }})</a> </li>
                         <li class="nav-item"> <a class="text-primary-hover" data-bs-toggle="collapse"
                                 href="#collapseComment{{ $comment_reply->id }}" role="button" aria-expanded="false"
                                 aria-controls="collapseComment">
@@ -44,7 +44,7 @@
                     <!-- collapse textarea -->
                     <div class="collapse" id="collapseComment{{ $comment_reply->id }}">
                         <form class="w-100 d-flex has-validation-ajax-child" method="POST"
-                            action="{{ route('client.lesson.childComment', $comment_reply->id) }}">
+                            action="{{ route('client.lesson.childComment', ['course_id' => $course_id,'comment_parent' => $comment_parent->id]) }}">
                             @csrf
                             <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
                                 placeholder="Thêm bình luận..."></textarea>

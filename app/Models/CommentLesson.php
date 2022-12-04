@@ -27,14 +27,17 @@ class CommentLesson extends Model
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
+
     public function mentor()
     {
-        return $this->belongsTo(Mentor::class,'mentor_id','id');
+        return $this->belongsTo(Mentor::class,'mentor_id');
     }
+
     public function lesson()
     {
         return $this->belongsTo(Lesson::class,'lesson_id','id');
     }
+
     public function replies()
     {
         return $this->hasMany(CommentLesson::class,'reply');
