@@ -6,7 +6,7 @@
         <!--begin::Header-->
         <div class="card-header border-0 py-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label font-weight-bolder text-dark">Danh sách Mentor</span>
+                <span class="card-label font-weight-bolder text-dark">Danh sách Lead</span>
                 <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
             </h3>
             <div class="card-toolbar">
@@ -26,7 +26,7 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>Add New Mentor</a>
+                    </span>Add New Lead</a>
             </div>
         </div>
         <!--end::Header-->

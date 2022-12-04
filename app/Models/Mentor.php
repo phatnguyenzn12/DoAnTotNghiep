@@ -98,9 +98,9 @@ class Mentor extends Authenticatable
     public function actived($id, $status)
     {
         if ($status == 1) {
-            $res = DB::table($this->table)->where('id', $id)->update(['is_active' => 0, 'remember_token' => Str::random(10)]);
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active' => 0]);
         } else {
-            $res = DB::table($this->table)->where('id', $id)->update(['is_active' => 1, 'remember_token' => null]);
+            $res = DB::table($this->table)->where('id', $id)->update(['is_active' => 1]);
         }
 
         return $res;

@@ -51,7 +51,7 @@
                     </thead>
                     <tbody>
                         @foreach ($db as $db)
-                            @if($db->hasRole('teacher'))
+                            @if($db->hasRole('teacher') && $db->cate_course_id == auth()->guard('mentor')->user()->cate_course_id)
                             <tr>
                                 <td class="pl-0 py-8">
                                     <div class="d-flex align-items-center">

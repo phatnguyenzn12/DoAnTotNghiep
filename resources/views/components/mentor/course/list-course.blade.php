@@ -12,7 +12,8 @@
 
                 <!--begin::User-->
                 <div class="d-flex align-items-center mb-7" style="aspect-ratio:1/1;overflow:hidden">
-                    <img src="{{ asset('app/' . $course->image) }}" style="width: 100%;height:100%;object-fit:cover" alt="image">
+                    <img src="{{ asset('app/' . $course->image) }}" style="width: 100%;height:100%;object-fit:cover"
+                        alt="image">
                 </div>
                 <!--end::User-->
 
@@ -58,6 +59,18 @@
                         <span class="text-dark-75 mr-2">Kỹ năng</span>
                         <span class="text-success font-weight-bolder">{{ $course->skill->title }}</span>
                     </div>
+                    @if (isset($course->price))
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-dark-75 mr-2">Giá khóa học</span>
+                            <span class="text-dark font-weight-bolder font-weight-bold">{{ $course->price }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-dark-75 mr-2">Giảm giá</span>
+                            <span class="text-dark font-weight-bolder font-weight-bold">{{ $course->discount }}%
+                                -
+                                {{ $course->current_price }}</span>
+                        </div>
+                    @endif
                 </div>
                 <!--end::Info-->
             </a>
