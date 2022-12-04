@@ -41,7 +41,7 @@ class TeacherController extends Controller
             $db = Mentor::where('email', 'like', $request->email)->first();
             $skill = Skill::find($db->skills);
             $specialize = Specialize::find($db->specialize_id);
-            Mail::send('screens.email.teacher.activedTeacher', compact('db', 'password', 'skill', 'specialize'), function ($email) use ($db) {
+            Mail::send('screens.email.mentor.activedTeacher', compact('db', 'password', 'skill', 'specialize'), function ($email) use ($db) {
                 $email->subject('Yêu cầu đăng ký giảng viên');
                 $email->to($db->email, $db->name);
             });
@@ -54,13 +54,17 @@ class TeacherController extends Controller
 
     public function actived($id)
     {
-        $db = Mentor::find($id);
-        if($db->is_active == 0){
-            $db->update(['is_active'=>1]);
+        $mentor = Mentor::find($id);
+        if($mentor->is_active == 0){
+            $mentor->update(['is_active'=>1]);
         }
         else{
-            $db->update(['is_active'=>0]);
+            $mentor->update(['is_active'=>0]);
         }
+        Mail::send('screens.email.mentor.activedTeacher', compact('mentor'), function ($email) use ($mentor) {
+            $email->subject('Cập nhật trạng thái tài khoản');
+            $email->to($mentor->email, $mentor->name);
+        });
         return redirect()->route('mentor.teacher.index')->with('success', 'Cập nhập thành công');
     }
 

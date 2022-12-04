@@ -147,7 +147,7 @@
                                     <div class="col-md-12 mb-3 ribbon ribbon-right">
                                         <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
                                             <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->active }}
+                                                <font style="vertical-align: inherit;">{{ $lesson->active }}
                                                 </font>
                                             </font>
                                         </div>

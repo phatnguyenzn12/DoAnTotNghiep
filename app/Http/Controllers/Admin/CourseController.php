@@ -7,15 +7,17 @@ use App\Models\CateCourse;
 use App\Models\Certificate;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
 
 class CourseController extends Controller
 {
     public function index(){
-        $courses = Course::paginate(40);
+        $courses = Course::orderBy('id', 'DESC')->get();
         return view('screens.admin.course.list-course',compact('courses'));
     }
 
@@ -23,6 +25,11 @@ class CourseController extends Controller
     {
         $course->type = $status;
         $course->save();
+        $course_type = Course::where('id',$course->id)->first();
+        Mail::send('screens.email.admin.actived-course', compact('course_type'), function ($email) use ($course_type) {
+            $email->subject('Duyệt khóa học');
+            $email->to($course_type->mentor->email, $course_type->mentor->name);
+        });
         return redirect()->route('admin.course.index')->with('success', 'Cập nhập thành công');
     }
 
@@ -48,6 +55,11 @@ class CourseController extends Controller
         $course->price = $request->price;
         $course->discount = $request->discount;
         $course->save();
+        Mail::send('screens.email.admin.actived-course', compact('course'), function ($email) use ($course) {
+            $email->subject('Duyệt giá khóa học');
+            $email->to($course->mentor->email, $course->mentor->name);
+        });
+
         return redirect()
             ->back()
             ->with('success', 'Sửa khóa học thành công');
@@ -74,12 +86,17 @@ class CourseController extends Controller
         }
         // Certificate::updateOrCreate([
         //     'title' => $request->title,
-        //     'description' => $request->description],
-        //     ['course_id' => $id
+        //     'description' => $request->description,
+        //     'course_id' => $id
         // ]);
         return redirect()->route('admin.course.index')->with('success', 'đã tồn tại');
     }
     
+    public function detailLesson(Request $request, Lesson $lesson)
+    {
+        $data = view('components.admin.lesson.detail', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
     // public function create(Request $course_id){
     //     $certificates = Certificate::where('course_id', $course_id->course)->get();
     //     return view('screens.admin.certificate.create', compact('certificates','course_id'));
