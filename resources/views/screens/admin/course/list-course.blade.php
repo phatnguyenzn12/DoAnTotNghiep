@@ -97,6 +97,11 @@
                                         <!--begin::Info-->
                                         <div class="mb-7 p-3">
                                             <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-dark-75 mr-2">giảng viên</span>
+                                                <span
+                                                    class="text-dark font-weight-bolder text-hover-primary"></span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-dark-75 mr-2">Danh mục</span>
                                                 <span
                                                     class="text-dark font-weight-bolder text-hover-primary">{{ $course->cateCourse->name }}</span>
@@ -134,7 +139,8 @@
                                                 <span class="text-dark-75 mr-2">Giấy chứng nhận</span>
                                                 <span
                                                     class="text-success font-weight-bolder">{{ $course->certificate != null ? 'có giấy chứng nhận' : ' không Có giấy chứng nhận' }}</span>
-                                            </div>
+                                            </div>    
+                                            
 
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="text-dark-75 mr-2">tags</span>
@@ -147,7 +153,10 @@
                                                     class="text-success font-weight-bolder">{{ $course->skill->title }}</span>
                                             </div>
                                             @if ($course->price != null)
+                                                    <a class="btn btn-success" href="{{route('admin.course.create', ['id' => $course->id ])}}">thêm chứng chỉ</a>
+
                                                 <div class="d-flex justify-content-between align-items-center mt-3">
+                                                    
                                                     <a href="{{ route('admin.course.actived', ['course' => $course->id, 'status' => 1]) }}"
                                                         onclick="return confirm('Bạn có chắc muốn hoạt động')"
                                                         class="btn btn-success">hoạt động</a>

@@ -23,8 +23,6 @@ class TeacherController extends Controller
 
     public function create(Request $request)
     {
-        $cateCourses= CateCourse::all();
-        // dd($cateCourses);
         $skills = Skill::all();
         $specializes = Specialize::all();
         if ($request->isMethod('post')) {
@@ -51,7 +49,7 @@ class TeacherController extends Controller
                 ->route('mentor.teacher.index')
                 ->with('success', 'Thêm giảng viên thành công');
         }
-        return view('screens.mentor.teacher.create',compact('skills','specializes', 'cateCourses'));
+        return view('screens.mentor.teacher.create',compact('skills','specializes'));
     }
 
     public function actived($id)

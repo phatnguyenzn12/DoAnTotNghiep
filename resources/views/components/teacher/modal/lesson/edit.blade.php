@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
         <label>Thời lượng video</label>
-        <input name="time" type="time" class="form-control" {{ $lesson->time }}>
+        <input type="time" class="form-control" name="time" value="{{ $lesson->time }}">
     </div>
     @if ($lesson->lesson_type == 'video')
         <div class="form-group" video>
@@ -22,15 +22,6 @@
             </div>
             <p class="text-danger errors video_url"></p>
         </div>
-
-        {{-- <div class="form-group">
-            <label>Cho học thử</label>
-            <select class="custom-select form-control" name="is_demo">
-                <option @selected($lesson->lessonVideo->is_demo == 0 ? true:false) value="0">Không học thử</option>
-                <option @selected($lesson->lessonVideo->is_demo == 1 ? true:false)  value="1">Học thử</option>
-            </select>
-            <p class="text-danger errors"></p>
-        </div> --}}
     @else
         <div class="d-flex align-content-center justify-content-around">
             <div class="form-group">

@@ -22,7 +22,6 @@ class CourseFactory extends Factory
         $name = fake()->text(15);
         $slug = Str::slug($name);
         $mentor =  Mentor::all()->random();
-        $certificate =  Certificate::all()->random();
         return [
             'title' => $name,
             'content' => fake()->text(300),
@@ -41,7 +40,6 @@ class CourseFactory extends Factory
             'description_details' => fake()->text(30) . ',' . fake()->text(30) . ',' . fake()->text(30),
             'tags' => 'php,laravel,java',
             'type' => rand(0, 1),
-            'certificate_id' => $certificate->id
         ];
     }
 }

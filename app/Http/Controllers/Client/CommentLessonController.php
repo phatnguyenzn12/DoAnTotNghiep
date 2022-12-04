@@ -32,7 +32,7 @@ class CommentLessonController extends Controller
             }
             $mentor= Mentor::where('id','=', $request->mentor_id)->first();
             //     // dd($users);
-            Notification::send($mentor, new notifications($request->lesson_id,$request->course_id,  $request->comment, Auth::id()));
+            
 
             $comment_lesson->save();
             return redirect()->back();

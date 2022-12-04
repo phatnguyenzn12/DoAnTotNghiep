@@ -84,6 +84,22 @@
                                     <th>Video</th>
                                     <th>Công khai</th>
                                     <th>Active</th>
+                                    <th>Bài học
+                                        <span>
+                                            <p hidden>{{ $item = 0 }}</p>
+                                            @foreach ($chapter->lessons as $lesson)
+                                                @if ($lesson->is_edit == 0)
+                                                    <p hidden>{{ $item++ }}</p>
+                                                @endif
+                                            @endforeach
+                                            @if ($item > 0)
+                                                <a href="{{ route('mentor.lesson.activedAllLesson', $chapter->id) }}" onclick="return confirm('Bạn có đồng ý sửa bài học')"
+                                                    class="btn btn-primary">
+                                                    All
+                                                </a>
+                                            @endif
+                                        </span>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,9 +127,9 @@
                                                 <button class="btn btn-secondary dropdown-toggle" type="button"
                                                     id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
-                                                    @if ($lesson->edit == 0)
+                                                    @if ($lesson->is_check == 0)
                                                         chưa được kiểm duyệt
-                                                    @elseif($lesson->lessonVideo->is_check == 2)
+                                                    @elseif($lesson->is_check == 2)
                                                         Cần Sửa lại
                                                     @else
                                                         đã đc kiểm duyệt
@@ -122,19 +138,34 @@
 
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('mentor.lesson.actived_id', ['lesson_video' => $lesson->lessonVideo->id, 'check' => 0]) }}"
+                                                        href="{{ route('mentor.lesson.actived_id', ['lesson' => $lesson->id, 'check' => 0]) }}"
                                                         onclick="return confirm('bài học chưa được kiểm duyệt')"
                                                         class="btn btn-success">chưa được kiểm duyệt </a>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('mentor.lesson.actived_id', ['lesson_video' => $lesson->lessonVideo->id, 'check' => 2]) }}"
+                                                        href="{{ route('mentor.lesson.actived_id', ['lesson' => $lesson->id, 'check' => 2]) }}"
                                                         onclick="return confirm('Bài học cần sửa lại')"
                                                         class="btn btn-danger">Cần Sửa lại</a>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('mentor.lesson.actived_id', ['lesson_video' => $lesson->lessonVideo->id, 'check' => 1]) }}"
+                                                        href="{{ route('mentor.lesson.actived_id', ['lesson' => $lesson->id, 'check' => 1]) }}"
                                                         onclick="return confirm('bài học đã đc kiểm duyệt')"
                                                         class="btn btn-danger">đã đc kiểm duyệt</a>
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td>
+                                            @if ($lesson->is_edit == 1)
+                                                <a href="{{ route('mentor.lesson.activedLesson', ['lesson' => $lesson->id, 'check' => 0]) }}"
+                                                    onclick="return confirm('Bạn có chắc không sửa bài học')"
+                                                    class="btn btn-danger">
+                                                    Không đồng ý
+                                                </a>
+                                            @else
+                                                <a href="{{ route('mentor.lesson.activedLesson', ['lesson' => $lesson->id, 'check' => 1]) }}"
+                                                    onclick="return confirm('Bạn có chắc sửa bài học')"
+                                                    class="btn btn-success">
+                                                    Đồng ý sửa bài học
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -168,7 +199,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>

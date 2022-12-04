@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'about_me' => fake()->text(100),
             'education' => 'cao đẳng fpt,trung tâm fpt',
             'location' => 'hà nội',
+            'certificate_id' => rand(1,5),
         ];
     }
 

@@ -30,10 +30,10 @@ class UserSeender extends Seeder
             ]
         );
         Role::create(
-            [
+           [
                 'name' => 'teacher',
                 'guard_name' => 'mentor',
-            ]
+           ]
         );
         Role::create(
             [

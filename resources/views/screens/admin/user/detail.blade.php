@@ -1036,7 +1036,7 @@
                             <thead>
                                 <tr>
                                     <th class="p-0 w-40px">ID</th>
-                                    <th class="p-0 w-100px">Avatat</th>
+                                    <th class="p-0 w-100px">Avatar</th>
                                     <th class="p-0 min-w-100px">Name</th>
                                     <th class="p-0 min-w-100px">Email</th>
                                     <th class="p-0 min-w-125px">Phone</th>

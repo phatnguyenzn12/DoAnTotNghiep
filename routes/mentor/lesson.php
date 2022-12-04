@@ -15,10 +15,13 @@ Route::prefix('mentor/lesson')->name('mentor.lesson.')->middleware('role:mentor'
         Route::get('create', 'create')->name('create');
         Route::post('add', 'store')->name('add');
         Route::get('/actived/{lesson_video}/{check}', 'actived')->name('actived');
-        Route::get('/actived_id/{lesson_video}/{check}', 'actived_id')->name('actived_id');
+        Route::get('/actived_id/{lesson}/{check}', 'actived_id')->name('actived_id');
         Route::get('show/{lesson}', 'show')->name('show');
         Route::delete('delete', 'destroy')->name('delete');
         Route::get('show-sort/{chapter}', 'showSort')->name('showSort');
         Route::put('sort', 'sort')->name('sort');
+
+        Route::get('/actived-lesson/{lesson}/{check}', 'activedLesson')->name('activedLesson');
+        Route::get('/actived-all-lesson/{chapter}', 'activedAllLesson')->name('activedAllLesson');
     }
 );
