@@ -81,7 +81,7 @@
                                         | Deadline: {{ $chapter->deadline }}
                                     </h5>
 
-                                    @if ($chapter->deadline < now())
+                                    {{-- @if ($chapter->deadline < now())
                                         <nav class="deadline">
                                             <ul>
                                                 <li>
@@ -103,7 +103,7 @@
                                     @endforeach
                                     @if ($item==0)
                                         hoàn thành
-                                    @endif
+                                    @endif --}}
 
                                 </div>
                                 <div class="card-toolbar">
@@ -137,6 +137,7 @@
                                         @endif
                                     @endforeach
                                     <p class="card-label">
+                                        Tổng số  bài học: {{$chapter->number}} bài <br>
                                         Giáo viên đã đăng: {{ $count }}
                                     </p>
                                 </div>

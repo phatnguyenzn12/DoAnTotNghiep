@@ -6,8 +6,8 @@
         <input type="text" name="title" placeholder="Nhập tên chương học..." class="form-control">
     </div>
     <div class="form-group">
-        <label>Deadline</label>
-        <input type="datetime-local" name="deadline" class="form-control">
+        <label>Số lượng bài học</label>
+        <input type="number" name="number" class="form-control">
     </div>
     <div class="form-group">
         <label for="">Giáo viên</label>

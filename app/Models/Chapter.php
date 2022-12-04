@@ -14,6 +14,7 @@ class Chapter extends Model
         'sort',
         'mentor_id',
         'title',
+        'number',
        'deadline',
         'course_id',
         'deadline',
