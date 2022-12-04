@@ -75,38 +75,35 @@
                                             href="{{ route('mentor.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                     </h4>
                                     <h5 class="card-label">
-                                        | Giáo viên : {{ $chapter->mentor->name }}
+                                        | Giáo viên : {{ $chapter->mentor->name }}, Điểm: {{ $chapter->mentor->point }}
                                     </h5>
                                     <h5 class="card-label">
                                         | Deadline: {{ $chapter->deadline }}
                                     </h5>
-                                    @if ($chapter->deadline > now())
+
+                                    @if ($chapter->deadline < now())
                                         <nav class="deadline">
                                             <ul>
                                                 <li>
                                                     <input style="backround-color: red;" type="button" value="Quá hạn"
                                                         name="nav_button" id="nav_button" />
                                                     <ul>
-                                                        <li><a onclick="alert('Đã trừ 5 điểm')" href="">Trừ 5
-                                                                điểm</a></li>
-                                                        <li><a href=""> Gia hạn thêm</a></li>
-                                                        <li><a href="">Giao cho gv khác</a></li>
+                                                        <li><a onclick="alert('Đã trừ 5 điểm')" href="{{route('mentor.teacher.subtract',$chapter->mentor->id )}}">Trừ 5 điểm</a></li>
+
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </nav>
                                     @endif
-                                    {{-- <button onclick="alert('Đã trừ 5 điểm')">
-                                        @for ($i = auth()->guard('mentor')->user()->point;
-    $i <= 100;
-    $i++)
-                                            trừ 5 điểm, tổng bằng: {{ $i - 5 }}
-                                        @endfor
-                                    </button>
-                                     @dd(
-                                        auth()->guard('mentor')->user()->point - 5,
-                                    ) --}}
-
+                                    <p hidden>{{$item=0}}</p>
+                                    @foreach($chapter->lessons as $lesson)
+                                    @if($lesson->lessonVideo->video_path ==0)
+                                        <p hidden>{{$item++}}</p>
+                                    @endif
+                                    @endforeach
+                                    @if ($item==0)
+                                        hoàn thành
+                                    @endif
 
                                 </div>
                                 <div class="card-toolbar">
@@ -135,7 +132,7 @@
                                 <div class="card-title">
                                     <p hidden>{{ $count = 0 }}</p>
                                     @foreach ($chapter->lessons()->get() as $lesson)
-                                        @if ($lesson->lessonVideo != null)
+                                        @if ($lesson->lessonVideo->video_path != 0)
                                             <p hidden>{{ $count++ }}</p>
                                         @endif
                                     @endforeach

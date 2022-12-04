@@ -9,5 +9,6 @@ Route::prefix('mentor/teacher')->name('mentor.teacher.')->middleware(['role:ment
         Route::match(['get', 'post'],'create','create')->name('create');
         Route::get('/actived/{id}', 'actived')->name('actived');
         Route::get('/delete/{id}', 'delete')->name('delete');
+        Route::get('subtract/{id}', 'subtract')->name('subtract');
     }
 );

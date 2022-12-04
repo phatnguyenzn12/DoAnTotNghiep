@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
 use App\Models\CateCourse;
+use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Models\Skill;
@@ -71,5 +72,14 @@ class TeacherController extends Controller
         $delete->delete();
 
         return redirect()->route('mentor.teacher.index')->with('success', 'Xoá thành công');
+    }
+    public function subtract($mentor_id)
+    {
+        // $chapter= Chapter::where('mentor_id', $mentor_id)->first();
+        $mentor= Mentor::where('id', $mentor_id)->first();
+       $total= $mentor->point -5;
+        // dd($mentor->point -5);
+        $mentor->update(['point'=>$total]);
+        return redirect()->back();
     }
 }
