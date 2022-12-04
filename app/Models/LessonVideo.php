@@ -17,5 +17,15 @@ class LessonVideo extends Model
     protected $append = [
         'active', 'video',
     ];
+    
+    public function getVideoAttribute()
+    {
+       // $vdeo = DB::table('LessonVideo')->get();
+        if ($this->video_path == 0) {
+            return "Video chưa upload";
+        } else {
+            return "Video upload";
+        }
+    }
 
 }
