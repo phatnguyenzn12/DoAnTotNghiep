@@ -198,7 +198,6 @@ return [
         //libary laravel permisstion
         Spatie\Permission\PermissionServiceProvider::class,
         ViewServiceProvider::class,
-
     ],
 
     /*
