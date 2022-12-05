@@ -71,15 +71,18 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4 class="card-label">
-                                        
-                                        Chương {{ $key + 1 }}: <a
-                                            href="{{ route('mentor.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
+
+                                        Chương {{ $key + 1 }}: {{ $chapter->title }}
                                     </h4>
                                     <h5 class="card-label">
                                         | Giáo viên : {{ $chapter->mentor->name }}, Điểm: {{ $chapter->mentor->point }}
                                     </h5>
                                     <h5 class="card-label">
-                                        | Deadline: {{ date("d-m-Y", strtotime( $chapter->deadline )) }}
+                                        | Deadline: @if($chapter->deadline==0)
+                                                    {{ 0 }}
+                                                    @else
+                                                    {{$chapter->deadline}}
+                                                    @endif
                                     </h5>
 
                                     {{-- @if ($chapter->deadline < now())
@@ -126,6 +129,7 @@
                                                 <i class="ki ki-close icon-nm"></i>
                                             </button>
                                         </form>
+                                        <a class="btn btn-primary mx-1" href="{{ route('mentor.lesson.list', $chapter->id) }}">Chi tiết</a>
                                     </div>
                                 </div>
                             </div>
