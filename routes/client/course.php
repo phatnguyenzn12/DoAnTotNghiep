@@ -16,6 +16,10 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
         Route::get('all-course','filterCourse')->name('filterCourse');
 
         Route::get('lesson/lesson_video/{lesson_video}', 'demo')->name('lesson');
+
+        Route::get('lesson/lesson_video/{lesson_video}', 'demo')->name('lesson');
+
+        Route::get('certificate/{course}', 'demo')->name('generatePDF');
     }
 );
 Route::name('commentcourse.')->controller(CommentCourseController::class)->group(

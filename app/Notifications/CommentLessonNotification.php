@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Notifications extends Notification
+class CommentLessonNotification extends Notification
 {
     use Queueable;
 
@@ -55,6 +55,6 @@ class Notifications extends Notification
      */
     public function toArray($notifiable)
     {
-        return $this->post->toArray();
+        return $this->post;
     }
 }

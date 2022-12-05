@@ -41,7 +41,7 @@ class Course extends BaseModel
 
     public function certificate()
     {
-        return $this->hasOne(Certificate::class, 'course_id', 'id');
+        return $this->hasOne(Certificate::class);
     }
 
     public function commentCourses()
@@ -103,7 +103,7 @@ class Course extends BaseModel
             ->selectRaw("TIME_FORMAT(SUM(SEC_TO_TIME(time)), '%H') AS time_total")
             ->first()
             ->time_total;
-            
+
         $arr = ['h','m','s'];
 
         $time = collect(explode(' ', $time))
@@ -112,7 +112,7 @@ class Course extends BaseModel
                     return $val.''.$arr[$index];
                 }
             )->implode(' ');
-        
+
         return $time;
     }
 

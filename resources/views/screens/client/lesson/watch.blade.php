@@ -112,9 +112,11 @@
                                                     src="/frontend/images/avatar/09.jpg" alt=""> </a>
                                         </div>
 
-                                        <form class="w-100 d-flex has-validation-ajax" method="POST" action="{{ route('client.lesson.parentComment',$lesson->id) }}">
+                                        <form class="w-100 d-flex has-validation-ajax" method="POST"
+                                            action="{{ route('client.lesson.parentComment', $lesson->id) }}">
                                             @csrf
-                                            <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1" placeholder="Thêm bình luận..."></textarea>
+                                            <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
+                                                placeholder="Thêm bình luận..."></textarea>
                                             <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
                                                     class="fas fa-paper-plane fs-5"></i></button>
                                         </form>
@@ -149,6 +151,9 @@
             $.ajax({
                 url: url,
                 timeout: 1000,
+                data: {
+                    course_id: {{ $course->id }}
+                },
                 success: function(res) {
                     $('#modal-example').find('.modal-body').html(res)
                 }
@@ -213,6 +218,5 @@
                 }
             })
         })
-
     </script>
 @endpush

@@ -1,6 +1,4 @@
-@php
-$user = \Illuminate\Support\Facades\Auth::user();
-@endphp
+
 @extends('layouts.client.master')
 @section('title', 'Khóa học của tôi')
 
@@ -106,7 +104,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="{{$user->courses()->count()}}" data-purecounter-delay="200">0</h5>
+                                            data-purecounter-end="{{$courses->count()}}" data-purecounter-delay="200">0</h5>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Tổng khóa học</p>
                                 </div>
@@ -121,7 +119,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="52" data-purecounter-delay="200">0</h5>
+                                            data-purecounter-end="{{$courses->where('progress','=','100')->count()}}" data-purecounter-delay="200">0</h5>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Khóa học hoàn thiện</p>
                                 </div>

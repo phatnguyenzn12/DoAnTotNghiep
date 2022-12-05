@@ -70,6 +70,12 @@ class Mentor extends Authenticatable
         return $this->hasMany(Certificate::class);
     }
 
+    public function notifications_custom()
+    {
+        return $this->hasMany(Notification::class, 'notifiable_id');
+    }
+
+
     public function PermissionCheck()
     {
         return $this->guard;
@@ -111,8 +117,10 @@ class Mentor extends Authenticatable
     {
         return $this->hasMany(Course::class);
     }
-    public function updatePass($id,$password){
-        $res = DB::table($this->table)->where('id', $id)->update(['password'=>$password,'remember_token'=>null]);
+
+    public function updatePass($id, $password)
+    {
+        $res = DB::table($this->table)->where('id', $id)->update(['password' => $password, 'remember_token' => null]);
         return $res;
     }
 }

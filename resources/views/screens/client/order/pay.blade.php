@@ -258,14 +258,14 @@
                         )
                         .join('')
 
-                    $('[show-list-bank]').html(`<div code="VNPAY" class="col-2 border rounded me-2" class="remove_code">
+                    $('[show-list-bank]').html(`<div code="VNPAY" class="col-2 border rounded me-2" class="remove_code" style="padding: 5px;">
                                 <a href="#"><img src="https://th.bing.com/th/id/R.0d4ecea0b6e472589c4c94b8e8afc17f?rik=5J7F3iDg2ZwJtw&pid=ImgRaw&r=0"
                                                 alt=""></a></div>` + html)
 
                     $('[code]').on('click',
                         (val) => {
                             $('[input-pay]').val($(val.currentTarget).attr('code'))
-                            $('.remove_code').css('background-color','white')
+                            $('.remove_code').css({'background-color':'white'})
                             $(val.currentTarget).css('background-color','beige')
                         }
                     )

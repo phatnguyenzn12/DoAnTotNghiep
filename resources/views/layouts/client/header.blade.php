@@ -167,117 +167,55 @@
 
                     <!-- Notification dropdown menu START -->
 
-                    @if (Auth::guard('web')->user() || Auth::guard('admin')->user() || Auth::guard('mentor')->user())
-                        <div
-                            class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
-                            <div class="card bg-transparent">
-                                <div
-                                    class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
-                                    <h6 class="m-0">Notifications <span
-                                            class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ App\Models\Mentor::has('notifications')->count() != null ? App\Models\Mentor::has('notifications')->count() : 0 }}
 
-                                    <a class="small" href="#">Clear all</a>
-                                </div>
-                                <div class="card-body p-0">
-                                    <ul class="list-group list-unstyled list-group-flush">
+                    <div
+                        class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+                        <div class="card bg-transparent">
+                            <div
+                                class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
+                                <h6 class="m-0">Notifications <span
+                                        class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ $notifications->count() }}
 
-                                        <!-- Notif item -->
-                                        @if (isset(App\Models\Mentor::has('notifications')->first()->unreadNotifications))
-                                            @forelse (App\Models\Mentor::has('notifications')->first()->unreadNotifications as $notification)
-                                                <li>
-                                                    @if (Auth::guard('mentor')->user())
-                                                        <a href="{{ route('client.lesson.index', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]),  $notification->markAsRead(); }}"
-                                                            class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                                            <div class="me-3">
-                                                                <div class="avatar avatar-md">
-                                                                    <img class="avatar-img rounded-circle"
-                                                                        src="{{ App\Models\User::where('id', $notification->data['user_id'])->first()->avatar }}"
-                                                                        alt="avatar">
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <p class="text-body small m-0">
-                                                                    <b>{{ App\Models\User::where('id', $notification->data['user_id'])->first()->name }}</b>
-                                                                    commented on
-                                                                    <b>{{ $notification->data['name'] }}</b>
-                                                                </p>
-                                                                <u class="small">View detail</u>
-                                                            </div>
-                                                        </a>
-                                                    @endif
-                                                </li>
-                                            @empty
-                                            @endforelse
-                                        @endif
+                                        <a class="small" href="#">Clear all</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-unstyled list-group-flush">
 
-
-                                        <!-- Notif item -->
-                                        {{-- <li>
-                                            <a href="#"
+                                    <!-- Notif item -->
+                                    @forelse ($notifications as $notification)
+                                        <li>
+                                            <a href="{{ route('client.lesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
                                                 class="list-group-item-action border-0 border-bottom d-flex p-3">
+
                                                 <div class="me-3">
                                                     <div class="avatar avatar-md">
                                                         <img class="avatar-img rounded-circle"
-                                                            src="/frontend/images/avatar/02.jpg" alt="avatar">
+                                                            src="{{ $notification->info->avatar }}" alt="avatar">
                                                     </div>
                                                 </div>
+
                                                 <div>
-                                                    <h6 class="mb-1">Larry Lawson Added a new course</h6>
-                                                    <p class="small text-body m-0">What's new! Find out about new
-                                                        features
+                                                    <p class="text-body small m-0">
+                                                        <b>{{ $notification->data['name'] }}</b>
+                                                        commented on
+                                                    <p>{{ $notification->data['content'] }}</p>
                                                     </p>
                                                     <u class="small">View detail</u>
                                                 </div>
-                                            </a>
-                                        </li> --}}
 
-                                        <!-- Notif item -->
-                                        {{-- <li>
-                                            <a href="#"
-                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                                <div class="me-3">
-                                                    <div class="avatar avatar-md">
-                                                        <img class="avatar-img rounded-circle"
-                                                            src="/frontend/images/avatar/05.jpg" alt="avatar">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-1">New request to apply for Instructor</h6>
-                                                    <u class="small">View detail</u>
-                                                </div>
                                             </a>
-                                        </li> --}}
-
-                                        <!-- Notif item -->
-                                        {{-- <li>
-                                            <a href="#"
-                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
-                                                <div class="me-3">
-                                                    <div class="avatar avatar-md">
-                                                        <img class="avatar-img rounded-circle"
-                                                            src="/frontend/images/avatar/03.jpg" alt="avatar">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-1">Update v2.3 completed successfully</h6>
-                                                    <p class="small text-body m-0">What's new! Find out about new
-                                                        features
-                                                    </p>
-                                                    <small class="text-body">5 min ago</small>
-                                                </div>
-                                            </a>
-                                        </li> --}}
-                                    </ul>
-                                </div>
-                                <!-- Button -->
-                                <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
-                                    <a href="#" class="stretched-link">See all incoming activity</a>
-                                </div>
+                                        </li>
+                                    @empty
+                                    @endforelse
+                                </ul>
+                            </div>
+                            <!-- Button -->
+                            <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
+                                <a href="#" class="stretched-link">See all incoming activity</a>
                             </div>
                         </div>
-                        <!-- Notification dropdown menu END -->
-
-                    @endif
+                    </div>
+                    <!-- Notification dropdown menu END -->
                 </li>
                 <!-- Notification dropdown END -->
 
@@ -288,7 +226,6 @@
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         @if (Auth::guard('admin')->user())
-
                             <img class="avatar-img rounded-circle"
                                 src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}" alt="avatar">
                         @elseif (Auth::guard('mentor')->user())
@@ -309,7 +246,6 @@
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
                                     @if (Auth::guard('admin')->user())
-
                                         <img class="avatar-img rounded-circle"
                                             src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}"
                                             alt="avatar">
@@ -346,7 +282,8 @@
                                     quản
                                     trị</a></li>
                         @elseif (Auth::guard('mentor')->user())
-                            <li><a class="dropdown-item" href="{{route('mentor.home')}}"><i class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
+                            <li><a class="dropdown-item" href="{{ route('mentor.home') }}"><i
+                                        class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
                         @endif
                         <li><a class="dropdown-item" href="{{ route('client.account.detail') }}"><i
                                     class="bi bi-person fa-fw me-2"></i>Sửa thông tin cá nhân</a></li>
