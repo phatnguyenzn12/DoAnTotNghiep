@@ -71,6 +71,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4 class="card-label">
+                                        
                                         Chương {{ $key + 1 }}: <a
                                             href="{{ route('mentor.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                     </h4>
