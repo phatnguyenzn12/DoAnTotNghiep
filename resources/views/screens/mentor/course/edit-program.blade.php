@@ -78,7 +78,7 @@
                                         | Giáo viên : {{ $chapter->mentor->name }}, Điểm: {{ $chapter->mentor->point }}
                                     </h5>
                                     <h5 class="card-label">
-                                        | Deadline: {{ $chapter->deadline }}
+                                        | Deadline: {{ date("d-m-Y", strtotime( $chapter->deadline )) }}
                                     </h5>
 
                                     {{-- @if ($chapter->deadline < now())
@@ -146,10 +146,18 @@
                                 @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
                                     <div class="col-md-12 mb-3 ribbon ribbon-right">
                                         <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
+                                            @if ($lesson->lessonVideo->video_path != 0)
                                             <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">{{ $lesson->active }}
+                                                <font style="vertical-align: inherit;">{{ $lesson->edit }}
                                                 </font>
                                             </font>
+                                        @else
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    {{ $lesson->lessonVideo->video }}
+                                                </font>
+                                            </font>
+                                        @endif
                                         </div>
                                         <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
                                             <p class="lession-name m-0 font-weight-bold">
