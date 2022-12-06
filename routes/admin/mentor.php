@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin/mentor')->name('mentor.')->middleware('role:admin')->controller(MentorController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
-        Route::get('teacher', 'teacher')->name('teacher');
+        Route::get('teacher/{id}', 'teacher')->name('listTeacher');
         Route::get('apply', 'apply')->name('apply');
         Route::match(['get', 'post'],'create','create')->name('create');
         Route::get('/actived/{id}', 'actived')->name('actived');
