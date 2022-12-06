@@ -18,10 +18,11 @@ class OwnerCourseFactory extends Factory
      */
     public function definition()
     {
-        $course = Course::all()->random();
+        // $course = Course::all()->random();
+        static $course_id = 0;
         $user = User::all()->random();
         return [
-            'course_id' => $course->id,
+            'course_id' => ++$course_id,
             'user_id' => 1
         ];
     }

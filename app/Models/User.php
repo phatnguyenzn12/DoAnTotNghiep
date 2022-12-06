@@ -88,6 +88,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Certificate::class,UserCertificate::class);
     }
 
+    public function chapter_review()
+    {
+        return $this->belongsToMany(Chapter::class,ChapterReview::class);
+    }
+
     function scopeName($query, Request $request)
     {
         if ($request->has('name') && $request->name != 0) {

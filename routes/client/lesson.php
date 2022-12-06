@@ -12,16 +12,22 @@ Route::prefix('lesson')->name('client.lesson.')->controller(LessonController::cl
         Route::get('comment-details/{comment_lesson}', 'commentDetails')->name('commentdetails');
         Route::post('comment-parent-add/{lesson}', 'parentComment')->name('parentComment');
         Route::post('course/{course_id}/comment-child-add/{comment_parent}', 'childComment')->name('childComment');
-
     }
 );
 
 
 Route::prefix('lesson')->name('client.certificate.')->controller(CertificateController::class)->group(
     function () {
-        Route::post('course/{course}/getCertificate', 'getCertificate')->name('getCertificate');
+        Route::post('course/{course}/get-certificate', 'getCertificate')->name('getCertificate');
         Route::get('course/{certificate}/certificate', 'index')->name('index');
     }
 );
 
-
+Route::prefix('chapter')->name('client.chapter.')->controller(LessonController::class)->group(
+    function () {
+        Route::get('mentor/{mentor}/get-chapter/{chapter}','getChapter')->name('getChapter');
+        Route::post('review/{chapter}','postReview')->name('postReview');
+        Route::get('mentor/{mentor}/get-edit-comment-chapter/{chapter}','getEditReview')->name('getEditReview');
+        Route::put('{chapter}/edit-comment-chapter/{id}','editReview')->name('editReview');
+    }
+);

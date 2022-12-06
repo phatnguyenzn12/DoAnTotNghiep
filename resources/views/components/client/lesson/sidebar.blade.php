@@ -17,11 +17,12 @@
             <h1 class="mt-2 fs-5">Hoành thành khóa học {{ $course->title }}:
                 <br>
                 {{ $course->number_lessons_complete }} bài học
-                trên {{ $course->lessons->count() }}</h1>
-                <form action="{{ route('client.certificate.getCertificate',$course->id) }}" method="post">
-                    @csrf
-                    <button type="submit" class="btn btn-primary mb-0">Nhận chứng chỉ</button>
-                </form>
+                trên {{ $course->lessons->count() }}
+            </h1>
+            <form action="{{ route('client.certificate.getCertificate', $course->id) }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-primary mb-0">Nhận chứng chỉ</button>
+            </form>
             <div class="overflow-hidden">
                 <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
                 <div class="progress progress-sm bg-primary bg-opacity-10">
@@ -46,48 +47,69 @@
                     <!-- Accordion START -->
                     <div class="accordion accordion-flush-light accordion-flush" id="accordionExample">
                         @forelse ($chapters as $index => $chapter)
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne{{ $chapter->id }}" aria-expanded="true"
-                                        aria-controls="collapseOne">
-                                        <span class="mb-0 fw-bold">Chương {{ ++$index }}.
-                                            {{ $chapter->title }}</span>
-                                    </button>
-                                </h2>
-                                <div id="collapseOne{{ $chapter->id }}" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body px-3">
-                                        <div class="vstack gap-3">
-                                            @forelse ($chapter->lessons as $indexLesson => $lesson)
-                                                <!-- Course lecture -->
-                                                <div>
-                                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                                        <div class="position-relative d-flex align-items-center">
-                                                            <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
-                                                                class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->check_lesson_user->contains(auth()->user()->id) == true ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
-                                                                @if ($lesson->check_lesson_user->contains(auth()->user()->id) == true)
-                                                                    <i class="fas fa-play me-0"></i>
-                                                                @else
-                                                                    <i class="bi bi-lock-fill"></i>
-                                                                @endif
-                                                            </a>
-                                                            <span
-                                                                class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px">Bài
-                                                                {{ ++$indexLesson }}. {{ $lesson->title }}</span>
-                                                        </div>
-                                                        <p class="mb-0 text-truncate">{{ $lesson->time }}</p>
-                                                    </div>
+                            @if ($chapter->lessons->isEmpty() == false ? $chapter : [])
+                                <!-- Item -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseOne{{ $chapter->id }}"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                            <span class="mb-0 fw-bold">Chương {{ ++$index }}.
+                                                {{ $chapter->title }}</span>
+                                        </button>
 
-                                                </div>
-                                            @empty
-                                            @endforelse
+
+                                    </h2>
+                                    <div id="collapseOne{{ $chapter->id }}" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body px-3">
+                                            <div class="vstack gap-3">
+                                                @forelse ($chapter->lessons as $indexLesson => $lesson)
+                                                    <!-- Course lecture -->
+                                                    <div>
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-2">
+                                                            <div class="position-relative d-flex align-items-center">
+                                                                <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
+                                                                    class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->check_lesson_user->contains(auth()->user()->id) == true ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
+                                                                    @if ($lesson->check_lesson_user->contains(auth()->user()->id) == true)
+                                                                        <i class="fas fa-play me-0"></i>
+                                                                    @else
+                                                                        <i class="bi bi-lock-fill"></i>
+                                                                    @endif
+                                                                </a>
+                                                                <span
+                                                                    class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px">Bài
+                                                                    {{ ++$indexLesson }}. {{ $lesson->title }}</span>
+                                                            </div>
+                                                            <p class="mb-0 text-truncate">{{ $lesson->time }}</p>
+                                                        </div>
+
+                                                    </div>
+                                                @empty
+                                                @endforelse
+                                            </div>
                                         </div>
                                     </div>
+
+                                    @if ($chapter->checkReviewUser == null)
+                                        <button class="btn btn-success mb-3" data-toggle="modal"
+                                            data-bs-target="#modal-example"data-bs-toggle="modal"
+                                            data-bs-target="#viewReview"
+                                            onclick="showAjaxModal('{{ route('client.chapter.getChapter', ['chapter' => $chapter->id, 'mentor' => $chapter->mentor->id]) }}','Đánh giá chương học: {{ $chapter->title }}')">
+                                            Đánh
+                                            giá chương học</button>
+                                    @else
+                                        <button class="btn btn-success mb-3" data-toggle="modal"
+                                            data-bs-target="#modal-example"data-bs-toggle="modal"
+                                            data-bs-target="#viewReview"
+                                            onclick="showAjaxModal('{{ route('client.chapter.getEditReview', ['chapter' => $chapter->id, 'mentor' => $chapter->mentor->id]) }}','Đánh giá chương học: {{ $chapter->title }}')">
+                                            <i class="fas fa-pen-nib"></i> sửa đánh giá</button>
+                                    @endif
+
                                 </div>
-                            </div>
-                            <!--end Item -->
+                                <!--end Item -->
+                            @endif
                         @empty
 
                         @endforelse

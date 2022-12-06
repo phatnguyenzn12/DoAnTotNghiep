@@ -14,7 +14,8 @@ class Chapter extends Model
         'sort',
         'mentor_id',
         'title',
-       'deadline',
+        'number',
+        'deadline',
         'course_id',
         'deadline',
     ];
@@ -29,7 +30,22 @@ class Chapter extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function mentor(){
+    public function mentor()
+    {
         return $this->belongsTo(Mentor::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, ChapterReview::class);
+    }
+
+    public function scopeCheckReviewUser()
+    {
+        if ($this->users->isEmpty() == false) {
+            return $this->users()->where('user_id', auth()->user()->id)->get();
+        }else{
+            return null;
+        }
     }
 }

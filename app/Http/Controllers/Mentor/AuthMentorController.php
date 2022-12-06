@@ -30,7 +30,7 @@ class AuthMentorController extends Controller
             else if(Auth::guard('mentor')->user()->hasRole('lead')){
                 return redirect()->route('mentor.home')->with('success', 'bạn đăng nhập thành công');
             }
-            else {
+            else if(Auth::guard('mentor')->user()->hasRole('teacher')){
                 return redirect()->route('teacher.home')->with('success', 'bạn đăng nhập thành công');
             }
 

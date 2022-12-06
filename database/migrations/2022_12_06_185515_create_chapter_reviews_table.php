@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chapters', function (Blueprint $table) {
+        Schema::create('chapter_reviews', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
-            $table->integer('number');
-            $table->integer('sort')->nullable();
-            $table->dateTime('deadline')->nullable();
-            $table->unsignedBigInteger('mentor_id')->nullable();
-            $table->unsignedBigInteger('course_id')->nullable();
+            $table->integer('votes');
+            $table->string('content');
+            $table->unsignedBigInteger('chapter_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chapters');
+        Schema::dropIfExists('chapter_reviews');
     }
 };

@@ -24,6 +24,7 @@ use App\Models\User;
 use App\Models\UserCertificate;
 use Database\Factories\CensorFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class BaseSeeder extends Seeder
@@ -51,8 +52,32 @@ class BaseSeeder extends Seeder
         $users = User::factory()
             ->count(5)
             ->create();
+
+        $mentor = Mentor::create(
+            [
+                'name' => 'chutatbach1',
+                'email' => 'chutatbach1@gmail.com',
+                'email_verified_at' => now(),
+                'avatar' => 'placeholder.png',
+                'number_phone' => fake()->phoneNumber(),
+                'password' => Hash::make('12345678'), // password
+                'is_active' => 1,
+                'remember_token' => null,
+                'address' => 'hà nội',
+                'about_me' => fake()->text(700),
+                'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
+                'educations' => 'dạy tại cao đẳng fpt',
+                'specialize_id' => rand(1, 3),
+                'skills' => 'html,css,php',
+                'years_in_experience' => 10,
+                'point' => 100
+            ]
+        );
+        
+        $mentor->assignRole('teacher');
+
         Admin::factory(1)->create();
-        Mentor::factory(10)->create();
+        // Mentor::factory(10)->create();
         Censor::factory(1)->create();
         CateCourse::factory(3)->create();
         Specialize::factory(3)->create();
@@ -62,8 +87,8 @@ class BaseSeeder extends Seeder
         UserCertificate::factory(10)->create();
         Chapter::factory(100)->create();
         Lesson::factory(100)->create();
-        foreach(Lesson::select('*')->get() as $lesson) {
-            if($lesson->lesson_type == 'video') {
+        foreach (Lesson::select('*')->get() as $lesson) {
+            if ($lesson->lesson_type == 'video') {
                 LessonVideo::create(
                     [
                         'video_path' => '775480738',

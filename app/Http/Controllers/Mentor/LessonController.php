@@ -37,21 +37,29 @@ class LessonController extends Controller
 
     public function store(Request $request)
     {
-        $lesson = Lesson::create(
-            $request->all()
-        );
+        $chapter = Chapter::where('id', $request->chapter_id)->first();
+        if ($chapter->number > count($chapter->lessons)) {
 
-        LessonVideo::create(
-            ['lesson_id' => $lesson->id],
-        );
 
-        if ($request->ajax()) {
-            session()->flash('success', 'Thêm bài học thành công');
-            return response()->json(['success' => true], 201);
+            $lesson = Lesson::create(
+                $request->all()
+            );
+
+            LessonVideo::create(
+                ['lesson_id' => $lesson->id],
+            );
+
+            if ($request->ajax()) {
+                session()->flash('success', 'Thêm bài học thành công');
+                return response()->json(['success' => true], 201);
+            }
+            return redirect()
+                ->back()
+                ->with('success', 'Thêm bài học thành công');
+        }else{
+            session()->flash('failed', 'Đã đủ số lượng bài học');
+            return response()->json(['failed' => true], 201);
         }
-        return redirect()
-            ->back()
-            ->with('success', 'Thêm bài học thành công');
     }
 
     public function actived(LessonVideo $lesson_video, $check)
