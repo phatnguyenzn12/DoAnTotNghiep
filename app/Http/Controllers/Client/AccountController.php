@@ -90,7 +90,8 @@ class AccountController extends Controller
             ->courses()
             ->select('*')
             ->get();
+        $user = auth()->user();
 
-        return view('screens.client.account.my-course', compact('courses'));
+        return view('screens.client.account.my-course', compact('courses', 'user'));
     }
 }

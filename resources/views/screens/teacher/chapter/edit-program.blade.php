@@ -48,6 +48,7 @@
                                                     <i class="flaticon-refresh"></i>
                                                 </a>
                                             @endif
+                                            <a class="btn btn-primary mx-1" href="{{ route('teacher.lesson.list', $chapter->id) }}">Chi tiết bài học</a>
                                             <a data-toggle="modal" data-target="#modal-example"
                                                 onclick="showAjaxModal('{{ route('teacher.chapter.show', $chapter->id) }}' ,'Chi tiết chương học')"
                                                 class="btn btn-icon btn-sm btn-primary mr-1">
@@ -85,7 +86,7 @@
                                                     Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
 
                                                 </p>
-                                                @if ($lesson->lessonVideo->video_path != 0 && $lesson->time != 0)
+                                                {{-- @if ($lesson->lessonVideo->video_path != 0 && $lesson->time != 0)
                                                     <div class="text-center">
                                                         <span>
                                                             <button class="btn btn-primary" data-toggle="modal"
@@ -97,7 +98,7 @@
                                                             {{ $lesson->time }}
                                                         </span>
                                                     </div>
-                                                @endif
+                                                @endif --}}
                                                 <form action="" method="POST" id="delete-lesson1" class="d-inline"
                                                     hidden>
                                                     @method('DELETE')
