@@ -61,7 +61,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <a href="#"
+                                                <a href="{{route('mentor.listTeacher', ['id'=>$db->cate_course_id])}}"
                                                     class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ $db->name }}</a>
                                                 <span class="text-muted font-weight-bold d-block">{{ $db->email }}</span>
                                             </div>
