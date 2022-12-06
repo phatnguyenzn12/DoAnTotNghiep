@@ -3,19 +3,36 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate;
 use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CertificateController extends Controller
 {
-    public function addCertificate(Course $course)
+    public function getCertificate(Course $course)
     {
-        dd(auth()->user()->load('courses')->courses()->where('id', $course->id)->isEmpty(),$course->certificate->id);
-        if ($course->progress == 100) {
-            auth()->user()->load('certificate')->certificate()->sync($course->certificate->id);
-            return redirect()->back()->with('success', 'bạn đã hoàn thành chứng chỉ');
-        } else {
-            return redirect()->back()->with('success', 'bạn chưa hoàn thành khóa học');
+        if(!$course->certificate){
+            return redirect()->back()->with('failed', 'Khóa học không có chứng chỉ');
         }
+
+        if ($course->progress == 100) {
+            auth()->user()->load('certificate')->certificate()->syncWithoutDetaching($course->certificate->id);
+            return redirect()->route('client.certificate.index', $course->certificate->id)->with('success', 'bạn đã hoàn thành và nhận thành công chứng chỉ');
+        } else {
+            return redirect()->back()->with('failed', 'bạn chưa hoàn thành khóa học');
+        }
+    }
+
+    public function index(Certificate $certificate)
+    {
+        $certificate = auth()->user()->load('certificate')->certificate->where('id', $certificate->id);
+
+        if ($certificate->isEmpty() == true) {
+            return redirect()->back()->with('failed', 'bạn chưa chưa có chứng chỉ');
+        }
+
+        $course = $certificate->first()->course;
+
+        return view('screens.client.account.certificate', compact('course'));
     }
 }

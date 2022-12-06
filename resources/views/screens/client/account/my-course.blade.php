@@ -1,10 +1,9 @@
-
 @extends('layouts.client.master')
 @section('title', 'Khóa học của tôi')
 
 @section('content')
     <!-- =======================
-    Page Banner START -->
+        Page Banner START -->
     <section class="pt-0">
         <div class="container-fluid px-0">
             <div class="card bg-blue h-100px h-md-200px rounded-0"
@@ -20,7 +19,7 @@
                             <div class="col-auto">
                                 <div class="avatar avatar-xxl position-relative mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                    src="/images/{{Auth::user()->avatar}}">
+                                        src="/frontend/images/avatar/01.jpg">
                                     <span
                                         class="badge text-bg-success rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Pro</span>
                                 </div>
@@ -28,11 +27,12 @@
                             <!-- Profile info -->
                             <div class="col d-sm-flex justify-content-between align-items-center">
                                 <div>
-                                    <h1 class="my-1 fs-4">{{$user->name}}</h1>
+                                    <h1 class="my-1 fs-4">{{ $user->name }}</h1>
                                 </div>
                                 <!-- Button -->
                                 <div class="mt-2 mt-sm-0">
-                                    <a href="student-course-list.html" class="btn btn-outline-primary mb-0">Xem tất cả khóa học của tôi</a>
+                                    <a href="student-course-list.html" class="btn btn-outline-primary mb-0">Xem tất cả khóa
+                                        học của tôi</a>
                                 </div>
                             </div>
                         </div>
@@ -54,10 +54,10 @@
         </div>
     </section>
     <!-- =======================
-    Page Banner END -->
+        Page Banner END -->
 
     <!-- =======================
-    Page content START -->
+        Page content START -->
     <section class="pt-0">
         <div class="container">
             <div class="row">
@@ -79,9 +79,9 @@
                                 <!-- Dashboard menu -->
                                 <div class="list-group list-group-dark list-group-borderless">
                                     <a class="list-group-item" href={{ route('client.account.myCourse') }}><i
-                                        class="bi bi-ui-checks-grid fa-fw me-2"></i>Khóa học của tôi</a>
-                                <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
-                                        class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
+                                            class="bi bi-ui-checks-grid fa-fw me-2"></i>Khóa học của tôi</a>
+                                    <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
+                                            class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
                                     <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i
                                             class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                 </div>
@@ -104,7 +104,8 @@
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="{{$courses->count()}}" data-purecounter-delay="200">0</h5>
+                                            data-purecounter-end="{{ $courses->count() }}" data-purecounter-delay="200">0
+                                        </h5>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Tổng khóa học</p>
                                 </div>
@@ -119,7 +120,8 @@
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="{{$courses->where('progress','=','100')->count()}}" data-purecounter-delay="200">0</h5>
+                                            data-purecounter-end="{{ $courses->where('progress', '=', '100')->count() }}"
+                                            data-purecounter-delay="200">0</h5>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Khóa học hoàn thiện</p>
                                 </div>
@@ -133,7 +135,7 @@
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="0" data-purecounter-delay="300">0</h5>
+                                            data-purecounter-end="{{ auth()->user()->certificate->count() }}" data-purecounter-delay="300">0</h5>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Chứng chỉ đạt được</p>
                                 </div>
@@ -157,8 +159,8 @@
                                 <!-- Content -->
                                 <div class="col-md-8">
                                     <form class="rounded position-relative">
-                                        <input class="form-control pe-5 bg-transparent" type="search"
-                                            placeholder="Search" aria-label="Search">
+                                        <input class="form-control pe-5 bg-transparent" type="search" placeholder="Search"
+                                            aria-label="Search">
                                         <button
                                             class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
                                             type="submit">
@@ -201,53 +203,66 @@
                                     <!-- Table body START -->
                                     <tbody>
                                         @forelse($courses as $course)
-                                        <!-- Table item -->
-                                        <tr>
-                                            <!-- Table data -->
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <!-- Image -->
-                                                    <div class="w-100px">
-                                                        <img src="/frontend/images/courses/4by3/08.jpg" class="rounded"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="mb-0 ms-2">
-                                                        <!-- Title -->
-                                                        <h6><a href="{{ route('client.course.show', ['slug' => $course['slug'],'course' => $course['id']]) }}"> {{ $course->title }}</a></h6>
-                                                        <!-- Info -->
-                                                        <div class="overflow-hidden">
-                                                            <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
-                                                            <div class="progress progress-sm bg-primary bg-opacity-10">
-                                                                <div class="progress-bar bg-primary aos"
-                                                                    role="progressbar" data-aos="slide-right"
-                                                                    data-aos-delay="200" data-aos-duration="1000"
-                                                                    data-aos-easing="ease-in-out" style="width: {{ $course->progress }}%"
-                                                                    aria-valuenow="{{ $course->progress }}" aria-valuemin="0"
-                                                                    aria-valuemax="100">
+                                            <!-- Table item -->
+                                            <tr>
+                                                <!-- Table data -->
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <!-- Image -->
+                                                        <div class="w-100px">
+                                                            <img src="/frontend/images/courses/4by3/02.jpg"
+                                                                class="rounded" alt="">
+                                                        </div>
+                                                        <div class="mb-0 ms-2">
+                                                            <!-- Title -->
+                                                            <h6><a
+                                                                    href="{{ route('client.course.show', ['slug' => $course['slug'], 'course' => $course['id']]) }}">
+                                                                    {{ $course->title }}</a></h6>
+                                                            <!-- Info -->
+                                                            <div class="overflow-hidden">
+                                                                <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
+                                                                <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                                    <div class="progress-bar bg-primary aos"
+                                                                        role="progressbar" data-aos="slide-right"
+                                                                        data-aos-delay="200" data-aos-duration="1000"
+                                                                        data-aos-easing="ease-in-out"
+                                                                        style="width: {{ $course->progress }}%"
+                                                                        aria-valuenow="{{ $course->progress }}"
+                                                                        aria-valuemin="0" aria-valuemax="100">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
 
-                                            <!-- Table data -->
-                                            <td>{{ $course->lessons->count() }}</td>
+                                                <!-- Table data -->
+                                                <td>{{ $course->lessons->count() }}</td>
 
-                                            <!-- Table data -->
-                                            <td>{{ $course->number_lessons_complete }}</td>
+                                                <!-- Table data -->
+                                                <td>{{ $course->number_lessons_complete }}</td>
 
-                                            <!-- Table data -->
-                                            <td>
-                                                <a href="{{ route('client.course.show', ['slug' => $course['slug'],'course' => $course['id']]) }}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
-                                                        class="bi bi-play-circle me-1"></i>Tiếp tục</a>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-primary">Xem chứng chỉ</button>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                    @endforelse
+                                                <!-- Table data -->
+                                                <td>
+                                                    <a href="{{ route('client.course.show', ['slug' => $course['slug'], 'course' => $course['id']]) }}"
+                                                        class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
+                                                            class="bi bi-play-circle me-1"></i>Tiếp tục</a>
+                                                </td>
+                                                @if ($course->certificate)
+                                                    <td>
+                                                        <a href="{{ route('client.certificate.index', $course->certificate->id) }}"
+                                                            class="btn btn-primary">Xem chứng chỉ</a>
+                                                    </td>
+                                                @else
+                                                <td>
+                                                    <a
+                                                        class="btn btn-danger">không chứng chỉ</a>
+                                                </td>
+                                                @endif
+
+                                            </tr>
+                                        @empty
+                                        @endforelse
 
                                     </tbody>
                                     <!-- Table body END -->
@@ -283,7 +298,7 @@
         </div>
     </section>
     <!-- =======================
-    Page content END -->
+        Page content END -->
 @endsection
 @section('js-links')
 
