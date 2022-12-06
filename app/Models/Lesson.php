@@ -36,6 +36,11 @@ class Lesson extends Model
         return $this->belongsToMany(User::class, LessonUser::class);
     }
 
+    public function check_lesson_user()
+    {
+        return $this->lesson_user();
+    }
+
     public function commentLessons()
     {
         return $this->hasMany(CommentLesson::class, 'lesson_id', 'id');

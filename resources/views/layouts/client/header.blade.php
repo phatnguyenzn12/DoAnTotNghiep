@@ -70,6 +70,10 @@
                         </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Danh sách khóa học</a>
                         </li>
+                        <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Liên hệ</a>
+                        </li>
+                        <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Chính sách</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -146,9 +150,11 @@
                             <!-- Button -->
                             <div
                                 class="card-footer bg-transparent border-top py-3 text-center d-flex justify-content-between position-relative">
-                                <a href="{{ route('client.order.cartList') }}" class="btn btn-sm btn-light mb-0">Xem giỏ
+                                <a href="{{ route('client.order.cartList') }}" class="btn btn-sm btn-light mb-0">Xem
+                                    giỏ
                                     hàng</a>
-                                <a href="#" class="btn btn-sm btn-success mb-0">Thanh toán ngay</a>
+                                <a href="{{ route('client.order.pay') }}" class="btn btn-sm btn-success mb-0">Thanh
+                                    toán ngay</a>
                             </div>
                         </div>
                     </div>
@@ -190,7 +196,7 @@
                                                 <div class="me-3">
                                                     <div class="avatar avatar-md">
                                                         <img class="avatar-img rounded-circle"
-                                                            src="{{ $notification->info->avatar }}" alt="avatar">
+                                                            src="/frontend/images/avatar/01.jpg" alt="avatar">
                                                     </div>
                                                 </div>
 
@@ -227,12 +233,12 @@
                         aria-expanded="false">
                         @if (Auth::guard('admin')->user())
                             <img class="avatar-img rounded-circle"
-                                src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}" alt="avatar">
+                                src="/frontend/images/avatar/01.jpg" alt="avatar">
                         @elseif (Auth::guard('mentor')->user())
                             <img class="avatar-img rounded-circle"
-                                src="{{ asset('app/' . Auth::guard('mentor')->user()->avatar) }}" alt="avatar">
+                                src="/frontend/images/avatar/01.jpg" alt="avatar">
                         @else
-                            <img class="avatar-img rounded-circle" src="{{ asset('app/' . Auth::user()->avatar) }}"
+                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
                                 alt="avatar">
                         @endif
                     </a>
@@ -247,15 +253,15 @@
                                 <div class="avatar me-3">
                                     @if (Auth::guard('admin')->user())
                                         <img class="avatar-img rounded-circle"
-                                            src="{{ asset('app/' . Auth::guard('admin')->user()->avatar) }}"
+                                            src="/frontend/images/avatar/01.jpg"
                                             alt="avatar">
                                     @elseif (Auth::guard('mentor')->user())
                                         <img class="avatar-img rounded-circle"
-                                            src="{{ asset('app/' . Auth::guard('mentor')->user()->avatar) }}"
+                                            src="/frontend/images/avatar/01.jpg"
                                             alt="avatar">
                                     @else
                                         <img class="avatar-img rounded-circle"
-                                            src="{{ asset('app/' . Auth::user()->avatar) }}" alt="avatar">
+                                            src="/frontend/images/avatar/01.jpg" alt="avatar">
                                     @endif
                                 </div>
                                 <div>
