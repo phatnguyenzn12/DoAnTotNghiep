@@ -22,21 +22,26 @@
                                 <input type="text" value="" name="title" class="form-control"
                                     placeholder="Nhập tiêu đề">
                             </div>
-                            {{-- @error('title')
+                            @error('title')
                                     <p class="text-danger">{{ $message }}</p>
-                                @enderror --}}
+                                @enderror
                             <div class="form-group">
                                 <label>Đường dẫn
                                     <span class="text-danger">*</span></label>
                                 <input value="" type="text" name="slug" class="form-control"
                                     placeholder="Đường dẫn">
                             </div>
-
+                            @error('slug')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                             <div class="form-group">
                                 <label>Video demo</label>
                                 <input type="url" name="video" rows="5" class="form-control"
                                     placeholder="nhập đường dẫn video youtube" />
                             </div>
+                            @error('video')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             <div class="form-group">
                                 <label>Kỹ năng</label>
                                 <select id="select2" class="form-control" name="skill_id" id="">
@@ -46,6 +51,9 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @error('skill_id')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             <div class="form-group">
                                 <label>Ngôn ngữ</label>
                                 <select id="select2" class="form-control" name="language" id="">
@@ -54,6 +62,9 @@
                                     <option value="1">Tiếng anh</option>
                                 </select>
                             </div>
+                            @error('language')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             <div class="form-group">
                                 <label>Thẻ
                                     <span class="text-danger">*</span></label>
@@ -64,16 +75,22 @@
                                 <label>Giới thiệu</label>
                                 <textarea rows="5" class="form-control" name="content"></textarea>
                             </div>
+                            @error('content')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             <div class="form-group">
                                 <label>Mô tả</label>
                                 <textarea id="editor" rows="5" class="form-control" name="description" id=""></textarea>
                             </div>
+                            @error('description')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             <div class="form-group">
                                 <label>Mô tả chi tiết</label>
                                 <input id="kt_tagify_2" class="form-control" name='description_details'
                                     placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
                             </div>
-                            
+
 
                             <div class="form-group">
                                 <label>Ảnh slide</label>
@@ -88,6 +105,9 @@
                                         style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
                                 </div>
                             </div>
+                            @error('image')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             <input type="text" name="cate_course_id" id="" value="{{auth()->guard('mentor')->user()->cate_course_id}}" hidden>
 
 

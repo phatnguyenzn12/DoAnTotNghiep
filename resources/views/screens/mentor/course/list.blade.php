@@ -69,6 +69,7 @@
                 <!--end::Col-->
             </div>
             <!--end::table-->
+{{$course->links()}}
         </div>
     @endsection
     @section('js-links')

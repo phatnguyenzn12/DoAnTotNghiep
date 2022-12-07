@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChapterValidateRequest;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -22,7 +23,7 @@ class ChapterController extends Controller
         return response()->json($data);
     }
 
-    public function store(Request $request)
+    public function store(ChapterValidateRequest $request)
     {
 
         $course = Course::where('id', $request->course_id);
@@ -62,7 +63,7 @@ class ChapterController extends Controller
         return response()->json($data, 200);
     }
 
-    public function update(Request $request, $chapter)
+    public function update(ChapterValidateRequest $request, $chapter)
     {
         $chapter_old = Chapter::where('id',$chapter)->first();
         $chapter = Chapter::findOrFail($chapter);

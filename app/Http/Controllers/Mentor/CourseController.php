@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CourseValidateRequest;
 use App\Models\CateCourse;
 use App\Models\Certificate;
 use App\Models\Chapter;
@@ -20,11 +21,13 @@ class CourseController extends Controller
 
     public function index()
     {
+        $course= Course::paginate(1);
         $courses = auth()->guard('mentor')
+
             ->user()
             ->load('courses')
             ->courses;
-        return view('screens.mentor.course.list', compact('courses'));
+        return view('screens.mentor.course.list', compact('courses', 'course'));
     }
 
     public function program($course_id)
@@ -35,7 +38,7 @@ class CourseController extends Controller
             ->where('course_id', $course_id)
             // ->orderBy('id', 'DESC')
             // ->orderBy('sort')
-            ->paginate(10);
+            ->paginate(3);
         return view('screens.mentor.course.edit-program', compact('chapters', 'course_id', 'mentor'));
     }
     // Route::get('edit-program/{course_id}', 'program')->name('program');
@@ -59,7 +62,7 @@ class CourseController extends Controller
         return view('screens.mentor.course.create', compact('cateCourses', 'skills'));
     }
 
-    public function store(Request $request)
+    public function store(CourseValidateRequest $request)
     {
         $image = UploadFileService::storage_image($request->image);
 
@@ -98,7 +101,7 @@ class CourseController extends Controller
         return response()->json($data, 200);
     }
 
-    public function update(Request $request, Course $course)
+    public function update(CourseValidateRequest $request, Course $course)
     {
         $course->title = $request->title;
         $course->content = $request->content;

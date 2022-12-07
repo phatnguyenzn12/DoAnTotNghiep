@@ -5,13 +5,18 @@
         <label>Tên chương học</label>
         <input type="text" name="title" placeholder="Nhập tên chương học..." class="form-control">
     </div>
+    {{-- @error('title')
+        <p class="text-danger">{{ $message }}</p>
+    @enderror --}}
     <div class="form-group">
         <label>Số lượng bài học</label>
-        <input type="number" name="number" class="form-control">
+        <input type="number" name="number" placeholder="Nhập số lượng bài học..." class="form-control">
     </div>
+
     <div class="form-group">
         <label for="">Giáo viên</label>
         <select name="mentor_id" id="" class="form-control">
+            <option value="">--.--</option>
             @foreach ($mentor as $gv)
                 @if ($gv->hasRole('teacher'))
                     <option value="{{ $gv->id }}">{{ $gv->name }}</option>
