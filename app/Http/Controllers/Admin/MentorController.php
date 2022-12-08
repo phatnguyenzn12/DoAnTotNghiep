@@ -11,6 +11,7 @@ use App\Models\Skill;
 use App\Models\Specialize;
 use App\Services\UploadFileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -27,7 +28,7 @@ class MentorController extends Controller
 
     public function teacher($id)
     {
-        $db = Mentor::where('cate_course_id',$id)->get();
+        $db = Mentor::where('cate_course_id', $id)->get();
         return view('screens.admin.mentor.list-teacher', compact('db'));
     }
 
@@ -54,6 +55,8 @@ class MentorController extends Controller
                         'avatar' => $avatar,
                         'password' => Hash::make($password),
                     ],
+                    ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
+                    ['skills' => implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray())],
                 )
             );
             $mentor->assignRole('lead');
@@ -66,9 +69,26 @@ class MentorController extends Controller
             });
             return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
         }
-        return view('screens.admin.mentor.create', compact('cate_courses','skills','specializes'));
+        return view('screens.admin.mentor.create', compact('cate_courses', 'skills', 'specializes'));
     }
 
+    public function detail($id)
+    {
+        $mentor = Mentor::find($id);
+        dd($mentor);
+    }
+    public function update(Request $request, Mentor $mentor, $id)
+    {
+        $mentor = Auth::guard('mentor')->user($id);
+        $mentor->fill($request->except(['_method', '_token']));
+        if ($request->hasFile('avatar')) {
+            $imgPath = $request->file('avatar')->store('images');
+            $imgPath = str_replace('public/', '', $imgPath);
+            $mentor->avatar = $imgPath;
+        }
+        $mentor->update();
+        return redirect()->back()->with('success', 'sửa thành công');
+    }
     public function actived($id)
     {
         $db = new Mentor();
