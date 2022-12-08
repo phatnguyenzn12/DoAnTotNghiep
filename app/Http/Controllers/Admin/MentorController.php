@@ -54,6 +54,8 @@ class MentorController extends Controller
                         'avatar' => $avatar,
                         'password' => Hash::make($password),
                     ],
+                    ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
+                    ['skills' => implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray())],
                 )
             );
             $mentor->assignRole('lead');
@@ -69,6 +71,26 @@ class MentorController extends Controller
         return view('screens.admin.mentor.create', compact('cate_courses','skills','specializes'));
     }
 
+    public function detail($id){
+       $mentor = Mentor::find($id);
+       dd($mentor);
+    }
+    public function update(Request $request, Mentor $mentor, $id)
+    {
+        $mentor = Auth::guard('mentor')->user($id);
+        if (!$mentor) {
+            return back();
+        } else {
+            $mentor->fill($request->except(['_method', '_token']));
+            if ($request->hasFile('avatar')) {
+                $imgPath = $request->file('avatar')->store('images');
+                $imgPath = str_replace('public/', '', $imgPath);
+                $mentor->avatar = $imgPath;
+            }
+            $mentor->update();
+            return redirect()->back()->with('success', 'sửa thành công');
+        }
+    }
     public function actived($id)
     {
         $db = new Mentor();
