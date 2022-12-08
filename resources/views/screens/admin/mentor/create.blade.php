@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Trang danh sách người dùng')
+@section('title', 'Trang danh giảng viên')
 @section('content')
     <div class="container">
         <div class="row">

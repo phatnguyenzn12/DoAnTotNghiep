@@ -11,6 +11,7 @@ use App\Models\Skill;
 use App\Models\Specialize;
 use App\Services\UploadFileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -74,24 +75,25 @@ class MentorController extends Controller
     public function detail($id)
     {
         $mentor = Mentor::find($id);
-        dd($mentor);
+      //  dd($mentor);
+        return view('screens.admin.mentor.detail', compact('mentor'));
     }
-    // public function update(Request $request, Mentor $mentor, $id)
-    // {
-    //     $mentor = Auth::guard('mentor')->user($id);
-    //     if (!$mentor) {
-    //         return back();
-    //     } else {
-    //         $mentor->fill($request->except(['_method', '_token']));
-    //         if ($request->hasFile('avatar')) {
-    //             $imgPath = $request->file('avatar')->store('images');
-    //             $imgPath = str_replace('public/', '', $imgPath);
-    //             $mentor->avatar = $imgPath;
-    //         }
-    //         $mentor->update();
-    //         return redirect()->back()->with('success', 'sửa thành công');
-    //     }
-    // }
+    public function update(Request $request, Mentor $mentor, $id)
+    {
+        $mentor = Auth::guard('mentor')->user($id);
+        if (!$mentor) {
+            return back();
+        } else {
+            $mentor->fill($request->except(['_method', '_token']));
+            if ($request->hasFile('avatar')) {
+                $imgPath = $request->file('avatar')->store('images');
+                $imgPath = str_replace('public/', '', $imgPath);
+                $mentor->avatar = $imgPath;
+            }
+            $mentor->update();
+            return redirect()->back()->with('success', 'sửa thành công');
+        }
+    }
     public function actived($id)
     {
         $db = new Mentor();
