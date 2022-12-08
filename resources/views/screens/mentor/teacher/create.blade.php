@@ -48,23 +48,16 @@
                             </div>
                             <div class="form-group">
                                 <label>Chuyên môn</label>
-                                <select id="select2" class="form-control" name="specialize_id" id="">
-                                    <option value="">Chọn chuyên môn</option>
-                                    @foreach ($specializes as $specialize)
-                                        <option value="{{ $specialize->id }}">{{ $specialize->title }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" value="" name="specializations" class="form-control"
+                                    placeholder="Chuyên môn">
                             </div>
                             <div class="form-group">
                                 <label>Kỹ năng</label>
-                                <select id="select2" class="form-control" name="skills" id="">
-                                    <option value="">Chọn kỹ năng</option>
-                                    @foreach ($skills as $skill)
-                                        <option value="{{ $skill->id }}">{{ $skill->title }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" value="" name="skills" class="form-control"
+                                    placeholder="Kỹ năng">
                             </div>
-                            <input type="text" name="cate_course_id" id="" value="{{auth()->guard('mentor')->user()->cate_course_id}}" hidden>
+                            <input type="text" name="cate_course_id" id=""
+                                value="{{ auth()->guard('mentor')->user()->cate_course_id }}" hidden>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
                                 <a href="{{ route('mentor.teacher.index') }}" class="btn btn-success mr-2">Back</a>
