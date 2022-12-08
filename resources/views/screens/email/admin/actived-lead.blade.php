@@ -6,7 +6,7 @@
             <p>Yêu cầu đã được phê duyệt bạn</p>
             <p>Tên tài khoản: {{ $db->email }}</p>
             <p>Chuyên môn: {{ $db->specializations }}</p>
-            <p>Kỹ năng: {{ $skill->title }}</p>
+            <p>Kỹ năng: {{ $db->skills}}</p>
             <p>Mật khẩu: {{ $password }}</p>
             <p>
                 <a href="{{ route('mentor.login') }}"
