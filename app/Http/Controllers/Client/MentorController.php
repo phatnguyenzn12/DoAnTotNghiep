@@ -60,7 +60,7 @@ class MentorController extends Controller
 
     public function show(Mentor $mentor)
     {
-        $mentorRelated = Mentor::where('specialize_id',$mentor->specialize_id)->get();
+        $mentorRelated = Mentor::where('specializations',$mentor->specializations)->get();
         return view('screens.client.mentor.intro',compact('mentor','mentorRelated'));
     }
 }

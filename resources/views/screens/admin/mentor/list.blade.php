@@ -61,20 +61,21 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <a href="#"
+                                                <a href="{{ route('mentor.listTeacher', ['id' => $db->cate_course_id]) }}"
                                                     class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ $db->name }}</a>
                                                 <span class="text-muted font-weight-bold d-block">{{ $db->email }}</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+
+                                   <td>
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            @foreach (DB::table('specializations')->where('id', $db->specialize_id)->get() as $specialize)
-                                                {{ $specialize->title }}
-                                            @endforeach
+                                            {{ $db->specializations }}
                                         </span>
-                                        <span class="text-muted font-weight-bold">{{ $db->skills }}</span>
-                                    </td>
+                                        {{-- <span class="text-muted font-weight-bold">{{ $db->skills }}</span> --}}
+                                    </td> 
+                                
+
                                     <td>
                                         <span
                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->educations }}</span>
@@ -110,15 +111,15 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a class="btn btn-light btn-sm" href="detail/${val.id}">
+                                        <a class="btn btn-light btn-sm" href="">
                                             <i class="flaticon2-pen text-warning"></i></a>
                                         <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
                                             href="{{ route('mentor.delete', ['id' => $db->id]) }}">
                                             <i class="flaticon2-trash text-danger"></i></a>
                                     </td>
                                 </tr>
-                                @endif
-                            @endforeach
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

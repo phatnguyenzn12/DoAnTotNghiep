@@ -71,7 +71,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <h4 class="card-label">
-                                        
+
                                         Chương {{ $key + 1 }}: <a
                                             href="{{ route('mentor.lesson.list', $chapter->id) }}">{{ $chapter->title }}</a>
                                     </h4>
@@ -79,7 +79,7 @@
                                         | Giáo viên : {{ $chapter->mentor->name }}, Điểm: {{ $chapter->mentor->point }}
                                     </h5>
                                     <h5 class="card-label">
-                                        | Deadline: {{ date("d-m-Y", strtotime( $chapter->deadline )) }}
+                                        | Deadline: {{ date('d-m-Y', strtotime($chapter->deadline)) }}
                                     </h5>
 
                                     {{-- @if ($chapter->deadline < now())
@@ -97,12 +97,12 @@
                                         </nav>
                                     @endif
                                     <p hidden>{{$item=0}}</p>
-                                    @foreach($chapter->lessons as $lesson)
-                                    @if($lesson->lessonVideo->video_path ==0)
+                                    @foreach ($chapter->lessons as $lesson)
+                                    @if ($lesson->lessonVideo->video_path == 0)
                                         <p hidden>{{$item++}}</p>
                                     @endif
                                     @endforeach
-                                    @if ($item==0)
+                                    @if ($item == 0)
                                         hoàn thành
                                     @endif --}}
 
@@ -138,7 +138,7 @@
                                         @endif
                                     @endforeach
                                     <p class="card-label">
-                                        Tổng số  bài học: {{$chapter->number}} bài <br>
+                                        Tổng số bài học: {{ $chapter->number }} bài <br>
                                         Giáo viên đã đăng: {{ $count }}
                                     </p>
                                 </div>
@@ -148,19 +148,20 @@
                                     <div class="col-md-12 mb-3 ribbon ribbon-right">
                                         <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
                                             @if ($lesson->lessonVideo->video_path != 0)
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">{{ $lesson->edit }}
-                                                </font>
-                                            </font>
-                                        @else
-                                            <font style="vertical-align: inherit;">
                                                 <font style="vertical-align: inherit;">
-                                                    {{ $lesson->lessonVideo->video }}
+                                                    <font style="vertical-align: inherit;">{{ $lesson->edit }}
+                                                    </font>
                                                 </font>
-                                            </font>
-                                        @endif
+                                            @else
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        {{ $lesson->lessonVideo->video }}
+                                                    </font>
+                                                </font>
+                                            @endif
                                         </div>
-                                        <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
+                                        <span
+                                            class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
                                             <p class="lession-name m-0 font-weight-bold">
                                                 @if ($lesson->lesson_type == 'exercise')
                                                     <i class="fas fa-file"></i>
@@ -169,7 +170,8 @@
                                                 @endif
                                                 Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
                                             </p>
-                                            <form action=""  method="POST" id="delete-lesson1" class="d-inline" hidden>
+                                            <form action="" method="POST" id="delete-lesson1" class="d-inline"
+                                                hidden>
                                                 @method('DELETE')
                                                 @csrf
                                             </form>

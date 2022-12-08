@@ -34,7 +34,7 @@ class Mentor extends Authenticatable
         'cate_course_id',
         'social_networks',
         'educations',
-        'specialize_id',
+        'specializations',
         'skills',
         'about_me',
         'point',
