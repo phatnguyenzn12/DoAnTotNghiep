@@ -158,17 +158,6 @@
                     </ul>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('mentor.teacher') }}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">DANH SÁCH GIÁO VIÊN</span>
-                            </a>
-
-                        </li>
-                    </ul>
-                    <ul class="menu-subnav">
-                        <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('admin.discount.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>

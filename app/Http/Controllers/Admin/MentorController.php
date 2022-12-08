@@ -25,9 +25,9 @@ class MentorController extends Controller
         return view('screens.admin.mentor.list', compact('db'));
     }
 
-    public function teacher()
+    public function teacher($id)
     {
-        $db = Mentor::all();
+        $db = Mentor::where('cate_course_id',$id)->get();
         return view('screens.admin.mentor.list-teacher', compact('db'));
     }
 
@@ -59,7 +59,7 @@ class MentorController extends Controller
             $mentor->assignRole('lead');
             $db = Mentor::where('email', 'like', $request->email)->first();
             $skill = Skill::find($db->skills);
-            $specialize = Specialize::find($db->specialize_id);
+            $specialize = Specialize::find($db->specializations);
             Mail::send('screens.email.admin.actived-lead', compact('db', 'password', 'skill', 'specialize'), function ($email) use ($db) {
                 $email->subject('Yêu cầu đăng ký giảng viên');
                 $email->to($db->email, $db->name);
@@ -92,7 +92,7 @@ class MentorController extends Controller
             'number_phone' => $db->number_phone,
             'email_verified_at' => now(),
             'avatar' => 'placeholder.png',
-            'specialize_id' => 2,
+            'specializations' => 2,
             'is_active' => 1,
             'password' => Hash::make($password),
             'remember_token' => null,

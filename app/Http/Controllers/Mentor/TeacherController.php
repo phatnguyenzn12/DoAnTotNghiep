@@ -40,7 +40,7 @@ class TeacherController extends Controller
             $teacher->assignRole('teacher');
             $db = Mentor::where('email', 'like', $request->email)->first();
             $skill = Skill::find($db->skills);
-            $specialize = Specialize::find($db->specialize_id);
+            $specialize = Specialize::find($db->specializations);
             Mail::send('screens.email.mentor.activedTeacher', compact('db', 'password', 'skill', 'specialize'), function ($email) use ($db) {
                 $email->subject('Yêu cầu đăng ký giảng viên');
                 $email->to($db->email, $db->name);
