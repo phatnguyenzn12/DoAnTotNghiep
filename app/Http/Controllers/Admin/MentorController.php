@@ -44,7 +44,7 @@ class MentorController extends Controller
         $skills = Skill::all();
         $specializes = Specialize::all();
         if ($request->isMethod('post')) {
-            $avatar = UploadFileService::storage_image($request->avatar);
+        //    $avatar = UploadFileService::storage_image($request->avatar);
             $password = 12345678;
             $mentor = Mentor::create(
                 array_merge(
@@ -52,7 +52,7 @@ class MentorController extends Controller
                     [
                         'is_active' => 1,
                         'email_verified_at' => now(),
-                        'avatar' => $avatar,
+                        'avatar' => 'images/placeholder.png',
                         'password' => Hash::make($password),
                     ],
                     ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
@@ -89,6 +89,22 @@ class MentorController extends Controller
         $mentor->update();
         return redirect()->back()->with('success', 'sửa thành công');
     }
+    // public function update(Request $request, Mentor $mentor, $id)
+    // {
+    //     $mentor = Auth::guard('mentor')->user($id);
+    //     if (!$mentor) {
+    //         return back();
+    //     } else {
+    //         $mentor->fill($request->except(['_method', '_token']));
+    //         if ($request->hasFile('avatar')) {
+    //             $imgPath = $request->file('avatar')->store('images');
+    //             $imgPath = str_replace('public/', '', $imgPath);
+    //             $mentor->avatar = $imgPath;
+    //         }
+    //         $mentor->update();
+    //         return redirect()->back()->with('success', 'sửa thành công');
+    //     }
+    // }
     public function actived($id)
     {
         $db = new Mentor();

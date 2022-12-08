@@ -10,11 +10,11 @@ use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Models\User;
-use App\Notifications\BaseNotification;
+use App\Notifications\ChapterReviewNotification;
 use App\Notifications\CommentLessonNotification;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\Notifications;
 
 class LessonController extends Controller
 {
@@ -23,6 +23,8 @@ class LessonController extends Controller
         $chapters = $course->load('chapters')->chapters()->orderBy('id')->get();
 
         $lesson = $chapters->first()->lessons()->orderBy('id')->first();
+
+        $mentor = $lesson->chapter->mentor;
 
         auth()->user()
             ->load('lesson_user')
@@ -38,7 +40,7 @@ class LessonController extends Controller
             ->where('status', '1')
             ->paginate(5);
 
-        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments'));
+        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments', 'mentor'));
     }
 
     public function show(Course $course, Lesson $lesson)
@@ -50,6 +52,8 @@ class LessonController extends Controller
 
         $chapters = $course->load('chapters')->chapters()->get();
 
+        $mentor = $lesson->chapter->mentor;
+
         $comments = CommentLesson::where('lesson_id', $lesson->id)
             ->orderBy('id', 'DESC')
             ->where([
@@ -59,7 +63,7 @@ class LessonController extends Controller
             ->where('status', '1')
             ->paginate(5);
 
-        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments'));
+        return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments', 'mentor'));
     }
 
     public function commentDetails(Request $request, CommentLesson $comment_lesson)
@@ -82,9 +86,7 @@ class LessonController extends Controller
     {
         $data = $request->only('comment');
         $data['lesson_id'] = $lesson->id;
-        $data['user_id'] = auth()->user()
-            ? auth()->user()->id
-            : auth()->guard('mentor')->user()->id;
+        $data['user_id'] = auth()->user()->id;
 
         $comment = CommentLesson::create($data);
 
@@ -92,6 +94,18 @@ class LessonController extends Controller
             ->orderBy('id', 'DESC')
             ->where('status', '1')
             ->paginate(5);
+
+        Notification::send(
+            $lesson->chapter->mentor,
+            new CommentLessonNotification(
+                [
+                    'lesson_id' => $lesson->id,
+                    'course_id'  => $lesson->chapter->course->id,
+                    'content' => $data['comment'],
+                    'name' => auth()->user()->name,
+                ]
+            )
+        );
 
         $html = view('components.client.lesson.comment', compact('comments'))->render();
 
@@ -114,13 +128,14 @@ class LessonController extends Controller
 
         $data['reply'] = $comment_parent->id;
         $data['lesson_id'] = $comment_parent->lesson_id;
-        $user = auth()->user()
-            ? auth()->user()
-            : auth()->guard('mentor')->user();
+        $user = auth()->user();
 
         $data['user_id'] = $user->id;
 
         $mentors_id = $comment_parent->replies->where('mentor_id', '!=', 0)->pluck('mentor_id');
+
+        $users_id = $comment_parent->replies->where('user_id', '!=', 0)
+            ->pluck('user_id');
 
         if ($mentors_id->isEmpty() == false) {
 
@@ -130,7 +145,7 @@ class LessonController extends Controller
 
             Notification::send(
                 $mentors,
-                new BaseNotification(
+                new CommentLessonNotification(
                     [
                         'lesson_id' => $comment_parent->lesson_id,
                         'course_id'  => $course_id,
@@ -153,7 +168,7 @@ class LessonController extends Controller
 
             Notification::send(
                 $users,
-                new BaseNotification(
+                new CommentLessonNotification(
                     [
                         'lesson_id' => $comment_parent->lesson_id,
                         'course_id'  => $course_id,
@@ -177,27 +192,6 @@ class LessonController extends Controller
         return response()->json($html);
     }
 
-    // public function sendNotifications($checks_id)
-    // {
-    //     if ($checks_id->isEmpty() == true) {
-    //         $list_id = $checks_id->whereNotNull();
-    //         $users = Mentor::where('id', $list_id)->get();
-
-    //         Notification::send(
-    //             $users,
-    //             new notifications(
-    //                 [
-    //                     'lesson_id' => $comment_parent->lesson_id,
-    //                     'course_id'  => $comment_parent->course->id,
-    //                     'name' => $comment_parent->name,
-    //                     'user_id' => $comment_parent->user_id,
-    //                     'mentor_id' => $comment_parent->mentor_id
-    //                 ]
-    //             )
-    //         );
-    //     }
-    // }
-
     public function getChapter(Mentor $mentor, Chapter $chapter)
     {
         $html = view('components.client.lesson.chapter-review', compact('chapter', 'mentor'))->render();
@@ -206,12 +200,13 @@ class LessonController extends Controller
 
     public function postReview(Request $request, Chapter $chapter)
     {
-        $chapterReview = $request->only(
-            [
-                'votes',
-                'chapter_id',
-            ]
-        );
+        if ($chapter->userLessonsComplete()->count() != $chapter->lessons->count()) {
+            return redirect()->back()->with('failed', 'Bạn phải hoàn thành chương học mới được đánh giá');
+        }
+
+        $chapterReview = $request->only('votes');
+
+        $chapterReview['chapter_id'] = $chapter->id;
 
         $chapterReview['user_id'] = auth()->user()->id;
 
@@ -223,9 +218,9 @@ class LessonController extends Controller
 
         Notification::send(
             $chapter->mentor,
-            new BaseNotification(
+            new ChapterReviewNotification(
                 [
-                    'content' => 'đánh giá chương học của bạn với số điểm là ' . $chapterReview->votes,
+                    'content' => 'đánh giá chương học ' . $chapterReview->chapter->title . ' của bạn với số điểm là ' . $chapterReview->votes,
                     'name' => auth()->user()->name,
                 ]
             )
@@ -234,17 +229,32 @@ class LessonController extends Controller
         return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá chương ' . $chapter->title);
     }
 
-    public function getEditReview(Mentor $mentor, Chapter $chapter) //
+    public function getEditReview(Request $request, $chapterReview) //
     {
-        $html = view('components.client.lesson.edit-chapter-review', compact('chapter', 'mentor'))->render();
+        try {
+            $chapterReview = ChapterReview::FindOrFail($chapterReview);
+        } catch (ModelNotFoundException $exception) {
+            return response()->json($exception->getMessage(), 401);
+        }
+
+        $mentor = $chapterReview->chapter->mentor;
+
+        $chapter = $chapterReview->chapter;
+
+        $html = view('components.client.lesson.edit-chapter-review', compact('chapter', 'mentor', 'chapterReview'))->render();
+
         return response()->json($html, 200);
     }
 
-    public function editReview(Request $request,Chapter $chapter, $id)
+    public function editReview(Request $request, $review)
     {
-        $chapterReview = ChapterReview::findOrFail($id);
+        try {
+            $chapterReview = ChapterReview::findOrFail($review);
+        } catch (ModelNotFoundException $exception) {
+            return response()->json($exception->getMessage(), 401);
+        }
 
-        $chapterReview->votes = $request->only('votes');
+        $chapterReview->votes = $request->votes;
 
         $chapterReview->user_id = auth()->user()->id;
 
@@ -255,10 +265,10 @@ class LessonController extends Controller
         $chapterReview->save();
 
         Notification::send(
-            $chapter->mentor,
-            new BaseNotification(
+            $chapterReview->chapter->mentor,
+            new ChapterReviewNotification(
                 [
-                    'content' => 'đánh giá chương học của bạn với số điểm là ' . $chapterReview->votes,
+                    'content' => 'đánh giá lại chương học ' . $chapterReview->chapter->title . ' của bạn với số điểm là ' . $chapterReview->votes,
                     'name' => auth()->user()->name,
                 ]
             )

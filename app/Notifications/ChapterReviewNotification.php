@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BaseNotification extends Notification
+class ChapterReviewNotification extends Notification
 {
     use Queueable;
 
@@ -16,9 +16,9 @@ class BaseNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($post)
     {
-        //
+        $this->post = $post;
     }
 
     /**
@@ -54,8 +54,6 @@ class BaseNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+     return $this->post;
     }
 }

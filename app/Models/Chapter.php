@@ -40,12 +40,25 @@ class Chapter extends Model
         return $this->belongsToMany(User::class, ChapterReview::class);
     }
 
-    public function scopeCheckReviewUser()
+    public function chapterReview()
     {
-        if ($this->users->isEmpty() == false) {
-            return $this->users()->where('user_id', auth()->user()->id)->get();
-        }else{
+        return $this->hasOne(ChapterReview::class);
+    }
+
+    public function checkChapterReview()
+    {
+        if ($this->chapterReview()->count() == 0) {
             return null;
+        } else {
+            return $this->chapterReview()->where('user_id', auth()->user()->id)->first();
         }
+    }
+
+    public function userLessonsComplete()
+    {
+        if (!auth()->user()->courses->contains($this->id)) return null;
+        $lessonComplete = $this->lessons()->select('id')->get()->pluck('id');
+        $lessonComplete = LessonUser::whereIn('lesson_id',$lessonComplete)->where('user_id',auth()->user()->id)->get();
+        return $lessonComplete;
     }
 }

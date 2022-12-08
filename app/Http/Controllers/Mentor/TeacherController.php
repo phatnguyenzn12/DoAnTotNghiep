@@ -35,6 +35,8 @@ class TeacherController extends Controller
                         'is_active' => 1,
                         'password' => Hash::make($password),
                     ],
+                    ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
+                    ['skills' => implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray())],
                 )
             );
             $teacher->assignRole('teacher');

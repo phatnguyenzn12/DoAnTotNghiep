@@ -17,4 +17,9 @@ class ChapterReview extends Model
         'user_id',
         'content'
     ];
+
+    public function chapter()
+    {
+        return $this->belongsTo(Chapter::class);
+    }
 }

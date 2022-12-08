@@ -55,6 +55,28 @@ class BaseSeeder extends Seeder
 
         $mentor = Mentor::create(
             [
+                'name' => 'chutatbach9',
+                'email' => 'chutatbach9@gmail.com',
+                'email_verified_at' => now(),
+                'avatar' => 'placeholder.png',
+                'number_phone' => fake()->phoneNumber(),
+                'password' => Hash::make('12345678'), // password
+                'is_active' => 1,
+                'remember_token' => null,
+                'address' => 'hà nội',
+                'about_me' => fake()->text(700),
+                'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
+                'educations' => 'dạy tại cao đẳng fpt',
+                'specializations' => '',
+                'skills' => 'html,css,php',
+                'years_in_experience' => 10,
+                'point' => 100
+            ]
+        );
+        $mentor->assignRole('teacher');
+
+        $mentor = Mentor::create(
+            [
                 'name' => 'chutatbach1',
                 'email' => 'chutatbach1@gmail.com',
                 'email_verified_at' => now(),
@@ -67,20 +89,41 @@ class BaseSeeder extends Seeder
                 'about_me' => fake()->text(700),
                 'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
                 'educations' => 'dạy tại cao đẳng fpt',
-                'specialize_id' => rand(1, 3),
+                'specializations' => '',
                 'skills' => 'html,css,php',
                 'years_in_experience' => 10,
                 'point' => 100
             ]
         );
-        
         $mentor->assignRole('teacher');
 
+
+        $mentor = Mentor::create(
+            [
+                'name' => 'bachctph16049',
+                'email' => 'bachctph16049@fpt.edu.vn',
+                'email_verified_at' => now(),
+                'avatar' => 'placeholder.png',
+                'number_phone' => fake()->phoneNumber(),
+                'password' => Hash::make('12345678'), // password
+                'is_active' => 1,
+                'remember_token' => null,
+                'address' => 'hà nội',
+                'about_me' => fake()->text(700),
+                'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
+                'educations' => 'dạy tại cao đẳng fpt',
+                'specializations' => '',
+                'skills' => 'html,css,php',
+                'years_in_experience' => 10,
+                'point' => 100
+            ]
+        );
+        $mentor->assignRole('teacher');
+
+
+        Mentor::factory(3)->create();
         Admin::factory(1)->create();
-        // Mentor::factory(10)->create();
-        Censor::factory(1)->create();
         CateCourse::factory(3)->create();
-        Specialize::factory(3)->create();
         Skill::factory(3)->create();
         Course::factory(10)->create();
         Certificate::factory(10)->create();

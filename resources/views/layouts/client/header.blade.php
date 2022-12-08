@@ -79,9 +79,7 @@
 
                 @if (Auth::guard('web')->user())
                     <!-- Nav item 2 Course -->
-                    <li class="nav-item dropdown"><a class="nav-link" href="{{ route('client.account.myCourse') }}">Khoá
-                            học
-                            của tôi</a></li>
+                    <li class="nav-item dropdown"><a class="nav-link" href="{{ route('client.account.myCourse') }}">Khoá học của tôi</a></li>
                 @endif
 
             </ul>
@@ -93,136 +91,85 @@
             <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
                 <!-- Add to cart -->
                 <li class="nav-item ms-2 dropdown position-relative overflow-visible">
-                    <!-- Cart button -->
-                    <a class="nav-link mb-0 stretched-link" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" data-bs-auto-close="outside">
-                        <i class="bi bi-cart2 fs-4"></i>
-                    </a>
-                    <!-- badge -->
-                    <span
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle text-bg-success mt-2 mt-xl-3 ms-n3 smaller">{{ $carts->count() }}
-                        <span class="visually-hidden">unread messages</span>
-                    </span>
+                    @if (auth()->user())
+                        <!-- Cart button -->
+                        <a class="nav-link mb-0 stretched-link" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" data-bs-auto-close="outside">
+                            <i class="bi bi-cart2 fs-4"></i>
+                        </a>
 
-                    <!-- Cart dropdown menu START -->
-                    <div
-                        class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
-                        <div class="card bg-transparent">
-                            <div class="card-header bg-transparent border-bottom py-4">
-                                <h5 class="m-0">Giỏ hàng</h5>
-                            </div>
-                            <div class="card-body p-0"
-                                style="overflow: scroll;
+                        <!-- badge -->
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-circle text-bg-success mt-2 mt-xl-3 ms-n3 smaller">{{ $carts != [] ? $carts->count() : 0 }}
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+
+                        <!-- Cart dropdown menu START -->
+                        <div
+                            class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+                            <div class="card bg-transparent">
+                                <div class="card-header bg-transparent border-bottom py-4">
+                                    <h5 class="m-0">Giỏ hàng</h5>
+                                </div>
+                                <div class="card-body p-0"
+                                    style="overflow: scroll;
                             max-height: 300px;
                             overflow-x: hidden;">
 
-                                @forelse ($carts as $cart)
-                                    <!-- Cart item START -->
-                                    <div class="row p-3 g-2">
-                                        <!-- Image -->
-                                        <div class="col-3">
-                                            <img class="rounded-2" src="/frontend/images/book/02.jpg" alt="avatar">
-                                        </div>
-
-                                        <div class="col-9">
-                                            <!-- Title -->
-                                            <div class="d-flex justify-content-between">
-                                                <h6 class="m-0">{{ $cart->title }} </h6>
-                                                <a href="#" class="small text-primary-hover"><i
-                                                        class="bi bi-x-lg"></i></a>
+                                    @forelse ($carts as $cart)
+                                        <!-- Cart item START -->
+                                        <div class="row p-3 g-2">
+                                            <!-- Image -->
+                                            <div class="col-3">
+                                                <img class="rounded-2" src="/frontend/images/book/02.jpg"
+                                                    alt="avatar">
                                             </div>
-                                            <!-- Select item -->
-                                            <span>
-                                                {{ $cart->current_price }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Cart item END -->
-                                @empty
-                                    <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
-                                        <h5 class="text-lg font-medium">
-                                            <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
-                                        </h5>
-                                    </div>
-                                @endforelse
 
-                            </div>
-                            <!-- Button -->
-                            <div
-                                class="card-footer bg-transparent border-top py-3 text-center d-flex justify-content-between position-relative">
-                                <a href="{{ route('client.order.cartList') }}" class="btn btn-sm btn-light mb-0">Xem
-                                    giỏ
-                                    hàng</a>
-                                <a href="{{ route('client.order.pay') }}" class="btn btn-sm btn-success mb-0">Thanh
-                                    toán ngay</a>
+                                            <div class="col-9">
+                                                <!-- Title -->
+                                                <div class="d-flex justify-content-between">
+                                                    <h6 class="m-0">{{ $cart->title }} </h6>
+                                                    <a href="#" class="small text-primary-hover"><i
+                                                            class="bi bi-x-lg"></i></a>
+                                                </div>
+                                                <!-- Select item -->
+                                                <span>
+                                                    {{ $cart->current_price }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- Cart item END -->
+                                    @empty
+                                        <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
+                                            <h5 class="text-lg font-medium">
+                                                <ion-icon name="bag-outline"></ion-icon> GIỎ HÀNG TRỐNG
+                                            </h5>
+                                        </div>
+                                    @endforelse
+
+                                </div>
+                                <!-- Button -->
+                                <div
+                                    class="card-footer bg-transparent border-top py-3 text-center d-flex justify-content-between position-relative">
+                                    <a href="{{ route('client.order.cartList') }}"
+                                        class="btn btn-sm btn-light mb-0">Xem
+                                        giỏ
+                                        hàng</a>
+                                    <a href="{{ route('client.order.pay') }}" class="btn btn-sm btn-success mb-0">Thanh
+                                        toán ngay</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <!-- Cart dropdown menu END -->
                 </li>
 
+
                 <!-- Notification dropdown START -->
-                <li class="nav-item ms-0 ms-md-3 dropdown">
-                    <!-- Notification button -->
-                    <a class="btn btn-light btn-round mb-0" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" data-bs-auto-close="outside">
-                        <i class="bi bi-bell fa-fw"></i>
-                    </a>
-                    <!-- Notification dote -->
-                    <span class="notif-badge animation-blink"></span>
-
-                    <!-- Notification dropdown menu START -->
 
 
-                    <div
-                        class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
-                        <div class="card bg-transparent">
-                            <div
-                                class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
-                                <h6 class="m-0">Notifications <span
-                                        class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ $notifications->count() }}
+                @include('components.client.notification')
 
-                                        <a class="small" href="#">Clear all</a>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-group list-unstyled list-group-flush">
-
-                                    <!-- Notif item -->
-                                    @forelse ($notifications as $notification)
-                                        <li>
-                                            <a href="{{ route('client.lesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
-                                                class="list-group-item-action border-0 border-bottom d-flex p-3">
-
-                                                <div class="me-3">
-                                                    <div class="avatar avatar-md">
-                                                        <img class="avatar-img rounded-circle"
-                                                            src="/frontend/images/avatar/01.jpg" alt="avatar">
-                                                    </div>
-                                                </div>
-
-                                                <div>
-                                                    <p class="text-body small m-0">
-                                                        <b>{{ $notification->data['name'] }}</b>
-                                                        commented on
-                                                    <p>{{ $notification->data['content'] }}</p>
-                                                    </p>
-                                                    <u class="small">View detail</u>
-                                                </div>
-
-                                            </a>
-                                        </li>
-                                    @empty
-                                    @endforelse
-                                </ul>
-                            </div>
-                            <!-- Button -->
-                            <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
-                                <a href="#" class="stretched-link">See all incoming activity</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Notification dropdown menu END -->
-                </li>
                 <!-- Notification dropdown END -->
 
                 <!-- Profile dropdown START -->
@@ -232,11 +179,11 @@
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         @if (Auth::guard('admin')->user())
-                            <img class="avatar-img rounded-circle"
-                                src="/frontend/images/avatar/01.jpg" alt="avatar">
+                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                alt="avatar">
                         @elseif (Auth::guard('mentor')->user())
-                            <img class="avatar-img rounded-circle"
-                                src="/frontend/images/avatar/01.jpg" alt="avatar">
+                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                alt="avatar">
                         @else
                             <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
                                 alt="avatar">
@@ -252,16 +199,14 @@
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
                                     @if (Auth::guard('admin')->user())
-                                        <img class="avatar-img rounded-circle"
-                                            src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
                                             alt="avatar">
                                     @elseif (Auth::guard('mentor')->user())
-                                        <img class="avatar-img rounded-circle"
-                                            src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
                                             alt="avatar">
                                     @else
-                                        <img class="avatar-img rounded-circle"
-                                            src="/frontend/images/avatar/01.jpg" alt="avatar">
+                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                            alt="avatar">
                                     @endif
                                 </div>
                                 <div>
@@ -288,7 +233,7 @@
                                     quản
                                     trị</a></li>
                         @elseif (Auth::guard('mentor')->user())
-                            <li><a class="dropdown-item" href="{{ route('mentor.home') }}"><i
+                            <li><a class="dropdown-item" href="{{ route('teacher.course.index') }}"><i
                                         class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
                         @endif
                         <li><a class="dropdown-item" href="{{ route('client.account.detail') }}"><i

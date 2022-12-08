@@ -24,7 +24,7 @@ class ChapterFactory extends Factory
             // 'sort' => $number++,
             'deadline' => '2022-12-09 00:00:00',
             'course_id' => rand(1, 10),
-            'mentor_id' => rand(1, 10),
+            'mentor_id' => rand(2, 3),
         ];
     }
 }

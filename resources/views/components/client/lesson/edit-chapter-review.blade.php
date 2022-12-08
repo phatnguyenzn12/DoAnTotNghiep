@@ -81,25 +81,27 @@
             <div class="mt-2">
                 <h5 class="mb-4">Đánh giá chương học: {{ $chapter->title }}</h5>
                 <form class="row g-3"
-                    action="{{ route('client.chapter.postReview', ['chapter' => $chapter->id, 'id' => $review_id]) }}">
+                    action="{{ route('client.chapter.editReview', ['review' => $chapterReview->id]) }}" method="post">
+                    @csrf
+                    @method('PUT')
                     <!-- Name -->
 
                     <div class="rate">
-                        <input type="radio" id="star5" name="votes" value="5" />
+                        <input type="radio" id="star5" name="votes" value="5" @checked($chapterReview->votes == 5 ? true : false)/>
                         <label for="star5" title="text">5 sao</label>
-                        <input type="radio" id="star4" name="votes" value="4" />
+                        <input type="radio" id="star4" name="votes" value="4" @checked($chapterReview->votes == 4 ? true : false)/>
                         <label for="star4" title="text">4 sao</label>
-                        <input type="radio" id="star3" name="votes" value="3" />
+                        <input type="radio" id="star3" name="votes" value="3" @checked($chapterReview->votes == 3 ? true : false)/>
                         <label for="star3" title="text">3 sao</label>
-                        <input type="radio" id="star2" name="votes" value="2" />
+                        <input type="radio" id="star2" name="votes" value="2" @checked($chapterReview->votes == 2 ? true : false)/>
                         <label for="star2" title="text">2 sao</label>
-                        <input type="radio" id="star1" name="votes" value="1" />
+                        <input type="radio" id="star1" name="votes" value="1" @checked($chapterReview->votes == 1 ? true : false)/>
                         <label for="star1" title="text">1 sao</label>
                     </div>
                     <!-- Message -->
                     <div class="col-12 bg-light-input">
                         <textarea class="form-control" id="exampleFormControlTextarea1" name="content" placeholder="Đánh giá của bạn"
-                            rows="3"></textarea>
+                            rows="3">{{ $chapterReview->content }}</textarea>
                     </div>
                     <!-- Button -->
                     <div class="col-12">

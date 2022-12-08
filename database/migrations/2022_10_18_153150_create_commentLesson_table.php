@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('reply')->default(0);
             $table->integer('status')->default(1);
             $table->string('tag_name')->default(0);
+            $table->integer('pin')->default(1);
             $table->unsignedBigInteger('user_id')->default(0);
             $table->unsignedBigInteger('mentor_id')->default(0);
             $table->unsignedBigInteger('lesson_id');
