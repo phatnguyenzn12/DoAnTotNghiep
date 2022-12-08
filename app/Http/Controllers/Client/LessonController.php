@@ -18,18 +18,14 @@ class LessonController extends Controller
 {
     public function index(Course $course)
     {
-        $chapters = $course->load('chapters')->chapters()->orderBy('sort')->get();
+        $chapters = $course->load('chapters')->chapters()->orderBy('id')->get();
 
-        $lesson = $chapters->first()->lessons()->orderBy('sort')->first();
+        $lesson = $chapters->first()->lessons()->orderBy('id')->first();
 
-        $check_course = auth()->user()->load('course_user')->course_user->where('id', $course->id)->isEmpty();
-
-        if ($check_course == true) {
-            auth()->user()
-                ->load('course_user')
-                ->course_user()
-                ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]);
-        }
+        auth()->user()
+            ->load('lesson_user')
+            ->lesson_user()
+            ->syncWithoutDetaching([ $lesson->id => ['course_id' => $course->id]]);
 
         $comments = CommentLesson::where('lesson_id', $lesson->id)
             ->orderBy('id')
@@ -46,9 +42,9 @@ class LessonController extends Controller
     public function show(Course $course, Lesson $lesson)
     {
         auth()->user()
-            ->load('course_user')
-            ->course_user()
-            ->attach(['course_id' => $course->id], ['lesson_id' => $lesson->id]);
+            ->load('lesson_user')
+            ->lesson_user()
+            ->syncWithoutDetaching([ $lesson->id => ['course_id' => $course->id]]);
 
         $chapters = $course->load('chapters')->chapters()->get();
 

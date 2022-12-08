@@ -8,10 +8,11 @@ use App\Models\Course;
 use App\Models\DiscountCode;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\User;
 use App\Services\VnPayService;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -74,9 +75,8 @@ class OrderController extends Controller
             $total_price = $total_price - ($total_price * ($discount / 100));
         }
 
-        // $id = Order::select('id')->max('id');
-        // $code = '#' . str_pad($id == null ? 0 : $id, 8, "0", STR_PAD_LEFT);
-        $code = str::random(9);
+        $code = Str::random(9);
+
         // Cookie::queue('courses', json_encode($courses->toArray()), 3600 * 1000);
 
         VnPayService::create($request, $code, $total_price,$request->bank);
@@ -111,8 +111,7 @@ class OrderController extends Controller
 
         auth()->user()->load('courses')
             ->courses()
-            ->attach($course_id);
-
+            ->syncWithoutDetaching($course_id);
 
         $cart_id = Cart::whereIn('course_id', $course_id)->get()->pluck('id');
 

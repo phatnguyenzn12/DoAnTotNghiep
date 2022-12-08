@@ -10,5 +10,4 @@ class UserCertificate extends Model
     use HasFactory;
 
     protected $table = "user_certificate";
-    
 }

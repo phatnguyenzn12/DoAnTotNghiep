@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- =======================
-                        Page Banner START -->
+                            Page Banner START -->
     <section class="pt-0">
         <!-- Main banner background image -->
         <div class="container-fluid px-0">
@@ -22,7 +22,7 @@
                             <div class="col-auto mt-4 mt-md-0">
                                 <div class="avatar avatar-xxl mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                    src="/frontend/asset/{{Auth::user()->avatar}}">
+                                        src="/frontend/images/avatar/01.jpg">
                                 </div>
                             </div>
                             <!-- Profile info -->
@@ -30,14 +30,6 @@
                                 <div>
                                     <h1 class="my-1 fs-4">{{ $user->name }} <i
                                             class="bi bi-patch-check-fill text-info small"></i></h1>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i
-                                                class="fas fa-star text-warning me-2"></i>4.5/5.0</li>
-                                        <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i
-                                                class="fas fa-user-graduate text-orange me-2"></i>12k Enrolled Students</li>
-                                        <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i
-                                                class="fas fa-book text-purple me-2"></i>25 Courses</li>
-                                    </ul>
                                 </div>
                                 <!-- Button -->
                                 {{-- <div class="d-flex align-items-center mt-2 mt-md-0">
@@ -64,10 +56,10 @@
         </div>
     </section>
     <!-- =======================
-                        Page Banner END -->
+                            Page Banner END -->
 
     <!-- =======================
-                        Page content START -->
+                            Page content START -->
     <section class="pt-0">
         <div class="container">
             <div class="row">
@@ -137,7 +129,7 @@
                                         <label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
                                             <span class="avatar avatar-xl">
                                                 <img name="avatar" id="mat_truoc_preview"
-                                                    src="{{asset('app/'.$user->avatar)}}" alt="your image"
+                                                    src="/frontend/images/avatar/01.jpg" alt="your image"
                                                     class="avatar-img rounded-circle border border-white border-3 shadow"
                                                     class="img-fluid" />
                                                 <label for="cmt_truoc">Mặt trước</label>
@@ -282,7 +274,7 @@
         </div>
     </section>
     <!-- =======================
-                        Page content END -->
+                            Page content END -->
 
 @endsection
 @section('js-links')

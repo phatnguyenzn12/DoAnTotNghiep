@@ -18,7 +18,10 @@
                 <br>
                 {{ $course->number_lessons_complete }} bài học
                 trên {{ $course->lessons->count() }}</h1>
-
+                <form action="{{ route('client.certificate.getCertificate',$course->id) }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-primary mb-0">Nhận chứng chỉ</button>
+                </form>
             <div class="overflow-hidden">
                 <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
                 <div class="progress progress-sm bg-primary bg-opacity-10">
@@ -63,8 +66,8 @@
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <div class="position-relative d-flex align-items-center">
                                                             <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
-                                                                class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->lesson_user->isEmpty() == false ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
-                                                                @if ($lesson->lesson_user->isEmpty() == false)
+                                                                class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->check_lesson_user->contains(auth()->user()->id) == true ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
+                                                                @if ($lesson->check_lesson_user->contains(auth()->user()->id) == true)
                                                                     <i class="fas fa-play me-0"></i>
                                                                 @else
                                                                     <i class="bi bi-lock-fill"></i>
@@ -89,7 +92,7 @@
 
                         @endforelse
                     </div>
-                    <a href="course-detail.html" class="btn btn-primary mb-0">Nhận chứng chỉ</a>
+
                 </div>
                 <!-- Accordion END -->
             </div>

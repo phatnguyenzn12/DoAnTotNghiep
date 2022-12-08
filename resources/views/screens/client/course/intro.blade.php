@@ -256,6 +256,10 @@
                                                     class="fas fa-fw fa-globe text-primary"></i>Ngôn ngữ</span>
                                             <span>{{ $course->language_rule }}</span>
                                         </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="h6 fw-light mb-0"><i class="fas fa-fw fa-medal text-primary"></i>Chứng chỉ</span>
+                                            <span>{{ $course->certificate ? 'Có':'Không'}}</span>
+                                        </li>
                                     </ul>
                                     <!-- Divider -->
                                     <hr>
