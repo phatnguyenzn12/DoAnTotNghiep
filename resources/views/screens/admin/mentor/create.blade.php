@@ -71,14 +71,14 @@
                                 <input id="kt_tagify_2" class="form-control" name='skills'
                                     placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Avatar</label>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input file-image" name="avatar"
                                         accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
