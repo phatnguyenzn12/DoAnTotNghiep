@@ -30,7 +30,7 @@ class MentorFactory extends Factory
             'about_me' => fake()->text(700),
             'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
             'educations' => 'dạy tại cao đẳng fpt',
-            'specialize_id' => rand(1, 3),
+            'specializations' => fake()->text(8),
             'skills' => 'html,css,php',
             'years_in_experience' => 10,
             'point' => 100,
