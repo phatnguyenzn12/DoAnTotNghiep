@@ -111,7 +111,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a class="btn btn-light btn-sm" href="detail/${val.id}">
+                                        <a class="btn btn-light btn-sm" href="">
                                             <i class="flaticon2-pen text-warning"></i></a>
                                         <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
                                             href="{{ route('mentor.delete', ['id' => $db->id]) }}">
