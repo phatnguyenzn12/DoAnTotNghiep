@@ -48,14 +48,16 @@
                                             </div>
                                         </div>
                                     </td>
+
+                                    {{-- bỏ specializations --}}
                                     <td>
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            @foreach (DB::table('specializations')->where('id', $db->specialize_id)->get() as $specialize)
-                                                {{ $specialize->title }}
-                                            @endforeach
+                                            {{ $db->specializations }}
                                         </span>
-                                        <span class="text-muted font-weight-bold">{{ $db->skills }}</span>
+                                        {{-- <span class="text-muted font-weight-bold">{{ $db->skills }}</span> --}}
                                     </td>
+                                    {{-- end --}}
+                                    
                                     <td>
                                         <span
                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->educations }}</span>
