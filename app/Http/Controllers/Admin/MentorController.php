@@ -27,7 +27,7 @@ class MentorController extends Controller
 
     public function teacher($id)
     {
-        $db = Mentor::where('cate_course_id',$id)->get();
+        $db = Mentor::where('cate_course_id', $id)->get();
         return view('screens.admin.mentor.list-teacher', compact('db'));
     }
 
@@ -43,7 +43,7 @@ class MentorController extends Controller
         $skills = Skill::all();
         $specializes = Specialize::all();
         if ($request->isMethod('post')) {
-            $avatar = UploadFileService::storage_image($request->avatar);
+        //    $avatar = UploadFileService::storage_image($request->avatar);
             $password = 12345678;
             $mentor = Mentor::create(
                 array_merge(
@@ -51,7 +51,7 @@ class MentorController extends Controller
                     [
                         'is_active' => 1,
                         'email_verified_at' => now(),
-                        'avatar' => $avatar,
+                        'avatar' => 'images/placeholder.png',
                         'password' => Hash::make($password),
                     ],
                     ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
@@ -68,29 +68,30 @@ class MentorController extends Controller
             });
             return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
         }
-        return view('screens.admin.mentor.create', compact('cate_courses','skills','specializes'));
+        return view('screens.admin.mentor.create', compact('cate_courses', 'skills', 'specializes'));
     }
 
-    public function detail($id){
-       $mentor = Mentor::find($id);
-       dd($mentor);
-    }
-    public function update(Request $request, Mentor $mentor, $id)
+    public function detail($id)
     {
-        $mentor = Auth::guard('mentor')->user($id);
-        if (!$mentor) {
-            return back();
-        } else {
-            $mentor->fill($request->except(['_method', '_token']));
-            if ($request->hasFile('avatar')) {
-                $imgPath = $request->file('avatar')->store('images');
-                $imgPath = str_replace('public/', '', $imgPath);
-                $mentor->avatar = $imgPath;
-            }
-            $mentor->update();
-            return redirect()->back()->with('success', 'sửa thành công');
-        }
+        $mentor = Mentor::find($id);
+        dd($mentor);
     }
+    // public function update(Request $request, Mentor $mentor, $id)
+    // {
+    //     $mentor = Auth::guard('mentor')->user($id);
+    //     if (!$mentor) {
+    //         return back();
+    //     } else {
+    //         $mentor->fill($request->except(['_method', '_token']));
+    //         if ($request->hasFile('avatar')) {
+    //             $imgPath = $request->file('avatar')->store('images');
+    //             $imgPath = str_replace('public/', '', $imgPath);
+    //             $mentor->avatar = $imgPath;
+    //         }
+    //         $mentor->update();
+    //         return redirect()->back()->with('success', 'sửa thành công');
+    //     }
+    // }
     public function actived($id)
     {
         $db = new Mentor();
