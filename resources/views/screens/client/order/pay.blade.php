@@ -53,7 +53,7 @@
                     <!-- Personal info START -->
                     <div class="card card-body shadow p-4">
                         <!-- Title -->
-                        <h5 class="mb-0">Chọn ngân hàng thanh toán</h5>
+                        <h5 class="mb-0">Chọn phương thức thanh toán</h5>
 
                         <!-- Form START -->
                         <div class="row g-3 mt-0">
@@ -64,10 +64,6 @@
                                 <div class="row g-2 " show-list-bank>
 
                                 </div>
-                            </div>
-                            <!-- Button -->
-                            <div class="col-12 text-end">
-                                <button type="submit" class="btn btn-primary mb-0">Sử dụng VNPAY</button>
                             </div>
                         </div>
                         <!-- Form END -->

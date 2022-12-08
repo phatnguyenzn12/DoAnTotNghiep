@@ -21,13 +21,13 @@ class CourseController extends Controller
 
     public function index()
     {
+        $cateCourses = CateCourse::all();
         $course= Course::paginate(1);
         $courses = auth()->guard('mentor')
-
             ->user()
             ->load('courses')
             ->courses;
-        return view('screens.mentor.course.list', compact('courses', 'course'));
+        return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses'));
     }
 
     public function program($course_id)
@@ -36,8 +36,8 @@ class CourseController extends Controller
         // dd($mentor);
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
-            // ->orderBy('id', 'DESC')
-            // ->orderBy('sort')
+            ->orderBy('id', 'DESC')
+            ->orderBy('sort')
             ->paginate(3);
         return view('screens.mentor.course.edit-program', compact('chapters', 'course_id', 'mentor'));
     }
@@ -114,9 +114,11 @@ class CourseController extends Controller
         $course->description_details = $request->description_details;
         $course->certificate_id =  $request->certificate_id;
 
-        if ($request->image) {
-            $image = UploadFileService::storage_image($request->image);
-            $course->image = $image;
+        $course->fill($request->except(['_method', '_token']));
+        if ($request->hasFile('image')) {
+            $imgPath = $request->file('image')->store('images');
+            $imgPath = str_replace('public/', '', $imgPath);
+            $course->image = $imgPath;
         }
 
         $course->save();

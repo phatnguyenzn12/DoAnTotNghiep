@@ -14,7 +14,7 @@
             <a href="{{ route('mentor.course.create') }}" class="btn btn-primary mr-2 mb-3">Thêm khóa học</a>
             <div class="card card-custom gutter-b">
                 <div class="card-body">
-                    <form action="">
+                    <form action="" method="GET">
                         <!--begin::Search Form-->
                         <div class="mb-7">
                             <div class="row align-items-center">
@@ -22,8 +22,8 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-4 my-2 my-md-0">
                                             <div class="input-icon">
-                                                <input type="text" name="q" class="form-control"
-                                                    value="{{ request()->query('q') ?: '' }}" placeholder="Nhập tên..." />
+                                                <input type="text" name="key" class="form-control"
+                                                    value="{{ request()->query('key') ?: '' }}" placeholder="Nhập tên..." />
                                                 <span>
                                                     <i class="flaticon2-search-1 text-muted"></i>
                                                 </span>
@@ -34,6 +34,9 @@
                                                 <label class="mr-3 mb-0 d-none d-md-block">Danh mục:</label>
                                                 <select name="category" class="form-control">
                                                     <option value="">Tất cả</option>
+                                                    @foreach($cateCourses as $v)
+                                                    <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

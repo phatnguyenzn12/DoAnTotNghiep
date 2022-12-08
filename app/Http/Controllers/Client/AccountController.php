@@ -40,16 +40,15 @@ class AccountController extends Controller
             return back();
         } else {
             $user->fill($request->except(['_method', '_token']));
-            if($request->hasFile('avatar')){
+            if ($request->hasFile('avatar')) {
                 $imgPath = $request->file('avatar')->store('images');
                 $imgPath = str_replace('public/', '', $imgPath);
                 $user->avatar = $imgPath;
-
             }
-          //  $user->fill($request->all());
+            //  $user->fill($request->all());
 
             $user->update();
-           // dd($user);
+            // dd($user);
             return redirect()->back()->with('success', 'sửa thành công');
         }
     }
@@ -87,10 +86,10 @@ class AccountController extends Controller
     public function myCourse()
     {
         $courses = auth()->user()->load('courses')
-            ->courses()
-            ->select('*')
-            ->get();
+            ->courses;
 
-        return view('screens.client.account.my-course', compact('courses'));
+        $user = auth()->user();
+
+        return view('screens.client.account.my-course', compact('courses','user'));
     }
 }

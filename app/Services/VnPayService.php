@@ -7,10 +7,19 @@ use Omnipay\Omnipay;
 
 class VnPayService
 {
-    public static function create(Request $request,$order_code,$total_price,$bank)
-    {
+    public static function create(
+        Request $request,
+        $order_code,
+        $total_price,
+        $bank,
+    ) {
+
+        $name = explode(' ', auth()->user()->name);
+        $vnp_Bill_FirstName = array_shift($name);
+        $vnp_Bill_LastName = array_pop($name);
+
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/order/return-data-vnpay";
+        $vnp_Returnurl = env('APP_URL') . "order/return-data-vnpay";
         $vnp_TmnCode = "9K1CI7PI";
         $vnp_HashSecret = "GVVBTDJXDNJYEIBETIFAUGFIVJHPBJMJ";
 
@@ -35,6 +44,10 @@ class VnPayService
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
+            "vnp_Bill_FirstName" => $vnp_Bill_FirstName,
+            "vnp_Bill_LastName" => $vnp_Bill_LastName,
+            "vnp_Bill_Email" => auth()->user()->email,
+            "vnp_Bill_Address" => auth()->user()->location,
         );
 
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {
@@ -66,7 +79,7 @@ class VnPayService
         );
 
         if (isset($request->redirect_vnpay)) {
-            header('location:'.$vnp_Url);
+            header('location:' . $vnp_Url);
             die();
         } else {
             dd(json_encode($returnData));

@@ -25,9 +25,9 @@ class MentorController extends Controller
         return view('screens.admin.mentor.list', compact('db'));
     }
 
-    public function teacher()
+    public function teacher($id)
     {
-        $db = Mentor::all();
+        $db = Mentor::where('cate_course_id',$id)->get();
         return view('screens.admin.mentor.list-teacher', compact('db'));
     }
 
