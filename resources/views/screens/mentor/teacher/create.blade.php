@@ -48,13 +48,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Chuyên môn</label>
-                                <input type="text" value="" name="specializations" class="form-control"
-                                    placeholder="Chuyên môn">
+                                <input id="kt_tagify_1" class="form-control" name='specializations' placeholder='Thẻ'
+                                value='css, html, javascript, angular, vue, react' />
                             </div>
                             <div class="form-group">
                                 <label>Kỹ năng</label>
-                                <input type="text" value="" name="skills" class="form-control"
-                                    placeholder="Kỹ năng">
+                                <input id="kt_tagify_2" class="form-control" name='skills'
+                                    placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
                             </div>
                             <input type="text" name="cate_course_id" id=""
                                 value="{{ auth()->guard('mentor')->user()->cate_course_id }}" hidden>
@@ -72,7 +72,7 @@
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
-
+    <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
     <script>
