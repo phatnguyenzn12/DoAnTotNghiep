@@ -40,7 +40,7 @@
                                 style="background-image: url(assets/media/users/blank.png)">
                                 <div class="image-input-wrapper"
                                     style="background-image: url(assets/media/users/300_21.jpg)">
-                                    <img id="mat_truoc_preview" src="{{ asset('app/' . $mentor->avatar) }} alt="your image"
+                                    <img id="mat_truoc_preview" src="{{ asset('app/' . $mentor->avatar) }} alt="your image
                                         style="max-width: 200px; height:100px; margin-bottom: 10px;" class="img-fluid" />
                                 </div>
                                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"

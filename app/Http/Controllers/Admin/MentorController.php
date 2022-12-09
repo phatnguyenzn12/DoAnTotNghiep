@@ -11,6 +11,7 @@ use App\Models\Skill;
 use App\Models\Specialize;
 use App\Services\UploadFileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -27,7 +28,7 @@ class MentorController extends Controller
 
     public function teacher($id)
     {
-        $db = Mentor::where('cate_course_id',$id)->get();
+        $db = Mentor::where('cate_course_id', $id)->get();
         return view('screens.admin.mentor.list-teacher', compact('db'));
     }
 
@@ -43,7 +44,7 @@ class MentorController extends Controller
         $skills = Skill::all();
         $specializes = Specialize::all();
         if ($request->isMethod('post')) {
-            $avatar = UploadFileService::storage_image($request->avatar);
+        //    $avatar = UploadFileService::storage_image($request->avatar);
             $password = 12345678;
             $mentor = Mentor::create(
                 array_merge(
@@ -51,9 +52,11 @@ class MentorController extends Controller
                     [
                         'is_active' => 1,
                         'email_verified_at' => now(),
-                        'avatar' => $avatar,
+                        'avatar' => 'images/placeholder.png',
                         'password' => Hash::make($password),
                     ],
+                    ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
+                    ['skills' => implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray())],
                 )
             );
             $mentor->assignRole('lead');
@@ -66,7 +69,7 @@ class MentorController extends Controller
             });
             return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
         }
-        return view('screens.admin.mentor.create', compact('cate_courses','skills','specializes'));
+        return view('screens.admin.mentor.create', compact('cate_courses', 'skills', 'specializes'));
     }
 
     public function actived($id)
