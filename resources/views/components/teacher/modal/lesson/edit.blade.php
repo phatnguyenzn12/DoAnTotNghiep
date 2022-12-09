@@ -12,6 +12,7 @@
     <div class="form-group">
         <label>Thời lượng video</label>
         <input type="time" class="form-control" name="time" value="{{ $lesson->time }}">
+        <p class="text-danger errors time"></p>
     </div>
     @if ($lesson->lesson_type == 'video')
         <div class="form-group" video>
@@ -20,7 +21,7 @@
                 <input type="file" name="video_path" class="custom-file-input" id="customFile">
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
-            <p class="text-danger errors video_url"></p>
+            <p class="text-danger errors video_path"></p>
         </div>
     @else
         <div class="d-flex align-content-center justify-content-around">

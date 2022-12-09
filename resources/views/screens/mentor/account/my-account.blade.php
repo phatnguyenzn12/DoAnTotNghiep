@@ -125,10 +125,11 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Ngôn ngữ lập trình</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">Kỹ năng</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <p class="form-control form-control-lg form-control-solid">{{ $mentor->skills }}" </p>
+                                <input id="kt_tagify_2" class="form-control" name='skills' disabled  value="{{$mentor->skills}}"
+                                placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
 
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
@@ -190,6 +191,7 @@
 @endsection
 
 @section('js-links')
+<script src="/js/tags.js"></script>
 @endsection
 
 @push('js-handles')

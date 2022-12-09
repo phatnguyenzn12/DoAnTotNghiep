@@ -10,5 +10,7 @@ Route::prefix('mentor/teacher')->name('mentor.teacher.')->middleware(['role:ment
         Route::get('/actived/{id}', 'actived')->name('actived');
         Route::get('/delete/{id}', 'delete')->name('delete');
         Route::get('subtract/{id}', 'subtract')->name('subtract');
+        Route::get('detail/{id}', 'detail')->name('detail');
+        Route::put('update/{mentor}', 'update')->name('update');
     }
 );

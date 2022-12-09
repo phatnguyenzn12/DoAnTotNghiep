@@ -44,7 +44,7 @@ class MentorController extends Controller
         $skills = Skill::all();
         $specializes = Specialize::all();
         if ($request->isMethod('post')) {
-        //    $avatar = UploadFileService::storage_image($request->avatar);
+            //    $avatar = UploadFileService::storage_image($request->avatar);
             $password = 12345678;
             $mentor = Mentor::create(
                 array_merge(
@@ -72,6 +72,32 @@ class MentorController extends Controller
         return view('screens.admin.mentor.create', compact('cate_courses', 'skills', 'specializes'));
     }
 
+    public function detail($id)
+    {
+        $cate_courses = DB::table('cate_courses')->select('*')->get();
+        $mentor = Mentor::find($id);
+        //  dd($mentor);
+        return view('screens.admin.mentor.detail', compact('mentor','id', 'cate_courses'));
+    }
+    public function update(Request $request, Mentor $mentor)
+    {
+        $mentor->name ;
+        $mentor->email ;
+        $mentor->number_phone = $request->number_phone;
+        $mentor->address = $request->address;
+        $mentor->educations = $request->educations;
+        $mentor->years_in_experience = $request->years_in_experience;
+        $mentor->specializations =  implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray());
+        $mentor->skills =  implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray());
+        $mentor->cate_course_id = $request->cate_course_id;
+        $mentor->save();
+        //dd($mentor);
+        // Mail::send('screens.email.admin.update-lead', compact('mentor'), function ($email) use ($mentor) {
+        //     $email->subject('Thông báo thay đổi thông tin cơ bản');
+        //     $email->to($mentor->email, $mentor->name);
+        // });
+        return redirect()->back()->with('success', 'Cập nhật thành công');
+    }
     public function actived($id)
     {
         $db = new Mentor();

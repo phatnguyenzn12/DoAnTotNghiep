@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teacher\LessonRequest;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -27,7 +28,7 @@ class LessonController extends Controller
         return response()->json(null, 200);
     }
 
-    public function update(Request $request, Lesson $lesson, VimeoService $vimeoService)
+    public function update(LessonRequest $request, Lesson $lesson, VimeoService $vimeoService)
     {
         if ($lesson->lesson_type == "video") {
 
@@ -125,6 +126,7 @@ class LessonController extends Controller
     }
     public function show(Request $request, Lesson $lesson)
     {
+
         $data = view('components.teacher.modal.lesson.edit', compact('lesson'))->render();
         return response()->json($data, 200);
     }

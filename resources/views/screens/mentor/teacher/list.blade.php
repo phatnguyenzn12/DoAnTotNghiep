@@ -70,14 +70,14 @@
                                             </div>
                                         </div>
                                     </td>
-                                 
+
                                     <td>
-                                    <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                        {{ $db->specializations }}
-                                    </span>
-                                    {{-- <span class="text-muted font-weight-bold">{{ $db->skills }}</span> --}}
-                                </td>
-                                   
+                                        <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                                            {{ $db->specializations }}
+                                        </span>
+                                        {{-- <span class="text-muted font-weight-bold">{{ $db->skills }}</span> --}}
+                                    </td>
+
                                     <td>{{ $db->point }}</td>
                                     {{-- <td>
                                     <span
@@ -114,6 +114,8 @@
                                         @endif
                                     </td>
                                     <td>
+                                        <a class="btn btn-light btn-sm" href="{{ route('mentor.teacher.detail', $db->id) }}">
+                                            <i class="flaticon2-pen text-warning"></i> </a>
                                         <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
                                             href="{{ route('mentor.teacher.delete', ['id' => $db->id]) }}">
                                             <i class="flaticon2-trash text-danger"></i></a>
