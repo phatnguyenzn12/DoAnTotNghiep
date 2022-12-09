@@ -14,26 +14,8 @@
     <div class="card vh-100 overflow-auto rounded-0 w-280px w-sm-400px">
         <!-- Title -->
         <div class="card-header bg-light rounded-0">
-            <h1 class="mt-2 fs-5">Hoành thành khóa học {{ $course->title }}:
-                <br>
-                {{ $course->number_lessons_complete }} bài học
-                trên {{ $course->lessons->count() }}
+            <h1 class="mt-2 fs-5">khóa học {{ $course->title }}
             </h1>
-            <form action="{{ route('client.certificate.getCertificate', $course->id) }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-primary mb-0">Nhận chứng chỉ</button>
-            </form>
-            <div class="overflow-hidden">
-                <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
-                <div class="progress progress-sm bg-primary bg-opacity-10">
-                    <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"
-                        data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
-                        style="width: {{ $course->progress }}%" aria-valuenow="{{ $course->progress }}"
-                        aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                </div>
-            </div>
-
         </div>
 
 
@@ -57,8 +39,6 @@
                                             <span class="mb-0 fw-bold">Chương {{ ++$index }}.
                                                 {{ $chapter->title }}</span>
                                         </button>
-
-
                                     </h2>
                                     <div id="collapseOne{{ $chapter->id }}" class="accordion-collapse collapse show"
                                         aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -70,13 +50,9 @@
                                                         <div
                                                             class="d-flex justify-content-between align-items-center mb-2">
                                                             <div class="position-relative d-flex align-items-center">
-                                                                <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
-                                                                    class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->check_lesson_user->contains(auth()->user()->id) == true ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
-                                                                    @if ($lesson->check_lesson_user->contains(auth()->user()->id) == true)
-                                                                        <i class="fas fa-play me-0"></i>
-                                                                    @else
-                                                                        <i class="bi bi-lock-fill"></i>
-                                                                    @endif
+                                                                <a href="{{ route('client.mentorLesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
+                                                                    class="btn btn-round btn-sm mb-0 stretched-link position-static btn-danger-soft remove-all-click">
+                                                                    <i class="fas fa-play me-0"></i>
                                                                 </a>
                                                                 <span
                                                                     class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px">Bài
@@ -91,21 +67,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if ($chapter->checkChapterReview() == null)
-                                        <button class="btn btn-success mb-3" data-toggle="modal"
-                                            data-bs-target="#modal-example"data-bs-toggle="modal"
-                                            data-bs-target="#viewReview"
-                                            onclick="showAjaxModal('{{ route('client.chapter.getChapter', ['mentor' => $chapter->mentor_id,'chapter' => $chapter->id]) }}','Đánh giá chương học: {{ $chapter->title }}')">
-                                            Đánh
-                                            giá chương học</button>
-                                    @else
-                                        <button class="btn btn-success mb-3" data-toggle="modal"
-                                            data-bs-target="#modal-example"data-bs-toggle="modal"
-                                            data-bs-target="#viewReview"
-                                            onclick="showAjaxModal('{{ route('client.chapter.getEditReview', ['chapterReview' => $chapter->chapterReview->id]) }}','Sửa đánh giá chương học: {{ $chapter->title }}')">
-                                            <i class="fas fa-pen-nib"></i> sửa đánh giá</button>
-                                    @endif
-
                                 </div>
                                 <!--end Item -->
                             @endif

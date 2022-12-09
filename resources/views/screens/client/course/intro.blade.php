@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- =======================
-                                                                                                                                    Page content START -->
+                                                                                                                                                    Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -75,8 +75,8 @@
                                     <a class="p-0 mb-0 mt-2 btn-more d-flex align-items-center" data-bs-toggle="collapse"
                                         href="#collapseContent" role="button" aria-expanded="false"
                                         aria-controls="collapseContent">
-                                        See <span class="see-more ms-1">more</span><span class="see-less ms-1">less</span><i
-                                            class="fas fa-angle-down ms-2"></i>
+                                        Xem thêm <span class="see-more ms-1">more</span><span
+                                            class="see-less ms-1">less</span><i class="fas fa-angle-down ms-2"></i>
                                     </a>
 
                                     <!-- List content -->
@@ -206,8 +206,8 @@
                                     <!-- Buttons -->
                                     <div class="mt-3 d-grid">
                                         @if (auth()->user())
-                                            @if ($course->users()->get()->contains(auth()->user()->id) && auth()->user())
-                                                <a href="{{ route('client.lesson.index',  $course->id) }}"
+                                            @if ($course->users()->get()->contains(auth()->user()->id))
+                                                <a href="{{ route('client.lesson.index', $course->id) }}"
                                                     class="btn btn-success">
                                                     Vào học
                                                 </a>
@@ -221,13 +221,20 @@
                                                 </form>
                                             @endif
                                         @else
-                                            <form action="{{ route('client.order.addToCart', $course->id) }}"
-                                                method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-outline-primary">Thêm vào giỏ
-                                                    hàng</button>
-                                                <a href="#" class="btn btn-success">Mua ngay</a>
-                                            </form>
+                                            @if (auth()->guard('mentor')->user())
+                                                <a href="{{ route('client.mentorLesson.index', $course->id) }}"
+                                                    class="btn btn-success">
+                                                    Tham gia khóa học
+                                                </a>
+                                            @else
+                                                <form action="{{ route('client.order.addToCart', $course->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-primary">Thêm vào giỏ
+                                                        hàng</button>
+                                                    <a href="#" class="btn btn-success">Mua ngay</a>
+                                                </form>
+                                            @endif
                                         @endif
                                     </div>
                                     <!-- Divider -->
@@ -257,8 +264,9 @@
                                             <span>{{ $course->language_rule }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span class="h6 fw-light mb-0"><i class="fas fa-fw fa-medal text-primary"></i>Chứng chỉ</span>
-                                            <span>{{ $course->certificate ? 'Có':'Không'}}</span>
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="fas fa-fw fa-medal text-primary"></i>Chứng chỉ</span>
+                                            <span>{{ $course->certificate ? 'Có' : 'Không' }}</span>
                                         </li>
                                     </ul>
                                     <!-- Divider -->
@@ -272,8 +280,8 @@
                                                 alt="avatar">
                                         </div>
                                         <div class="ms-sm-3 mt-2 mt-sm-0">
-                                            <h5 class="mb-0"><a href="#">{{ $course->mentor->name }}</a></h5>
-                                            <p class="mb-0 small">{{ $course->mentor->specialize->title }}</p>
+                                            <h5 class="mb-0"><a href="#">{{ $course->mentor->name }} <span class="text-danger">(quản lý)</span></a></h5>
+                                            <p class="mb-0 small">{{ $course->mentor->specializations }}</p>
                                         </div>
                                     </div>
 
