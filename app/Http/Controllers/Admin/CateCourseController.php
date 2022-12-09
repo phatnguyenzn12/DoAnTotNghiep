@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CateCourseRequest;
 use App\Models\CateCourse;
 use App\Models\Course;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,16 +14,26 @@ class CateCourseController extends Controller
 {
     public  function index()
     {
-        $cate = CateCourse::all() ;
-        return view('screens.admin.catecourse.list', compact('cate'));
+        return view('screens.admin.catecourse.list');
     }
-     
+
+    public function filterData(Request $request)
+    {
+        $cate_courses = CateCourse::select('*')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+
+        $html = view('components.admin.catecourse.list-catecourse' ,compact('cate_courses'))->render();
+        return response()->json($html,200);
+    }
+
     public function create()
     {
         return view('components.admin.catecourse.create');
     }
 
-    public function store(Request $request)
+    public function store(CateCourseRequest $request)
     {
         $cate = new CateCourse();
         $cate->fill($request->all());
@@ -34,9 +45,8 @@ class CateCourseController extends Controller
     {
         $cate = CateCourse::find($id);
         return view('components.admin.catecourse.edit',compact('cate'));
-        // return view('components.admin.catecourse.edit');
     }
-    public function update(Request $request, CateCourse $cateCourse,$id)
+    public function update(CateCourseRequest $request, CateCourse $cateCourse,$id)
     {
         $cateCourse = CateCourse::find($id);
         $cateCourse->fill($request->except(['_method', '_token']));
@@ -52,7 +62,7 @@ class CateCourseController extends Controller
         
         $cate->delete();
 
-        return redirect()->back();
+        return redirect()->route('admin.cate-course.index')->with('success','Xóa thành công');
     }
    
 }

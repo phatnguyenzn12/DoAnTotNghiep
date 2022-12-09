@@ -8,6 +8,7 @@ export class filter {
     }
 
     get() {
+        console.log(this.objFilter);
         axios.get(this.url, {
             params: this.objFilter
         })
@@ -67,7 +68,7 @@ export class filter {
         }
     }
 
-    filerSearchTitle() {
+    filterSearchTitle() {
         js_$('[filter-search-title]').oninput = (a) => {
 
             this.objFilter.title = a.target.value == '' ? 0 : a.target.value
@@ -114,15 +115,12 @@ export class filter {
         }
     }
 
-    filterSort(id = '') {
+    filterSort(obj) {
         js_$('[filter-sort]').onchange = (a) => {
             startLoader()
 
-            if (id != '') {
+            if (obj.title == 'id') {
                 this.objFilter.id = a.target.value
-            }
-            else {
-                this.objFilter.id = 0
             }
 
             axios.get(this.url, {

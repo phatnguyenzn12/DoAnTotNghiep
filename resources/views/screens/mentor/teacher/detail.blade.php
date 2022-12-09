@@ -20,14 +20,12 @@
                             <div class="form-group">
                                 <label>Tên
                                     <span class="text-danger">*</span></label>
-                                <input type="text" value="{{$teacher->name}}" disabled class="form-control"
-                                    placeholder="Nhập tên">
+                                    <p class="form-control">{{$teacher->name}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Địa chỉ Email
                                     <span class="text-danger">*</span></label>
-                                <input value="{{$teacher->email}}" disabled type="email"  class="form-control"
-                                    placeholder="Info@example.com">
+                                    <p class="form-control">{{$teacher->email}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Số điện thoại

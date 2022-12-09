@@ -17,7 +17,21 @@ class CertificateController extends Controller
     public function index()
     {
         $certificates = Certificate::all();
-        return view('screens.mentor.certificate.list', compact('certificates'));
+        return view('screens.mentor.certificate.list');
+    }
+
+    public function filterData(Request $request)
+    {
+
+        $certificates = Certificate::select('*')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+        $passedDown = [
+            'data' => $certificates
+        ];
+        
+        return response()->json($passedDown,200);
     }
 
     /**

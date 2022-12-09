@@ -12,6 +12,7 @@ Route::prefix('mentor/lesson')->name('mentor.lesson.')->middleware('role:mentor'
         Route::get('create', 'create')->name('create');
         Route::get('index', 'index')->name('index');
         Route::get('list/{id}', 'list')->name('list');
+        Route::get('list-data-chapter/{search?}/{record?}','filterDataLesson')->name('listDataLesson');
         Route::get('create', 'create')->name('create');
         Route::post('add', 'store')->name('add');
         Route::get('/actived/{lesson_video}/{check}', 'actived')->name('actived');

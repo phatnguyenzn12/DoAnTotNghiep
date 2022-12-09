@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin/mentor')->name('mentor.')->middleware('role:admin')->controller(MentorController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
-        Route::get('teacher/{id}', 'teacher')->name('listTeacher');
+        Route::get('list-data/{search?}/{record?}','filterData')->name('listData');
+        Route::get('listCourse/{id}', 'listCourse')->name('listCourse');
+        Route::get('list-data-course/{search?}/{record?}','filterDataCourse')->name('listDataCourse');
         Route::get('apply', 'apply')->name('apply');
         Route::get('detail/{id}', 'detail')->name('detail');
-        Route::put('update/{mentor}', 'update')->name('update');
+        Route::put('update/{id}', 'update')->name('update');
         Route::match(['get', 'post'],'create','create')->name('create');
         Route::get('/actived/{id}', 'actived')->name('actived');
         Route::get('/accept/{id}', 'accept')->name('accept');

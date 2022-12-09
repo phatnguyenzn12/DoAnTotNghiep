@@ -8,6 +8,7 @@ Route::prefix('teacher/chapter')->name('teacher.chapter.')->middleware(['role:me
     function () {
         Route::get('', 'index')->name('index');
         Route::get('edit-program/{course_id}', 'program')->name('program');
+        Route::get('list-data-chapter/{search?}/{record?}','filterDataChapter')->name('listDataChapter');
         Route::get('show/{chapter}','show')->name('show');
     }
 );

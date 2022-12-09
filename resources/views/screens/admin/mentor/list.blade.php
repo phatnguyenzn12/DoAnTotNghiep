@@ -33,6 +33,46 @@
         <!--begin::Body-->
         <div class="card-body pt-0 pb-3">
             <!--begin::Table-->
+            <div class="mb-7">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 col-xl-8">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 my-2 my-md-0">
+                                <div class="input-icon">
+                                    <input type="text" oninput="search(this)" class="form-control" placeholder="Search..."
+                                        id="kt_datatable_search_query" filter-search-title/>
+                                    <span>
+                                        <i class="flaticon2-search-1 text-muted"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 my-md-0">
+                                <div class="d-flex align-items-center">
+                                    <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                    <select class="form-control" id="kt_datatable_search_status" onchange="fiterSort(this)">
+                                        <option value="0">All</option>
+                                        <option value="id_desc">Mới đến cũ</option>
+                                        <option value="id_asc">Cũ đến mới</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 my-md-0">
+                                <div class="d-flex align-items-center">
+                                    <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
+                                    <select class="form-control" id="kt_datatable_search_status" onchange="fiterActive(this)">
+                                        <option value="0">All</option>
+                                        <option value="active">Hoạt động</option>
+                                        <option value="in_active">Không hoạt động</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                        <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
                     <thead>
@@ -48,76 +88,7 @@
                             <th style="min-width: 120px">Active</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($db as $db)
-                            @if ($db->hasRole('lead'))
-                                <tr>
-                                    <td class="pl-0 py-8">
-                                        <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                                <div class="symbol-label">
-                                                    <img src="{{ asset('app/' . $db->avatar) }}" alt=""
-                                                        width="50" height="50">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <a href="{{ route('mentor.listTeacher', ['id' => $db->cate_course_id]) }}"
-                                                    class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ $db->name }}</a>
-                                                <span class="text-muted font-weight-bold d-block">{{ $db->email }}</span>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                   <td>
-                                    <span class="text-success font-weight-bolder">{{ $db->specializations }}</span>
-                                        {{-- <span class="text-muted font-weight-bold">{{ $db->skills }}</span> --}}
-                                    </td> 
-                                
-
-                                    <td>
-                                        <span
-                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->educations }}</span>
-                                        <span class="text-muted font-weight-bold">{{ $db->years_in_experience }} năm</span>
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->number_phone }}</span>
-                                        <span class="text-muted font-weight-bold">{{ $db->address }}</span>
-                                    </td>
-                                    <td>
-                                        @if ($db->is_active == 1)
-                                            <span class="label label-lg label-light-success label-inline">Hoạt động</span>
-                                        @else
-                                            <span class="label label-lg label-light-danger label-inline">Ngừng hoạt
-                                                động</span>
-                                        @endif
-
-                                    </td>
-                                    <td>
-                                        @if ($db->is_active == 1)
-                                            <a href="{{ route('mentor.actived', $db->id) }}"
-                                                onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
-                                                class="btn btn-danger">
-                                                Ngừng hoạt động
-                                            </a>
-                                        @else
-                                            <a href="{{ route('mentor.actived', $db->id) }}"
-                                                onclick="return confirm('Bạn có chắc muốn hoạt động')"
-                                                class="btn btn-success">
-                                                Hoạt động
-                                            </a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-light btn-sm" href="{{ route('mentor.detail',$db->id )}}">
-                                            <i class="flaticon2-pen text-warning"></i> </a>
-                                        <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
-                                            href="{{ route('mentor.delete', ['id' => $db->id]) }}">
-                                            <i class="flaticon2-trash text-danger"></i></a>
-                                    </td>
-                                </tr>
-                            @endif
-                        @endforeach
+                    <tbody id="table-innerHtml">
                     </tbody>
                 </table>
             </div>
@@ -130,4 +101,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
+    <script>
+        objFiter = {
+            page:1,
+            name: 0,
+            record: 10,
+            id: 0,
+            is_active: 0,
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('mentor.listData') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function search(elemment){
+            objFiter.name = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSort(elemment){
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+        
+        function fiterActive(elemment){
+            objFiter.is_active = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page){
+            objFiter.page = page
+            showAjax(objFiter);
+        }
+    </script>
 @endpush

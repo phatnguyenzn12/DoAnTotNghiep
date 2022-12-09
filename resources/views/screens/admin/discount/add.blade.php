@@ -14,19 +14,30 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                        @endif
                         <form method="POST" enctype="multipart/form-data" action="{{ route('admin.discount.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label>Tiêu đề
                                     <span class="text-danger">*</span></label>
-                                <input type="text" name="title" class="form-control"
-                                    placeholder="Nhập tiêu đề">
+                                <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề">
                             </div>
                             <div class="form-group">
                                 <label>Đường dẫn
                                     <span class="text-danger">*</span></label>
-                                <input type="text" name="slug" class="form-control"
-                                    placeholder="Nhập đường dẫn">
+                                <input type="text" name="slug" class="form-control" placeholder="Nhập đường dẫn">
                             </div>
                             {{-- @error('title')
                                     <p class="text-danger">{{ $message }}</p>

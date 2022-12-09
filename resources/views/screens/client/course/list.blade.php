@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-    Page Banner START -->
+                            Page Banner START -->
     <section class="bg-dark align-items-center d-flex"
         style="background:url(/frontend/images/pattern/04.png) no-repeat center center; background-size:cover;">
         <!-- Main banner background image -->
@@ -27,19 +27,20 @@
         </div>
     </section>
     <!-- =======================
-    Page Banner END -->
+                            Page Banner END -->
 
     <!-- =======================
-    Page content START -->
+                            Page content START -->
     <section class="pt-5">
         <div class="container">
             <!-- Search option START -->
             <div class="row mb-4 align-items-center">
                 <!-- Search bar -->
-                <div class="col-sm-6 col-xl-4">
+                <div class="col-sm-6 col-xl-3">
                     <form class="border rounded p-2">
                         <div class="input-group input-borderless">
-                            <input class="form-control me-1" type="search" placeholder="Search course">
+                            <input class="form-control me-1" oninput="search(this)" type="search"
+                                placeholder="Search course">
                             <button type="button" class="btn btn-primary mb-0 rounded"><i
                                     class="fas fa-search"></i></button>
                         </div>
@@ -47,127 +48,68 @@
                 </div>
 
                 <!-- Select option -->
-                <div class="col-sm-6 col-xl-3 mt-3 mt-lg-0">
+                <div class="col-sm-6 col-xl-2 mt-3 mt-lg-0">
                     <form class="border rounded p-2 input-borderless">
-                        <select class="form-select form-select-sm js-choice" aria-label=".form-select-sm">
-                            <option value="">Category</option>
-                            <option>All</option>
-                            <option>Development</option>
-                            <option>Design</option>
-                            <option>Accounting</option>
-                            <option>Translation</option>
-                            <option>Finance</option>
-                            <option>Legal</option>
-                            <option>Photography</option>
-                            <option>Writing</option>
-                            <option>Marketing</option>
+                        <select class="form-select form-select-sm js-choice" onchange="fiterCategory(this)"
+                            aria-label=".form-select-sm">
+                            <option value="0">Category</option>
+                            @foreach ($cate_courses as $cate_course)
+                                <option value="{{ $cate_course->id }}">{{ $cate_course->name }}</option>
+                            @endforeach
                         </select>
                     </form>
                 </div>
 
                 <!-- Select option -->
-                <div class="col-sm-6 col-xl-3 mt-3 mt-xl-0">
+                <div class="col-sm-6 col-xl-2 mt-3 mt-xl-0">
                     <form class="border rounded p-2 input-borderless">
-                        <select class="form-select form-select-sm js-choice" aria-label=".form-select-sm">
-                            <option value="">Sort by</option>
-                            <option>Free</option>
-                            <option>Most viewed</option>
-                            <option>Popular</option>
+                        <select class="form-select form-select-sm js-choice" onchange="fiterSort(this)"
+                            aria-label=".form-select-sm">
+                            <option value="0">Sort by</option>
+                            <option value="id_desc">Mới đến cũ</option>
+                            <option value="id_asc">Cũ đến mới</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="col-sm-6 col-xl-2 mt-3 mt-xl-0">
+                    <form class="border rounded p-2 input-borderless">
+                        <select class="form-select form-select-sm js-choice" onchange="fiterSale(this)"
+                            aria-label=".form-select-sm">
+                            <option value="0">Sale</option>
+                            <option value="sale">Giảm giá</option>
                         </select>
                     </form>
                 </div>
 
                 <!-- Button -->
-                <div class="col-sm-6 col-xl-2 mt-3 mt-xl-0 d-grid">
+                {{-- <div class="col-sm-6 col-xl-2 mt-3 mt-xl-0 d-grid">
                     <a href="#" class="btn btn-lg btn-primary mb-0">Filter Results</a>
+                </div> --}}
+                <div class="col-sm-6 col-xl-3 mt-3 mt-xl-0 d-grid text-center">
+                    <form class="border rounded p-2 input-borderless">
+                        <label for="">Price</label>
+                        <input class="input-range" orient="vertical" type="range" step="10000"
+                            onchange="fiterPrice(this)" value="{{ $min_price }}" min="{{ $min_price }}"
+                            max="{{ $max_price }}">
+                        <span class="range-value"></span>
+                    </form>
                 </div>
+            </div>
+            <div id="table-innerHtml">
+
             </div>
             <!-- Search option END -->
 
             <!-- Course list START -->
-            <div class="row g-4 justify-content-center">
-
-                @forelse ($courses as $course)
-                    <!-- Card item START -->
-                    <div class="col-lg-10 col-xxl-6">
-                        <div class="card rounded overflow-hidden shadow">
-                            <div class="row g-0">
-                                <!-- Image -->
-                                <div class="col-md-4">
-                                    <img src="/frontend/images/courses/4by3/06.jpg" alt="card image">
-                                </div>
-
-                                <!-- Card body -->
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <!-- Title -->
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <h5 class="card-title mb-0"><a href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}">{{ $course->title }}</a>
-                                            </h5>
-                                            <!-- Wishlist icon -->
-                                            <a href="#" class="h6 fw-light"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <!-- Content -->
-                                        <!-- Info -->
-                                        <ul class="list-inline mb-1">
-                                            <li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-                                                    class="far fa-clock text-danger me-2"></i>21h 16m</li>
-                                            <li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i
-                                                    class="fas fa-table text-orange me-2"></i>{{ $course->lessons->count() }}
-                                                bài học</li>
-                                            <li class="list-inline-item h6 fw-light"><i
-                                                    class="fas fa-signal text-success me-2"></i>{{ $course->participant }}
-                                            </li>
-                                        </ul>
-                                        <!-- Rating -->
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star-half-alt text-warning"></i></li>
-                                            <li class="list-inline-item ms-2 h6 fw-light">4.5/5.0</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-                @empty
-                @endforelse
-            </div>
-            <!-- Course list END -->
-
-            <!-- Pagination START -->
-            <div class="col-12">
-                <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
-                    <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                        <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
-                                    class="fas fa-angle-double-left"></i></a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#"><i
-                                    class="fas fa-angle-double-right"></i></a></li>
-                    </ul>
-                </nav>
-            </div>
-            <!-- Pagination END -->
 
         </div>
     </section>
     <!-- =======================
-    Page content END -->
+                            Page content END -->
 
     <!-- =======================
-    Action box START -->
+                            Action box START -->
     <section class="pt-0">
         <div class="container position-relative">
             <!-- SVG -->
@@ -203,7 +145,9 @@
                             <!-- Title -->
                             <div class="col-lg-7">
                                 <h3 class="text-white">Trở thành 1 người hướng dẫn !</h3>
-                                <p class="text-white mb-3 mb-lg-0">Nhanh chóng nói có thích hợp xử lý thêm cậu bé. Trên dặm nghi ngờ của con. Niềm vui tập thể con người hân hoan. Tuy nhiên, bất thường mười người giảm đáng kinh ngạc của mình..</p>
+                                <p class="text-white mb-3 mb-lg-0">Nhanh chóng nói có thích hợp xử lý thêm cậu bé. Trên dặm
+                                    nghi ngờ của con. Niềm vui tập thể con người hân hoan. Tuy nhiên, bất thường mười người
+                                    giảm đáng kinh ngạc của mình..</p>
                             </div>
                             <!-- Button -->
                             <div class="col-lg-5 text-lg-end">
@@ -216,7 +160,7 @@
         </div>
     </section>
     <!-- =======================
-    Action box END -->
+                            Action box END -->
 
 @endsection
 
@@ -224,7 +168,67 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
-    <script type="module">
+    <script>
+        objFiter = {
+            page: 1,
+            title: 0,
+            record: 10,
+            id: 'id_desc',
+            price: 0,
+            discount: 0,
+            cate_course: 0,
+        }
 
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('client.course.listData') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function search(elemment) {
+            objFiter.title = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSort(elemment) {
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterCategory(elemment) {
+            objFiter.cate_course = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterPrice(elemment) {
+            objFiter.price = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSale(elemment) {
+            objFiter.discount = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page){
+            objFiter.page = page
+            showAjax(objFiter);
+        }
+
+        var range = $('.input-range'),
+            value = $('.range-value');
+
+        value.html(range.attr('value'));
+
+        range.on('input', function() {
+            value.html(this.value);
+        });
     </script>
 @endpush

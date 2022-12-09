@@ -17,12 +17,13 @@
                         <!--begin::Search Form-->
                         <div class="mb-7">
                             <div class="row align-items-center">
-                                <div class="col-lg-10 col-xl-10">
+                                <div class="col-lg-9 col-xl-8">
                                     <div class="row align-items-center">
                                         <div class="col-md-4 my-2 my-md-0">
                                             <div class="input-icon">
-                                                <input type="text" name="q" class="form-control"
-                                                    value="{{ request()->query('q') ?: '' }}" placeholder="Nhập tên..." />
+                                                <input type="text" oninput="search(this)" class="form-control"
+                                                    placeholder="Search..." id="kt_datatable_search_query"
+                                                    filter-search-title />
                                                 <span>
                                                     <i class="flaticon2-search-1 text-muted"></i>
                                                 </span>
@@ -30,30 +31,24 @@
                                         </div>
                                         <div class="col-md-4 my-2 my-md-0">
                                             <div class="d-flex align-items-center">
-                                                <label class="mr-3 mb-0 d-none d-md-block">Danh mục:</label>
-                                                <select name="category" class="form-control">
-                                                    <option value="">Tất cả</option>
+                                                <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                                <select class="form-control" id="kt_datatable_search_status"
+                                                    onchange="fiterSort(this)">
+                                                    <option value="0">All</option>
+                                                    <option value="id_desc">Mới đến cũ</option>
+                                                    <option value="id_asc">Cũ đến mới</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-4 my-2 my-md-0">
                                             <div class="d-flex align-items-center">
-                                                <label class="mr-3 mb-0 d-none d-md-block">Trạng thái:</label>
-                                                <select name="status" class="form-control">
-                                                    <option value="" selected>Tất cả</option>
-                                                    <option value="1"
-                                                        {{ request()->query('status') == '1' ? 'selected' : '' }}>Công khai
-                                                    </option>
-                                                    <option value="0"
-                                                        {{ request()->query('status') == '0' ? 'selected' : '' }}>Riêng tư
-                                                    </option>
-                                                </select>
+                                                <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                                                    <a href="#"
+                                                        class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-2 col-xl-2 mt-5 mt-lg-0">
-                                    <button class="btn btn-light-primary px-6 font-weight-bold">Lọc</button>
                                 </div>
                             </div>
                         </div>
@@ -61,77 +56,8 @@
                     </form>
                 </div>
             </div>
-
-            <div class="row">
+            <div id="table-innerHtml">
                 <!--begin::Col-->
-                @foreach ($u as $chapter)
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                        <!--begin::Card-->
-                        <div class="card card-custom gutter-b card-stretch">
-                            <!--begin::Body-->
-                            <a class="card-body pt-4 ribbon ribbon-right"
-                                href="{{ route('teacher.chapter.program',$chapter->id) }}">
-
-                                <!--begin::User-->
-                                <div class="d-flex align-items-center mb-7" style="aspect-ratio:1/1;overflow:hidden">
-                                    <img src="{{ asset('app/' . $chapter->image) }}"
-                                        style="width: 100%;height:100%;object-fit:cover" alt="image">
-                                </div>
-                                <!--end::User-->
-
-                                <!--begin::Desc-->
-                                <h4 class=" mb-7 font-weight-bold"><a class="text-dark text-hover-primary"
-                                        href="">{{ $chapter->title }}</a> </h4>
-                                <!--end::Desc-->
-                                <!--begin::Info-->
-                                <div class="mb-7 p-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-dark-75 mr-2">Danh mục</span>
-                                        <span
-                                            class="text-dark font-weight-bolder text-hover-primary">{{ $chapter->cateCourse->name }}</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-cente my-1">
-                                        <span class="text-dark-75 mr-2">Chương học</span>
-                                        <span
-                                            class="text-dark font-weight-bolder text-hover-primary">{{ $chapter->chapters->count() }}</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-dark-75 mr-2">Bài học</span>
-                                        <span
-                                            class="text-dark font-weight-bolder font-weight-bold">{{ $chapter->lessons->count() }}</span>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-dark-75 mr-2">Ngôn ngữ</span>
-                                        <span
-                                            class="text-success font-weight-bolder">{{ $chapter->language }}</span>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-dark-75 mr-2">Giấy chứng nhận</span>
-                                        <span
-                                            class="text-success font-weight-bolder">{{ $chapter->certificate != null ? 'có giấy chứng nhận' : ' không Có giấy chứng nhận' }}</span>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-dark-75 mr-2">tags</span>
-                                        <span class="text-success font-weight-bolder">{{ $chapter->tags }}</span>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-dark-75 mr-2">Kỹ năng</span>
-                                        <span
-                                            class="text-success font-weight-bolder">{{ $chapter->skill->title }}</span>
-                                    </div>
-                                </div>
-                                <!--end::Info-->
-                            </a>
-                            <!--end::Body-->
-                        </div>
-                        <!--end:: Card-->
-                    </div>
-                @endforeach
-
                 <!--end::Col-->
             </div>
             <!--end::table-->
@@ -141,6 +67,41 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     @endsection
     @push('js-handles')
-        <script type="module">
-    </script>
+        <script>
+            objFiter = {
+                page: 1,
+                title: 0,
+                record: 10,
+                id: 0,
+            }
+
+            function showAjax(obj) {
+                $.ajax({
+                    url: '{{ route('teacher.course.listData') }}',
+                    timeout: 1000,
+                    data: obj,
+
+                    success: function(res) {
+                        $('#table-innerHtml').html(res)
+                    }
+                })
+            }
+            showAjax(objFiter);
+
+            function search(elemment) {
+                objFiter.title = elemment.value
+                showAjax(objFiter);
+            }
+
+            function fiterSort(elemment) {
+                objFiter.id = elemment.value
+                showAjax(objFiter);
+            }
+
+            function pagination(page){
+                objFiter.page = page
+                showAjax(objFiter);
+            }
+
+        </script>
     @endpush

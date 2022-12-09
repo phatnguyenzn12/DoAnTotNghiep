@@ -25,8 +25,9 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="input-icon">
-                                            <input type="text" class="form-control" placeholder="Search..."
-                                                id="kt_datatable_search_query" filter-search />
+                                            <input type="text" oninput="search(this)" class="form-control"
+                                                placeholder="Search..." id="kt_datatable_search_query"
+                                                filter-search-title />
                                             <span>
                                                 <i class="flaticon2-search-1 text-muted"></i>
                                             </span>
@@ -34,75 +35,33 @@
                                     </div>
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
-                                            <select class="form-control" id="kt_datatable_search_status">
-                                                <option value="">All</option>
-                                                <option value="1">Pending</option>
-                                                <option value="2">Delivered</option>
-                                                <option value="3">Canceled</option>
-                                                <option value="4">Success</option>
-                                                <option value="5">Info</option>
-                                                <option value="6">Danger</option>
+                                            <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                            <select class="form-control" id="kt_datatable_search_status"
+                                                onchange="fiterSort(this)">
+                                                <option value="0">All</option>
+                                                <option value="id_desc">Mới đến cũ</option>
+                                                <option value="id_asc">Cũ đến mới</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
-                                            <select class="form-control" id="kt_datatable_search_type">
-                                                <option value="">All</option>
-                                                <option value="1">Online</option>
-                                                <option value="2">Retail</option>
-                                                <option value="3">Direct</option>
-                                            </select>
+                                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                                                <a href="#"
+                                                    class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
                             </div>
                         </div>
                     </div>
                     <!--end::Search Form-->
                     <!--end: Search Form-->
                     <!--begin: Datatable-->
-                    <div id="datatable">
-                        <table class="table table-separate table-head-custom table-checkable">
-                            <thead>
-                                <tr>
-                                    <th>Tên khóa học</th>
-                                    <th>Tên bài học</th>
-                                    <th>Nội dung</th>
-                                    <th>Video</th>
-                                    {{-- <th>Công khai</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
-                                    <tr>
-                                        <td>{{ $lesson->chapter->course->title }}</td>
-                                        <td>{{ $lesson->title }}</td>
-                                        <td>{{ $lesson->content }}</td>
-                                        <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-example"
-                                                onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
-                                                video</button>
-                                        </td>
-                                        {{-- <th>
-                                            @if ($lesson->lessonVideo->is_demo == 1)
-                                                <span class="label label-lg label-light-success label-inline">Học
-                                                    thử</span>
-                                            @else
-                                                <span class="label label-lg label-light-danger label-inline">Không học
-                                                    thử</span>
-                                            @endif
-                                        </th> --}}
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @include('components.admin.pagination')
+                    <div id="table-innerHtml">
+                       
+                        {{-- @include('components.admin.pagination') --}}
                     </div>
                     <!--end: Datatable-->
                 </div>
@@ -157,6 +116,41 @@
                         });
                     }
                 )
+        }
+        objFiter = {
+            page: 1,
+            title: 0,
+            record: 10,
+            id: 0,
+            chapter_id: {{ $id }},
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('teacher.lesson.listDataLesson') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function search(elemment) {
+            objFiter.title = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSort(elemment) {
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page){
+            objFiter.page = page
+            showAjax(objFiter);
         }
     </script>
 @endpush

@@ -26,8 +26,24 @@ class LessonController extends Controller
     public function list($id)
     {
         $chapter = Chapter::where('id', $id)->orderBy('id', 'DESC')->first();
-        return view('screens.mentor.lesson.list-video-id', compact('chapter'));
+        return view('screens.mentor.lesson.list-video-id', compact('id','chapter'));
     }
+
+    public function filterDataLesson(Request $request)
+    {
+        $lessons = Lesson::select('*')
+        ->where('chapter_id', $request->chapter_id)
+        // ->orderBy('id', 'DESC')
+        ->sortdata($request)
+        ->search($request)
+        ->isactive($request)
+        ->paginate($request->record);
+
+        $html = view('components.mentor.lesson.list-video' ,compact('lessons','request'))->render();
+        return response()->json($html,200);
+    }
+
+
     public function create(Request $course_id)
     {
         $chapters = Chapter::where('course_id', $course_id->course)->get();
