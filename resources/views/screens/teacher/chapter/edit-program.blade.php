@@ -74,6 +74,7 @@
                                                 @endif
 
                                             </div>
+
                                             <span
                                                 class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
                                                 <p class="lession-name m-0 font-weight-bold">
@@ -83,27 +84,30 @@
                                                         <i class="fab fa-youtube"></i>
                                                     @endif
                                                     Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
-
                                                 </p>
-                                                @if ($lesson->lessonVideo->video_path != 0 && $lesson->time != 0)
-                                                    <div class="text-center">
-                                                        <span>
-                                                            <button class="btn btn-primary" data-toggle="modal"
-                                                                data-target="#modal-example"
-                                                                onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
-                                                                video</button>
-                                                        </span>
-                                                        <span>
-                                                            {{ $lesson->time }}
-                                                        </span>
-                                                    </div>
-                                                @endif
+
+
                                                 <form action="" method="POST" id="delete-lesson1" class="d-inline"
                                                     hidden>
                                                     @method('DELETE')
                                                     @csrf
                                                 </form>
+
+
                                                 <p class="lession-tool m-0">
+                                                    @if ($lesson->lessonVideo->video_path != 0 && $lesson->time != 0)
+                                                        <a class="">
+                                                            <span>
+                                                                <button class="btn btn-primary" data-toggle="modal"
+                                                                    data-target="#modal-example"
+                                                                    onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
+                                                                    video</button>
+                                                            </span>
+                                                            <span>
+                                                                {{ $lesson->time }}
+                                                            </span>
+                                                        </a>
+                                                    @endif
                                                     {{-- Btn update video --}}
                                                     @if ($lesson->is_edit == 1)
                                                         <a data-toggle="modal" data-target="#modal-example"

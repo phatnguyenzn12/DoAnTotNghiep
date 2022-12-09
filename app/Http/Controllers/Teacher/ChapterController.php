@@ -14,7 +14,7 @@ class ChapterController extends Controller
    {
      // dd( $lesson );
       $chapter = Chapter::where('mentor_id', Auth::guard('mentor')->user()->id)->get();
-      return view('screens.teacher.chapter.list', compact('chapter',));
+      return view('screens.teacher.chapter.list', compact('chapter'));
    }
 
    public function program($course_id)
