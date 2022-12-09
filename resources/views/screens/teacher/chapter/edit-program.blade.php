@@ -216,9 +216,10 @@
         }
 
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
+
             e.preventDefault()
-            $('#modal-example').find('.modal-body').html(
-                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            // $('#modal-example').find('.modal-body').html(
+            //     '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
@@ -235,6 +236,7 @@
                     window.location.href = _redirect
                 },
                 error: function(err) {
+                  
                     $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
                     let errors = err.responseJSON.errors
                     Object.keys(errors).forEach(key => {

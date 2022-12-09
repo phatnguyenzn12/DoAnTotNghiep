@@ -53,6 +53,33 @@ class TeacherController extends Controller
         }
         return view('screens.mentor.teacher.create',compact('skills','specializes'));
     }
+    
+    public function detail($id)
+    {
+       // $cate_courses = DB::table('cate_courses')->select('*')->get();
+        $teacher = Mentor::find($id);
+        // dd($teacher);
+        return view('screens.mentor.teacher.detail', compact('teacher','id'));
+    }
+    public function update(Request $request, Mentor $teacher)
+    {
+        $teacher->name ;
+        $teacher->email ;
+        $teacher->number_phone = $request->number_phone;
+      //  $mentor->address = $request->address;
+        $teacher->educations = $request->educations;
+        $teacher->years_in_experience = $request->years_in_experience;
+        $teacher->specializations =  implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray());
+        $teacher->skills =  implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray());
+    //    $mentor->cate_course_id = $request->cate_course_id;
+        $teacher->save();
+        // Mail::send('screens.email.mentor.update-lead', compact('teacher'), function ($email) use ($teacher) {
+        //     $email->subject('Thông báo thay đổi thông tin cơ bản');
+        //     $email->to($teacher->email, $teacher->name);
+        // });
+        //dd($mentor);
+        return redirect()->back()->with('success', 'Cập nhật thành công');
+    }
 
     public function actived($id)
     {

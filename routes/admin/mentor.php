@@ -9,6 +9,7 @@ Route::prefix('admin/mentor')->name('mentor.')->middleware('role:admin')->contro
         Route::get('teacher/{id}', 'teacher')->name('listTeacher');
         Route::get('apply', 'apply')->name('apply');
         Route::get('detail/{id}', 'detail')->name('detail');
+        Route::put('update/{mentor}', 'update')->name('update');
         Route::match(['get', 'post'],'create','create')->name('create');
         Route::get('/actived/{id}', 'actived')->name('actived');
         Route::get('/accept/{id}', 'accept')->name('accept');
