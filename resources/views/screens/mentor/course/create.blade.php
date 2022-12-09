@@ -86,7 +86,7 @@
                             @error('description')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label>Mô tả chi tiết</label>
                                 <input id="kt_tagify_2" class="form-control" name='description_details'
                                     placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />

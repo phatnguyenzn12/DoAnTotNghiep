@@ -1,4 +1,4 @@
-<form action="{{ route('mentor.chapter.add') }}" class="has-validation-ajax" method="POST">
+<form action="{{ route('mentor.chapter.add') }}" class="form has-validation-ajax" method="POST">
     @csrf
     <p class="text-danger errors system"></p>
     <div class="form-group">
@@ -27,5 +27,7 @@
     <input type="text" name="course_id" value="{{ $course_id }}" hidden>
     <p class="text-danger errors title"></p>
     </div>
-    <button type="submit" class="btn btn-primary font-weight-bold">Thêm</button>
+    <button type="submit"  class="btn btn-primary font-weight-bold">Thêm</button>
 </form>
+
+

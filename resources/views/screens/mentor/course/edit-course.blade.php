@@ -99,7 +99,7 @@
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label>Mô tả chi tiết</label>
                             <input id="kt_tagify_2" name="description_details" type="text"
                                 value="{{ str_replace(',', ', ', $course->description_details) }}" class="form-control">

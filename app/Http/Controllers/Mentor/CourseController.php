@@ -15,6 +15,7 @@ use App\Models\Skill;
 use App\Services\UploadFileService;
 use Http\Message\Authentication\Chain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -22,17 +23,33 @@ class CourseController extends Controller
     public function index()
     {
         $cateCourses = CateCourse::all();
-        $course= Course::paginate(1);
         $courses = auth()->guard('mentor')
             ->user()
             ->load('courses')
             ->courses;
-        return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses'));
+       //lọc
+        $key = [];
+        if (isset(request()['key'])) {
+            $key = request()->query('key');
+            $search = Course::where('title', 'like', '%' . $key . '%')->orderBy('id')
+                ->where('cate_course_id', "LIKE", "%" . request()->get('category') . "%")
+                ->where('status', 'LIKE', "%" . request()->query('status') . "%")
+                ->get();
+
+            // dd($search);
+            $course = Course::paginate(3);
+
+            return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses', 'search'));
+        } else {
+
+            $course = Course::paginate(3);
+            return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses'));
+        }
     }
 
     public function program($course_id)
     {
-        $mentor= Mentor::all();
+        $mentor = Mentor::all();
         // dd($mentor);
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
