@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\MentorRequest;
 use App\Models\Apply;
 use App\Models\CateCourse;
 use App\Models\CommentCourse;
+use App\Models\Course;
 use App\Models\Mentor;
 use App\Models\Skill;
 use App\Models\Specialize;
@@ -22,14 +24,43 @@ class MentorController extends Controller
 
     public function index()
     {
-        $db = Mentor::all();
-        return view('screens.admin.mentor.list', compact('db'));
+        return view('screens.admin.mentor.list');
+    }
+    public function filterData(Request $request)
+    {
+
+        $mentors = Mentor::select('*')
+        ->role('lead')
+        ->sortdata($request)
+        ->search($request)
+        ->isactive($request)
+        ->paginate($request->record);
+        
+        $html = view('components.admin.mentor.list-mentor' ,compact('mentors'))->render();
+        return response()->json($html,200);
     }
 
-    public function teacher($id)
+
+    public function listCourse($id)
     {
-        $db = Mentor::where('cate_course_id', $id)->get();
-        return view('screens.admin.mentor.list-teacher', compact('db'));
+        // $db = Course::where('cate_course_id', $id)->get();
+        return view('screens.admin.mentor.list-course',compact('id'));
+    }
+
+    public function filterDataCourse(Request $request)
+    {
+
+        $courses = Course::select('*')
+        ->where('mentor_id', $request->mentor_id)
+        ->sortdata($request)
+        ->search($request)
+        ->isactive($request)
+        ->category($request)
+        ->price($request)
+        ->paginate($request->record);
+        
+        $html = view('components.admin.mentor.list-course' ,compact('courses'))->render();
+        return response()->json($html,200);
     }
 
     public function apply()
@@ -38,11 +69,9 @@ class MentorController extends Controller
         return view('screens.admin.mentor.list-apply', compact('db'));
     }
 
-    public function create(Request $request)
+    public function create(MentorRequest $request)
     {
         $cate_courses = DB::table('cate_courses')->select('*')->get();
-        $skills = Skill::all();
-        $specializes = Specialize::all();
         if ($request->isMethod('post')) {
         //    $avatar = UploadFileService::storage_image($request->avatar);
             $password = 12345678;
@@ -61,17 +90,43 @@ class MentorController extends Controller
             );
             $mentor->assignRole('lead');
             $db = Mentor::where('email', 'like', $request->email)->first();
-            $skill = Skill::find($db->skills);
-            $specialize = Specialize::find($db->specializations);
-            Mail::send('screens.email.admin.actived-lead', compact('db', 'password', 'skill', 'specialize'), function ($email) use ($db) {
+            Mail::send('screens.email.admin.actived-lead', compact('db', 'password'), function ($email) use ($db) {
                 $email->subject('Yêu cầu đăng ký giảng viên');
                 $email->to($db->email, $db->name);
             });
             return redirect()->route('mentor.index')->with('success', 'Thêm mới thành công');
         }
-        return view('screens.admin.mentor.create', compact('cate_courses', 'skills', 'specializes'));
+        return view('screens.admin.mentor.create', compact('cate_courses'));
     }
 
+
+    public function detail($id)
+    {
+        $cate_courses = DB::table('cate_courses')->select('*')->get();
+        $mentor = Mentor::find($id);
+        //  dd($mentor);
+        return view('screens.admin.mentor.detail', compact('mentor','id', 'cate_courses'));
+    }
+    public function update(Request $request, $id)
+    {
+        $mentor = Mentor::find($id);
+        $mentor->name ;
+        $mentor->email ;
+        $mentor->number_phone = $request->number_phone;
+        $mentor->address = $request->address;
+        $mentor->educations = $request->educations;
+        $mentor->years_in_experience = $request->years_in_experience;
+        $mentor->specializations =  implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray());
+        $mentor->skills =  implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray());
+        $mentor->cate_course_id = $request->cate_course_id;
+        $mentor->save();
+        //dd($mentor);
+        // Mail::send('screens.email.admin.update-lead', compact('mentor'), function ($email) use ($mentor) {
+        //     $email->subject('Thông báo thay đổi thông tin cơ bản');
+        //     $email->to($mentor->email, $mentor->name);
+        // });
+        return redirect()->back()->with('success', 'Cập nhật thành công');
+    }
     public function actived($id)
     {
         $db = new Mentor();

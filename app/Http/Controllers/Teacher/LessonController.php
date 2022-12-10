@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teacher\LessonRequest;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -18,16 +19,22 @@ class LessonController extends Controller
     public function list($id)
     {
         $chapter = Chapter::where('id', $id)->first();
-        return view('screens.teacher.lesson.list-video', compact('chapter'));
+        return view('screens.teacher.lesson.list-video', compact('id','chapter'));
     }
 
-    public function destroy($lesson)
+    public function filterDataLesson(Request $request)
     {
-        $data = Lesson::destroy($lesson);
-        return response()->json(null, 200);
+        $lessons = Lesson::select('*')
+        ->where('chapter_id', $request->chapter_id)
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+
+        $html = view('components.teacher.lesson.list-video' ,compact('lessons','request'))->render();
+        return response()->json($html,200);
     }
 
-    public function update(Request $request, Lesson $lesson, VimeoService $vimeoService)
+    public function update(LessonRequest $request, Lesson $lesson, VimeoService $vimeoService)
     {
         if ($lesson->lesson_type == "video") {
 
@@ -125,6 +132,7 @@ class LessonController extends Controller
     }
     public function show(Request $request, Lesson $lesson)
     {
+
         $data = view('components.teacher.modal.lesson.edit', compact('lesson'))->render();
         return response()->json($data, 200);
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Client\CertificateController;
 use App\Http\Controllers\Client\CommentLessonController;
 use App\Http\Controllers\Client\LessonController;
+use App\Http\Controllers\Client\MentorLessonController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('lesson')->name('client.lesson.')->controller(LessonController::class)->group(
@@ -12,16 +13,31 @@ Route::prefix('lesson')->name('client.lesson.')->controller(LessonController::cl
         Route::get('comment-details/{comment_lesson}', 'commentDetails')->name('commentdetails');
         Route::post('comment-parent-add/{lesson}', 'parentComment')->name('parentComment');
         Route::post('course/{course_id}/comment-child-add/{comment_parent}', 'childComment')->name('childComment');
-
     }
 );
 
+Route::prefix('mentor-lesson')->name('client.mentorLesson.')->middleware(['role:mentor'])->controller(MentorLessonController::class)->group(
+    function () {
+        Route::get('exercise/{course}', 'index')->name('index');
+        Route::get('exercise-lesson/{course}/{lesson}', 'show')->name('show');
+        Route::get('comment-details/{comment_lesson}', 'commentDetails')->name('commentdetails');
+        Route::post('comment-parent-add/{lesson}', 'parentComment')->name('parentComment');
+        Route::post('course/{course_id}/comment-child-add/{comment_parent}', 'childComment')->name('childComment');
+    }
+);
 
 Route::prefix('lesson')->name('client.certificate.')->controller(CertificateController::class)->group(
     function () {
-        Route::post('course/{course}/getCertificate', 'getCertificate')->name('getCertificate');
+        Route::post('course/{course}/get-certificate', 'getCertificate')->name('getCertificate');
         Route::get('course/{certificate}/certificate', 'index')->name('index');
     }
 );
 
-
+Route::prefix('chapter')->name('client.chapter.')->controller(LessonController::class)->group(
+    function () {
+        Route::get('mentor/{mentor}/get-chapter/{chapter}', 'getChapter')->name('getChapter');
+        Route::post('review/{chapter}', 'postReview')->name('postReview');
+        Route::get('get-edit-comment-chapter/{chapterReview}', 'getEditReview')->name('getEditReview');
+        Route::put('edit-comment-chapter/{review}', 'editReview')->name('editReview');
+    }
+);

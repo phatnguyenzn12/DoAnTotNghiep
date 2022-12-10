@@ -20,24 +20,44 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses = auth()->guard('mentor')
-            ->user()
-            ->load('courses')
-            ->courses;
-        return view('screens.mentor.course.list', compact('courses'));
+        $min_price = Course::where('mentor_id',auth()->guard('mentor')->user()->id)->min('price');
+        $max_price = Course::where('mentor_id',auth()->guard('mentor')->user()->id)->max('price');
+        return view('screens.mentor.course.list',compact('min_price','max_price'));
+    }
+
+    public function filterData(Request $request)
+    {
+
+        $courses = Course::select('*')
+        ->where('mentor_id',auth()->guard('mentor')->user()->id)
+        ->sortdata($request)
+        ->search($request)
+        ->isactive($request)
+        ->price($request)
+        ->paginate($request->record);
+        
+        $html = view('components.mentor.course.list-course' ,compact('courses'))->render();
+        return response()->json($html,200);
     }
 
     public function program($course_id)
     {
-        $mentor= Mentor::all();
-        // dd($mentor);
-        $chapters = Chapter::select('*')
-            ->where('course_id', $course_id)
-            // ->orderBy('id', 'DESC')
-            // ->orderBy('sort')
-            ->paginate(10);
-        return view('screens.mentor.course.edit-program', compact('chapters', 'course_id', 'mentor'));
+        return view('screens.mentor.course.edit-program', compact('course_id'));
     }
+
+    public function filterDataChapter(Request $request)
+    {
+        $chapters = Chapter::select('*')
+        ->where('course_id', $request->course_id)
+        // ->orderBy('id', 'DESC')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+        
+        $html = view('components.mentor.chapter.list-chapter' ,compact('chapters'))->render();
+        return response()->json($html,200);
+    }
+
     // Route::get('edit-program/{course_id}', 'program')->name('program');
     //     Route::get('edit-course/{id}', 'edit')->name('edit');
     //     Route::put('update-course/{course}', 'update')->name('update');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BannerRequest;
 use App\Models\Banner;
 use App\Models\Course;
 use App\Models\DiscountCode;
@@ -19,9 +20,23 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $index = Banner::all();
+        // $index = Banner::all();
         // dd($index);
-        return view('screens.admin.banner.list', compact('index'));
+        return view('screens.admin.banner.list');
+    }
+
+    public function filterData(Request $request)
+    {
+
+        $banners = Banner::select('*')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+        $passedDown = [
+            'data' => $banners
+        ];
+        
+        return response()->json($passedDown,200);
     }
 
     /**
@@ -43,7 +58,7 @@ class BannerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BannerRequest $request)
     {
         $imgPath = UploadFileService::storage_image($request->image);
 
@@ -95,7 +110,7 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BannerRequest $request, $id)
     {
         $update = Banner::find($id);
         $banner = $request->only(

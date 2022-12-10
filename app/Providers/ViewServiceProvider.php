@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Notification;
 use App\Models\User;
+use App\Notifications\CommentLessonNotification;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,20 +39,21 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         View::composer(['layouts.client.header'], function ($view) {
-            if (auth()->user()) {
-                $notifications = auth()->user()
-                    ->notifications_custom;
-
-                $view->with('notifications', $notifications);
-            } elseif (auth()->guard('mentor')->user()) {
+            if (auth()->guard('mentor')->check()) {
 
                 $notifications = auth()->guard('mentor')
                     ->user()
-                    ->notifications_custom;
-
+                    ->notifications;
+                    dd($notifications);
                 $view->with('notifications', $notifications);
-            } else {
 
+            } elseif (auth()->guard('web')->user()) {
+
+                $notifications = auth()->user()
+                    ->notifications;
+                $view->with('notifications', $notifications);
+
+            } else {
                 $view->with('notifications', []);
             }
         });

@@ -204,8 +204,7 @@ const filter1 = new filter(
     },
 )
 filter1.get()
-filter1.filterSearch()
+filter1.filterSearchName()
 filter1.filterRecord() 
-
     </script>
 @endpush

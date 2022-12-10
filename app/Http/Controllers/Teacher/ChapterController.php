@@ -12,20 +12,26 @@ class ChapterController extends Controller
 {
    public function index()
    {
-     // dd( $lesson );
       $chapter = Chapter::where('mentor_id', Auth::guard('mentor')->user()->id)->get();
-      return view('screens.teacher.chapter.list', compact('chapter',));
+      return view('screens.teacher.chapter.list', compact('chapter'));
    }
 
    public function program($course_id)
    {
-     //   $lesson = Lesson::where('chapter_id', Auth::guard('mentor')->user()->id);
-      // dd( $lesson );
-      $chapters = Chapter::select('*')
-         ->where('course_id', $course_id)
-         ->paginate(10);
-      return view('screens.teacher.chapter.edit-program', compact('chapters', 'course_id'));
+      return view('screens.teacher.chapter.edit-program', compact('course_id'));
    }
+
+   public function filterDataChapter(Request $request)
+    {
+        $chapters = Chapter::select('*')
+        ->where('course_id', $request->course_id)
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+
+        $html = view('components.teacher.chapter.list-chapter' ,compact('chapters'))->render();
+        return response()->json($html,200);
+    }
 
    public function show(Chapter $chapter)
    {

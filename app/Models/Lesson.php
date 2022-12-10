@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class Lesson extends Model
+class Lesson extends BaseModel
 {
     use HasFactory;
     protected $fillable = [
@@ -44,6 +44,11 @@ class Lesson extends Model
     public function commentLessons()
     {
         return $this->hasMany(CommentLesson::class, 'lesson_id', 'id');
+    }
+
+    public function commentLessonUser()
+    {
+        return $this->belongsToMany(User::class,CommentLesson::class);
     }
 
     public function chapter()

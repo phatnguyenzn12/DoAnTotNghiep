@@ -14,20 +14,30 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{route('admin.cate-course.store')}}">
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                        @endif
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.cate-course.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label>Tên danh mục
                                     <span class="text-danger">*</span></label>
                                 <input type="text" value="" name="name" class="form-control"
                                     placeholder="Tên danh mục">
-                                </div>
-                            {{-- @error('title')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror --}}
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
-                                <a href="{{route('admin.cate-course.index')}}" class="btn btn-success mr-2">Quay Lại</a>
+                                <a href="{{ route('admin.cate-course.index') }}" class="btn btn-success mr-2">Quay Lại</a>
                             </div>
                         </form>
                     </div>

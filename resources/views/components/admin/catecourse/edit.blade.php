@@ -13,8 +13,21 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                        @endif
                         <form method="POST" enctype="multipart/form-data" action="{{route('admin.cate-course.update',$cate->id)}}">
-                            <input type="hidden" name="_method" value="PUT">
+                            {{-- <input type="hidden" name="_method" value="PUT"> --}}
                             @csrf
                             <div class="form-group">
                                 <label>Tên danh mục
