@@ -58,7 +58,7 @@
                                 <label>Thẻ
                                     <span class="text-danger">*</span></label>
                                 <input id="kt_tagify_1" class="form-control" name='tags' placeholder='Thẻ'
-                                    value='css, html, javascript, angular, vue, react' />
+                                     />
                             </div>
                             <div class="form-group">
                                 <label>Giới thiệu</label>
@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label>Mô tả chi tiết</label>
                                 <input id="kt_tagify_2" class="form-control" name='description_details'
-                                    placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
+                                    placeholder='Write some tags' />
                             </div>
                             
 
@@ -108,11 +108,11 @@
 @endsection
 @push('js-handles')
     <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
+        // ClassicEditor
+        //     .create(document.querySelector('#editor'))
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
 
         $(document).ready(function() {
             $('[name="title"]').blur(function() {

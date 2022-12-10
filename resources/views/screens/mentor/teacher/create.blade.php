@@ -49,12 +49,12 @@
                             <div class="form-group">
                                 <label>Chuyên môn</label>
                                 <input id="kt_tagify_1" class="form-control" name='specializations' placeholder='Thẻ'
-                                value='css, html, javascript, angular, vue, react' />
+                                 />
                             </div>
                             <div class="form-group">
                                 <label>Kỹ năng</label>
                                 <input id="kt_tagify_2" class="form-control" name='skills'
-                                    placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
+                                    placeholder='Write some tags'  />
                             </div>
                             <input type="text" name="cate_course_id" id=""
                                 value="{{ auth()->guard('mentor')->user()->cate_course_id }}" hidden>
