@@ -19,13 +19,19 @@ class LessonController extends Controller
     public function list($id)
     {
         $chapter = Chapter::where('id', $id)->first();
-        return view('screens.teacher.lesson.list-video', compact('chapter'));
+        return view('screens.teacher.lesson.list-video', compact('id','chapter'));
     }
 
-    public function destroy($lesson)
+    public function filterDataLesson(Request $request)
     {
-        $data = Lesson::destroy($lesson);
-        return response()->json(null, 200);
+        $lessons = Lesson::select('*')
+        ->where('chapter_id', $request->chapter_id)
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+
+        $html = view('components.teacher.lesson.list-video' ,compact('lessons','request'))->render();
+        return response()->json($html,200);
     }
 
     public function update(LessonRequest $request, Lesson $lesson, VimeoService $vimeoService)

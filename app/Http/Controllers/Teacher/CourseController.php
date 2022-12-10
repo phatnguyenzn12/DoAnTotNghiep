@@ -7,28 +7,26 @@ use App\Models\Chapter;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class CourseController extends Controller
 {
     public function index()
     {
-        // $chapters = Chapter::where('mentor_id',auth()->guard('mentor')->user()->id)->get();
-        // foreach ($chapters as $a){
-        //     $course = Course::where('menter_id',$a->);
-        // }
-
-        //   $chapters  = Chapter::select('title','lesson_id','')
-        $u = [];
-
-        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)->groupBy('course_id')->get();
-   //     dd($chapters);
-        foreach ($chapters as $a) {  
-                $u[] = Course::where('id', $a->course_id)->first();
+        return view('screens.teacher.course.list');
+    }
+    public function filterData(Request $request)
+    {
+        $courses = [];
+        $chapters = Chapter::where('mentor_id', auth()->guard('mentor')->user()->id)
+        ->groupBy('course_id')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+        foreach ($chapters as $chapter) {  
+            $courses[] = Course::where('id', $chapter->course_id)->first();
         }
-    // dd($u);
-
-
-
-        return view('screens.teacher.course.list', compact('u'));
+        $html = view('components.teacher.course.list-course' ,compact('courses'))->render();
+        return response()->json($html,200);
     }
 }

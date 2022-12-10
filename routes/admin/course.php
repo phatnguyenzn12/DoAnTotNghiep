@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin/course')->name('admin.course.')->middleware('role:admin')->controller(CourseController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
+        Route::get('list-data/{search?}/{record?}','filterData')->name('listData');
         Route::get('create/{id}', 'create')->name('create');
         Route::post('store/{id}', 'store')->name('store');
         Route::get('/actived/{course}/{status}', 'actived')->name('actived');

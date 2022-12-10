@@ -14,9 +14,23 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $cateCourses = CateCourse::get();
-        $courses = Course::paginate(8);
-        return view('screens.client.course.list', compact('cateCourses', 'courses'));
+        $cate_courses = CateCourse::all();
+        $min_price = Course::min('price');
+        $max_price = Course::max('price');
+        return view('screens.client.course.list', compact('cate_courses', 'min_price', 'max_price'));
+    }
+
+    public function filterData(Request $request)
+    {
+        $courses = Course::select('*')
+        ->sortdata($request)
+        ->search($request)
+        ->category($request)
+        ->price($request)
+        ->paginate($request->record);
+        
+        $html = view('components.client.course.list-course' ,compact('courses'))->render();
+        return response()->json($html,200);
     }
 
     public function show($slug, Course $course)

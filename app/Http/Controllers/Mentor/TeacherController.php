@@ -17,8 +17,21 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $db = Mentor::all();
-        return view('screens.mentor.teacher.list', compact('db'));
+        return view('screens.mentor.teacher.list');
+    }
+
+    public function filterData(Request $request)
+    {
+
+        $mentors = Mentor::select('*')
+        ->role('teacher')
+        ->sortdata($request)
+        ->search($request)
+        ->isactive($request)
+        ->paginate($request->record);
+        
+        $html = view('components.mentor.teacher.list-teacher' ,compact('mentors'))->render();
+        return response()->json($html,200);
     }
 
     public function create(Request $request)
@@ -61,8 +74,9 @@ class TeacherController extends Controller
         // dd($teacher);
         return view('screens.mentor.teacher.detail', compact('teacher','id'));
     }
-    public function update(Request $request, Mentor $teacher)
+    public function update(Request $request,$id)
     {
+        $teacher = Mentor::find($id);
         $teacher->name ;
         $teacher->email ;
         $teacher->number_phone = $request->number_phone;
@@ -72,6 +86,7 @@ class TeacherController extends Controller
         $teacher->specializations =  implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray());
         $teacher->skills =  implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray());
     //    $mentor->cate_course_id = $request->cate_course_id;
+        
         $teacher->save();
         // Mail::send('screens.email.mentor.update-lead', compact('teacher'), function ($email) use ($teacher) {
         //     $email->subject('Thông báo thay đổi thông tin cơ bản');

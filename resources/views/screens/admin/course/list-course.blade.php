@@ -23,158 +23,65 @@
                         <div class="row align-items-center">
                             <div class="col-lg-9 col-xl-8">
                                 <div class="row align-items-center">
-                                    <div class="col-md-4 my-2 my-md-0">
+                                    <div class="col-md-3 my-2 my-md-0">
                                         <div class="input-icon">
-                                            <input type="text" class="form-control" placeholder="Search..."
-                                                id="kt_datatable_search_query" filter-search />
+                                            <input type="text" oninput="search(this)" class="form-control"
+                                                placeholder="Search..." id="kt_datatable_search_query"
+                                                filter-search-title />
                                             <span>
                                                 <i class="flaticon2-search-1 text-muted"></i>
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 my-2 my-md-0">
+                                    <div class="col-md-3 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
-                                            <select class="form-control" id="kt_datatable_search_status">
-                                                <option value="">All</option>
-                                                <option value="1">Pending</option>
-                                                <option value="2">Delivered</option>
-                                                <option value="3">Canceled</option>
-                                                <option value="4">Success</option>
-                                                <option value="5">Info</option>
-                                                <option value="6">Danger</option>
+                                            <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                            <select class="form-control" id="kt_datatable_search_status"
+                                                onchange="fiterSort(this)">
+                                                <option value="id_desc">All</option>
+                                                <option value="id_desc">Mới đến cũ</option>
+                                                <option value="id_asc">Cũ đến mới</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 my-2 my-md-0">
+                                    <div class="col-md-3 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
-                                            <select class="form-control" id="kt_datatable_search_type">
-                                                <option value="">All</option>
-                                                <option value="1">Online</option>
-                                                <option value="2">Retail</option>
-                                                <option value="3">Direct</option>
+                                            <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
+                                            <select class="form-control" id="kt_datatable_search_status"
+                                                onchange="fiterActive(this)">
+                                                <option value="0">All</option>
+                                                <option value="active">Được sử dụng</option>
+                                                <option value="in_active">Chờ xử lý</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 my-2 my-md-0">
+                                        <div class="d-flex align-items-center">
+                                            <label class="mr-3 mb-0 d-none d-md-block">Category:</label>
+                                            <select class="form-control" id="kt_datatable_search_status"
+                                                onchange="fiterCategory(this)">
+                                                <option value="0">All</option>
+                                                @foreach ($cate_courses as $cate_course)
+                                                    <option value="{{ $cate_course->id }}">{{ $cate_course->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                            <div class="range-slider">
+                                <label class="mr-3 mb-0 d-none d-md-block">Lọc theo giá:</label>
+                                <input class="input-range" orient="vertical" type="range" step="10000" onchange="fiterPrice(this)"
+                                    value="{{$min_price}}" min="{{$min_price}}" max="{{$max_price}}">
+                                <span class="range-value"></span>
                             </div>
                         </div>
                     </div>
                     <!--end::Search Form-->
                     <!--begin: Datatable-->
-                    <div class="row">
+                    <div id="table-innerHtml">
                         <!--begin::Col-->
-                        @foreach ($courses as $course)
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <!--begin::Card-->
-                                <div class="card card-custom gutter-b card-stretch">
-                                    <!--begin::Body-->
-                                    <a class="card-body pt-4 ribbon ribbon-right"
-                                        href="{{ route('admin.course.program', $course->id) }}">
-                                        <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">{{ $course->active }}</font>
-                                            </font>
-                                        </div>
 
-                                        <!--begin::User-->
-                                        <div class="d-flex align-items-center mb-7"
-                                            style="aspect-ratio:1/1;overflow:hidden">
-                                            <img src="{{ asset('app/' . $course->image) }}"
-                                                style="width: 100%;height:100%;object-fit:cover" alt="image">
-                                        </div>
-                                        <!--end::User-->
-
-                                        <!--begin::Desc-->
-                                        <h4 class=" mb-7 font-weight-bold"><a class="text-dark text-hover-primary"
-                                                href="{{ route('admin.course.program', $course->id) }}">{{ $course->title }}</a>
-                                        </h4>
-                                        <!--end::Desc-->
-                                        <!--begin::Info-->
-                                        <div class="mb-7 p-3">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">giảng viên</span>
-                                                <span
-                                                    class="text-dark font-weight-bolder text-hover-primary">{{$course->mentor->name}}</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Danh mục</span>
-                                                <span
-                                                    class="text-dark font-weight-bolder text-hover-primary">{{ $course->cateCourse->name }}</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-cente my-1">
-                                                <span class="text-dark-75 mr-2">Chương học</span>
-                                                <span
-                                                    class="text-dark font-weight-bolder text-hover-primary">{{ $course->chapters->count() }}</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Bài học</span>
-                                                <span
-                                                    class="text-dark font-weight-bolder font-weight-bold">{{ $course->lessons->count() }}</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Giá khóa học</span>
-                                                <span
-                                                    class="text-dark font-weight-bolder font-weight-bold">{{ $course->price }}</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Giảm giá</span>
-                                                <span
-                                                    class="text-dark font-weight-bolder font-weight-bold">{{ $course->discount }}%
-                                                    -
-                                                    {{ $course->current_price }}</span>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Ngôn ngữ</span>
-                                                <span
-                                                    class="text-success font-weight-bolder">{{ $course->language }}</span>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Giấy chứng nhận</span>
-                                                <span
-                                                    class="text-success font-weight-bolder">{{ $course->certificate != null ? 'có giấy chứng nhận' : ' không Có giấy chứng nhận' }}</span>
-                                            </div>    
-                                            
-
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">tags</span>
-                                                <span class="text-success font-weight-bolder">{{ $course->tags }}</span>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-dark-75 mr-2">Kỹ năng</span>
-                                                <span
-                                                    class="text-success font-weight-bolder">{{ $course->skill->title }}</span>
-                                            </div>
-                                            @if ($course->price != null)
-                                                    <a class="btn btn-success" href="{{route('admin.course.create', ['id' => $course->id ])}}">thêm chứng chỉ</a>
-
-                                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                                    
-                                                    <a href="{{ route('admin.course.actived', ['course' => $course->id, 'status' => 1]) }}"
-                                                        onclick="return confirm('Bạn có chắc muốn hoạt động')"
-                                                        class="btn btn-success">hoạt động</a>
-
-                                                    <a href="{{ route('admin.course.actived', ['course' => $course->id, 'status' => 0]) }}"
-                                                        onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
-                                                        class="btn btn-danger">Ngừng hoạt động</a>
-                                                </div>
-                                            @endif
-
-                                        </div>
-                                        <!--end::Info-->
-                                    </a>
-                                    <!--end::Body-->
-                                </div>
-                                <!--end:: Card-->
-                            </div>
-                        @endforeach
                         <!--end: Datatable-->
                     </div>
                 </div>
@@ -189,4 +96,67 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
+    <script>
+        objFiter = {
+            page: 1,
+            title: 0,
+            record: 6,
+            id: 'id_desc',
+            type: 0,
+            cate_course: 0,
+            price:0,
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('admin.course.listData') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function search(elemment) {
+            objFiter.title = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSort(elemment) {
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterActive(elemment) {
+            objFiter.type = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterCategory(elemment) {
+            objFiter.cate_course = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterPrice(elemment) {
+            objFiter.price = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page){
+            objFiter.page = page
+            showAjax(objFiter);
+        }
+
+        var range = $('.input-range'),
+            value = $('.range-value');
+
+        value.html(range.attr('value'));
+
+        range.on('input', function() {
+            value.html(this.value);
+        });
+    </script>
 @endpush

@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="{{route('admin.banner.create')}}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ route('admin.banner.create') }}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -45,7 +45,7 @@
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="input-icon">
                                             <input type="text" class="form-control" placeholder="Search..."
-                                                id="kt_datatable_search_query" filter-search />
+                                                id="kt_datatable_search_query" filter-search-title/>
                                             <span>
                                                 <i class="flaticon2-search-1 text-muted"></i>
                                             </span>
@@ -54,32 +54,21 @@
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
                                             <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
-                                            <select class="form-control" id="kt_datatable_search_status">
-                                                <option value="">All</option>
-                                                <option value="1">Pending</option>
-                                                <option value="2">Delivered</option>
-                                                <option value="3">Canceled</option>
-                                                <option value="4">Success</option>
-                                                <option value="5">Info</option>
-                                                <option value="6">Danger</option>
+                                            <select class="form-control" id="kt_datatable_search_status" filter-sort>
+                                                <option value="0">All</option>
+                                                <option value="id_desc">Mới đến cũ</option>
+                                                <option value="id_asc">Cũ đến mới</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
-                                            <select class="form-control" id="kt_datatable_search_type">
-                                                <option value="">All</option>
-                                                <option value="1">Online</option>
-                                                <option value="2">Retail</option>
-                                                <option value="3">Direct</option>
-                                            </select>
+                                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                                                <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
                             </div>
                         </div>
                     </div>
@@ -87,20 +76,21 @@
                     <!--end: Search Form-->
                     <!--begin: Datatable-->
                     <div id="datatable">
-                        <table class="table table-separate table-head-custom table-checkable">
+                        <table class="table table-separate table-head-custom table-checkable" data-loading>
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Tiêu đề</th>
                                     <th>nội dung</th>
                                     <th>hình ảnh</th>
                                     <th>kiểu banner</th>
                                     <th>trạng thái</th>
                                     <th>xử lý</th>
-                                    
+
                                 </tr>
                             </thead>
-                            <tbody>
-                                @include('components.admin.banner.body-table')
+                            <tbody show-list>
+                                {{-- @include('components.admin.banner.body-table') --}}
                             </tbody>
                         </table>
                         @include('components.admin.pagination')
@@ -118,4 +108,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
+    <script type="module">
+
+    import { filter } from '/js/data-table.js'
+    const filter1 = new filter(
+        {
+            title: 0,
+            record: 10,
+            id: 0,
+        },'{{ route('admin.banner.listData') }}',
+        (data) => {
+            return data.data.map(val => {
+                return `<tr>
+                    <td>${val.id}</td>
+                    <td><a class="text-dark" >${val.title}</a></td>
+                    <td><a class="text-dark" >${val.content}</a></td>
+                    <td><img src="{{asset('app')}}/${val.image}" alt=""></td>
+                    <td><a class="text-dark" >${val.type}</a></td>
+                    <td><button></button></td>
+                    <td><a class="btn btn-light btn-sm" href="edit-banner/${val.id}">
+                        <i class="flaticon2-pen text-warning"></i></a>
+                    <a class="btn btn-light btn-sm" href="delete/${val.id}">
+                        <i class="flaticon2-trash text-danger"></i></a></td>
+                    </tr>               
+                    `
+                        }).join(',');
+        },
+        (data) => {
+            return data.links.map(
+                (val) => {
+                    return `<a filter-page="${val.url}" class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 ${val.active == true ? 'active' : ''}">
+                ${val.label.includes('e') == true ? `<i class="ki ki-bold-arrow-${val.label.includes('l') == true ? 'back' : 'next'} icon-xs text-success"></i>` : val.label}
+                </a>`
+                }
+            ).join('')
+        },
+    )
+    filter1.get()
+    filter1.filterSearchTitle()
+    filter1.filterRecord() 
+    filter1.filterSort({title:'id'})
+        </script>
 @endpush

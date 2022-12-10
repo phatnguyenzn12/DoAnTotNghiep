@@ -14,6 +14,19 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                        @endif
                         <form method="POST" enctype="multipart/form-data" action="">
                             @csrf
                             <div class="form-group">
@@ -64,12 +77,12 @@
                             <div class="form-group">
                                 <label>Chuyên môn</label>
                                 <input id="kt_tagify_1" class="form-control" name='specializations' placeholder='Thẻ'
-                                value='css, html, javascript, angular, vue, react' />
+                                    value='css, html, javascript, angular, vue, react' />
                             </div>
                             <div class="form-group">
                                 <label>Kỹ năng</label>
-                                <input id="kt_tagify_2" class="form-control" name='skills'
-                                    placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
+                                <input id="kt_tagify_2" class="form-control" name='skills' placeholder='Write some tags'
+                                    value='css, html, javascript, angular, vue, react' />
                             </div>
                             {{-- <div class="form-group">
                                 <label>Avatar</label>

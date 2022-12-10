@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BannerRequest;
+use App\Http\Requests\Admin\SkillRequest;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 
@@ -10,11 +12,25 @@ class SkillController extends Controller
 {
     public function index()
     {
-        $index = Skill::all();
-        return view('screens.admin.skill.list', compact('index'));
+        // $index = Skill::all();
+        return view('screens.admin.skill.list');
     }
 
-    public function create(Request $request)
+    public function filterData(Request $request)
+    {
+
+        $skills = Skill::select('*')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+        $passedDown = [
+            'data' => $skills
+        ];
+        
+        return response()->json($passedDown,200);
+    }
+
+    public function create(SkillRequest $request)
     {
         if ($request->isMethod('post')) {
             $store = new Skill();
@@ -26,7 +42,7 @@ class SkillController extends Controller
         return view('screens.admin.skill.add');
     }
 
-    public function update($id, Request $request)
+    public function update($id, SkillRequest $request)
     {
         $edit = Skill::find($id);
         if ($request->isMethod('post')) {

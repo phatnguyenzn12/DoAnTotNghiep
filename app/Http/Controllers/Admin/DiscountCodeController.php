@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DiscountCodeRequest;
 use App\Models\DiscountCode;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class DiscountCodeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DiscountCodeRequest $request)
     {
         DiscountCode::create(
             $request->only(
@@ -85,7 +86,7 @@ class DiscountCodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DiscountCodeRequest $request, $id)
     {
         $discount = DiscountCode::findOrFail($id);
         $discount->title = $request->title;

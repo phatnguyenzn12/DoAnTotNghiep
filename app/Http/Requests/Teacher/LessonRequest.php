@@ -24,7 +24,7 @@ class LessonRequest extends FormRequest
     public function rules()
     {
         $rules = [];
-       
+        
       //  $currentAction = $this->route()->getActionMethod();
         switch ($this->method()):
             case 'PUT':
