@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\LessonValidateRequest;
 use App\Models\Admin;
 use App\Models\Chapter;
 use App\Models\Course;
@@ -35,7 +36,7 @@ class LessonController extends Controller
         return response()->json($data, 200);
     }
 
-    public function store(Request $request)
+    public function store(LessonValidateRequest $request)
     {
         $chapter = Chapter::where('id', $request->chapter_id)->first();
         if ($chapter->number > count($chapter->lessons)) {

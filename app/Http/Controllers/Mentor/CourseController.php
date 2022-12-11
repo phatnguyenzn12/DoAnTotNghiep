@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CourseValidateRequest;
+use App\Http\Requests\Lead\CourseValidateRequest;
 use App\Models\CateCourse;
 use App\Models\Certificate;
 use App\Models\Chapter;
@@ -28,23 +28,23 @@ class CourseController extends Controller
             ->load('courses')
             ->courses;
        //lọc
-        $key = [];
-        if (isset(request()['key'])) {
-            $key = request()->query('key');
-            $search = Course::where('title', 'like', '%' . $key . '%')->orderBy('id')
-                ->where('cate_course_id', "LIKE", "%" . request()->get('category') . "%")
-                ->where('status', 'LIKE', "%" . request()->query('status') . "%")
-                ->get();
+        // $key = [];
+        // if (isset(request()['key'])) {
+        //     $key = request()->query('key');
+        //     $search = Course::where('title', 'like', '%' . $key . '%')->orderBy('id')
+        //         ->where('cate_course_id', "LIKE", "%" . request()->get('category') . "%")
+        //         ->where('status', 'LIKE', "%" . request()->query('status') . "%")
+        //         ->get();
 
-            // dd($search);
-            $course = Course::paginate(3);
+        //     // dd($search);
+        //     $course = Course::paginate(3);
 
-            return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses', 'search'));
-        } else {
+        //     return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses', 'search'));
+        // } else {
 
-            $course = Course::paginate(3);
-            return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses'));
-        }
+        // }
+        $course = Course::paginate(3);
+        return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses'));
     }
 
     public function program($course_id)

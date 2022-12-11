@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\TeacherValidateRequest;
 use App\Models\CateCourse;
 use App\Models\Chapter;
 use App\Models\Lesson;
@@ -21,7 +22,7 @@ class TeacherController extends Controller
         return view('screens.mentor.teacher.list', compact('db'));
     }
 
-    public function create(Request $request)
+    public function create( TeacherValidateRequest $request )
     {
         $skills = Skill::all();
         $specializes = Specialize::all();

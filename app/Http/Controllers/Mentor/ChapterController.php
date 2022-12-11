@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChapterValidateRequest;
+use App\Http\Requests\Lead\ChapterValidateRequest;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -49,10 +49,11 @@ class ChapterController extends Controller
 
 
 
-    public function destroy($chapter)
+    public function destroy( $id)
     {
-        $data = Chapter::destroy($chapter);
-        return response()->json(null, 200);
+        $data = Chapter::destroy($id);
+        return redirect()->back()->with('success', 'Xóa chương học thành công');
+
     }
 
     public function show(Chapter $chapter)

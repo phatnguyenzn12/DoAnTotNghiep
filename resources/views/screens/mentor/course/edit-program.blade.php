@@ -122,9 +122,9 @@
                                             class="btn btn-icon btn-sm btn-success mr-1">
                                             <i class="fas fa-sort-amount-down-alt"></i>
                                         </a>
-                                        <form action="" method="POST" class="d-inline">
+                                        <form action="{{route('mentor.chapter.delete', $chapter->id)}}" method="POST" class="d-inline">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('POST')
                                             <button class="btn btn-icon btn-sm btn-danger delete-item">
                                                 <i class="ki ki-close icon-nm"></i>
                                             </button>
@@ -257,8 +257,8 @@
         }
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
-            $('#modal-example').find('.modal-body').html(
-                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            // $('#modal-example').find('.modal-body').html(
+            //     '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)

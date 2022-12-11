@@ -10,6 +10,8 @@
     <div class="form-group">
         <label>Nội dung</label>
         <textarea name="content" class="form-control" placeholder="Nhập nội dung"></textarea>
+        <p class="text-danger errors content"></p>
+
     </div>
     <div class="form-group">
         <label>Chương học</label>

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Lead;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChapterValidateRequest extends FormRequest
+class LessonValidateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class ChapterValidateRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5',
-            'number' => 'required',
-            'mentor_id' => 'required',
+            'content' => 'required',
 
         ];
     }
@@ -36,8 +35,7 @@ class ChapterValidateRequest extends FormRequest
         return [
             'title.required' => 'Vui lòng nhập tiêu đề',
             'title.min' => 'Số kí tự lớn hơn 5',
-            'number.required' => 'Vui lòng nhập số bài học',
-            'mentor_id.required'=> 'Vui lòng chọn Giảng viên',
+            'content.required' => 'Vui lòng nhập nội dung',
 
         ];
     }

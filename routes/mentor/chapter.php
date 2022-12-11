@@ -9,8 +9,9 @@ Route::prefix('mentor/chapter')->name('mentor.chapter.')->middleware('role:mento
         Route::post('add','store')->name('add');
         Route::put('put/{chapter}','update')->name('put');
         Route::get('show/{chapter}','show')->name('show');
-        Route::delete('delete','destroy')->name('delete');
+        Route::post('delete/{id}','destroy')->name('delete');
         Route::get('show-sort/{course}', 'showSort')->name('showSort');
         Route::put('sort', 'sort')->name('sort');
+
     }
 );
