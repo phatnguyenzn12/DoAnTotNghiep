@@ -94,7 +94,7 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/mentor/statistical.php'));
+                ->group(base_path('routes/teacher/statistical.php'));
 
             Route::middleware('web')
                 ->namespace($this->namespace)
@@ -127,10 +127,6 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/admin/censor.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
                 ->group(base_path('routes/admin/skill.php'));
 
             Route::middleware('web')
@@ -148,18 +144,6 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admin/certificate.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/censor/auth.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/censor/course.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/censor/lesson.php'));
 
             Route::middleware('web')
                 ->namespace($this->namespace)

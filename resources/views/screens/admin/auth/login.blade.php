@@ -15,7 +15,7 @@
                     <div class="p-3 p-lg-5">
                         <!-- Title -->
                         <div class="text-center">
-                            <h2 class="fw-bold">Welcome to our largest community</h2>
+                            <h2 class="fw-bold"> </h2>
                             <p class="mb-0 h6 fw-light">Let's learn something new today!</p>
                         </div>
                         <!-- SVG Image -->

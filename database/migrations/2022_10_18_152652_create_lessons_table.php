@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('lesson_type')->default('video');
             $table->integer('sort')->nullable();
-            $table->time('time');
+            $table->time('time_check')->nullable();
             $table->integer('is_demo')->default(0);
             $table->integer('is_check')->default(0); // duyệt lesson được sử dụng hay không
             $table->integer('is_edit')->default(1); // được sửa hoặc không được sửa

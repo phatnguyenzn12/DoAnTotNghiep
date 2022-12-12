@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mentor;
+namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
@@ -13,13 +13,13 @@ class StatisticalController extends Controller
     public function index()
     {
         $courses = Course::where('mentor_id',auth()->guard('mentor')->user()->id)->get();
-        return view('screens.mentor.statistical.personal-income',compact('courses'));
+        return view('screens.teacher.statistical.personal-income',compact('courses'));
     }
 
     public function listStudent()
     {
 
-        return view('screens.mentor.statistical.student-list');
+        return view('screens.teacher.statistical.student-list');
     }
 
     public function apiListStudent()
@@ -33,7 +33,7 @@ class StatisticalController extends Controller
             ->orderBy('number', 'DESC')
             ->paginate(8);
 
-        $html = view('components.mentor.statistical.student-list',compact('students'))->render();
+        $html = view('components.teacher.statistical.student-list',compact('students'))->render();
 
         return response()->json($html);
     }

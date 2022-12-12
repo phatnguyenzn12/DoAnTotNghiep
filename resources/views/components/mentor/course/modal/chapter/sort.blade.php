@@ -14,7 +14,7 @@
                 <div class="col-md-12 mb-3">
                     <input type="hidden" name="chapters[]" value="{{ $chapter->id }}">
                     <span class="bg-white d-flex p-5 d-flex justify-content-between align-content-center">
-                        <p class="lession-name">{{ $chapter->title }}</p>
+                        <p class="lession-name">Chương học {{ $chapter->sort }}: {{ $chapter->title }}</p>
                     </span>
                 </div>
             @endforeach

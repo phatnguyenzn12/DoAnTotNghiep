@@ -10,7 +10,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Danh sách Skills
+                        <h3 class="card-label">Danh sách mức độ khóa học
                             <span class="d-block text-muted pt-2 font-size-sm">Sorting &amp; pagination remote
                                 datasource</span>
                         </h3>
@@ -53,9 +53,9 @@
                                     </div>
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
+                                            <label class="mr-3 mb-0 d-none d-md-block">trạng thái:</label>
                                             <select class="form-control" id="kt_datatable_search_status" filter-sort>
-                                                <option value="0">All</option>
+                                                <option value="0">Tất cả</option>
                                                 <option value="id_desc">Mới đến cũ</option>
                                                 <option value="id_asc">Cũ đến mới</option>
                                             </select>
@@ -81,7 +81,6 @@
                                 <tr>
                                     <th>Tiêu đề</th>
                                     <th>xử lý</th>
-
                                 </tr>
                             </thead>
                             <tbody show-list>
@@ -115,13 +114,12 @@ const filter1 = new filter(
     (data) => {
         return data.data.map(val => {
             return `<tr>
-                <td>${val.id}</td>
                 <td><a class="text-dark" >${val.title}</a></td>
                 <td><a class="btn btn-light btn-sm" href="update/${val.id}">
                     <i class="flaticon2-pen text-warning"></i></a>
                 <a class="btn btn-light btn-sm" href="delete/${val.id}">
                     <i class="flaticon2-trash text-danger"></i></a></td>
-                </tr>               
+                </tr>
                 `
                     }).join(',');
     },
@@ -137,7 +135,7 @@ const filter1 = new filter(
 )
 filter1.get()
 filter1.filterSearchTitle()
-filter1.filterRecord() 
+filter1.filterRecord()
 filter1.filterSort({title:'id'})
     </script>
 @endpush

@@ -11,21 +11,12 @@ class LessonVideo extends Model
     protected $table = 'lesson_videos';
     protected $fillable = [
         'video_path',
+        'time',
         'lesson_id',
     ];
 
     protected $append = [
-        'active', 'video',
+        'video_exit', 'video',
     ];
-    
-    public function getVideoAttribute()
-    {
-       // $vdeo = DB::table('LessonVideo')->get();
-        if ($this->video_path == 0) {
-            return "Video chưa upload";
-        } else {
-            return "Video upload";
-        }
-    }
 
 }

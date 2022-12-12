@@ -70,7 +70,7 @@ class AuthAdminController extends Controller
             if (!Auth::guard('admin')->user()->remember_token == null) {
                 return redirect()->route('admin.login')->with('success', 'Vui lòng xác minh tài khoản');
             }
-            return redirect()->route('admin')->with('success', 'bạn đăng nhập thành công');
+            return redirect()->route('admin.statistical.home')->with('success', 'bạn đăng nhập thành công');
         } else {
             return redirect()->route('admin.login')->with('failed', 'bạn đăng nhập thất bại');
         }

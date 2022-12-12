@@ -42,7 +42,7 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-dark-75 mr-2">Ngôn ngữ</span>
-                            <span class="text-success font-weight-bolder">{{ $course->language }}</span>
+                            <span class="text-success font-weight-bolder">{{ $course->language_rule }}</span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">

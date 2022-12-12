@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('lesson_videos', function (Blueprint $table) {
             $table->id();
             $table->string('video_path')->default(0);
+            $table->time('time')->nullable();
             $table->integer('lesson_id');
             $table->timestamps();
         });

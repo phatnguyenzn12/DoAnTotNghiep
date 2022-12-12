@@ -121,7 +121,11 @@
                 </div>
                 <!--end::Brand-->
                 <!--begin::Aside Menu-->
-                @include('layouts.mentor.sidebar')
+                @if (Auth::guard('mentor')->user()->hasRole('lead'))
+                    @include('layouts.mentor.sidebar')
+                @else
+                    @include('layouts.teacher.sidebar')
+                @endif
                 <!--end::Aside Menu-->
             </div>
             <!--end::Aside-->
@@ -133,28 +137,6 @@
                 <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     <!--begin::Subheader-->
-                    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-                        <div
-                            class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center flex-wrap mr-1">
-                                <!--begin::Mobile Toggle-->
-                                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none"
-                                    id="kt_subheader_mobile_toggle">
-                                    <span></span>
-                                </button>
-                                <!--end::Mobile Toggle-->
-                                <!--begin::Page Heading-->
-                                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                                    <!--begin::Page Title-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">@yield('title-heading')</h5>
-                                    <!--end::Page Title-->
-                                </div>
-                                <!--end::Page Heading-->
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                    </div>
                     <!--end::Subheader-->
                     <!--begin::Entry-->
                     <div class="d-flex flex-column-fluid">
@@ -413,7 +395,9 @@
     <!--sweet alert 2-->
     <script src="/backend/js/pages/features/miscellaneous/sweetalert2.js"></script>
     <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/backend/js/pages/my-script.js"></script>
     <script src="/js/var-global.js"></script>
     <!-- custom js tag -->

@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->integer('number');
             $table->integer('sort')->nullable();
-            $table->dateTime('deadline')->nullable();
-            $table->unsignedBigInteger('mentor_id')->nullable();
             $table->unsignedBigInteger('course_id')->nullable();
             $table->timestamps();
         });

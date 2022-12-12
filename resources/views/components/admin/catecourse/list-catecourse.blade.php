@@ -3,14 +3,12 @@
     <a href="{{ route('admin.cate-course.create') }}" class="btn btn-primary mr-2 mb-3">Thêm danh mục</a>
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Tên danh mục</th>
+            <th>Tên nhóm</th>
             <th>Xử lý</th>
         </tr>
     </thead>
 <tbody>
     @foreach ($cate_courses as $cate_course)
-        <td>{{ $cate_course->id }}</td>
         <td><a class="text-dark">{{ $cate_course->name }}</a></td>
         <td><a class="btn btn-light btn-sm" href="{{ route('admin.cate-course.edit', $cate_course->id) }}">
                 <i class="flaticon2-pen text-warning"></i></a>
