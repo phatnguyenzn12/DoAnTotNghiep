@@ -31,9 +31,7 @@ class MentorFactory extends Factory
             'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
             'educations' => 'dạy tại cao đẳng fpt',
             'specializations' => fake()->text(8),
-            'skills' => 'html,css,php',
             'years_in_experience' => 10,
-            'point' => 100,
         ];
     }
 

@@ -26,7 +26,7 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>Add New Teacher</a>
+                    </span>Tạo mới giảng viên</a>
             </div>
         </div>
 
@@ -48,9 +48,9 @@
                             </div>
                             <div class="col-md-4 my-2 my-md-0">
                                 <div class="d-flex align-items-center">
-                                    <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                    <label class="mr-3 mb-0 d-none d-md-block">Sắp xếp:</label>
                                     <select class="form-control" id="kt_datatable_search_status" onchange="fiterSort(this)">
-                                        <option value="0">All</option>
+                                        <option value="0">Mặc định</option>
                                         <option value="id_desc">Mới đến cũ</option>
                                         <option value="id_asc">Cũ đến mới</option>
                                     </select>
@@ -58,10 +58,10 @@
                             </div>
                             <div class="col-md-4 my-2 my-md-0">
                                 <div class="d-flex align-items-center">
-                                    <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
+                                    <label class="mr-3 mb-0 d-none d-md-block">Trạng thái:</label>
                                     <select class="form-control" id="kt_datatable_search_status"
                                         onchange="fiterActive(this)">
-                                        <option value="0">All</option>
+                                        <option value="0">Mặc định</option>
                                         <option value="active">Hoạt động</option>
                                         <option value="in_active">Không hoạt động</option>
                                     </select>
@@ -79,16 +79,15 @@
                 <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
                     <thead>
                         <tr class="text-uppercase">
-                            <th style="min-width: 250px" class="pl-7">
-                                <span class="text-dark-75">Tên</span>
-                            </th>
-                            <th style="min-width: 100px">Chuyên ngành</th>
-                            {{-- <th style="min-width: 100px">Giáo dục</th> --}}
-                            <th style="min-width: 100px">Số điểm</th>
-                            <th style="min-width: 150px">Giới thiệu</th>
-                            <th style="min-width: 120px">Trạng thái</th>
-                            <td style="min-width: 120px">Kích hoạt</td>
-                            <th style="min-width: 120px">Active</th>
+                            <th>Tên</th>
+                            <th>Địa chỉ</th>
+                            <th>Chuyên môn</th>
+                            <th>Giáo dục</th>
+                            <th>Số năm kinh nghiệm</th>
+                            <th>Số điện thoại</th>
+                            <th>Trạng thái</th>
+                            <td>Kích hoạt</td>
+                            <th>Hiệu lực</th>
                         </tr>
                     </thead>
                     <tbody id="table-innerHtml">
@@ -141,7 +140,7 @@
                 showAjax(objFiter);
             }
 
-            function pagination(page){
+            function pagination(page) {
                 objFiter.page = page
                 showAjax(objFiter);
             }

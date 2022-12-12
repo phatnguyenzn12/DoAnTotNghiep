@@ -5,15 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MentorRequest;
 use App\Models\Apply;
-use App\Models\CateCourse;
-use App\Models\CommentCourse;
 use App\Models\Course;
 use App\Models\Mentor;
-use App\Models\Skill;
-use App\Models\Specialize;
-use App\Services\UploadFileService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -35,7 +29,7 @@ class MentorController extends Controller
         ->search($request)
         ->isactive($request)
         ->paginate($request->record);
-        
+
         $html = view('components.admin.mentor.list-mentor' ,compact('mentors'))->render();
         return response()->json($html,200);
     }
@@ -58,7 +52,7 @@ class MentorController extends Controller
         ->category($request)
         ->price($request)
         ->paginate($request->record);
-        
+
         $html = view('components.admin.mentor.list-course' ,compact('courses'))->render();
         return response()->json($html,200);
     }
@@ -85,7 +79,6 @@ class MentorController extends Controller
                         'password' => Hash::make($password),
                     ],
                     ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
-                    ['skills' => implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray())],
                 )
             );
             $mentor->assignRole('lead');
@@ -117,7 +110,6 @@ class MentorController extends Controller
         $mentor->educations = $request->educations;
         $mentor->years_in_experience = $request->years_in_experience;
         $mentor->specializations =  implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray());
-        $mentor->skills =  implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray());
         $mentor->cate_course_id = $request->cate_course_id;
         $mentor->save();
         //dd($mentor);

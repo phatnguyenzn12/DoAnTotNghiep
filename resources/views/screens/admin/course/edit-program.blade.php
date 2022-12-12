@@ -1,5 +1,7 @@
 @extends('layouts.admin.master')
-
+@section('head-links')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+@endsection
 @section('title', 'Trang danh sách người dùng')
 @section('content')
     <style>
@@ -41,148 +43,54 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.course.edit', $course_id) }}">
                                     <span class="nav-icon"><i class="far fa-bookmark"></i></span>
-                                    <span class="nav-text">Thông Tin Khóa Học</span>
+                                    <span class="nav-text">Sửa thông Tin Khóa Học</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-body">
-                    @foreach ($chapters as $key => $chapter)
-                        <div class="card bg-light card-custom gutter-b">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h4 class="card-label">
-                                        Chương {{ $key + 1 }}: {{ $chapter->title }}
-                                    </h4>
-                                    <h5 class="card-label">
-                                        | Giáo viên : {{ $chapter->mentor->name }}, Điểm: {{ $chapter->mentor->point }}
-                                    </h5>
-                                    <h5 class="card-label">
-                                        | Deadline: {{ $chapter->deadline }}
-                                    </h5>
-
-                                    @if ($chapter->deadline < now())
-                                        <nav class="deadline">
-                                            <ul>
-                                                <li>
-                                                    <input style="backround-color: red;" type="button" value="Quá hạn"
-                                                        name="nav_button" id="nav_button" />
-                                                    <ul>
-                                                        <li><a onclick="alert('Đã trừ 5 điểm')" href="{{route('mentor.teacher.subtract',$chapter->mentor->id )}}">Trừ 5 điểm</a></li>
-
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    @endif
-                                    <p hidden>{{$item=0}}</p>
-                                    @foreach($chapter->lessons as $lesson)
-                                    @if($lesson->lessonVideo->video_path ==0)
-                                        <p hidden>{{$item++}}</p>
-                                    @endif
-                                    @endforeach
-                                    @if ($item==0)
-                                        hoàn thành
-                                    @endif
-
-                                </div>
-                            </div>
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <p hidden>{{ $count = 0 }}</p>
-                                    @foreach ($chapter->lessons()->get() as $lesson)
-                                        @if ($lesson->lessonVideo->video_path != 0)
-                                            <p hidden>{{ $count++ }}</p>
-                                        @endif
-                                    @endforeach
-                                    <p class="card-label">
-                                        Giáo viên đã đăng: {{ $count }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
-                                    <div class="col-md-12 mb-3 ribbon ribbon-right">
-                                        <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">{{ $lesson->lessonVideo->active }}
-                                                </font>
-                                            </font>
+                    <div class="mb-7">
+                        <div class="row align-items-center">
+                            <div class="col-lg-9 col-xl-8">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 my-2 my-md-0">
+                                        <div class="input-icon">
+                                            <input type="text" oninput="search(this)" class="form-control"
+                                                placeholder="Search..." id="kt_datatable_search_query"
+                                                filter-search-title />
+                                            <span>
+                                                <i class="flaticon2-search-1 text-muted"></i>
+                                            </span>
                                         </div>
-                                        <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
-                                            <p class="lession-name m-0 font-weight-bold">
-                                                @if ($lesson->lesson_type == 'exercise')
-                                                    <i class="fas fa-file"></i>
-                                                @elseif ($lesson->lesson_type == 'video')
-                                                    <i class="fab fa-youtube"></i>
-                                                @endif
-                                                Bài học {{ $keyLesson + 1 }} : {{ $lesson->title }}
-                                            </p>
-                                            @if ($lesson->lessonVideo->video_path != 0 && $lesson->time != 0)
-                                                    <div class="text-center">
-                                                        <span>
-                                                            <button class="btn btn-primary" data-toggle="modal"
-                                                                data-target="#modal-example"
-                                                                onclick="showModal({{ $lesson->lessonVideo->video_path }})">Xem
-                                                                video</button>
-                                                        </span>
-                                                        <span>
-                                                            {{ $lesson->time }}
-                                                        </span>
-                                                    </div>
-                                                @endif
-                                            <form action=""  method="POST" id="delete-lesson1" class="d-inline" hidden>
-                                                @method('DELETE')
-                                                @csrf
-                                            </form>
-                                            <p class="lession-tool m-0">
-                                                <a data-toggle="modal" data-target="#modal-example"
-                                                        onclick="showAjaxModal('{{ route('admin.course.detailLesson', $lesson->id) }}','Bài học')"
-                                                        class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
-                                                        <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                                            <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Code\Info-circle.svg--><svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                                height="24px" viewBox="0 0 24 24" version="1.1">
-                                                                <g stroke="none" stroke-width="1" fill="none"
-                                                                    fill-rule="evenodd">
-                                                                    <rect x="0" y="0" width="24"
-                                                                        height="24" />
-                                                                    <circle fill="#000000" opacity="0.3" cx="12"
-                                                                        cy="12" r="10" />
-                                                                    <rect fill="#000000" x="11" y="10"
-                                                                        width="2" height="7" rx="1" />
-                                                                    <rect fill="#000000" x="11" y="7"
-                                                                        width="2" height="2" rx="1" />
-                                                                </g>
-                                                            </svg>
-                                                            <!--end::Svg Icon-->
-                                                        </span>
-                                                    </a>
-                                                <button form="delete-lesson1"
-                                                    class="btn btn-text-dark-50 btn-icon-danger font-weight-bold btn-hover-bg-light delete-item">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </p>
-                                        </span>
                                     </div>
-                                    @if ($lesson->type == 'exercise')
-                                        <div class="col-md-12 mb-3">
-                                            <div class="col-md-11 offset-1 p-0">
-                                                <span
-                                                    class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
-                                                    <p class="lession-name m-0 font-weight-bold"><i
-                                                            class="flaticon-questions-circular-button"></i>
-                                                        Câu hỏi: 32435</p>
-                                                </span>
+                                    <div class="col-md-4 my-2 my-md-0">
+                                        <div class="d-flex align-items-center">
+                                            <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                            <select class="form-control" id="kt_datatable_search_status"
+                                                onchange="fiterSort(this)">
+                                                <option value="0">All</option>
+                                                <option value="id_desc">Mới đến cũ</option>
+                                                <option value="id_asc">Cũ đến mới</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 my-2 my-md-0">
+                                        <div class="d-flex align-items-center">
+                                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                                                <a href="#"
+                                                    class="btn btn-light-primary px-6 font-weight-bold">Search</a>
                                             </div>
                                         </div>
-                                    @endif
-                                @endforeach
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+
+                    <div id="table-innerHtml">
+
+                    </div>
 
                 </div>
 
@@ -204,12 +112,12 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold"
-                        data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
@@ -233,8 +141,8 @@
         }
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
-            $('#modal-example').find('.modal-body').html(
-                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            // $('#modal-example').find('.modal-body').html(
+            //     '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
@@ -251,7 +159,11 @@
                     window.location.href = _redirect
                 },
                 error: function(err) {
-                    $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                     let errors = err.responseJSON.errors
                     Object.keys(errors).forEach(key => {
                         $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
@@ -259,5 +171,70 @@
                 }
             })
         })
+
+
+        function showModal(id_video, title) {
+            $('#modal-example').find('.modal-title').text(title)
+            $('#modal-example').find('.modal-body').html(
+                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
+                .then(
+                    res => {
+                        console.log(res)
+                        $('#modal-example').find('.modal-body').html(res.data.html)
+                        $('iframe').css({
+                            'width': '100%',
+                            'height': '100%',
+                        });
+                    }
+                )
+                .catch(
+                    res => {
+                        console.log(res);
+                        Swal.fire(
+                            'chưa tải xong video, vui lòng đợi',
+                            res.message,
+                            'error'
+                        )
+                    }
+                )
+        }
+
+
+        objFiter = {
+            page: 1,
+            title: 0,
+            record: 10,
+            id: 0,
+            course_id: {{ $course_id }},
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('admin.course.listDataChapter') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function search(elemment) {
+            objFiter.title = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSort(elemment) {
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page) {
+            objFiter.page = page
+            showAjax(objFiter);
+        }
     </script>
 @endpush

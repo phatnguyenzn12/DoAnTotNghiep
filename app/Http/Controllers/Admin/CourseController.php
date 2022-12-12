@@ -8,46 +8,56 @@ use App\Models\Certificate;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
-use App\Models\Mentor;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Symfony\Component\Console\Input\Input;
 
 class CourseController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $cate_courses = CateCourse::all();
         $min_price = Course::min('price');
         $max_price = Course::max('price');
-        return view('screens.admin.course.list-course',compact('cate_courses','min_price','max_price'));
+        return view('screens.admin.course.list-course', compact('cate_courses', 'min_price', 'max_price'));
     }
 
     public function filterData(Request $request)
     {
         $courses = Course::select('*')
-        // ->orderBy('id', 'DESC')
-        ->sortdata($request)
-        ->search($request)
-        ->isactive($request)
-        ->category($request)
-        ->price($request)
-        ->paginate($request->record);
-        
-        $html = view('components.admin.course.list-course' ,compact('courses'))->render();
-        return response()->json($html,200);
+            // ->orderBy('id', 'DESC')
+            ->sortdata($request)
+            ->search($request)
+            ->isactive($request)
+            ->category($request)
+            ->price($request)
+            ->paginate($request->record);
+
+        $html = view('components.admin.course.list-course', compact('courses'))->render();
+        return response()->json($html, 200);
     }
 
-    public function actived(Course $course,$status)
+    public function actived(Request $request, Course $course)
     {
-        $course->type = $status;
+        if($course->price == null){
+            return redirect()->back()->with('failed', 'Đã chưa thêm giá vào khóa học');
+        }
+        $course->status = $request->status;
         $course->save();
-        $course_type = Course::where('id',$course->id)->first();
-        Mail::send('screens.email.admin.actived-course', compact('course_type'), function ($email) use ($course_type) {
-            $email->subject('Duyệt khóa học');
-            $email->to($course_type->mentor->email, $course_type->mentor->name);
-        });
-        return redirect()->route('admin.course.index')->with('success', 'Cập nhập thành công');
+        if ($course->status == 2) {
+            Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course) {
+                $email->subject('Khóa học đã được kích hoạt và sử dụng');
+                $email->to($course->mentor->email, $course->mentor->name);
+            });
+            return redirect()->back()->with('success', 'Cập nhập thành công khóa học đã được kích hoạt');
+        } elseif ($course->status == 1) {
+            Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course, $request) {
+                $email->subject($request->content);
+                $email->to($course->mentor->email, $course->mentor->name);
+            });
+            return redirect()->back()->with('failed', 'Đã bỏ kích hoạt khóa học');
+        }
+
     }
 
     public function program($course_id)
@@ -56,6 +66,18 @@ class CourseController extends Controller
             ->where('course_id', $course_id)
             ->paginate(10);
         return view('screens.admin.course.edit-program', compact('chapters', 'course_id'));
+    }
+
+    public function filterDataChapter(Request $request)
+    {
+       $chapters = Chapter::select('*')
+          ->where('course_id', $request->course_id)
+          ->sortdata($request)
+          ->search($request)
+          ->paginate($request->record);
+
+       $html = view('components.admin.course.list-chapter', compact('chapters'))->render();
+       return response()->json($html, 200);
     }
 
     public function edit($id)
@@ -67,39 +89,40 @@ class CourseController extends Controller
         return view('screens.admin.course.edit-course', compact('course', 'cateCourses', 'id', 'skills'));
     }
 
-    public function update(Request $request, Course $course, Certificate $certificate)
+    public function update(Request $request, Course $course)
     {
-        $course->price = $request->price;
+        $course->price = $request->price;   
         $course->discount = $request->discount;
+        $course->percentage_pay = $request->percentage_pay;
         $course->save();
-        Mail::send('screens.email.admin.actived-course', compact('course'), function ($email) use ($course) {
-            $email->subject('Duyệt giá khóa học');
-            $email->to($course->mentor->email, $course->mentor->name);
-        });
+        // Mail::send('screens.email.admin.actived-course', compact('course'), function ($email) use ($course) {
+        //     $email->subject('Duyệt giá khóa học');
+        //     $email->to($course->mentor->email, $course->mentor->name);
+        // });
 
         return redirect()
             ->back()
             ->with('success', 'Sửa khóa học thành công');
     }
 
-    public function create($id){
+    public function create($id)
+    {
         // dd($id);
-        
+
         return view('screens.admin.certificate.create', compact('id'));
     }
 
     public function store(Request $request, $id)
     {
         // dd(Certificate::where('course_id', $id)->doesntExist() == true);
-        if(Certificate::where('course_id', $id)->doesntExist() == true){
+        if (Certificate::where('course_id', $id)->doesntExist() == true) {
             Certificate::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'course_id' => $id
-        ]);
-        
-        return redirect()->route('admin.course.index')->with('success', 'thêm mới thành công');
- 
+                'title' => $request->title,
+                'description' => $request->description,
+                'course_id' => $id
+            ]);
+
+            return redirect()->route('admin.course.index')->with('success', 'thêm mới thành công');
         }
         // Certificate::updateOrCreate([
         //     'title' => $request->title,
@@ -108,7 +131,7 @@ class CourseController extends Controller
         // ]);
         return redirect()->route('admin.course.index')->with('success', 'đã tồn tại');
     }
-    
+
     public function detailLesson(Request $request, Lesson $lesson)
     {
         $data = view('components.admin.lesson.detail', compact('lesson'))->render();

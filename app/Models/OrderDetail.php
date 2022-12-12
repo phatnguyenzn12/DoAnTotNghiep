@@ -13,8 +13,14 @@ class OrderDetail extends Model
         'id',
         'course_id',
         'order_id',
-        'price'
+        'price',
     ];
 
     public $timestamps = false;
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class,'course_id');
+    }
+
 }

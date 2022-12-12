@@ -32,15 +32,15 @@ class BaseModel extends Model
     {
         if ($request->is_active == 'active') {
             $query = $query->where('is_active', 1);
-        } elseif ($request->is_active == 'in_active'){
+        } elseif ($request->is_active == 'in_active') {
             $query = $query->where('is_active', 0);
         }
 
         if ($request->is_check == 'active') {
             $query = $query->where('is_check', 1);
-        } elseif ($request->is_check == 'in_active'){
+        } elseif ($request->is_check == 'in_active') {
             $query = $query->where('is_check', 0);
-        }elseif($request->is_check == 'fix'){
+        } elseif ($request->is_check == 'fix') {
             $query = $query->where('is_check', 2);
         }
 
@@ -106,6 +106,17 @@ class BaseModel extends Model
     {
         if ($request->has('course_id')  && $request->course_id != 0) {
             return $query->whereRaw('courses.id = ' . $request->course_id);
+        }
+    }
+
+    function scopeSelectRawTurnover($query, $auth)
+    {
+        if ($auth == 'admin') {
+            return $query->selectRaw('CAST( SUM( order_details.price - (order_details.price * 0.2) ) AS UNSIGNED ) as total');
+        } elseif ($auth == 'teacher') {
+            return $query->selectRaw('CAST( SUM( order_details.price - (order_details.price * 0.8) ) AS UNSIGNED ) as total');
+        } elseif ($auth == 'all') {
+            return $query->selectRaw('CAST( SUM( order_details.price ) AS UNSIGNED ) as total');
         }
     }
 }

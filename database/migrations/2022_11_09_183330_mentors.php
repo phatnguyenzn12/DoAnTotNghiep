@@ -25,9 +25,13 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('social_networks')->nullable();
             $table->string('educations')->nullable();
-            $table->integer('point')->default(100); //Không sửa thằng này
+            // $table->integer('point')->default(100); //Không sửa thằng này
             $table->unsignedBigInteger('cate_course_id')->nullable();
-            $table->string('skills')->nullable();
+            // $table->string('skills')->nullable();
+            $table->integer('salary_bonus')->default(0);
+            $table->string('code_pay')->nullable();
+            $table->string('number_pay')->nullable();
+            $table->string('name_payment')->nullable();
             $table->integer('years_in_experience')->nullable();
             $table->string('specializations')->nullable();
             $table->integer('is_active')->default(0); //Không sửa thằng này

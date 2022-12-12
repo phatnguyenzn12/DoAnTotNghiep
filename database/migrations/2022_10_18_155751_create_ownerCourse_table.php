@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('owner_course', function (Blueprint $table) {
+            $table->id();
             $table->integer('course_id');
             $table->integer('user_id');
             $table->timestamps();

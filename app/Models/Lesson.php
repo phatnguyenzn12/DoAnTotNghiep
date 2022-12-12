@@ -14,16 +14,19 @@ class Lesson extends BaseModel
         'title',
         'content',
         'lesson_type',
-        'time',
+        // 'time_check',
         'sort',
         'chapter_id',
         'is_demo',
-        'is_check',
+        // 'is_check',
         'is_edit'
     ];
 
     protected $appends = [
-        'time_edited', 'demo', 'active'
+        'demo',
+        'edit',
+        'edit_exit'
+        // 'active'
     ];
 
     public function lessonVideo()
@@ -70,14 +73,12 @@ class Lesson extends BaseModel
         }
     }
 
-    public function getActiveAttribute()
+    public function getEditExitAttribute()
     {
-        if ($this->is_check == 1) {
-            return "Đã được duyệt";
-        } elseif ($this->is_check == 2) {
-            return "Cần sửa lại";
+        if ($this->is_edit == 0) {
+            return "Chưa có video";
         } else {
-            return "Video chưa được duyệt";
+            return "Đã có video";
         }
     }
     public function getEditAttribute()

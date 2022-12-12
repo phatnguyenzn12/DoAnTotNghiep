@@ -37,10 +37,9 @@ class Mentor extends Authenticatable
         'social_networks',
         'educations',
         'specializations',
-        'skills',
         'about_me',
-        'point',
         'years_in_experience',
+        'salary_bonus'
     ];
 
     /**
