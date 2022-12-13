@@ -1,8 +1,7 @@
 <div class="row">
     @foreach ($mentors as $mentor)
         @if ($mentor->hasRole('teacher') &&
-            $mentor->cate_course_id ==
-                auth()->guard('mentor')->user()->cate_course_id)
+            $mentor->cate_course_id == auth()->guard('mentor')->user()->cate_course_id)
             <tr>
                 <td class="pl-0 py-8">
                     <div class="d-flex align-items-center">
@@ -18,24 +17,25 @@
                         </div>
                     </div>
                 </td>
+                <td>{{ $mentor->address }}</td>
 
                 <td>
-                    <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                        {{ $mentor->specializations }}
-                    </span>
-                    {{-- <span class="text-muted font-weight-bold">{{ $db->skills }}</span> --}}
+                    {{ $mentor->specializations }}
                 </td>
 
-                <td>{{ $mentor->point }}</td>
-                {{-- <td>
-                                    <span
-                                        class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $db->educations }}</span>
-                                    <span class="text-muted font-weight-bold">{{ $db->years_in_experience }} năm</span>
-                                </td> --}}
                 <td>
-                    <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ $mentor->number_phone }}</span>
-                    <span class="text-muted font-weight-bold">{{ $mentor->address }}</span>
+                    {{ $mentor->educations }}
                 </td>
+
+                <td>
+                    {{ $mentor->years_in_experience }}
+                </td>
+
+                <td>
+                    {{ $mentor->number_phone }}
+                </td>
+
+
                 <td>
                     @if ($mentor->is_active == 1)
                         <span class="label label-lg label-light-success label-inline">Hoạt động</span>
@@ -43,7 +43,6 @@
                         <span class="label label-lg label-light-danger label-inline">Ngừng hoạt
                             động</span>
                     @endif
-
                 </td>
                 <td>
                     @if ($mentor->is_active == 1)
@@ -58,7 +57,7 @@
                         </a>
                     @endif
                 </td>
-                <td>
+                <td >
                     <a class="btn btn-light btn-sm" href="{{ route('mentor.teacher.detail', $mentor->id) }}">
                         <i class="flaticon2-pen text-warning"></i> </a>
                     <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"

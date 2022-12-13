@@ -59,7 +59,7 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-dark-75 mr-2">Ngôn ngữ</span>
-                            <span class="text-success font-weight-bolder">{{ $course->language }}</span>
+                            <span class="text-success font-weight-bolder">{{ $course->language_rule }}</span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -84,13 +84,19 @@
 
                             <div class="d-flex justify-content-between align-items-center mt-3">
 
-                                <a href="{{ route('admin.course.actived', ['course' => $course->id, 'status' => 1]) }}"
-                                    onclick="return confirm('Bạn có chắc muốn hoạt động')" class="btn btn-success">hoạt
-                                    động</a>
+                                <form action="{{ route('admin.course.actived', ['course' => $course->id]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="text" name="status" hidden value="2">
+                                    <button onclick="return confirm('Bạn có chắc muốn hoạt động')"
+                                        class="btn btn-success">hoạt
+                                        động</button>
+                                </form>
 
-                                <a href="{{ route('admin.course.actived', ['course' => $course->id, 'status' => 0]) }}"
-                                    onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')"
-                                    class="btn btn-danger">Ngừng hoạt động</a>
+
+                                <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                                    data-bs-target="#modalId" class="btn btn-danger">Ngừng hoạt động</a>
                             </div>
                         @endif
                     </div>
@@ -102,9 +108,45 @@
         </div>
     @endforeach
     @php
-        $pagination = $courses
+        $pagination = $courses;
     @endphp
 </div>
+
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">Tại sao ngừng hoạt động</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('admin.course.actived', ['course' => $course->id]) }}" method="post">
+                    @csrf
+                    @method('put')
+                    <div class="mb-3">
+                        <label for="" class="form-label">Lý do ngừng hoạt động</label>
+                        <input type="text" name="status" hidden value="1">
+                        <textarea type="text" name="content" placeholder="Nhập nội dung"></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Gửi đi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Optional: Place to the bottom of scripts -->
+<script>
+    const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+</script>
 <div class="row p-5 mb-5">
     @include('components.admin.pagination-basic')
 </div>

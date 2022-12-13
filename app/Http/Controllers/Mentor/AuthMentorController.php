@@ -27,7 +27,7 @@ class AuthMentorController extends Controller
                 return redirect()->route('mentor.login')->with('failed', 'Tài khoản chưa được xét duyệt');
             }
             else if(Auth::guard('mentor')->user()->hasRole('lead')){
-                return redirect()->route('mentor.home')->with('success', 'bạn đăng nhập tài khoản lead thành công');
+                return redirect()->route('mentor.course.index')->with('success', 'bạn đăng nhập tài khoản lead thành công');
             }
             else if(Auth::guard('mentor')->user()->hasRole('teacher')){
                 return redirect()->route('teacher.course.index')->with('success', 'bạn đăng nhập tài khoản teacher thành công');

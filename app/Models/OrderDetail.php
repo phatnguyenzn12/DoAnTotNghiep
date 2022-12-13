@@ -13,8 +13,10 @@ class OrderDetail extends Model
         'id',
         'course_id',
         'order_id',
-        'price'
+        'price',
+        'percentage_pay'
     ];
 
     public $timestamps = false;
+
 }

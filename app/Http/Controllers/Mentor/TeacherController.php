@@ -29,7 +29,7 @@ class TeacherController extends Controller
         ->search($request)
         ->isactive($request)
         ->paginate($request->record);
-        
+
         $html = view('components.mentor.teacher.list-teacher' ,compact('mentors'))->render();
         return response()->json($html,200);
     }
@@ -39,7 +39,9 @@ class TeacherController extends Controller
         $skills = Skill::all();
         $specializes = Specialize::all();
         if ($request->isMethod('post')) {
+
             $password = 12345678;
+
             $teacher = Mentor::create(
                 array_merge(
                     $request->all(),
@@ -50,28 +52,33 @@ class TeacherController extends Controller
                     ],
                     ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
                     ['skills' => implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray())],
+                    ['cate_course_id' => auth()->guard('mentor')->user()->id],
                 )
             );
+
             $teacher->assignRole('teacher');
+
             $db = Mentor::where('email', 'like', $request->email)->first();
+
             $skill = Skill::find($db->skills);
+
             $specialize = Specialize::find($db->specializations);
+
             Mail::send('screens.email.mentor.activedTeacher', compact('db', 'password', 'skill', 'specialize'), function ($email) use ($db) {
                 $email->subject('Yêu cầu đăng ký giảng viên');
                 $email->to($db->email, $db->name);
             });
+
             return redirect()
                 ->route('mentor.teacher.index')
                 ->with('success', 'Thêm giảng viên thành công');
         }
         return view('screens.mentor.teacher.create',compact('skills','specializes'));
     }
-    
+
     public function detail($id)
     {
-       // $cate_courses = DB::table('cate_courses')->select('*')->get();
         $teacher = Mentor::find($id);
-        // dd($teacher);
         return view('screens.mentor.teacher.detail', compact('teacher','id'));
     }
     public function update(Request $request,$id)
@@ -80,13 +87,10 @@ class TeacherController extends Controller
         $teacher->name ;
         $teacher->email ;
         $teacher->number_phone = $request->number_phone;
-      //  $mentor->address = $request->address;
         $teacher->educations = $request->educations;
         $teacher->years_in_experience = $request->years_in_experience;
         $teacher->specializations =  implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray());
-        $teacher->skills =  implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray());
-    //    $mentor->cate_course_id = $request->cate_course_id;
-        
+
         $teacher->save();
         // Mail::send('screens.email.mentor.update-lead', compact('teacher'), function ($email) use ($teacher) {
         //     $email->subject('Thông báo thay đổi thông tin cơ bản');
@@ -105,7 +109,7 @@ class TeacherController extends Controller
         else{
             $mentor->update(['is_active'=>0]);
         }
-        Mail::send('screens.email.mentor.activedTeacher', compact('mentor'), function ($email) use ($mentor) {
+        Mail::send('screens.email.mentor.actived', compact('mentor'), function ($email) use ($mentor) {
             $email->subject('Cập nhật trạng thái tài khoản');
             $email->to($mentor->email, $mentor->name);
         });
@@ -119,13 +123,13 @@ class TeacherController extends Controller
 
         return redirect()->route('mentor.teacher.index')->with('success', 'Xoá thành công');
     }
-    public function subtract($mentor_id)
-    {
-        // $chapter= Chapter::where('mentor_id', $mentor_id)->first();
-        $mentor= Mentor::where('id', $mentor_id)->first();
-       $total= $mentor->point -5;
-        // dd($mentor->point -5);
-        $mentor->update(['point'=>$total]);
-        return redirect()->back();
-    }
+    // public function subtract($mentor_id)
+    // {
+    //     // $chapter= Chapter::where('mentor_id', $mentor_id)->first();
+    //     $mentor= Mentor::where('id', $mentor_id)->first();
+    //    $total= $mentor->point -5;
+    //     // dd($mentor->point -5);
+    //     $mentor->update(['point'=>$total]);
+    //     return redirect()->back();
+    // }
 }

@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chapter_reviews', function (Blueprint $table) {
-            $table->id();
-            $table->integer('votes');
-            $table->string('content');
-            $table->unsignedBigInteger('chapter_id');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamps();
-        });
+        // Schema::create('chapter_reviews', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->integer('votes');
+        //     $table->string('content');
+        //     $table->unsignedBigInteger('chapter_id');
+        //     $table->unsignedBigInteger('user_id');
+        //     $table->timestamps();
+        // });
     }
 
     /**

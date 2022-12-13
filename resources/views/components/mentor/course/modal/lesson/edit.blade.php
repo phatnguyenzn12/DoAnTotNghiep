@@ -10,6 +10,12 @@
             value="{{ $lesson->title }}">
         <p class="text-danger errors title"></p>
     </div>
+
+    <div class="form-group">
+        <label>Nội dung</label>
+        <textarea name="content" class="form-control" placeholder="Nhập nội dung" id="editor">{{ $lesson->content }}</textarea>
+    </div>
+
     <div class="form-group">
         <label>Chương học</label>
         <select name="chapter_id" id="section_id" class="form-control">

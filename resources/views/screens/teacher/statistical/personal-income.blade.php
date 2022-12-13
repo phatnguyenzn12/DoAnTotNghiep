@@ -306,7 +306,7 @@
 
         function axiosApi() {
 
-            axios.get('{{ route('api.mentor.statistical.turnover') }}', {
+            axios.get('{{ route('api.teacher.statistical.turnover') }}', {
                     params: filter
                 })
                 .then(

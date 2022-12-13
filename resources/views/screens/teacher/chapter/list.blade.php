@@ -46,21 +46,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($chapter as $db)
-                          
-                            <tr> 
+                        @foreach ($chapters as $chapter)
+                            <tr>
                                 <td>
                                     <span
                                         class="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
-                                    <span class="text-muted font-weight-bold"> <a href="{{route('teacher.lesson.list',$db->id)}}"> {{$db->title}}</a></span>
+                                    <span class="text-muted font-weight-bold"> <a href="{{route('teacher.lesson.list',$db->id)}}"> {{$chapter->title}}</a></span>
                                 </td>
-                                <td>
-                                    <span
-                                        class="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
-                                    <span class="text-muted font-weight-bold">{{$db->number_chapter}}</span>
-                                </td>
-                              
-                               
                             </tr>
                         @endforeach
                     </tbody>

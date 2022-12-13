@@ -8,7 +8,7 @@
                     <div class="card-header card-header-tabs-line">
                         <div class="card-toolbar">
                             <div class="card-title">
-                                <h3 class="card-label">sửa danh mục</h3>
+                                <h3 class="card-label">sửa nhóm học</h3>
                             </div>
                         </div>
                     </div>
@@ -30,10 +30,10 @@
                             {{-- <input type="hidden" name="_method" value="PUT"> --}}
                             @csrf
                             <div class="form-group">
-                                <label>Tên danh mục
+                                <label>Tên nhóm học
                                     <span class="text-danger">*</span></label>
                                 <input type="text" value="{{ $cate->name }}" name="name" class="form-control"
-                                       placeholder="Tên danh mục">
+                                       placeholder="Tên nhóm học">
                             </div>
                             {{-- @error('title')
                                     <p class="text-danger">{{ $message }}</p>

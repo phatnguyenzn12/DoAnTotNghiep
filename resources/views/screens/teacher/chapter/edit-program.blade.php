@@ -19,11 +19,12 @@
                 </div>
 
                 <div class="card-body">
+
                     <div class="mb-7">
                         <div class="row align-items-center">
-                            <div class="col-lg-9 col-xl-8">
+                            <div class="col-xl-12">
                                 <div class="row align-items-center">
-                                    <div class="col-md-4 my-2 my-md-0">
+                                    <div class="col-md-3 my-2 my-md-0">
                                         <div class="input-icon">
                                             <input type="text" oninput="search(this)" class="form-control"
                                                 placeholder="Search..." id="kt_datatable_search_query"
@@ -33,23 +34,27 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 my-2 my-md-0">
+                                    <div class="col-md-3 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                            <label class="mr-3 mb-0 d-none d-md-block">Sắp xếp:</label>
                                             <select class="form-control" id="kt_datatable_search_status"
                                                 onchange="fiterSort(this)">
-                                                <option value="id_desc">All</option>
+                                                <option value="0">Mặc định</option>
                                                 <option value="id_desc">Mới đến cũ</option>
                                                 <option value="id_asc">Cũ đến mới</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 my-2 my-md-0">
+                                    <div class="col-md-6 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
-                                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                                <a href="#"
-                                                    class="btn btn-light-primary px-6 font-weight-bold">Search</a>
-                                            </div>
+                                            <form action="{{ route('teacher.chapter.sendProcess', $course_id) }}"
+                                                method="post" id="send-notification">
+                                                @csrf
+                                            </form>
+                                            <label class="mr-3 mb-0 d-none d-md-block">Gửi thông báo hoàn thành cho
+                                                lead:</label>
+                                            <button form="send-notification" class="btn btn-bg-success text-white">Gửi thông
+                                                báo</button>
                                         </div>
                                     </div>
                                 </div>
@@ -57,8 +62,6 @@
                         </div>
                     </div>
                     <div id="table-innerHtml"></div>
-
-
                 </div>
 
             </div>
@@ -125,8 +128,11 @@
                     window.location.href = _redirect
                 },
                 error: function(err) {
-
-                    $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                     let errors = err.responseJSON.errors
                     Object.keys(errors).forEach(key => {
                         $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
@@ -135,7 +141,8 @@
             })
         })
 
-        function showModal(id_video) {
+        function showModal(id_video,title) {
+            $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
                 '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
@@ -149,7 +156,18 @@
                         });
                     }
                 )
+                .catch(
+                    res => {
+                        console.log(res);
+                        Swal.fire(
+                            'chưa tải xong video, vui lòng đợi',
+                            res.message,
+                            'error'
+                        )
+                    }
+                )
         }
+
         objFiter = {
             page: 1,
             title: 0,

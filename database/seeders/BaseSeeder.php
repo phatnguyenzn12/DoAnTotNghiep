@@ -67,13 +67,14 @@ class BaseSeeder extends Seeder
                 'about_me' => fake()->text(700),
                 'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
                 'educations' => 'dạy tại cao đẳng fpt',
-                'specializations' => '',
-                'skills' => 'html,css,php',
+                'specializations' => 'html,css,php',
+                // 'skills' => 'html,css,php',
                 'years_in_experience' => 10,
-                'point' => 100
+                // 'point' => 100
+                'cate_course_id' => 1
             ]
         );
-        $mentor->assignRole('teacher');
+        $mentor->assignRole('lead');
 
         $mentor = Mentor::create(
             [
@@ -89,10 +90,8 @@ class BaseSeeder extends Seeder
                 'about_me' => fake()->text(700),
                 'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
                 'educations' => 'dạy tại cao đẳng fpt',
-                'specializations' => '',
-                'skills' => 'html,css,php',
-                'years_in_experience' => 10,
-                'point' => 100
+                'specializations' => 'html,css,php',
+                'cate_course_id' => 1
             ]
         );
         $mentor->assignRole('teacher');
@@ -113,13 +112,11 @@ class BaseSeeder extends Seeder
                 'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
                 'educations' => 'dạy tại cao đẳng fpt',
                 'specializations' => '',
-                'skills' => 'html,css,php',
                 'years_in_experience' => 10,
-                'point' => 100
+                'cate_course_id' => 1
             ]
         );
         $mentor->assignRole('teacher');
-
 
         Mentor::factory(3)->create();
         Admin::factory(1)->create();
@@ -134,7 +131,6 @@ class BaseSeeder extends Seeder
             if ($lesson->lesson_type == 'video') {
                 LessonVideo::create(
                     [
-                        'video_path' => '775480738',
                         'lesson_id' => $lesson->id,
                     ]
                 );

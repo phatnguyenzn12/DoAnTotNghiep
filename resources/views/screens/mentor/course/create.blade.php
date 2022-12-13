@@ -55,6 +55,17 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Chọn giảng viên</label>
+                                <select id="select2" class="form-control" name="language" id="">
+                                    <option value="">Chọn giảng viên</option>
+                                    @forelse ($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">Tên giảng viên: {{ $teacher->name }} / email: {{ $teacher->email }}</option>
+                                    @empty
+                                    <option value="">Chưa có giảng viên</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Thẻ
                                     <span class="text-danger">*</span></label>
                                 <input id="kt_tagify_1" class="form-control" name='tags' placeholder='Thẻ'
@@ -73,7 +84,6 @@
                                 <input id="kt_tagify_2" class="form-control" name='description_details'
                                     placeholder='Write some tags' />
                             </div>
-                            
 
                             <div class="form-group">
                                 <label>Ảnh slide</label>

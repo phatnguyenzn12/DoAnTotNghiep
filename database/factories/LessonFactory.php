@@ -27,7 +27,6 @@ class LessonFactory extends Factory
             'lesson_type' => 'video',
             // 'attachment' => '0',
             'sort' =>  $number++,
-            'time' => '00:01:00',
             'chapter_id' => rand(1, 20),
             'is_check' => 1,
             'is_demo' => rand(0,1),

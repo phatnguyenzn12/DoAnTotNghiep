@@ -1,5 +1,7 @@
 @extends('layouts.mentor.master')
-
+@section('head-links')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+@endsection
 @section('title', 'Trang danh sách người dùng')
 @section('content')
     <style>
@@ -41,7 +43,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('mentor.course.edit', $course_id) }}">
                                     <span class="nav-icon"><i class="far fa-bookmark"></i></span>
-                                    <span class="nav-text">Thông Tin Khóa Học</span>
+                                    <span class="nav-text">Sửa thông Tin Khóa Học</span>
                                 </a>
                             </li>
                         </ul>
@@ -91,7 +93,8 @@
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="d-flex align-items-center">
                                             <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                                <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                                                <a href="#"
+                                                    class="btn btn-light-primary px-6 font-weight-bold">Search</a>
                                             </div>
                                         </div>
                                     </div>
@@ -124,12 +127,12 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold"
-                        data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
@@ -153,8 +156,8 @@
         }
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
-            $('#modal-example').find('.modal-body').html(
-                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            // $('#modal-example').find('.modal-body').html(
+            //     '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
@@ -171,7 +174,11 @@
                     window.location.href = _redirect
                 },
                 error: function(err) {
-                    $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                     let errors = err.responseJSON.errors
                     Object.keys(errors).forEach(key => {
                         $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
@@ -179,6 +186,78 @@
                 }
             })
         })
+
+        $(document).on('click', '.button-delete', function(e) {
+            e.preventDefault();
+            console.log(e)
+            let _action = $(this).attr('href');
+            let _method = 'DELETE'
+            Swal.fire({
+                title: 'Bạn muốn xóa?',
+                text: "Nếu bạn xóa sẽ mất dữ liệu này!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'không xóa',
+                confirmButtonText: 'Đúng, tôi muốn xóa nó!'
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: _action,
+                        method: _method,
+                        success: function(res) {
+                            console.log(res);
+                            Swal.fire(
+                                'xóa thành công!',
+                                'Bạn đã xóa thành công .',
+                                'success'
+                            ).then(function() {
+                                window.location.href = ''
+                            });
+                        },
+                        error: function(error) {
+                            console.log(error);
+                            Swal.fire(
+                                'Không xóa được',
+                                'xóa đã bị lỗi',
+                                'error'
+                            )
+                        }
+                    })
+                }
+
+            })
+        })
+
+
+        function showModal(id_video, title) {
+            $('#modal-example').find('.modal-title').text(title)
+            $('#modal-example').find('.modal-body').html(
+                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
+                .then(
+                    res => {
+                        console.log(res)
+                        $('#modal-example').find('.modal-body').html(res.data.html)
+                        $('iframe').css({
+                            'width': '100%',
+                            'height': '100%',
+                        });
+                    }
+                )
+                .catch(
+                    res => {
+                        console.log(res);
+                        Swal.fire(
+                            'chưa tải xong video, vui lòng đợi',
+                            res.message,
+                            'error'
+                        )
+                    }
+                )
+        }
+
 
         objFiter = {
             page: 1,
@@ -211,10 +290,9 @@
             showAjax(objFiter);
         }
 
-        function pagination(page){
+        function pagination(page) {
             objFiter.page = page
             showAjax(objFiter);
         }
-
     </script>
 @endpush

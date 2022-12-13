@@ -12,12 +12,9 @@ class Chapter extends BaseModel
     protected $fillable = [
         'id',
         'sort',
-        'mentor_id',
         'title',
         'number',
-        'deadline',
         'course_id',
-        'deadline',
     ];
 
     public function lessons()
@@ -30,35 +27,25 @@ class Chapter extends BaseModel
         return $this->belongsTo(Course::class);
     }
 
-    public function mentor()
-    {
-        return $this->belongsTo(Mentor::class);
-    }
+    // public function chapterReview()
+    // {
+    //     return $this->hasOne(ChapterReview::class);
+    // }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, ChapterReview::class);
-    }
+    // public function checkChapterReview()
+    // {
+    //     if ($this->chapterReview()->count() == 0) {
+    //         return null;
+    //     } else {
+    //         return $this->chapterReview()->where('user_id', auth()->user()->id)->first();
+    //     }
+    // }
 
-    public function chapterReview()
-    {
-        return $this->hasOne(ChapterReview::class);
-    }
-
-    public function checkChapterReview()
-    {
-        if ($this->chapterReview()->count() == 0) {
-            return null;
-        } else {
-            return $this->chapterReview()->where('user_id', auth()->user()->id)->first();
-        }
-    }
-
-    public function userLessonsComplete()
-    {
-        if (!auth()->user()->courses->contains($this->id)) return null;
-        $lessonComplete = $this->lessons()->select('id')->get()->pluck('id');
-        $lessonComplete = LessonUser::whereIn('lesson_id',$lessonComplete)->where('user_id',auth()->user()->id)->get();
-        return $lessonComplete;
-    }
+    // public function userLessonsComplete()
+    // {
+    //     if (!auth()->user()->courses->contains($this->id)) return null;
+    //     $lessonComplete = $this->lessons()->select('id')->get()->pluck('id');
+    //     $lessonComplete = LessonUser::whereIn('lesson_id',$lessonComplete)->where('user_id',auth()->user()->id)->get();
+    //     return $lessonComplete;
+    // }
 }

@@ -37,9 +37,9 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Ảnh đại diện</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="image-input image-input-outline" id="kt_profile_avatar"
-                                style="background-image: url(assets/media/users/blank.png)">
+                                style="background-image: url({{ asset('app/' . $mentor->avatar) }})">
                                 <div class="image-input-wrapper"
-                                    style="background-image: url(assets/media/users/300_21.jpg)">
+                                    style="background-image: url({{ asset('app/' . $mentor->avatar) }})">
                                     <img id="mat_truoc_preview" src="{{ asset('app/' . $mentor->avatar) }} alt="your image
                                         style="max-width: 200px; height:100px; margin-bottom: 10px;" class="img-fluid" />
                                 </div>
@@ -118,19 +118,6 @@
                             <div class="input-group input-group-lg input-group-solid">
                                 <input value="{{ $mentor->about_me }}" required name="about_me" type="text"
                                     class="form-control form-control-lg form-control-solid" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Kỹ năng</label>
-                        <div class="col-lg-9 col-xl-6">
-                            <div class="input-group input-group-lg input-group-solid">
-                                <input id="kt_tagify_2" class="form-control" name='skills' disabled  value="{{$mentor->skills}}"
-                                placeholder='Write some tags' value='css, html, javascript, angular, vue, react' />
-
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
                                 </div>
