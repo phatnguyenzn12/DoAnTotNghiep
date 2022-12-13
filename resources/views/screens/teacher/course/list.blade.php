@@ -17,9 +17,9 @@
                         <!--begin::Search Form-->
                         <div class="mb-7">
                             <div class="row align-items-center">
-                                <div class="col-lg-9 col-xl-8">
+                                <div class="col-lg-12">
                                     <div class="row align-items-center">
-                                        <div class="col-md-4 my-2 my-md-0">
+                                        <div class="col-md-3 my-2 my-md-0">
                                             <div class="input-icon">
                                                 <input type="text" oninput="search(this)" class="form-control"
                                                     placeholder="Search..." id="kt_datatable_search_query"
@@ -29,25 +29,42 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 my-2 my-md-0">
+                                        <div class="col-md-3 my-2 my-md-0">
                                             <div class="d-flex align-items-center">
-                                                <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                                <label class="mr-3 mb-0 d-none d-md-block">Sắp xếp:</label>
                                                 <select class="form-control" id="kt_datatable_search_status"
                                                     onchange="fiterSort(this)">
-                                                    <option value="0">All</option>
+                                                    <option value="id_desc">Mặc định</option>
                                                     <option value="id_desc">Mới đến cũ</option>
                                                     <option value="id_asc">Cũ đến mới</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 my-2 my-md-0">
+                                        <div class="col-md-3 my-2 my-md-0">
                                             <div class="d-flex align-items-center">
-                                                <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                                    <a href="#"
-                                                        class="btn btn-light-primary px-6 font-weight-bold">Search</a>
-                                                </div>
+                                                <label class="mr-3 mb-0 d-none d-md-block">Trạng thái:</label>
+                                                <select class="form-control" id="kt_datatable_search_status"
+                                                    onchange="fiterActive(this)">
+                                                    <option value="0">Mặc định</option>
+                                                    <option value="active">Đã được duyệt</option>
+                                                    <option value="in_active">Chưa được duyệt</option>
+                                                </select>
                                             </div>
                                         </div>
+                                        <div class="col-md-3 my-2 my-md-0">
+
+                                            <div class="d-flex align-content-center">
+                                                <label class="mr-3 mb-0 d-none d-md-block">Lọc theo giá:</label>
+                                                <div class="d-flex form-control">
+                                                    <input class="input-range" orient="vertical" type="range"
+                                                        step="10000" onchange="fiterPrice(this)" value="0"
+                                                        min="0" max="{{ $max_price }}">
+                                                    <span class="range-value"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -56,11 +73,10 @@
                     </form>
                 </div>
             </div>
-            <div id="table-innerHtml">
-                <!--begin::Col-->
-                <!--end::Col-->
+            <div class="" id="table-innerHtml">
+
             </div>
-            <!--end::table-->
+
         </div>
     @endsection
     @section('js-links')
@@ -71,8 +87,10 @@
             objFiter = {
                 page: 1,
                 title: 0,
-                record: 10,
-                id: 0,
+                record: 6,
+                id: 'id_desc',
+                type: 0,
+                price: 0,
             }
 
             function showAjax(obj) {
@@ -98,10 +116,28 @@
                 showAjax(objFiter);
             }
 
-            function pagination(page){
+            function fiterActive(elemment) {
+                objFiter.type = elemment.value
+                showAjax(objFiter);
+            }
+
+            function fiterPrice(elemment) {
+                objFiter.price = elemment.value
+                showAjax(objFiter);
+            }
+
+            function pagination(page) {
                 objFiter.page = page
                 showAjax(objFiter);
             }
 
+            var range = $('.input-range'),
+                value = $('.range-value');
+
+            value.html(range.attr('value'));
+
+            range.on('input', function() {
+                value.html(this.value);
+            });
         </script>
     @endpush

@@ -14,30 +14,27 @@ use Illuminate\Support\Facades\Mail;
 
 class ChapterController extends Controller
 {
-    public function create(Request $course_id)
+    public function create(Request $request)
     {
-        $mentor = Mentor::get();
-        $course_id = $course_id->course;
+        $course_id = $request->course;
 
-        $data = view('components.mentor.course.modal.chapter.add', compact('course_id', 'mentor'))->render();
+        $data = view('components.mentor.course.modal.chapter.add', compact('course_id'))->render();
+
         return response()->json($data);
     }
 
     public function store(ChapterValidateRequest $request)
     {
-
-        $course = Course::where('id', $request->course_id);
         Chapter::create(
             array_merge(
-                $request->all(),
-                // ['sort' => Chapter::where('course_id', $request->course_id)->max('sort') + 1 ?? 0]
+                $request->only(
+                    'title',
+                    'course_id'
+                ),
+                ['sort' => Chapter::where('course_id', $request->course_id)->max('sort') + 1 ?? 0]
             )
         );
-        // $chapter = Chapter::where('title', 'like', $request->title)->first();
-        // Mail::send('screens.email.mentor.chapterTeacher', compact('chapter'), function ($email) use ($chapter) {
-        //     $email->subject('Bạn được giao 1 chương học');
-        //     $email->to($chapter->mentor->email, $chapter->mentor->name);
-        // });
+
         if ($request->ajax()) {
             session()->flash('success', 'Thêm chương học thành công');
             return response()->json(['success' => true], 201);
@@ -47,53 +44,33 @@ class ChapterController extends Controller
             ->with('success', 'Thêm chương học thành công');
     }
 
-
-
-    public function destroy( $id)
+    public function destroy($chapter)
     {
-        $data = Chapter::destroy($id);
-        return redirect()->back()->with('success', 'Xóa chương học thành công');
+        try {
+            $data = Chapter::destroy($chapter);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th], 401);
+        }
 
+        return response()->json(null, 200);
     }
 
     public function show(Chapter $chapter)
     {
-        $mentors = Mentor::all();
-        // return view('screens.mentor.course.edit', compact('chapter','mentors'));
-        $data = view('components.mentor.course.modal.chapter.edit', compact('chapter','mentors'))->render();
+        $data = view('components.mentor.course.modal.chapter.edit', compact('chapter'))->render();
         return response()->json($data, 200);
     }
 
     public function update(ChapterValidateRequest $request, $chapter)
     {
-        $chapter_old = Chapter::where('id',$chapter)->first();
-        $chapter = Chapter::findOrFail($chapter);
+        try {
+            $chapter = Chapter::findOrFail($chapter);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th], 401);
+        }
 
         $chapter->title = $request->title;
-        $chapter->deadline = $request->deadline;
-        $chapter->mentor_id = $request->mentor_id;
         $chapter->save();
-        if($chapter->deadline != 0){
-            Mail::send('screens.email.mentor.chapterTeacher', compact('chapter'), function ($email) use ($chapter) {
-                $email->subject('Bạn được giao 1 chương học');
-                $email->to($chapter->mentor->email, $chapter->mentor->name);
-            });
-        }
-        // $chapter = Chapter::where('title', 'like', $request->title)->first();
-
-        if($chapter->mentor->id != $chapter_old->mentor->id){
-            foreach($chapter->lessons as $lesson){
-                $lesson->update(['is_edit' => 0]);
-            }
-            Mail::send('screens.email.mentor.changeTeacher', compact('chapter_old'), function ($email) use ($chapter_old) {
-                $email->subject('Chương học thay đổi');
-                $email->to($chapter_old->mentor->email, $chapter_old->mentor->name);
-            });
-            Mail::send('screens.email.mentor.chapterTeacher', compact('chapter'), function ($email) use ($chapter) {
-                $email->subject('Bạn được giao 1 chương học');
-                $email->to($chapter->mentor->email, $chapter->mentor->name);
-            });
-        }
 
         if ($request->ajax()) {
             session()->flash('success', 'Sửa chương học thành công');
@@ -113,8 +90,12 @@ class ChapterController extends Controller
     public function sort(Request $request)
     {
         foreach ($request->chapters as $key => $chapter_id) {
-            $chapter = Chapter::findOrFail($chapter_id);
-            $chapter->sort = $key;
+            try {
+                $chapter = Chapter::findOrFail($chapter_id);
+            } catch (\Throwable $th) {
+                return response()->json(['error' => $th], 401);
+            }
+            $chapter->sort = ++$key;
             $chapter->save();
         }
         if ($request->ajax()) {

@@ -78,6 +78,14 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                         <div class="form-group">
+                            <label>Chọn giảng viên</label>
+                            <select id="select2" class="form-control" name="language" id="">
+                                @foreach ($teachers as $teacher)
+                                <option @selected($course->cate_course_id == $teacher->id ?? true) value="{{ $teacher->id }}">Tên giảng viên: {{ $teacher->name }} / email: {{ $teacher->email }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Thẻ
                                 <span class="text-danger">*</span></label>
                             <input id="kt_tagify_1" type="text" name="tags" class="form-control"
@@ -127,7 +135,7 @@
                             </div>
                             <div class="preview-image new"></div>
                             <div class="preview-image old">
-                                <img src="{{ $course->image }}"
+                                <img src="{{ asset('app/' . $course->image) }}"
                                     style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
                             </div>
                         </div>
@@ -135,7 +143,10 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                             <a href="" class="btn btn-success mr-2">Danh sách slider</a>

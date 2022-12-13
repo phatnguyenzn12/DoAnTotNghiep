@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="card-title">
                 <h4 class="card-label">
-                    Chương {{ $key + 1 }}: {{ $chapter->title }}
+                   Tên chương học: {{ $chapter->title }}
                 </h4>
             </div>
             <div class="card-toolbar">
@@ -33,8 +33,7 @@
                 <div class="col-md-12 mb-3 ribbon ribbon-right">
                     <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
                         <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">
-                                {{-- {{ $lesson->lessonVideo->active }} --}}
+                            <font style="vertical-align: inherit;">{{ $lesson->edit_exit }}
                             </font>
                         </font>
                     </div>
@@ -52,6 +51,18 @@
                             @csrf
                         </form>
                         <p class="lession-tool m-0">
+                            @if ($lesson->is_edit != 0)
+                                <a class="">
+                                    <span>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-example"
+                                            onclick="showModal('{{ $lesson->lessonVideo->video_path }}','Xem video')">Xem
+                                            video</button>
+                                    </span>
+                                    <span>
+                                        {{ $lesson->lessonVideo->time }}
+                                    </span>
+                                </a>
+                            @endif
                             <a data-toggle="modal" data-target="#modal-example"
                                 onclick="showAjaxModal('{{ route('mentor.lesson.show', $lesson->id) }}','Cập nhật bài học')"
                                 class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">

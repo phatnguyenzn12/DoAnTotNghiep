@@ -9,7 +9,7 @@
                     <div class="card-header card-header-tabs-line">
                         <div class="card-toolbar">
                             <div class="card-title">
-                                <h3 class="card-label">Tạo danh mục khóa học</h3>
+                                <h3 class="card-label">Tạo danh mục nhóm học</h3>
                             </div>
                         </div>
                     </div>
@@ -30,10 +30,10 @@
                         <form method="POST" enctype="multipart/form-data" action="{{ route('admin.cate-course.store') }}">
                             @csrf
                             <div class="form-group">
-                                <label>Tên danh mục
+                                <label>Tên nhóm học
                                     <span class="text-danger">*</span></label>
                                 <input type="text" value="" name="name" class="form-control"
-                                    placeholder="Tên danh mục">
+                                    placeholder="Tên nhóm học">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>

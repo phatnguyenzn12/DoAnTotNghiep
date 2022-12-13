@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Course;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use Illuminate\Support\Arr;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
@@ -20,12 +20,13 @@ class OrderDetailFactory extends Factory
     {
         $order = Order::all()->random();
         $course = Course::all()->random();
-        $timestamp = rand( strtotime("Jan 01 2015"), strtotime("Nov 01 2022") );
-        $random_Date = date("d.m.Y", $timestamp );
+        $timestamp = rand(strtotime("Jan 01 2015"), strtotime("Nov 01 2022"));
+        $random_Date = date("d.m.Y", $timestamp);
         return [
             'price' => $course->price,
             'course_id' => $course->id,
             'order_id' => $order,
+            'percentage_pay' =>  Arr::random([0, 20, 50, 90]),
             'created_at' => $random_Date
         ];
     }

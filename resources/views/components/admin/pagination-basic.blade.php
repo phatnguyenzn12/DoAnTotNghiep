@@ -1,3 +1,4 @@
+
 <div class="d-flex justify-content-between align-items-center flex-wrap">
     <div class="d-flex flex-wrp py-2 mr-3">
         <a class="btn btn-icon btn-sm btn-light-success mr-2 my-1" onclick="pagination(1)" page-start><i
@@ -8,7 +9,7 @@
                 <i class="ki ki-bold-arrow-back icon-xs"></i>
             </a>
             @for ($i = 1; $i <= $pagination->lastPage(); $i++)
-            <p class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1" onclick="pagination('{{$i}}')">{{$i}}</p>
+            <p class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 {{ $pagination->currentPage() == $i ? 'active' : '' }}"  onclick="pagination('{{$i}}')">{{$i}}</p>
             {{-- <a  class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1" onclick="filterRecord($i)">{{$i}}</a> --}}
             @endfor
             <a href="#" class="btn btn-icon btn-sm btn-light-success mr-2 my-1" >
@@ -19,6 +20,7 @@
         <a class="btn btn-icon btn-sm btn-light-success mr-2 my-1" onclick="pagination('{{$pagination->lastPage()}}')" page-end><i
                 class="ki ki-bold-double-arrow-next icon-xs"></i></a>
     </div>
+
     <div class="d-flex align-items-center py-3">
         <select class="form-control form-control-sm text-success font-weight-bold mr-4 border-0 bg-light-primary"
             filter-record style="width: 75px;">
