@@ -32,7 +32,7 @@ class CourseFactory extends Factory
             'participant' => 0,
             'cate_course_id' => rand(1, 3),
             'video' => 'https://www.youtube.com/embed/tReb83qlcNc',
-            'image' => fake()->imageUrl(),
+            'image' => 'images/banner_kh.jpg',
             'mentor_id' => $mentor->id,
             'skill_id' => 1,
             'language' => 0,

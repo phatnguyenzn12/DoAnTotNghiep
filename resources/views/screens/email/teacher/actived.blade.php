@@ -17,25 +17,19 @@
                         <h5 style="color: red; font: bold; text-align: center;">
                             EDUPORT HỆ THỐNG BÁN KHÓA HỌC TRỰC TUYẾN</h5>
                         <hr>
-                        <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                            Xin chào {{ $teacher->name }},<br>
-                            Có tài khoản email là: {{ $teacher->email }}.
-                        </p>
-                        <p>Một số thông tin của bạn đã được thay đổi</p>
-                        <p>Chuyên môn: {{ $teacher->number_phone }}</p>
-                        <p>Chuyên môn: {{ $teacher->specializations }}</p>
-                        <p>Kỹ năng: {{ $teacher->skills }}</p>
-                        <p>Trình độ học vấn: {{ $teacher->educations }}</p>
-                        <p>Kinh nghiệm: {{ $teacher->years_in_experience }}</p>
-
-                        <p style=" margin-bottom: 15px;">Để đăng nhập và sử dụng hệ thống
-                            nhấn vào nút đăng nhập bên dưới</p>
+                        <p>Khóa học của giảng viên duyệt đã được duyệt</p>
+                        <p>Giảng viên có tên: {{ $mentor->name }}</p>
+                        <br>
+                        <p>Email: {{ $mentor->email }}</p>
+                        <p>Số điện thoại: {{ $mentor->number_phone }}</p>
+                        <p>Tóm tắt bản thân: {{ $mentor->about_me }}</p>
+                        
                         <p align="center"
                             style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
                             valign="top">
-                            <a href="{{ route('mentor.login') }}"
+                            <a href="{{ route('teacher.course.index') }}"
                                 style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
-                                target="_blank">Đăng nhập</a>
+                                target="_blank">Xem chi tiết</a>
                         </p>
                         <p>Cảm ơn bạn!</p>
                         <p>Đã sử dụng hệ thống của chúng tôi!</p>

@@ -14,7 +14,7 @@
                     <div class="p-3 p-lg-5">
                         <!-- Title -->
                         <div class="text-center">
-                            <h2 class="fw-bold">Chào mừng bạn đến với cộng đồng lớn nhất của chúng tôi</h2>
+                            <h2 class="fw-bold">Chào mừng bạn đến khóa học online</h2>
                             <p class="mb-0 h6 fw-light">Hãy cùng tìm hiểu điều gì đó mới mẻ ngay hôm nay!</p>
                         </div>
                         <!-- SVG Image -->
@@ -44,7 +44,7 @@
                             <!-- Title -->
                             <span class="mb-0 fs-1">🤔</span>
                             <h1 class="fs-2">Đổi mật khẩu mới?</h1>
-                            <h5 class="fw-light mb-4">Nhập mật khẩu mới và xác nhận để sử dụng</h5>
+                            <h5 class="fw-light mb-4">Nhập mật khẩu mới và xác nhận để tiếp tục sử dụng</h5>
 
                             <!-- Form START -->
                             <form method="POST">

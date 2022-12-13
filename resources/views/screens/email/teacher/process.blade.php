@@ -1,3 +1,14 @@
+<div class="" style="width: 500px; margin: auto">
+    <div class="" style="text-align: center">
+        <h1>Xin chào {{ $course->mentor->name }}</h1>
+        <h2>Giảng viên: {{ $course->mentor->name }} đã đăng đủ số bài yêu cầu</h2>
+        <p>Thuộc chương học: {{$course->title}}</p>
+        <p>
+            <a href="{{route('mentor.course.program',$course->id)}}" class="btn btn-bg-success">Kiểm duyệt</a>
+        </p>
+
+    </div>
+</div>
 <body
     style="font-size: 16px; background-color: #fdfdfd; margin: 0; padding: 0; font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; -webkit-text-size-adjust: 100%; line-height: 1.5; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; height: 100% !important; width: 100% !important;">
     <div bgcolor="#fdfdfd" class="body"
@@ -17,27 +28,19 @@
                         <h5 style="color: red; font: bold; text-align: center;">
                             EDUPORT HỆ THỐNG BÁN KHÓA HỌC TRỰC TUYẾN</h5>
                         <hr>
-                        <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                            Xin chào {{ $teacher->name }},<br>
-                            Có tài khoản email là: {{ $teacher->email }}.
-                        </p>
-                        <p>Một số thông tin của bạn đã được thay đổi</p>
-                        <p>Chuyên môn: {{ $teacher->number_phone }}</p>
-                        <p>Chuyên môn: {{ $teacher->specializations }}</p>
-                        <p>Kỹ năng: {{ $teacher->skills }}</p>
-                        <p>Trình độ học vấn: {{ $teacher->educations }}</p>
-                        <p>Kinh nghiệm: {{ $teacher->years_in_experience }}</p>
-
-                        <p style=" margin-bottom: 15px;">Để đăng nhập và sử dụng hệ thống
-                            nhấn vào nút đăng nhập bên dưới</p>
+                        <p>Xin chào {{ $course->mentor->name }},</p>
+                        <br>
+                        <p>Giảng viên: {{ $course->mentor->name }} đã đăng đủ số bài yêu cầu</p>
+                        <p>Thuộc chương học: {{$course->title}}</p>
+                        
                         <p align="center"
                             style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
                             valign="top">
-                            <a href="{{ route('mentor.login') }}"
+                            <a href="{{route('mentor.course.program',$course->id)}}"
                                 style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
-                                target="_blank">Đăng nhập</a>
+                                target="_blank">Xem chi tiết</a>
                         </p>
-                        <p>Cảm ơn bạn!</p>
+                        <p>Cảm ơn {{$course->mentor->name }}!</p>
                         <p>Đã sử dụng hệ thống của chúng tôi!</p>
                     </div>
                     <hr>

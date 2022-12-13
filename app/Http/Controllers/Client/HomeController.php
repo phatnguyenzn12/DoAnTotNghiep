@@ -29,7 +29,7 @@ class HomeController extends Controller
             $courses = $courses->whereNotIn('id', $courses_id);
         }
 
-        $courses =  $courses->paginate(8);
+        $courses =  $courses->orderby('id','desc')->paginate(8);
 
         $interView = Banner::select('*')->where('status', 1)->get();
 

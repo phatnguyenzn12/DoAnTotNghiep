@@ -3,11 +3,12 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class DisscountCodeFactory extends Factory
+class DiscountCodeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +18,10 @@ class DisscountCodeFactory extends Factory
     public function definition()
     {
         return [
-            'code' => fake()->asciify('********************'),
+            'title' => fake()->text(15),
+            'code' => Str::random(5),
+            'content' => fake()->text(300),
             'discount' => array_rand([0,20,50,90]),
-            // 'start_time' => fake()->dateTimeAD('2022-10-40 08:30:00', 'UTC'),
-            // 'end_time' => fake()->dateTimeAD('2022-11-40 08:30:00', 'UTC'),
         ];
     }
 }

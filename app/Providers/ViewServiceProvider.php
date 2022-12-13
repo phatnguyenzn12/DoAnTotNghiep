@@ -44,7 +44,6 @@ class ViewServiceProvider extends ServiceProvider
                 $notifications = auth()->guard('mentor')
                     ->user()
                     ->notifications;
-                    dd($notifications);
                 $view->with('notifications', $notifications);
 
             } elseif (auth()->guard('web')->user()) {

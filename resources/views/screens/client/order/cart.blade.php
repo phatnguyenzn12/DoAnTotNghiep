@@ -66,7 +66,7 @@
                                                 <div class="d-lg-flex align-items-center">
                                                     <!-- Image -->
                                                     <div class="w-100px w-md-80px mb-2 mb-md-0">
-                                                        <img src="/frontend/images/courses/4by3/08.jpg" class="rounded"
+                                                        <img src="{{ asset('app/' . $cart->image) }}" class="rounded"
                                                             alt="">
                                                     </div>
                                                     <!-- Title -->

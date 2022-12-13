@@ -41,7 +41,7 @@
                                 </li>
                             </ul>
                             <!-- Content -->
-                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k+ Students joined us, now it's your turn.</p>
+                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k + Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                                 @csrf
                                 <!-- Email -->
                                 <div class="mb-4">
-                                    <label for="exampleInputEmail1" class="form-label">Email address *</label>
+                                    <label for="exampleInputEmail1" class="form-label">Địa chỉ email *</label>
                                     <div class="input-group input-group-lg">
                                         <span
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
@@ -68,10 +68,11 @@
                                         <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
                                             name="email" placeholder="Info@example.com" id="exampleInputEmail1">
                                     </div>
+                                    <p class="text-danger">{{ $errors->first('email') }}</p>
                                 </div>
                                 <!-- Password -->
                                 <div class="mb-4">
-                                    <label for="inputPassword5" class="form-label">Password *</label>
+                                    <label for="inputPassword5" class="form-label">Mật khẩu *</label>
                                     <div class="input-group input-group-lg">
                                         <span
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
@@ -80,19 +81,17 @@
                                             class="form-control border-0 bg-light rounded-end ps-1"name="password"
                                             placeholder="******" id="inputPassword5">
                                     </div>
-                                    <div id="passwordHelpBlock" class="form-text">
-                                        Your password must be 8 characters at least
-                                    </div>
+                                    <p class="text-danger">{{ $errors->first('password') }}</p>
                                 </div>
                                 <!-- Check box -->
                                 <div class="mb-4 d-flex justify-content-between mb-4">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                                        <label class="form-check-label" for="exampleCheck1">Nhớ thông tin đăng nhập của tôi</label>
                                     </div>
                                     <div class="text-primary-hover">
                                         <a href="{{ route('auth.forgotPassword') }}" class="text-secondary">
-                                            <u>Forgot password?</u>
+                                            <u>Quên mật khẩu?</u>
                                         </a>
                                     </div>
                                 </div>
@@ -110,24 +109,24 @@
                                 <!-- Divider with text -->
                                 <div class="position-relative my-4">
                                     <hr>
-                                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Or</p>
+                                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Hoặc</p>
                                 </div>
 
                                 <!-- Social btn -->
                                 <div class="col-xxl-6 d-grid">
                                     <a href="{{ route('auth.google') }}" class="btn bg-google mb-2 mb-xxl-0"><i
-                                            class="fab fa-fw fa-google text-white me-2"></i>Login with Google</a>
+                                            class="fab fa-fw fa-google text-white me-2"></i>Đăng nhập bằng Google</a>
                                 </div>
                                 <!-- Social btn -->
                                 <div class="col-xxl-6 d-grid">
                                     <a href="#" class="btn bg-facebook mb-0"><i
-                                            class="fab fa-fw fa-facebook-f me-2"></i>Login with Facebook</a>
+                                            class="fab fa-fw fa-facebook-f me-2"></i>Đăng nhập bằng Facebook</a>
                                 </div>
                             </div>
 
                             <!-- Sign up link -->
                             <div class="mt-4 text-center">
-                                <span>Don't have an account? <a href="{{route('auth.register')}}">Signup here</a></span>
+                                <span>Bạn chưa có tài khoản? <a href="{{route('auth.register')}}">Đăng ký ngay</a></span>
                             </div>
                         </div>
                     </div> <!-- Row END -->
