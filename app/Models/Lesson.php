@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class Lesson extends Model
+class Lesson extends BaseModel
 {
     use HasFactory;
     protected $fillable = [

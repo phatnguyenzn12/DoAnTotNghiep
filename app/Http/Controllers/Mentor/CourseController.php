@@ -22,42 +22,44 @@ class CourseController extends Controller
 
     public function index()
     {
-        $cateCourses = CateCourse::all();
-        $courses = auth()->guard('mentor')
-            ->user()
-            ->load('courses')
-            ->courses;
-       //lọc
-        // $key = [];
-        // if (isset(request()['key'])) {
-        //     $key = request()->query('key');
-        //     $search = Course::where('title', 'like', '%' . $key . '%')->orderBy('id')
-        //         ->where('cate_course_id', "LIKE", "%" . request()->get('category') . "%")
-        //         ->where('status', 'LIKE', "%" . request()->query('status') . "%")
-        //         ->get();
+        $min_price = Course::where('mentor_id',auth()->guard('mentor')->user()->id)->min('price');
+        $max_price = Course::where('mentor_id',auth()->guard('mentor')->user()->id)->max('price');
+        return view('screens.mentor.course.list',compact('min_price','max_price'));
+    }
 
-        //     // dd($search);
-        //     $course = Course::paginate(3);
+    public function filterData(Request $request)
+    {
 
-        //     return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses', 'search'));
-        // } else {
+        $courses = Course::select('*')
+        ->where('mentor_id',auth()->guard('mentor')->user()->id)
+        ->sortdata($request)
+        ->search($request)
+        ->isactive($request)
+        ->price($request)
+        ->paginate($request->record);
 
-        // }
-        $course = Course::paginate(3);
-        return view('screens.mentor.course.list', compact('courses', 'course', 'cateCourses'));
+        $html = view('components.mentor.course.list-course' ,compact('courses'))->render();
+        return response()->json($html,200);
     }
 
     public function program($course_id)
     {
-        $mentor = Mentor::all();
-        // dd($mentor);
-        $chapters = Chapter::select('*')
-            ->where('course_id', $course_id)
-            ->orderBy('id', 'DESC')
-            ->orderBy('sort')
-            ->paginate(3);
-        return view('screens.mentor.course.edit-program', compact('chapters', 'course_id', 'mentor'));
+        return view('screens.mentor.course.edit-program', compact('course_id'));
     }
+
+    public function filterDataChapter(Request $request)
+    {
+        $chapters = Chapter::select('*')
+        ->where('course_id', $request->course_id)
+        // ->orderBy('id', 'DESC')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+
+        $html = view('components.mentor.chapter.list-chapter' ,compact('chapters'))->render();
+        return response()->json($html,200);
+    }
+
     // Route::get('edit-program/{course_id}', 'program')->name('program');
     //     Route::get('edit-course/{id}', 'edit')->name('edit');
     //     Route::put('update-course/{course}', 'update')->name('update');

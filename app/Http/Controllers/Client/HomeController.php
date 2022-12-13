@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $cate = CateCourse::all();
 
-        $coursesAll = Course::select('*')->where('status',1)->get();
+        $coursesAll = Course::select('*')->where('status', 1)->get();
 
         $mentorAll = Mentor::select('*')->get();
 
@@ -29,18 +29,24 @@ class HomeController extends Controller
             $courses = $courses->whereNotIn('id', $courses_id);
         }
 
-        $courses =  $courses->paginate(8);
+        $courses =  $courses->orderBy('id','DESC')->paginate(8);
 
-        $interView = Banner::select('*')->where('status', 1)->get();
-
-        $getCourseInBanner = Banner::select('course_id')->get();
-
+        
         $certificateAll = $coursesAll->filter(
             function ($val) {
                 return $val->certificate()->first();
             }
         );
 
-        return view('screens.client.home', compact('courses', 'interView', 'cate', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
+        return view('screens.client.home', compact('courses', 'cate', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
+    }
+
+    public function banner(){
+        $interView = Banner::select('*')->where('status', 1)->get();
+
+        $getCourseInBanner = Banner::select('course_id')->get();
+
+        return view('components.client.home.banner', compact( 'interView'));
+
     }
 }

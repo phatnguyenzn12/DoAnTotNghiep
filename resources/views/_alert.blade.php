@@ -20,9 +20,9 @@
 @endif
 
 
-@if($errors->all())
+{{-- @if($errors->all())
     <script type="module">
         import {salert} from '/js/sweet-alert.js'
-        salert('Warning','Please check the form carefully for errors!')
+        salert('Warning','Vui lòng kiểm tra lại thông tin!')
     </script>
-@endif
+@endif --}}

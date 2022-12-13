@@ -17,8 +17,25 @@ use Symfony\Component\Console\Input\Input;
 class CourseController extends Controller
 {
     public function index(){
-        $courses = Course::orderBy('id', 'DESC')->get();
-        return view('screens.admin.course.list-course',compact('courses'));
+        $cate_courses = CateCourse::all();
+        $min_price = Course::min('price');
+        $max_price = Course::max('price');
+        return view('screens.admin.course.list-course',compact('cate_courses','min_price','max_price'));
+    }
+
+    public function filterData(Request $request)
+    {
+        $courses = Course::select('*')
+        // ->orderBy('id', 'DESC')
+        ->sortdata($request)
+        ->search($request)
+        ->isactive($request)
+        ->category($request)
+        ->price($request)
+        ->paginate($request->record);
+        
+        $html = view('components.admin.course.list-course' ,compact('courses'))->render();
+        return response()->json($html,200);
     }
 
     public function actived(Course $course,$status)

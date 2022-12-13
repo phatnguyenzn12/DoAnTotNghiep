@@ -58,6 +58,7 @@ class OrderController extends Controller
 
     public function vnpay(Request $request)
     {
+
         $courses = auth()->user()->load('carts')->carts()->get();
 
         $courses->transform(
@@ -83,6 +84,8 @@ class OrderController extends Controller
 
     public function resDataVnpay()
     {
+        dd(auth()->user());
+
         $courses = auth()->user()
             ->load('carts')
             ->carts()
