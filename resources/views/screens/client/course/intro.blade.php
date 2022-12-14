@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- =======================
-                                                                                                                                                    Page content START -->
+                                                                                                                                                                        Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -171,167 +171,157 @@
                     <div data-sticky data-margin-top="80" data-sticky-for="768">
                         <div class="row g-4">
                             <div class="col-md-6 col-xl-12">
-                                <!-- Course info START -->
-                                <div class="card card-body border p-4">
-                                    <!-- Price and share button -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Price -->
-                                        <div class="d-flex align-items-center">
-                                            <h3 class="fw-bold mb-0 me-2">{{ $course->current_price }}đ</h3>
-                                            <span
-                                                class="text-decoration-line-through mb-0 me-2">{{ $course->price }}đ</span>
-                                            <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
+                                @if (!auth()->user())
+                                    <!-- Course info START -->
+                                    <div class="card card-body border p-4">
+                                        <!-- Price and share button -->
+                                        <div class="d-flex justify-content-between align-items-center">
+
+                                            <!-- Price -->
+                                            <div class="d-flex align-items-center">
+                                                <h3 class="fw-bold mb-0 me-2">{{ number_format($course->current_price) }}đ
+                                                </h3>
+                                                <span
+                                                    class="text-decoration-line-through mb-0 me-2">{{ number_format($course->price) }}đ</span>
+                                                <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
+                                            </div>
+                                            <!-- Share button with dropdown -->
+                                            <div class="dropdown">
+                                                <a href="#" class="btn btn-sm btn-light rounded mb-0 small"
+                                                    role="button" id="dropdownShare" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <i class="fas fa-fw fa-share-alt"></i>
+                                                </a>
+                                                <!-- dropdown button -->
+                                                <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
+                                                    aria-labelledby="dropdownShare">
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                                class="fab fa-twitter-square me-2"></i>Twitter</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                                class="fab fa-facebook-square me-2"></i>Facebook</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                                class="fab fa-linkedin me-2"></i>LinkedIn</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                                class="fas fa-copy me-2"></i>Copy link</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <!-- Share button with dropdown -->
-                                        <div class="dropdown">
-                                            <a href="#" class="btn btn-sm btn-light rounded mb-0 small" role="button"
-                                                id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-fw fa-share-alt"></i>
+                                @endif
+
+                                <!-- Buttons -->
+                                <div class="mt-3 d-grid">
+                                    @if (auth()->user())
+                                        @if ($course->users()->get()->contains(auth()->user()->id))
+                                            <a href="{{ route('client.lesson.index', $course->id) }}"
+                                                class="btn btn-success">
+                                                Vào học
                                             </a>
-                                            <!-- dropdown button -->
-                                            <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
-                                                aria-labelledby="dropdownShare">
-                                                <li><a class="dropdown-item" href="#"><i
-                                                            class="fab fa-twitter-square me-2"></i>Twitter</a></li>
-                                                <li><a class="dropdown-item" href="#"><i
-                                                            class="fab fa-facebook-square me-2"></i>Facebook</a></li>
-                                                <li><a class="dropdown-item" href="#"><i
-                                                            class="fab fa-linkedin me-2"></i>LinkedIn</a></li>
-                                                <li><a class="dropdown-item" href="#"><i
-                                                            class="fas fa-copy me-2"></i>Copy link</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!-- Buttons -->
-                                    <div class="mt-3 d-grid">
-                                        @if (auth()->user())
-                                            @if ($course->users()->get()->contains(auth()->user()->id))
-                                                <a href="{{ route('client.lesson.index', $course->id) }}"
-                                                    class="btn btn-success">
-                                                    Vào học
-                                                </a>
-                                            @else
-                                                <form action="{{ route('client.order.addToCart', $course->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-outline-primary">Thêm vào giỏ
-                                                        hàng</button>
-                                                    <a href="#" class="btn btn-success">Mua ngay</a>
-                                                </form>
-                                            @endif
                                         @else
-                                            @if (auth()->guard('mentor')->user())
-                                                <a href="{{ route('client.mentorLesson.index', $course->id) }}"
-                                                    class="btn btn-success">
-                                                    Tham gia khóa học
-                                                </a>
-                                            @else
-                                                <form action="{{ route('client.order.addToCart', $course->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-outline-primary">Thêm vào giỏ
-                                                        hàng</button>
-                                                    <a href="#" class="btn btn-success">Mua ngay</a>
-                                                </form>
-                                            @endif
+                                            <form action="{{ route('client.order.addToCart', $course->id) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success">Thêm vào giỏ
+                                                    hàng</button>
+                                            </form>
                                         @endif
+                                    @else
+                                        @if (auth()->guard('mentor')->user())
+                                            <a href="{{ route('client.mentorLesson.index', $course->id) }}"
+                                                class="btn btn-success">
+                                                Tham gia khóa học
+                                            </a>
+                                        @else
+                                            <form action="{{ route('client.order.addToCart', $course->id) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success">Thêm vào giỏ
+                                                    hàng</button>
+                                            </form>
+                                        @endif
+                                    @endif
+                                </div>
+                                <!-- Divider -->
+                                <hr>
+
+                                <!-- Title -->
+                                <h5 class="mb-3">Khoá học này bao gồm</h5>
+                                <ul class="list-group list-group-borderless border-0">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="h6 fw-light mb-0"><i
+                                                class="fas fa-fw fa-book-open text-primary"></i>bài
+                                            học</span>
+                                        <span>{{ $course->lessons->count() }}</span>
+                                    </li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="h6 fw-light mb-0"><i class="fas fa-fw fa-clock text-primary"></i>Thời
+                                            gian</span>
+                                        <span>{{ $course->totalTime }}</span>
+                                    </li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="h6 fw-light mb-0"><i class="fas fa-fw fa-signal text-primary"></i>Kỹ
+                                            năng</span>
+                                        <span>{{ $course->skill->title }}</span>
+                                    </li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="h6 fw-light mb-0"><i class="fas fa-fw fa-globe text-primary"></i>Ngôn
+                                            ngữ</span>
+                                        <span>{{ $course->language_rule }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0"><i
+                                                class="fas fa-fw fa-medal text-primary"></i>Chứng
+                                            chỉ</span>
+                                        <span>{{ $course->certificate ? 'Có' : 'Không' }}</span>
+                                    </li>
+                                </ul>
+                                <!-- Divider -->
+                                <hr>
+
+                                <!-- Instructor info -->
+                                <div class="d-sm-flex align-items-center">
+                                    <!-- Avatar image -->
+                                    <div class="avatar avatar-xl">
+                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/05.jpg"
+                                            alt="avatar">
                                     </div>
-                                    <!-- Divider -->
-                                    <hr>
-
-                                    <!-- Title -->
-                                    <h5 class="mb-3">Khoá học này bao gồm</h5>
-                                    <ul class="list-group list-group-borderless border-0">
-                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-fw fa-book-open text-primary"></i>bài học</span>
-                                            <span>{{ $course->lessons->count() }}</span>
-                                        </li>
-                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-fw fa-clock text-primary"></i>Thời gian</span>
-                                            <span>{{ $course->totalTime }}</span>
-                                        </li>
-                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-fw fa-signal text-primary"></i>Kỹ năng</span>
-                                            <span>{{ $course->skill->title }}</span>
-                                        </li>
-                                        <li class="list-group-item px-0 d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-fw fa-globe text-primary"></i>Ngôn ngữ</span>
-                                            <span>{{ $course->language_rule }}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-fw fa-medal text-primary"></i>Chứng chỉ</span>
-                                            <span>{{ $course->certificate ? 'Có' : 'Không' }}</span>
-                                        </li>
-                                    </ul>
-                                    <!-- Divider -->
-                                    <hr>
-
-                                    <!-- Instructor info -->
-                                    <div class="d-sm-flex align-items-center">
-                                        <!-- Avatar image -->
-                                        <div class="avatar avatar-xl">
-                                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/05.jpg"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="ms-sm-3 mt-2 mt-sm-0">
-                                            <h5 class="mb-0"><a href="#">{{ $course->mentor->name }} <span class="text-danger">(quản lý)</span></a></h5>
-                                            <p class="mb-0 small">{{ $course->mentor->specializations }}</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Rating and follow -->
-                                    <div class="d-sm-flex justify-content-sm-between align-items-center mt-0 mt-sm-2">
-                                        <!-- Rating star -->
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star-half-alt text-warning"></i></li>
-                                            <li class="list-inline-item ms-2 h6 fw-light mb-0">4.5/5.0</li>
-                                        </ul>
-
-                                        <!-- button -->
-                                        <a href="{{ route('client.mentor.show', $course->mentor->id) }}"
-                                            class="btn btn-sm btn-primary mb-0 mt-2 mt-sm-0">Xem chi tiết</a>
+                                    <div class="ms-sm-3 mt-2 mt-sm-0">
+                                        <h5 class="mb-0"><a href="#">{{ $course->mentor->name }} <span
+                                                    class="text-danger">(giảng viên)</span></a></h5>
+                                        <p class="mb-0 small">{{ $course->mentor->specializations }}</p>
                                     </div>
                                 </div>
-                                <!-- Course info END -->
-                            </div>
 
-                            <!-- Tags START -->
-                            <div class="col-md-6 col-xl-12">
-                                <div class="card card-body border p-4">
-                                    <h4 class="mb-3">Các thẻ sản phẩm</h4>
+                                <!-- Rating and follow -->
+                                <div class="d-sm-flex justify-content-sm-between align-items-center mt-0 mt-sm-2">
+                                    <!-- Rating star -->
                                     <ul class="list-inline mb-0">
-                                        @forelse (explode(',',$course->tags) as $tag)
-                                            <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                    href="#">{{ $tag }}</a> </li>
-                                        @empty
-                                        @endforelse
-
-
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item me-0 small"><i
+                                                class="fas fa-star-half-alt text-warning"></i></li>
+                                        <li class="list-inline-item ms-2 h6 fw-light mb-0">4.5/5.0</li>
                                     </ul>
+
+                                    <!-- button -->
+                                    <a href="{{ route('client.mentor.show', $course->mentor->id) }}"
+                                        class="btn btn-sm btn-primary mb-0 mt-2 mt-sm-0">Xem chi tiết</a>
                                 </div>
                             </div>
-                            <!-- Tags END -->
-                        </div><!-- Row End -->
-                    </div>
+                            <!-- Course info END -->
+                        </div>
+                        <!-- Tags END -->
+                    </div><!-- Row End -->
                 </div>
-                <!-- Right sidebar END -->
+            </div>
+            <!-- Right sidebar END -->
 
-            </div><!-- Row END -->
+        </div><!-- Row END -->
         </div>
     </section>
 

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Client\AccountController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('account')->name('client.account.')->controller(AccountController::class)->group(
+Route::prefix('account')->name('client.account.')->middleware('check-user')->controller(AccountController::class)->group(
     function () {
         Route::get('/','index')->name('index');
         Route::get('/my-course','myCourse')->name('myCourse');
