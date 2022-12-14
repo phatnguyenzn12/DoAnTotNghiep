@@ -75,6 +75,7 @@
                         <div class="col-lg-9 col-xl-6">
                             <input required type="password" name="password_2"
                                 class="form-control form-control-lg form-control-solid" />
+                                <strong  style="color: red">{{ Session::get('error1') }}</strong>
                         </div>
                     </div>    
                 <div class="card-toolbar">

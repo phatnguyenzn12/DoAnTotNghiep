@@ -56,7 +56,7 @@ class AccountController extends Controller
                 $us->updatePass($id, $passnew);
                 return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
             } elseif ($request->password_1 != $request->password_2) {
-                 return redirect()->back()->with('error1', 'Đổi thất bại');
+                 return redirect()->back()->with('error1', 'mật khẩu mới không khớp');
             }
         } else {
             return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');
