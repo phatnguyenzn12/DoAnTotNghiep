@@ -179,13 +179,13 @@
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         @if (Auth::guard('admin')->user())
-                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('admin')->user()->avatar)}}"
                                 alt="avatar">
                         @elseif (Auth::guard('mentor')->user())
-                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('mentor')->user()->avatar)}}"
                                 alt="avatar">
                         @else
-                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('web')->user()->avatar)}}"
                                 alt="avatar">
                         @endif
                     </a>
@@ -199,13 +199,13 @@
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
                                     @if (Auth::guard('admin')->user())
-                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('admin')->user()->avatar)}}"
                                             alt="avatar">
                                     @elseif (Auth::guard('mentor')->user())
-                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('mentor')->user()->avatar)}}"
                                             alt="avatar">
                                     @else
-                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('web')->user()->avatar)}}"
                                             alt="avatar">
                                     @endif
                                 </div>

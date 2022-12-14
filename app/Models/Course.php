@@ -30,7 +30,7 @@ class Course extends BaseModel
     ];
 
     protected $appends = [
-        'current_price', 'active', 'language_rule', 'total_time', 'progress', 'number_lessons_complete'
+        'current_price', 'active', 'language_rule', 'total_time', 'progress', 'number_lessons_complete', 'amount_paid_teacher',
     ];
 
     ////////////////////////////////////////////////////////////////
@@ -138,7 +138,7 @@ class Course extends BaseModel
             return 'Chờ xử lý';
         } elseif ($this->status == 1) {
             return 'Đã được duyệt';
-        } elseif($this->status == 2) {
+        } elseif ($this->status == 2) {
             return 'Đã kích hoạt';
         }
     }
@@ -172,5 +172,16 @@ class Course extends BaseModel
             ->count();
 
         return $totalLesson;
+    }
+
+    public function getAmountPaidTeacherAttribute()
+    {
+        if ($this->percentage_pay == 0) {
+            return 0;
+        }
+        $price = $this->percentage_pay > 0
+            ? $this->price - ($this->price * ((100 - $this->percentage_pay) / 100))
+            : $this->price;
+        return $price;
     }
 }

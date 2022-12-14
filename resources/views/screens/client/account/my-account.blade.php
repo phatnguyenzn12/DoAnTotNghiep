@@ -22,7 +22,7 @@
                             <div class="col-auto mt-4 mt-md-0">
                                 <div class="avatar avatar-xxl mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                        src="/frontend/images/avatar/01.jpg">
+                                        src="{{asset('app/'.$user->avatar)}}">
                                 </div>
                             </div>
                             <!-- Profile info -->
@@ -84,7 +84,7 @@
                                             class="bi bi-ui-checks-grid fa-fw me-2"></i>Khóa học của tôi</a>
                                     <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
                                             class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
-                                    <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i
+                                    <a class="list-group-item text-danger bg-danger-soft-hover" href="{{route('auth.logout')}}"><i
                                             class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                 </div>
                             </div>
@@ -112,24 +112,10 @@
                                 <div class="col-12 justify-content-center align-items-center">
                                     <label class="form-label">Ảnh đại diện</label>
                                     <div class="d-flex align-items-center">
-                                        {{-- <label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
-                                            <!-- Avatar place holder -->
-                                            <span class="avatar avatar-xl">
-                                                <img id="mat_truoc_preview" name="avatar"
-                                                    class="avatar-img rounded-circle border border-white border-3 shadow"
-                                                    src="/frontend/images/avatar/07.jpg" alt="">
-                                            </span>
-                                            <!-- Remove btn -->
-                                            {{-- <button type="button" class="uploadremove"><i class="bi bi-x text-white"></i></button>
-                                        </label>
-                                        <!-- Upload button -->
-                                        <label class="btn btn-primary-soft mb-0" for="uploadfile-1">Change</label>
-                                        <input id="uploadfile-1" class="form-control d-none" type="file"> --}}
-                                        {{-- // --}}
                                         <label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
                                             <span class="avatar avatar-xl">
                                                 <img name="avatar" id="mat_truoc_preview"
-                                                    src="/frontend/images/avatar/01.jpg" alt="your image"
+                                                    src="{{asset('app/'.$user->avatar)}}" alt="your image"
                                                     class="avatar-img rounded-circle border border-white border-3 shadow"
                                                     class="img-fluid" />
                                                 <label for="cmt_truoc">Mặt trước</label>
@@ -137,27 +123,9 @@
                                             <input
                                                 class=" w-[125px] btn btn-primary-soft mb-0 form-control-file @error('cmt_mat_truoc') is-invalid @enderror"
                                                 id="cmt_truoc" required type="file" name="avatar" class="form-group">
-                                            {{-- <span class="avatar avatar-xl">
-                                                <img name="avatar" id="mat_truoc_preview"
-                                                    src="{{ asset('app/' . $user->avatar) }}" alt="your image"
-                                                    class="avatar-img rounded-circle border border-white border-3 shadow"
-                                                    class="img-fluid" />
-                                                    <label for="cmt_truoc">Mặt trước</label>
-                                            </span><br />
-
-                                            <input type="file" name="avatar" class="form-control" placeholder=""> --}}
                                         </label>
                                     </div>
 
-                                </div>
-
-                                <!-- Full name -->
-                                <div class="col-12">
-                                    {{-- <label class="form-label">Họ và tên </label>
-								<div class="input-group">
-									<input type="text" name="name" class="form-control" value="" placeholder="Tên">
-									{{-- <input type="text" class="form-control" value="" placeholder="Tên">
-								</div> --}}
                                 </div>
 
                                 <!-- Username -->
@@ -197,14 +165,6 @@
                                     <textarea required name="about_me" value="{{ $user->about_me }}" class="form-control" rows="3"></textarea>
                                     <div class="form-text">Mô tả ngắn về con người bạn.</div>
                                 </div>
-
-                                <!-- Education -->
-                                {{-- <div class="col-12">
-								<label class="form-label">Education</label>
-								<input class="form-control mb-2" type="text" value="Bachelor in Computer Graphics">
-								<input class="form-control mb-2" type="text" value="Masters in Computer Graphics">
-								<button class="btn btn-sm btn-light mb-0"><i class="bi bi-plus me-1"></i>Add more</button>
-							</div> --}}
 
                                 <!-- Save button -->
                                 <div class="d-sm-flex justify-content-end">

@@ -89,15 +89,16 @@ class CourseController extends Controller
         return view('screens.admin.course.edit-course', compact('course', 'cateCourses', 'id', 'skills'));
     }
 
-    public function update(Request $request, Course $course, Certificate $certificate)
+    public function update(Request $request, Course $course)
     {
-        $course->price = $request->price;
+        $course->price = $request->price;   
         $course->discount = $request->discount;
+        $course->percentage_pay = $request->percentage_pay;
         $course->save();
-        Mail::send('screens.email.admin.actived-course', compact('course'), function ($email) use ($course) {
-            $email->subject('Duyệt giá khóa học');
-            $email->to($course->mentor->email, $course->mentor->name);
-        });
+        // Mail::send('screens.email.admin.actived-course', compact('course'), function ($email) use ($course) {
+        //     $email->subject('Duyệt giá khóa học');
+        //     $email->to($course->mentor->email, $course->mentor->name);
+        // });
 
         return redirect()
             ->back()

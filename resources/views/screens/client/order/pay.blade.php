@@ -79,12 +79,12 @@
                             <!-- Order summary START -->
                             <div class="card card-body shadow p-4 mb-4">
                                 <!-- Title -->
-                                <h4 class="mb-4">Gỉam giá đơn hàng </h4>
+                                <h4 class="mb-4">Giảm giá đơn hàng </h4>
 
                                 <!-- Coupon START -->
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span>Mã giảm gía</span>
+                                        <span>Ví dụ mã giảm giá</span>
                                         <p class="mb-0 h6 fw-light">AB12365E</p>
                                     </div>
                                     <div class="input-group mt-2">

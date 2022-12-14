@@ -23,25 +23,30 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="{{ route('admin.course.update', $id) }}">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label>Giá
+                            <label>Giá khoá học
                                 <span class="text-danger">*</span></label>
-                            <input value="{{ $course->price }}" type="text" name="price" class="form-control"
-                                placeholder="Giá khóa học ">
+                                <input type="number" class="form-control" name="price"  value="{{ $course->price }}" placeholder="Giá khóa học">
                         </div>
                         <div class="form-group">
                             <label>Giảm giá
                                 <span class="text-danger">*</span></label>
-                            <input value="{{ $course->discount }}" type="text" name="discount" class="form-control"
+                            <input value="{{ $course->discount }}" type="number" name="discount" class="form-control" max="100"
                                 placeholder="Video demo">
                         </div>
-                        
-                        
+
+                        <div class="form-group">
+                            <label>Phần trăm tiền mà giáo viên nhận được
+                                <span class="text-danger">*</span></label>
+                            <input value="{{ $course->percentage_pay }}" type="number" name="percentage_pay" class="form-control" max="100"
+                                placeholder="Video demo">
+                        </div>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                         </div>

@@ -13,13 +13,12 @@ class VnPayService
         $total_price,
         $bank,
     ) {
-
         $name = explode(' ', auth()->user()->name);
         $vnp_Bill_FirstName = array_shift($name);
         $vnp_Bill_LastName = array_pop($name);
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = env('APP_URL') . "order/return-data-vnpay";
+        $vnp_Returnurl = env('APP_URL') . "/order/return-data-vnpay";
         $vnp_TmnCode = "9K1CI7PI";
         $vnp_HashSecret = "GVVBTDJXDNJYEIBETIFAUGFIVJHPBJMJ";
 

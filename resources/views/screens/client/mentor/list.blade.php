@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-        Page Banner START -->
+                Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -26,19 +26,20 @@
         </div>
     </section>
     <!-- =======================
-        Page Banner END -->
+                Page Banner END -->
 
     <!-- =======================
-        Inner part START -->
+                Inner part START -->
     <section class="pt-4">
         <div class="container">
             <!-- Search option START -->
             <div class="row mb-4 align-items-center">
                 <!-- Search bar -->
-                <div class="col-sm-6 col-xl-4">
+                <div class="col-sm-6 col-xl-3">
                     <form class="border rounded p-2">
                         <div class="input-group input-borderless">
-                            <input class="form-control me-1" type="search" placeholder="Search instructor">
+                            <input class="form-control me-1" oninput="search(this)" type="search"
+                                placeholder="Search course">
                             <button type="button" class="btn btn-primary mb-0 rounded"><i
                                     class="fas fa-search"></i></button>
                         </div>
@@ -46,32 +47,13 @@
                 </div>
 
                 <!-- Select option -->
-                <div class="col-sm-6 col-xl-3 mt-3 mt-lg-0">
+                <div class="col-sm-6 col-xl-2 mt-3 mt-xl-0">
                     <form class="border rounded p-2 input-borderless">
-                        <select class="form-select form-select-sm js-choice" aria-label=".form-select-sm">
-                            <option value="">Category</option>
-                            <option>All</option>
-                            <option>Development</option>
-                            <option>Design</option>
-                            <option>Accounting</option>
-                            <option>Translation</option>
-                            <option>Finance</option>
-                            <option>Legal</option>
-                            <option>Photography</option>
-                            <option>Writing</option>
-                            <option>Marketing</option>
-                        </select>
-                    </form>
-                </div>
-
-                <!-- Select option -->
-                <div class="col-sm-6 col-xl-3 mt-3 mt-xl-0">
-                    <form class="border rounded p-2 input-borderless">
-                        <select class="form-select form-select-sm js-choice" aria-label=".form-select-sm">
-                            <option value="">Sort by</option>
-                            <option>Most popular</option>
-                            <option>Most viewed</option>
-                            <option>Top rated</option>
+                        <select class="form-select form-select-sm js-choice" onchange="fiterSort(this)"
+                            aria-label=".form-select-sm">
+                            <option value="0">Sort by</option>
+                            <option value="id_desc">Mới đến cũ</option>
+                            <option value="id_asc">Cũ đến mới</option>
                         </select>
                     </form>
                 </div>
@@ -84,89 +66,18 @@
             <!-- Search option END -->
 
             <!-- Instructor list START -->
-            <div class="row g-4 justify-content-center">
+            <div id="table-innerHtml">
 
-                <!-- Card item START -->
-                @foreach ($mentor as $item)
-                    <div class="col-lg-10 col-xl-6">
-                        <div class="card shadow p-2">
-                            <div class="row g-0">
-                                <!-- Image -->
-                                <div class="col-md-4">
-                                    <img src="/frontend/images/instructor/01.jpg" class="rounded-3" alt="...">
-                                </div>
-
-                                <!-- Card body -->
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <!-- Title -->
-                                        <div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-                                            <div>
-                                                <h5 class="card-title mb-0"><a href="{{ route('client.mentor.show', $item->id) }}">{{$item->name}}</a></h5>
-                                                <p class="small mb-2 mb-sm-0">Phone: {{$item->number_phone}}</p>
-                                            </div>
-                                            <span class="h6 fw-light">4.3<i
-                                                    class="fas fa-star text-warning ms-1"></i></span>
-                                        </div>
-                                        <!-- Content -->
-                                        <p class="text-truncate-2 mb-3">{{$item->about_me}}</p>
-                                        <!-- Info -->
-                                        <div class="d-sm-flex justify-content-sm-between align-items-center">
-                                            <!-- Title -->
-                                            <h6 class="text-orange mb-0">{{$item->skills}}</h6>
-
-                                            <!-- Social button -->
-                                            <ul class="list-inline mb-0 mt-3 mt-sm-0">
-                                                <li class="list-inline-item">
-                                                    <a class="mb-0 me-1 text-facebook" href="{{$item->social_networks}}"><i
-                                                            class="fab fa-fw fa-facebook-f"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a class="mb-0 me-1 text-instagram-gradient" href="#"><i
-                                                            class="fab fa-fw fa-instagram"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a class="mb-0 me-1 text-twitter" href="#"><i
-                                                            class="fab fa-fw fa-twitter"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a class="mb-0 text-linkedin" href="#"><i
-                                                            class="fab fa-fw fa-linkedin-in"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-                <!-- Card item END -->
             </div>
             <!-- Instructor list END -->
-
-            <!-- Pagination START -->
-            <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
-                <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                    <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
-                                class="fas fa-angle-double-left"></i></a></li>
-                    <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-                    <li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item mb-0"><a class="page-link" href="#"><i
-                                class="fas fa-angle-double-right"></i></a></li>
-                </ul>
-            </nav>
-            <!-- Pagination END -->
 
         </div>
     </section>
     <!-- =======================
-        Inner part END -->
+                Inner part END -->
 
     <!-- =======================
-        Action box START -->
+                Action box START -->
     <section class="pt-0">
         <div class="container position-relative">
             <!-- SVG -->
@@ -217,14 +128,50 @@
         </div>
     </section>
     <!-- =======================
-        Action box END -->
+                Action box END -->
 @endsection
 
 @section('js-links')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 @endsection
 @push('js-handles')
-    <script type="module">
+    <script>
+        objFiter = {
+            page: 1,
+            name: 0,
+            record: 10,
+            id: 'id_desc',
+            price: 0,
+            discount: 0,
+            cate_course: 0,
+        }
 
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('client.mentor.listData') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function search(elemment) {
+            objFiter.name = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSort(elemment) {
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page) {
+            objFiter.page = page
+            showAjax(objFiter);
+        }
     </script>
 @endpush

@@ -47,7 +47,7 @@ class TeacherController extends Controller
                 array_merge(
                     $request->all(),
                     [
-                        'avatar' => 'images/placeholder.png',
+                        'avatar' => 'images/avatar_icon.jpg',
                         'is_active' => 1,
                         'password' => Hash::make($password),
                     ],

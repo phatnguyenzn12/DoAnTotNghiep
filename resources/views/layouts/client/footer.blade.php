@@ -10,15 +10,15 @@
                 <img class="dark-mode-item h-40px" src="/frontend/images/logo-light.svg" alt="logo">
             </a>
 
-            <p class="my-3">Eduport education theme, built specifically for the education centers which is dedicated
-                to teaching and involving learners.</p>
+            <p class="my-3">Eduport là trang web giáo dục. Được xây dựng dành riêng cho các trung tâm giáo dục dành riêng cho
+                việc dạy học lập trình online nhằm thu hút người học tham gia.</p>
             <!-- Newsletter -->
             <form class="row row-cols-lg-auto g-2">
                 <div class="col-12">
-                    <input type="email" class="form-control" placeholder="Enter your email address">
+                    <input type="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-dark m-0">Subscribe</button>
+                    <button type="submit" class="btn btn-dark m-0">Đăng ký ngay</button>
                 </div>
             </form>
         </div>
@@ -29,30 +29,30 @@
             <div class="row g-4 g-lg-5">
                 <!-- Link block -->
                 <div class="col-6 col-sm-4">
-                    <h5 class="mb-2 mb-md-3">Company</h5>
+                    <h5 class="mb-2 mb-md-3">Eduport</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="#">About us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Contact us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">News and Blogs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Library</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Career</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Về chúng tôi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Tin tức </a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Giáo viên</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Mục tiêu hướng đến</a></li>
                     </ul>
                 </div>
 
                 <!-- Link block -->
                 <div class="col-6 col-sm-4">
-                    <h5 class="mb-2 mb-md-3">Teaching</h5>
+                    <h5 class="mb-2 mb-md-3">Giáo dục</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link pt-0" href="#">Become instructor</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Download</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                        <li class="nav-item"><a class="nav-link pt-0" href="#">Trở thành giáo viên</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Khóa học mới</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Đánh giá</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Dịch vụ</a></li>
                     </ul>
                 </div>
 
                 <!-- Link block -->
                 <div class="col-6 col-sm-4">
-                    <h5 class="mb-2 mb-md-3">Follow Us</h5>
+                    <h5 class="mb-2 mb-md-3">Mạng xã hội</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item"><a class="nav-link pt-0" href="#"><i
                                     class="fab fa-whatsapp fa-fw me-1"></i>WhatsApp</a></li>
@@ -77,13 +77,12 @@
         <div class="col-12">
             <div class="d-md-flex justify-content-between align-items-center pt-2 pb-4 text-center">
                 <!-- copyright text -->
-                <div class="text-primary-hover"> Copyrights <a href="#" class="text-reset">©2022 Eduport</a>. All
-                    rights reserved. </div>
+                <div class="text-primary-hover"> Eduport <a href="#" class="text-reset">website giáo dục</a> </div>
                 <!-- copyright links-->
                 <div class="nav justify-content-center mt-3 mt-md-0">
                     <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a class="nav-link" href="#">Terms of use</a></li>
-                        <li class="list-inline-item"><a class="nav-link" href="#">Privacy policy</a></li>
+                        <li class="list-inline-item"><a class="nav-link" href="#">Điều khoản sử dụng </a></li>
+                        <li class="list-inline-item"><a class="nav-link" href="#">Chính sách bảo mật</a></li>
                         <li class="list-inline-item pe-0"><a class="nav-link" href="#">Cookies</a></li>
                     </ul>
                 </div>
