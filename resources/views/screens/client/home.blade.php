@@ -138,10 +138,10 @@
                                     <div class="card-footer pt-0 pb-3">
                                         <hr>
                                         <div class="d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>
+                                            {{-- <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>
                                                 {{ $course->total_time }}
 
-                                            </span>
+                                            </span> --}}
 
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-table text-orange me-2"></i>{{ $course->lessons()->count() }}
@@ -274,8 +274,8 @@
                                         </div>
                                         <!-- Time -->
                                         <div class="hstack gap-3">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="far fa-clock text-danger me-2"></i>{{ $course->total_time }}</span>
+                                            {{-- <span class="h6 fw-light mb-0"><i
+                                                    class="far fa-clock text-danger me-2"></i>{{ $course->total_time }}</span> --}}
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-table text-orange me-2"></i>{{ $course->lessons->count() }}</span>
                                         </div>

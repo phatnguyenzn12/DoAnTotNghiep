@@ -19,11 +19,11 @@ class HomeController extends Controller
 
         $coursesAll = Course::select('*')->where('status', 1)->get();
 
-        $mentorAll = Mentor::select('*')->get();
+        $mentorAll = Mentor::select('*')->role('lead')->get();
 
         $studentAll = OwnerCourse::select('*')->get()->unique('user_id');
 
-        $courses =  Course::select('*');
+        $courses =  Course::select('*')->where('status', 1);
         
         if (auth()->user()) {
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
