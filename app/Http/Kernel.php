@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CheckAuthLesson;
 use App\Http\Middleware\CheckLead;
 use App\Http\Middleware\CheckLessonUserMentor;
@@ -79,6 +80,7 @@ class Kernel extends HttpKernel
         'check-lesson-user' => CheckLesssonUser::class,
         'check-user' => CheckUser::class,
         'check-mentor' => CheckMentor::class,
+        'check-admin' => CheckAdmin::class,
         'check-auth-lesson' => CheckAuthLesson::class,
         'check-out' => Checkout::class,
         'check-lead' => CheckLead::class,

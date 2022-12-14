@@ -106,10 +106,6 @@
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <div class="preview-image new"></div>
-                                <div class="preview-image old">
-                                    <img src="/"
-                                        style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
-                                </div>
                             </div>
                             @error('image')
                                 <p class="text-danger">{{ $message }}</p>

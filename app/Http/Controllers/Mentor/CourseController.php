@@ -32,7 +32,7 @@ class CourseController extends Controller
     public function filterData(Request $request)
     {
         $courses = Course::select('*')
-            ->where('mentor_id', auth()->guard('mentor')->user()->id)
+            ->where('cate_course_id', auth()->guard('mentor')->user()->cate_course_id)
             ->sortdata($request)
             ->search($request)
             ->isactive($request)

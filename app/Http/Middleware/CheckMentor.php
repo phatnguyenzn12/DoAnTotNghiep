@@ -18,7 +18,7 @@ class CheckMentor
     {
         if(!auth()->guard('mentor')->user())
         {
-            return redirect()->back()->with('failed','Bạn không có quyền đăng nhập');
+            return redirect()->back()->with('failed','Bạn không có quyền truy cập');
         }
         return $next($request);
     }

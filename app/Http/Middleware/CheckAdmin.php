@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckTeacher
+class CheckAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class CheckTeacher
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->guard('mentor')->user()->hasRole('teacher')) {
+        if (!auth()->guard('admin')->user()) {
             return redirect()->back()->with('failed', 'Bạn không có quyền truy cập');
         }
         return $next($request);

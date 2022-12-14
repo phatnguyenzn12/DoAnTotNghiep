@@ -17,7 +17,7 @@ class CheckLead
     public function handle(Request $request, Closure $next)
     {
         if (!auth()->guard('mentor')->user()->hasRole('lead')) {
-            return redirect()->back()->with('failed', 'Bạn không có quyền đăng nhập');
+            return redirect()->back()->with('failed', 'Bạn không có quyền truy cập');
         }
         return $next($request);
     }
