@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\CourseValidateRequest;
 use App\Models\Admin;
 use App\Models\CateCourse;
 use App\Models\Certificate;
@@ -15,6 +16,7 @@ use App\Models\Skill;
 use App\Services\UploadFileService;
 use Http\Message\Authentication\Chain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class CourseController extends Controller
@@ -66,7 +68,7 @@ class CourseController extends Controller
         }
         $course->status = $request->status;
         $course->save();
-        dd($course->status);
+        // dd($course->status);
         if ($course->status == 1) {
             dd(1);
             Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course) {
@@ -105,10 +107,9 @@ class CourseController extends Controller
         return view('screens.mentor.course.create', compact('cateCourses', 'skills', 'teachers'));
     }
 
-    public function store(Request $request)
+    public function store(CourseValidateRequest $request)
     {
         $image = UploadFileService::storage_image($request->image);
-
         $course = Course::create(
             array_merge(
                 $request->only([
@@ -122,6 +123,7 @@ class CourseController extends Controller
                     'cate_course_id',
                     'skill_id',
                     'language',
+                    'mentor_id',
                     'certificate',
                     'description',
                     'certificate_id'
@@ -144,7 +146,7 @@ class CourseController extends Controller
         return response()->json($data, 200);
     }
 
-    public function update(Request $request, Course $course)
+    public function update(CourseValidateRequest $request, Course $course)
     {
         $course->title = $request->title;
         $course->content = $request->content;
@@ -157,9 +159,11 @@ class CourseController extends Controller
         $course->description_details = implode(', ', collect(json_decode($request->description_details))->pluck('value')->toArray());
         $course->certificate_id =  $request->certificate_id;
 
-        if ($request->image) {
-            $image = UploadFileService::storage_image($request->image);
-            $course->image = $image;
+        $course->fill($request->except(['_method', '_token']));
+        if ($request->hasFile('image')) {
+            $imgPath = $request->file('image')->store('images');
+            $imgPath = str_replace('public/', '', $imgPath);
+            $course->image = $imgPath;
         }
 
         $course->save();

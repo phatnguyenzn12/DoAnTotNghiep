@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\TeacherValidateRequest;
 use App\Models\CateCourse;
 use App\Models\Chapter;
 use App\Models\Lesson;
@@ -34,7 +35,7 @@ class TeacherController extends Controller
         return response()->json($html,200);
     }
 
-    public function create(Request $request)
+    public function create( TeacherValidateRequest $request )
     {
         $skills = Skill::all();
         $specializes = Specialize::all();
@@ -46,7 +47,7 @@ class TeacherController extends Controller
                 array_merge(
                     $request->all(),
                     [
-                        'avatar' => 'images/placeholder.png',
+                        'avatar' => 'images/avatar_icon.jpg',
                         'is_active' => 1,
                         'password' => Hash::make($password),
                     ],

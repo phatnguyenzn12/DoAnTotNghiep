@@ -41,7 +41,6 @@ class CourseController extends Controller
         $start3 = CommentCourse::where('course_id', $course->id)->where('vote', 3)->get();
         $start4 = CommentCourse::where('course_id', $course->id)->where('vote', 4)->get();
         $start5 = CommentCourse::where('course_id', $course->id)->where('vote', 5)->get();
-        // dd($result_vote);
         $cmt = CommentCourse::where('course_id', $course->id)->get();
         $comments = $course->commentCourses()->get();
         return view('screens.client.course.intro', compact('course', 'comments', 'result_vote', 'cmt', 'start1', 'start2', 'start3', 'start4', 'start5'));

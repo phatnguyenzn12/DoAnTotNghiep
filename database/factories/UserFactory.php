@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => $email,
             'email_verified_at' => now(),
-            'avatar' => 'placeholder.png',
+            'avatar' => 'images/avatar_icon.jpg',
             'number_phone' => fake()->phoneNumber(),
             'password' => '$2a$12$7cb85hDoFwbLMxyz2MyWlut09LRSeDhsphhw623FkVA5skWFt024e', // 12345678
             'remember_token' => Str::random(10),

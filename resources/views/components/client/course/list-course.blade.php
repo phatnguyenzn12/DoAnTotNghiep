@@ -7,7 +7,7 @@
                 <div class="row g-0">
                     <!-- Image -->
                     <div class="col-md-4">
-                        <img src="/frontend/images/courses/4by3/06.jpg" alt="card image">
+                        <img src="{{asset('app/'.$course->image)}}" alt="card image">
                     </div>
 
                     <!-- Card body -->

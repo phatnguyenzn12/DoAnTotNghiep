@@ -30,23 +30,29 @@
                         <div class="form-group">
                             <label>Tiêu đề
                                 <span class="text-danger">*</span></label>
-                            <input type="text" value="{{ $course->title }}" name="title" class="form-control"
-                                placeholder="Nhập tiêu đề">
+                            <input type="text" value="{{ old('title') ?? $course->title }}" name="title"
+                                class="form-control" placeholder="Nhập tiêu đề">
                         </div>
-                        {{-- @error('title')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror --}}
+                        @error('title')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="form-group">
                             <label>Đường dẫn
                                 <span class="text-danger">*</span></label>
-                            <input value="{{ $course->slug }}" type="text" name="slug" class="form-control"
-                                placeholder="Đường dẫn">
+                            <input value="{{ old('slug') ?? $course->slug }}" type="text" name="slug"
+                                class="form-control" placeholder="Đường dẫn">
                         </div>
+                        @error('slug')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="form-group">
                             <label>Video demo</label>
-                            <input type="url" value="{{ $course->video }}" name="video" rows="5"
+                            <input type="url" value="{{ old('video') ?? $course->video }}" name="video" rows="5"
                                 class="form-control" placeholder="nhập đường dẫn video youtube" />
                         </div>
+                        @error('video')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="form-group">
                             <label>Kỹ năng</label>
                             <select id="select2" class="form-control" name="skill_id" id="">
@@ -57,6 +63,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('skill_id')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="form-group">
                             <label>Ngôn ngữ</label>
                             <select id="select2" class="form-control" name="language" id="">
@@ -65,6 +74,9 @@
                                 <option @selected($course->language == 1 ?? true) value="1">Tiếng anh</option>
                             </select>
                         </div>
+                        @error('language')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="form-group">
                             <label>Chọn giảng viên</label>
                             <select id="select2" class="form-control" name="language" id="">
@@ -79,21 +91,29 @@
                             <input id="kt_tagify_1" type="text" name="tags" class="form-control"
                                 value="{{ str_replace(',', ', ', $course->tags) }}" placeholder="Thẻ">
                         </div>
+
                         <div class="form-group">
                             <label>Giới thiệu</label>
-                            <textarea rows="5" class="form-control" value="{{ $course->content }}" name="content">{{ $course->content }}</textarea>
+                            <textarea rows="5" class="form-control" value="{{ old('content') ?? $course->content }}" name="content">{{ $course->content }}</textarea>
                         </div>
+                        @error('content')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea id="editor" rows="5" class="form-control" value="{{ $course->description }}" name="description"
-                                id="">{{ $course->description }}</textarea>
+                            <textarea id="editor" rows="5" class="form-control" value="{{ old('description') ?? $course->description }}"
+                                name="description" id="">{{ $course->description }}</textarea>
                         </div>
-                        <div class="form-group">
+                        @error('description')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                        <div class="form-group" hidden>
                             <label>Mô tả chi tiết</label>
                             <input id="kt_tagify_2" name="description_details" type="text"
                                 value="{{ str_replace(',', ', ', $course->description_details) }}" class="form-control">
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group" hidden>
                             <label>Danh mục</label>
                             <select name="cate_course_id" id="select2" class="form-control">
                                 <option value="">Chọn danh mục</option>
@@ -103,6 +123,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        {{-- @error('title')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror --}}
                         <div class="form-group">
                             <label>Ảnh slide</label>
                             <div class="custom-file">
@@ -116,7 +139,14 @@
                                     style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
                             </div>
                         </div>
+                        @error('image')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                             <a href="" class="btn btn-success mr-2">Danh sách slider</a>

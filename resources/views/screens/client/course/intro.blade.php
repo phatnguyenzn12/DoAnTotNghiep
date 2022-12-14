@@ -21,7 +21,8 @@
                             <p>{{ $course->content }}</p>
                             <!-- Content -->
                             <ul class="list-inline mb-0">
-                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="fas fa-star me-2"></i>
+                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
+                                    <i class="fas fa-star text-warning"></i>
                                     @if (count($result_vote) == 0)
                                         0
                                     @else
@@ -112,7 +113,7 @@
                                         @foreach ($course->chapters as $key => $chapter)
                                             <div class="col-12">
                                                 <!-- Curriculum item -->
-                                                <h5 class="mb-4">{{ $chapter->title }} (3 lectures)</h5>
+                                                <h5 class="mb-4">{{ $chapter->title }} ({{$chapter->lessons->count()}} Bài)</h5>
                                                 @foreach ($chapter->lessons as $key2 => $lesson)
                                                     <div class="d-sm-flex justify-content-sm-between align-items-center">
                                                         <div class="d-flex">
@@ -161,6 +162,7 @@
                         <!-- Curriculum END -->
 
                         @include('components.client.course.review')
+
 
                     </div>
                 </div>
@@ -355,7 +357,7 @@
 @section('js-links')
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
     <script>
@@ -390,5 +392,8 @@
                 }
             })
         }
+
+        let price: {{$course->current_price}};
+        let price1 = price.toLocaleString('vi', {style : 'currency', currency : 'VND'});
     </script>
 @endpush

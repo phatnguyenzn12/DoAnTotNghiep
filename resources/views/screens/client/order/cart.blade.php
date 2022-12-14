@@ -57,7 +57,10 @@
                                 <!-- Table body START -->
                                 <tbody class="border-top-0">
 
+
                                     @forelse ($carts as $cart)
+                                    <div style="margin-left: 420px"><span>Giá khuyến mãi</span> /
+                                    <span >Giá gốc</span></div>
                                         <!-- Table item -->
                                         <tr>
                                             <!-- Course item -->
@@ -65,7 +68,7 @@
                                                 <div class="d-lg-flex align-items-center">
                                                     <!-- Image -->
                                                     <div class="w-100px w-md-80px mb-2 mb-md-0">
-                                                        <img src="/frontend/images/courses/4by3/08.jpg" class="rounded"
+                                                        <img src="{{asset('app/' . $cart->image)}}" class="rounded"
                                                             alt="">
                                                     </div>
                                                     <!-- Title -->
@@ -77,7 +80,7 @@
 
                                             <!-- Amount item -->
                                             <td class="text-center">
-                                                <h5 class="text-success mb-0">{{ $cart->current_price }} đ / {{ $cart->price }} đ</h5>
+                                                <h5 class="text-success mb-0">{{number_format($cart->current_price) }} đ / {{number_format($cart->price) }} đ</h5>
                                             </td>
                                             <!-- Action item -->
                                             <form action="{{ route('client.order.cartRemove',$cart->id ) }}" id="remove" method="post">
@@ -115,7 +118,7 @@
                         <ul class="list-group list-group-borderless mb-2">
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Tổng giá</span>
-                                <span class="h6 fw-light mb-0 fw-bold">{{ $carts->sum('price') }}đ</span>
+                                <span class="h6 fw-light mb-0 fw-bold">{{number_format($carts->sum('price')) }}đ</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Giảm được</span>
@@ -123,7 +126,7 @@
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h5 mb-0">Kết quả</span>
-                                <span class="h5 mb-0">{{ $carts->sum('current_price') }}đ</span>
+                                <span class="h5 mb-0">{{number_format($carts->sum('current_price'))}}đ</span>
                             </li>
                         </ul>
 
@@ -133,9 +136,6 @@
                                 toán</a>
                         </div>
 
-                        <!-- Content -->
-                        <p class="small mb-0 mt-2 text-center">By completing your purchase, you agree to these <a
-                                href="#"><strong>Terms of Service</strong></a></p>
 
                     </div>
                     <!-- Card total END -->

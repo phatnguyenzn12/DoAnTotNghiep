@@ -121,7 +121,7 @@
                                         <div class="row p-3 g-2">
                                             <!-- Image -->
                                             <div class="col-3">
-                                                <img class="rounded-2" src="/frontend/images/book/02.jpg"
+                                                <img class="rounded-2" src="{{ asset('app/' . $cart->image) }}"
                                                     alt="avatar">
                                             </div>
 
@@ -134,7 +134,7 @@
                                                 </div>
                                                 <!-- Select item -->
                                                 <span>
-                                                    {{ $cart->current_price }}
+                                                    {{number_format($cart->current_price)  }}đ
                                                 </span>
                                             </div>
                                         </div>
@@ -179,13 +179,13 @@
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         @if (Auth::guard('admin')->user())
-                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('admin')->user()->avatar)}}"
                                 alt="avatar">
                         @elseif (Auth::guard('mentor')->user())
-                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('mentor')->user()->avatar)}}"
                                 alt="avatar">
                         @else
-                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('web')->user()->avatar)}}"
                                 alt="avatar">
                         @endif
                     </a>
@@ -199,13 +199,13 @@
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
                                     @if (Auth::guard('admin')->user())
-                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('admin')->user()->avatar)}}"
                                             alt="avatar">
                                     @elseif (Auth::guard('mentor')->user())
-                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('mentor')->user()->avatar)}}"
                                             alt="avatar">
                                     @else
-                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('web')->user()->avatar)}}"
                                             alt="avatar">
                                     @endif
                                 </div>

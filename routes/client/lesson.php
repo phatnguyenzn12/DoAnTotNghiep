@@ -30,6 +30,8 @@ Route::prefix('lesson')->name('client.certificate.')->middleware(['check-user'])
     function () {
         Route::post('course/{course}/get-certificate', 'getCertificate')->middleware(['check-lesson-user'])->name('getCertificate');
         Route::get('course/{certificate}/certificate', 'index')->name('index');
+        Route::get('exportpdf', 'exportpdf')->name('exportpdf');
+
     }
 );
 
