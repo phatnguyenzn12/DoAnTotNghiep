@@ -162,7 +162,7 @@
                                 <!-- About me -->
                                 <div class="col-12">
                                     <label class="form-label">Sở thích</label>
-                                    <textarea required name="about_me" value="{{ $user->about_me }}" class="form-control" rows="3"></textarea>
+                                    <input required name="about_me" value="{{ $user->about_me }}" class="form-control" rows="3">
                                     <div class="form-text">Mô tả ngắn về con người bạn.</div>
                                 </div>
 
