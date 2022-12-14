@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Lead\AccountRequest;
+use App\Models\Course;
 use App\Models\Mentor;
 use App\Models\PercentagePayable;
 use Illuminate\Http\Request;
