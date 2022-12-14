@@ -14,7 +14,7 @@
                     <div class="p-3 p-lg-5">
                         <!-- Title -->
                         <div class="text-center">
-                            <h2 class="fw-bold">Chào mừng bạn đến với cộng đồng lớn nhất của chúng tôi</h2>
+                            <h2 class="fw-bold">Chào mừng bạn đến khóa học online</h2>
                             <p class="mb-0 h6 fw-light">Hãy cùng tìm hiểu điều gì đó mới mẻ ngay hôm nay!</p>
                         </div>
                         <!-- SVG Image -->
@@ -52,7 +52,7 @@
                                 @csrf
                                 <!-- Email -->
                                 <div class="mb-4">
-                                    <label for="exampleInputEmail1" class="form-label">Email address *</label>
+                                    <label for="exampleInputEmail1" class="form-label">Địa chỉ email *</label>
                                     <div class="input-group input-group-lg">
                                         <span
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
@@ -64,7 +64,7 @@
                                 <!-- Button -->
                                 <div class="align-items-center">
                                     <div class="d-grid">
-                                        <button class="btn btn-primary mb-0" type="submit">Reset password</button>
+                                        <button class="btn btn-primary mb-0" type="submit">Đặt lại mật khẩu</button>
                                     </div>
                                 </div>
                             </form>

@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- =======================
-        Page Banner START -->
+                    Page Banner START -->
     <section class="pt-0">
         <div class="container-fluid px-0">
             <div class="card bg-blue h-100px h-md-200px rounded-0"
@@ -19,7 +19,7 @@
                             <div class="col-auto">
                                 <div class="avatar avatar-xxl position-relative mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                        src="/frontend/images/avatar/01.jpg">
+                                        src="{{ asset('app/' . $user->avatar) }}" alt="">
                                     <span
                                         class="badge text-bg-success rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Pro</span>
                                 </div>
@@ -54,10 +54,10 @@
         </div>
     </section>
     <!-- =======================
-        Page Banner END -->
+                    Page Banner END -->
 
     <!-- =======================
-        Page content START -->
+                    Page content START -->
     <section class="pt-0">
         <div class="container">
             <div class="row">
@@ -82,7 +82,7 @@
                                             class="bi bi-ui-checks-grid fa-fw me-2"></i>Khóa học của tôi</a>
                                     <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
                                             class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
-                                    <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i
+                                    <a class="list-group-item text-danger bg-danger-soft-hover" href="{{route('auth.logout')}}"><i
                                             class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                 </div>
                             </div>
@@ -135,7 +135,8 @@
                                 <div class="ms-4">
                                     <div class="d-flex">
                                         <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
-                                            data-purecounter-end="{{ auth()->user()->certificate->count() }}" data-purecounter-delay="300">0</h5>
+                                            data-purecounter-end="{{ auth()->user()->certificate->count() }}"
+                                            data-purecounter-delay="300">0</h5>
                                     </div>
                                     <p class="mb-0 h6 fw-light">Chứng chỉ đạt được</p>
                                 </div>
@@ -159,8 +160,8 @@
                                 <!-- Content -->
                                 <div class="col-md-8">
                                     <form class="rounded position-relative">
-                                        <input class="form-control pe-5 bg-transparent" type="search" placeholder="Search"
-                                            aria-label="Search">
+                                        <input class="form-control pe-5 bg-transparent" type="search"
+                                            placeholder="Search" aria-label="Search">
                                         <button
                                             class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
                                             type="submit">
@@ -254,10 +255,9 @@
                                                             class="btn btn-primary">Xem chứng chỉ</a>
                                                     </td>
                                                 @else
-                                                <td>
-                                                    <a
-                                                        class="btn btn-danger">không chứng chỉ</a>
-                                                </td>
+                                                    <td>
+                                                        <a class="btn btn-danger">không chứng chỉ</a>
+                                                    </td>
                                                 @endif
 
                                             </tr>
@@ -298,7 +298,7 @@
         </div>
     </section>
     <!-- =======================
-        Page content END -->
+                    Page content END -->
 @endsection
 @section('js-links')
 

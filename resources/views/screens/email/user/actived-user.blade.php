@@ -6,8 +6,8 @@
         <div style="display: block; width: 600px; max-width: 600px; margin: 0 auto !important;">
             <div
                 style="box-sizing: border-box; width: 100%; margin-bottom: 30px; background: #ffffff; border: 1px solid #f0f0f0;">
-                <div class="wrapper"
-                    style="box-sizing: border-box; font-size: 16px; vertical-align: top; padding: 30px;" valign="top">
+                <div class="wrapper" style="box-sizing: border-box; font-size: 16px; vertical-align: top; padding: 30px;"
+                    valign="top">
                     <div>
                         <img src="https://uphinh.vn/images/2022/12/12/d318e0b5ffac44949b85de3b1a907f14.png"
                             alt="d318e0b5ffac44949b85de3b1a907f14.png" border="0"
@@ -22,45 +22,25 @@
                                 Xin chào {{ $db->name }},<br>
                                 Bạn đã đăng ký tài khoản tại hệ thống học trực tuyến Eduport.
                             </p>
-                            <p>Tên tài khoản: {{ $db->email }}</p>
-                            <p>Chuyên môn: {{ $db->specializations }}</p>
+                            <p>Email đăng nhập: {{ $db->email }}</p>
                             <p>Mật khẩu: {{ $password }}</p>
-
-                            <p style=" margin-bottom: 15px;">Để đăng nhập và sử dụng hệ thống
-                                nhấn vào nút đăng nhập bên dưới</p>
-                            <p align="center"
-                                style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
-                                valign="top">
-                                <a href="{{ route('mentor.login') }}"
-                                    style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
-                                    target="_blank">Đăng nhập</a>
-                            </p>
                         @else
                             <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                                Xin chào {{ $mentor->name }},<br>
+                                Xin chào {{ $user_gg->name }},<br>
+                                Bạn đã đăng ký tài khoản tại hệ thống học trực tuyến Eduport.
                             </p>
-                            @if ($mentor->is_active == 0)
-                                <p>Hệ thống đã cập nhật trạng thái dừng tài khoản của bạn</p>
-                                <p align="center"
-                                    style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
-                                    valign="top">
-                                    <a href="#"
-                                        style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
-                                        target="_blank">Vui lòng liên hệ admin</a>
-                                </p>
-                            @else
-                                <p>Hệ thống đã cập nhật trạng thái hoạt động tài khoản của bạn</p>
-                                <p style=" margin-bottom: 15px;">Để đăng nhập và sử dụng hệ thống
-                                    nhấn vào nút đăng nhập bên dưới</p>
-                                <p align="center"
-                                    style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
-                                    valign="top">
-                                    <a href="{{ route('mentor.login') }}"
-                                        style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
-                                        target="_blank">Đăng nhập</a>
-                                </p>
-                            @endif
+                            <p>Email đăng nhập: {{ $user_gg->email }}</p>
+                            <p>Mật khẩu của bạn là: {{ $password_gg }}</p>
                         @endif
+                        <p style=" margin-bottom: 15px;">Để đăng nhập và sử dụng hệ thống
+                            nhấn vào nút đăng nhập bên dưới</p>
+                        <p align="center"
+                            style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
+                            valign="top">
+                            <a href="{{ route('auth.login') }}"
+                                style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
+                                target="_blank">Đăng nhập</a>
+                        </p>
                         <p>Cảm ơn bạn!</p>
                         <p>Đã sử dụng hệ thống của chúng tôi!</p>
                     </div>

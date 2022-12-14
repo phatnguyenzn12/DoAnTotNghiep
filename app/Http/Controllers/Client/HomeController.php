@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Banner;
 use App\Models\CateCourse;
+use App\Models\CommentCourse;
 use App\Models\Mentor;
 use App\Models\OwnerCourse;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ class HomeController extends Controller
         $studentAll = OwnerCourse::select('*')->get()->unique('user_id');
 
         $courses =  Course::select('*');
-
+        
         if (auth()->user()) {
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
             $courses = $courses->whereNotIn('id', $courses_id);
@@ -38,7 +39,8 @@ class HomeController extends Controller
             }
         );
 
-        return view('screens.client.home', compact('courses', 'cate', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
+        $interView = Banner::select('*')->where('status', 1)->get();
+        return view('screens.client.home', compact('courses', 'cate','interView', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
     }
 
     public function banner(){

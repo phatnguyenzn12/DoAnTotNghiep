@@ -39,8 +39,8 @@ return [
             'host' => 'smtp.gmail.com',
             'port' => 587,
             'encryption' => 'tls',
-            'username' => 'ducanh23072002a@gmail.com',
-            'password' => 'fdxsdnzsrzntifoy',
+            'username' => 'eduport.vietnam@gmail.com',
+            'password' => 'utayaqkxwkllksxy',
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
@@ -92,8 +92,8 @@ return [
     */
 
     'from' => [
-        'address' => 'ducanh23072002a@gmail.com',
-        'name' => 'Bán khóa học lập trình cho trẻ',
+        'address' => 'eduport.vietnam@gmail.com',
+        'name' => 'Khóa học lập trình Eduport',
     ],
 
     /*

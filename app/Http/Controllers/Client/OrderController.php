@@ -32,6 +32,9 @@ class OrderController extends Controller
     //ngăn chăn id khóa học đã mua
     public function addToCart(Request $request, Course $course)
     {
+        if (!auth()->user()) {
+            return redirect()->route('auth.login');
+        }
         $carts = auth()->user()->load('carts')->carts;
         if ($carts->contains('id', $course->id)) {
             return back()->with('failed', 'Sản phẩm đã tồn tại trong giỏ');
