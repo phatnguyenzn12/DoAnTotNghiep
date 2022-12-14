@@ -10,17 +10,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="bg-light p-4 text-center rounded-3">
-                        <h1 class="m-0">My cart</h1>
+                        <h1 class="m-0">Giỏ hàng của tôi</h1>
                         <!-- Breadcrumb -->
-                        <div class="d-flex justify-content-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb breadcrumb-dots mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Courses</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
-                                </ol>
-                            </nav>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -134,9 +125,6 @@
                                 toán</a>
                         </div>
 
-                        <!-- Content -->
-                        <p class="small mb-0 mt-2 text-center">By completing your purchase, you agree to these <a
-                                href="#"><strong>Terms of Service</strong></a></p>
 
                     </div>
                     <!-- Card total END -->
