@@ -25,8 +25,8 @@ class ChapterValidateRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5',
-            'number' => 'required',
-            'mentor_id' => 'required',
+            // 'number' => 'required',
+            // 'mentor_id' => 'required',
 
         ];
     }
@@ -36,8 +36,8 @@ class ChapterValidateRequest extends FormRequest
         return [
             'title.required' => 'Vui lòng nhập tiêu đề',
             'title.min' => 'Số kí tự lớn hơn 5',
-            'number.required' => 'Vui lòng nhập số bài học',
-            'mentor_id.required'=> 'Vui lòng chọn Giảng viên',
+            // 'number.required' => 'Vui lòng nhập số bài học',
+            // 'mentor_id.required'=> 'Vui lòng chọn Giảng viên',
 
         ];
     }

@@ -10,14 +10,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="bg-light p-4 text-center rounded-3">
-                        <h1 class="m-0">My cart</h1>
+                        <h1 class="m-0">Giỏ hàng của tôi</h1>
                         <!-- Breadcrumb -->
                         <div class="d-flex justify-content-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-dots mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Courses</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                                    <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">giỏ hàng</li>
                                 </ol>
                             </nav>
                         </div>
@@ -58,7 +57,10 @@
                                 <!-- Table body START -->
                                 <tbody class="border-top-0">
 
+
                                     @forelse ($carts as $cart)
+                                    <div style="margin-left: 420px"><span>Giá khuyến mãi</span> /
+                                    <span >Giá gốc</span></div>
                                         <!-- Table item -->
                                         <tr>
                                             <!-- Course item -->
@@ -78,7 +80,7 @@
 
                                             <!-- Amount item -->
                                             <td class="text-center">
-                                                <h5 class="text-success mb-0">{{ $cart->current_price }} đ / {{number_format($cart->price) }} đ</h5>
+                                                <h5 class="text-success mb-0">{{number_format($cart->current_price) }} đ / {{number_format($cart->price) }} đ</h5>
                                             </td>
                                             <!-- Action item -->
                                             <form action="{{ route('client.order.cartRemove',$cart->id ) }}" id="remove" method="post">
@@ -134,9 +136,6 @@
                                 toán</a>
                         </div>
 
-                        <!-- Content -->
-                        <p class="small mb-0 mt-2 text-center">By completing your purchase, you agree to these <a
-                                href="#"><strong>Terms of Service</strong></a></p>
 
                     </div>
                     <!-- Card total END -->

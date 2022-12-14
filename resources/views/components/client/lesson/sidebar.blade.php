@@ -91,7 +91,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if ($chapter->checkChapterReview() == null)
+                                    {{-- @if ($chapter->checkChapterReview() == null)
                                         <button class="btn btn-success mb-3" data-toggle="modal"
                                             data-bs-target="#modal-example"data-bs-toggle="modal"
                                             data-bs-target="#viewReview"
@@ -104,7 +104,7 @@
                                             data-bs-target="#viewReview"
                                             onclick="showAjaxModal('{{ route('client.chapter.getEditReview', ['chapterReview' => $chapter->chapterReview->id]) }}','Sửa đánh giá chương học: {{ $chapter->title }}')">
                                             <i class="fas fa-pen-nib"></i> sửa đánh giá</button>
-                                    @endif
+                                    @endif --}}
 
                                 </div>
                                 <!--end Item -->
@@ -124,7 +124,7 @@
 
     <div class="card-footer">
         <div class="d-grid">
-            <a href="course-detail.html" class="btn btn-primary mb-0">Thoát khỏi khóa học</a>
+            <a href="{{ route('client') }}" class="btn btn-primary mb-0">Thoát khỏi khóa học</a>
         </div>
     </div>
 </div>

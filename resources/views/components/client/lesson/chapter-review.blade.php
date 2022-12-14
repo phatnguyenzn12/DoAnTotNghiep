@@ -77,7 +77,7 @@
             <h1 class="mb-0">Gỉang viên: {{ $mentor->name }}</h1>
 
 
-            
+
             <div class="mt-2">
                 <h5 class="mb-4">Đánh giá chương học: {{ $chapter->title }}</h5>
                 <form class="row g-3" action="{{ route('client.chapter.postReview',$chapter->id) }}" method="post">
