@@ -179,7 +179,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Price -->
                                         <div class="d-flex align-items-center">
-                                            <h3 class="fw-bold mb-0 me-2">{{ number_format($course->current_price) }}đ</h3>
+                                            <h3 class="fw-bold mb-0 me-2">{{ number_format($course->current_price )}}đ</h3>
                                             <span
                                                 class="text-decoration-line-through mb-0 me-2">{{ number_format($course->price) }}đ</span>
                                             <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
