@@ -7,7 +7,7 @@
       </div>
 
       <form class="w-100 d-flex has-validation-ajax" method="POST"
-          action="{{ route('client.lesson.parentComment', $lesson->id) }}">
+          action="{{ route('client.lesson.parentComment', $lesson->id, $course->id ) }}">
           @csrf
           <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
               placeholder="Thêm bình luận..."></textarea>

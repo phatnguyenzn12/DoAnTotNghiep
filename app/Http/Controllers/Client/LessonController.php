@@ -82,8 +82,10 @@ class LessonController extends Controller
         return response()->json($html);
     }
 
-    public function parentComment(Request $request, Lesson $lesson)
+    public function parentComment(Request $request, Lesson $lesson, Course $course)
     {
+        $course = Course::where('id',$request->course)->first();
+
         $data = $request->only('comment');
         $data['lesson_id'] = $lesson->id;
 
@@ -103,11 +105,11 @@ class LessonController extends Controller
             ->get();
 
         Notification::send(
-            $lesson->chapter->mentor,
+            $course->mentor,
             new CommentLessonNotification(
                 [
                     'lesson_id' => $lesson->id,
-                    'course_id'  => $lesson->chapter->course->id,
+                    'course_id'  => $course->id,
                     'content' => $data['comment'],
                     'name' => auth()->user()->name,
                 ]

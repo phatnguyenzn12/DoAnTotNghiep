@@ -104,7 +104,7 @@
                                 <div class="col-12">
                                     <h5 class="mb-4">Thảo luận bài học</h5>
 
-                    
+
                                     <div class="comment-show-list">
                                         @include('components.client.lesson.comment')
                                     </div>
