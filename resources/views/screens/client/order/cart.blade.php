@@ -49,7 +49,10 @@
                                 <!-- Table body START -->
                                 <tbody class="border-top-0">
 
+
                                     @forelse ($carts as $cart)
+                                    <div style="margin-left: 420px"><span>Giá khuyến mãi</span> /
+                                    <span >Giá gốc</span></div>
                                         <!-- Table item -->
                                         <tr>
                                             <!-- Course item -->
@@ -69,7 +72,7 @@
 
                                             <!-- Amount item -->
                                             <td class="text-center">
-                                                <h5 class="text-success mb-0">{{ $cart->current_price }} đ / {{number_format($cart->price) }} đ</h5>
+                                                <h5 class="text-success mb-0">{{number_format($cart->current_price) }} đ / {{number_format($cart->price) }} đ</h5>
                                             </td>
                                             <!-- Action item -->
                                             <form action="{{ route('client.order.cartRemove',$cart->id ) }}" id="remove" method="post">
