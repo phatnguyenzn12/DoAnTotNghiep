@@ -19,11 +19,11 @@ class HomeController extends Controller
 
         $coursesAll = Course::select('*')->where('status', 1)->get();
 
-        $mentorAll = Mentor::select('*')->get();
+        $mentorAll = Mentor::select('*')->role('lead')->get();
 
         $studentAll = OwnerCourse::select('*')->get()->unique('user_id');
 
-        $courses =  Course::select('*');
+        $courses =  Course::select('*')->where('status', 1);
         
         if (auth()->user()) {
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
@@ -39,15 +39,8 @@ class HomeController extends Controller
             }
         );
 
-        $result_votes = CommentCourse::all();
-        $start1 = CommentCourse::where('vote', 1)->get();
-        $start2 = CommentCourse::where('vote', 2)->get();
-        $start3 = CommentCourse::where('vote', 3)->get();
-        $start4 = CommentCourse::where('vote', 4)->get();
-        $start5 = CommentCourse::where('vote', 5)->get();
-        
         $interView = Banner::select('*')->where('status', 1)->get();
-        return view('screens.client.home', compact('courses', 'cate','interView', 'coursesAll', 'mentorAll', 'studentAll','certificateAll','result_votes', 'start1', 'start2', 'start3', 'start4', 'start5'));
+        return view('screens.client.home', compact('courses', 'cate','interView', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
     }
 
     public function banner(){
