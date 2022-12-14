@@ -4,7 +4,7 @@ use App\Http\Controllers\Mentor\CertificateController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('mentor/certificate')->name('mentor.certificate.')->controller(CertificateController::class)->group(
+Route::prefix('mentor/certificate')->name('mentor.certificate.')->middleware(['check-mentor','check-lead'])->controller(CertificateController::class)->group(
     function () {
         Route::get('index','index')->name('index');
         Route::get('list-data/{search?}/{record?}','filterData')->name('listData');

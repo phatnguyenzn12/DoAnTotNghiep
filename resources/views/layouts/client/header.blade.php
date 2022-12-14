@@ -66,13 +66,9 @@
                     <ul class="dropdown-menu" aria-labelledby="demoMenu">
                         <li> <a class="dropdown-item" href="{{ route('client.mentor.list') }}">Người giảng dạy</a>
                         </li>
-                        <li> <a class="dropdown-item" href="{{ route('client.mentor.index') }}">Trở thành giáo viên</a>
-                        </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Danh sách khóa học</a>
                         </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Liên hệ</a>
-                        </li>
-                        <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Chính sách</a>
                         </li>
                     </ul>
                 </li>

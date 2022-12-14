@@ -211,7 +211,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <!-- Image -->
                                                         <div class="w-100px">
-                                                            <img src="/frontend/images/courses/4by3/02.jpg"
+                                                            <img src="{{ asset('app/'.$course->image) }}"
                                                                 class="rounded" alt="">
                                                         </div>
                                                         <div class="mb-0 ms-2">

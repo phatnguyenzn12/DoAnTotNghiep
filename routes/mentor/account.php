@@ -3,7 +3,7 @@
 use App\Http\Controllers\Mentor\AccountController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('mentor/account')->name('mentor.account.')->controller(AccountController::class)->group(
+Route::prefix('mentor/account')->name('mentor.account.')->middleware(['check-mentor','check-lead'])->controller(AccountController::class)->group(
     function () {
         Route::get('index','index')->name('index');
         Route::post('update/{id}','update')->name('update');
