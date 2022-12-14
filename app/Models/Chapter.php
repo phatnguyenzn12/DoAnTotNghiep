@@ -27,10 +27,10 @@ class Chapter extends BaseModel
         return $this->belongsTo(Course::class);
     }
 
-    // public function chapterReview()
-    // {
-    //     return $this->hasOne(ChapterReview::class);
-    // }
+    public function chapterReview()
+    {
+        return $this->hasOne(ChapterReview::class);
+    }
 
     // public function checkChapterReview()
     // {

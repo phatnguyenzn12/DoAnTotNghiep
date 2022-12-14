@@ -121,7 +121,7 @@
                                         <div class="row p-3 g-2">
                                             <!-- Image -->
                                             <div class="col-3">
-                                                <img class="rounded-2" src="/frontend/images/book/02.jpg"
+                                                <img class="rounded-2" src="{{ asset('app/' . $cart->image) }}"
                                                     alt="avatar">
                                             </div>
 
@@ -134,7 +134,7 @@
                                                 </div>
                                                 <!-- Select item -->
                                                 <span>
-                                                    {{ $cart->current_price }}
+                                                    {{number_format($cart->current_price)  }}đ
                                                 </span>
                                             </div>
                                         </div>

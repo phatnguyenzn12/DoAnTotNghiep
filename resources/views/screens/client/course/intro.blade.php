@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- =======================
-                                                                                                                                                    Page content START -->
+                                                                                                                                                        Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -21,7 +21,8 @@
                             <p>{{ $course->content }}</p>
                             <!-- Content -->
                             <ul class="list-inline mb-0">
-                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0"><i class="fas fa-star me-2"></i>
+                                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
+                                    <i class="fas fa-star text-warning"></i>
                                     @if (count($result_vote) == 0)
                                         0
                                     @else
@@ -162,6 +163,7 @@
 
                         @include('components.client.course.review')
 
+
                     </div>
                 </div>
                 <!-- Main content END -->
@@ -177,9 +179,9 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Price -->
                                         <div class="d-flex align-items-center">
-                                            <h3 class="fw-bold mb-0 me-2">{{ $course->current_price }}đ</h3>
+                                            <h3 class="fw-bold mb-0 me-2">{{ number_format($course->current_price) }}đ</h3>
                                             <span
-                                                class="text-decoration-line-through mb-0 me-2">{{ $course->price }}đ</span>
+                                                class="text-decoration-line-through mb-0 me-2">{{ number_format($course->price) }}đ</span>
                                             <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
                                         </div>
                                         <!-- Share button with dropdown -->
@@ -280,7 +282,8 @@
                                                 alt="avatar">
                                         </div>
                                         <div class="ms-sm-3 mt-2 mt-sm-0">
-                                            <h5 class="mb-0"><a href="#">{{ $course->mentor->name }} <span class="text-danger">(quản lý)</span></a></h5>
+                                            <h5 class="mb-0"><a href="#">{{ $course->mentor->name }} <span
+                                                        class="text-danger">(quản lý)</span></a></h5>
                                             <p class="mb-0 small">{{ $course->mentor->specializations }}</p>
                                         </div>
                                     </div>
@@ -365,7 +368,7 @@
 @section('js-links')
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
     <script>

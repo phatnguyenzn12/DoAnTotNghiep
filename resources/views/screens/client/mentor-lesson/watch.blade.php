@@ -140,7 +140,7 @@
     </section>
 @endsection
 @section('js-links')
-
+<script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
     <script>

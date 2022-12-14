@@ -21,14 +21,13 @@
                          {{ round($resultvote / count($result_vote), 0) }}</h1>
                      @for ($j = 0; $j < 5; $j++)
                          @if ($j < round($resultvote / count($result_vote), 0))
-                             <ion-icon style="font-size: 18px" name="star" class="text-yellow-300"></ion-icon>
+                             <span style="font-size: 18px; color: rgb(255, 255, 0)" class="fa fa-star"></span>
                          @else
-                             <ion-icon style="font-size: 18px" name="star" class="text-gray-300">
-                             </ion-icon>
+                             <span style="font-size: 18px" class="fa fa-star"></span>
                          @endif
                      @endfor
                  @endif
-                 <p class="mb-0">(Based on todays review)</p>
+                 {{-- <p class="mb-0">(Based on todays review)</p> --}}
              </div>
          </div>
 
@@ -164,7 +163,6 @@
          </div>
      </div>
      <!-- Review END -->
-
      <!-- Student review START -->
      <div class="row">
          <!-- Review item START -->
@@ -227,11 +225,11 @@
                      <!-- Rating -->
                      <div class="col-12">
                          <select id="inputState2" name="vote" class="form-select  js-choice">
-                             <option selected="" value="5">★★★★★ (5/5)</option>
-                             <option value="4">★★★★☆ (4/5)</option>
-                             <option value="3">★★★☆☆ (3/5)</option>
-                             <option value="2">★★☆☆☆ (2/5)</option>
-                             <option value="1">★☆☆☆☆ (1/5)</option>
+                             <option style=" color: orange" value="5" checked ="" >★★★★★ (5/5)</option>
+                             <option style=" color: orange" value="4">★★★★☆ (4/5)</option>
+                             <option style=" color: orange" value="3">★★★☆☆ (3/5)</option>
+                             <option style=" color: orange" value="2">★★☆☆☆ (2/5)</option>
+                             <option style=" color: orange" value="1">★☆☆☆☆ (1/5)</option>
                          </select>
                      </div>
                      <!-- Message -->
