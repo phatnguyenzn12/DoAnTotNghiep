@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckLesssonUser
+class Checkout
 {
     /**
      * Handle an incoming request.
@@ -16,18 +16,10 @@ class CheckLesssonUser
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if (
-            auth()->user()->load('lesson_user')
-            ->lesson_user->isEmpty() == true
-        ) {
-            return redirect()->back()->with('failed', 'bạn chưa học xong bài học');
+        if(auth()->user()->load('carts')->carts->isEmpty() == true)
+        {
+            return redirect()->back()->with('failed','Bạn chưa có khóa học nào trong giỏ hàng');
         }
-
-        if (!$request->route()->parameter('course')) {
-            return redirect()->back()->with('failed', 'Thiếu khóa học');
-        }
-
         return $next($request);
     }
 }

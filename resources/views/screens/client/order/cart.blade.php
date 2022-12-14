@@ -10,14 +10,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="bg-light p-4 text-center rounded-3">
-                        <h1 class="m-0">Giỏ hàng</h1>
+                        <h1 class="m-0">Giỏ hàng của tôi</h1>
                         <!-- Breadcrumb -->
                         <div class="d-flex justify-content-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-dots mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Khóa học</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                                    <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">giỏ hàng</li>
                                 </ol>
                             </nav>
                         </div>

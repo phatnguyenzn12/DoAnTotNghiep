@@ -17,4 +17,9 @@ class PercentagePayable extends Model
         'amount_paid_admin',
         'amount_paid_teacher',
     ];
+
+    public function order_detail()
+    {
+        return $this->belongsTo(OrderDetail::class,'order_detail_id');
+    }
 }
