@@ -21,14 +21,14 @@
                              {{ round($resultvote / count($result_vote), 0) }}</h1>
                          @for ($j = 0; $j < 5; $j++)
                              @if ($j < round($resultvote / count($result_vote), 0))
-                                 <ion-icon style="font-size: 18px" name="star" class="text-yellow-300"></ion-icon>
+                             <span style="font-size: 18px; color: rgb(255, 255, 0)" class="fa fa-star"></span>
                              @else
-                                 <ion-icon style="font-size: 18px" name="star" class="text-gray-300">
-                                 </ion-icon>
+                             <span style="font-size: 18px" class="fa fa-star"></span>
+
                              @endif
                          @endfor
                      @endif
-                     <p class="mb-0">(Based on todays review)</p>
+                     {{-- <p class="mb-0">(Based on todays review)</p> --}}
                  </div>
              </div>
 
@@ -40,16 +40,16 @@
                          <?php $s = count($result_vote);
                          count($start5);
                          $a = round(count($start5) / $s, 1) * 100;
-                         
+
                          count($start4);
                          $b = round(count($start4) / $s, 1) * 100;
-                         
+
                          count($start3);
                          $c = round(count($start3) / $s, 1) * 100;
-                         
+
                          count($start2);
                          $d = round(count($start2) / $s, 1) * 100;
-                         
+
                          count($start1);
                          $e = round(count($start1) / $s, 1) * 100;
                          ?>

@@ -14,7 +14,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('mentor.course.store') }}">
+                        <form class="contact-form" method="POST" enctype="multipart/form-data"
+                            action="{{ route('mentor.course.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label>Tiêu đề
@@ -22,21 +23,26 @@
                                 <input type="text" value="" name="title" class="form-control"
                                     placeholder="Nhập tiêu đề">
                             </div>
-                            {{-- @error('title')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror --}}
+                            @error('title')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label>Đường dẫn
                                     <span class="text-danger">*</span></label>
                                 <input value="" type="text" name="slug" class="form-control"
                                     placeholder="Đường dẫn">
                             </div>
-
+                            @error('slug')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label>Video demo</label>
                                 <input type="url" name="video" rows="5" class="form-control"
                                     placeholder="nhập đường dẫn video youtube" />
                             </div>
+                            @error('video')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label>Kỹ năng</label>
                                 <select id="select2" class="form-control" name="skill_id" id="">
@@ -46,6 +52,9 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @error('skill_id')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label>Ngôn ngữ</label>
                                 <select id="select2" class="form-control" name="language" id="">
@@ -54,6 +63,9 @@
                                     <option value="1">Tiếng anh</option>
                                 </select>
                             </div>
+                            @error('language')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label>Chọn giảng viên</label>
                                 <select id="select2" class="form-control" name="mentor_id" id="">
@@ -75,21 +87,32 @@
                                 <label>Giới thiệu</label>
                                 <textarea rows="5" class="form-control" name="content"></textarea>
                             </div>
+                            @error('content')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label>Mô tả</label>
                                 <textarea id="editor" rows="5" class="form-control" name="description" id=""></textarea>
                             </div>
-                            <div class="form-group">
+                            @error('description')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            <div class="form-group" hidden>
                                 <label>Mô tả chi tiết</label>
                                 <input id="kt_tagify_2" class="form-control" name='description_details'
                                     placeholder='Write some tags' />
                             </div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
 
                             <div class="form-group">
                                 <label>Ảnh slide</label>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input file-image" name="image"
-                                        accept=".png, .jpg, .jpeg, .jfif, .webp" id="customFile">
+                                        accept="doc,pdf,rtf,docx"
+                                         {{-- accept=".png, .jpg, .jpeg, .jfif, .webp" --}} id="customFile">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <div class="preview-image new"></div>
@@ -98,7 +121,11 @@
                                         style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
                                 </div>
                             </div>
-                            <input type="text" name="cate_course_id" id="" value="{{auth()->guard('mentor')->user()->cate_course_id}}" hidden>
+                            @error('image')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            <input type="text" name="cate_course_id" id=""
+                                value="{{ auth()->guard('mentor')->user()->cate_course_id }}" hidden>
 
 
                             <div class="form-group">
@@ -130,5 +157,8 @@
                 $('[name="slug"]').val(ChangeToSlug(title))
             })
         })
+
+        // validate image
+
     </script>
 @endpush

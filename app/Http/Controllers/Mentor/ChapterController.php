@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\ChapterValidateRequest;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -22,7 +23,7 @@ class ChapterController extends Controller
         return response()->json($data);
     }
 
-    public function store(Request $request)
+    public function store(ChapterValidateRequest $request)
     {
         Chapter::create(
             array_merge(
@@ -60,7 +61,7 @@ class ChapterController extends Controller
         return response()->json($data, 200);
     }
 
-    public function update(Request $request, $chapter)
+    public function update(ChapterValidateRequest $request, $chapter)
     {
         try {
             $chapter = Chapter::findOrFail($chapter);

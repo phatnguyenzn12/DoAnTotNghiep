@@ -21,31 +21,51 @@
                                     <span class="text-danger">*</span></label>
                                 <input type="text" value="" name="name" class="form-control"
                                     placeholder="Nhập tên">
+                                @error('name')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
+
                             <div class="form-group">
                                 <label>Địa chỉ Email
                                     <span class="text-danger">*</span></label>
                                 <input value="" type="email" name="email" class="form-control"
                                     placeholder="Info@example.com">
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
+
                             <div class="form-group">
                                 <label>Số điện thoại
                                     <span class="text-danger">*</span></label>
-                                <input value="" type="text" name="number_phone" class="form-control"
+                                <input value="" type="number" name="number_phone" class="form-control"
                                     placeholder="+543 5445 0543">
+                                @error('number_phone')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
+
                             <div class="form-group">
                                 <label>Giáo dục
                                     <span class="text-danger">*</span></label>
                                 <input type="text" value="" name="educations" class="form-control"
                                     placeholder="Giáo dục">
+                                @error('educations')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
+
                             <div class="form-group">
                                 <label>Năm kinh nghiệm
                                     <span class="text-danger">*</span></label>
                                 <input type="number" value="" name="years_in_experience" class="form-control"
                                     placeholder="Năm kinh nghiệm">
+                                @error('years_in_experience')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
+
                             <div class="form-group">
                                 <label>Chuyên môn</label>
                                 <input id="kt_tagify_1" class="form-control" name='specializations' placeholder='Thẻ'
