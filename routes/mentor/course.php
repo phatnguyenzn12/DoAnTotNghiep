@@ -4,7 +4,7 @@
 use App\Http\Controllers\mentor\CourseController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('mentor/course')->name('mentor.course.')->controller(CourseController::class)->group(
+Route::prefix('mentor/course')->name('mentor.course.')->middleware(['check-mentor','check-lead'])->controller(CourseController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('list-data','filterData')->name('listData');

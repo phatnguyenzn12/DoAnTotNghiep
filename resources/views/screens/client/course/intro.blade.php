@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- =======================
-                                                                                                                                                                        Page content START -->
+                                                                                                                                                                                    Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -181,7 +181,7 @@
                     <div data-sticky data-margin-top="80" data-sticky-for="768">
                         <div class="row g-4">
                             <div class="col-md-6 col-xl-12">
-                                @if (!auth()->user())
+                                @if (!$course->users()->get()->contains(auth()->user()->id))
                                     <!-- Course info START -->
                                     <div class="card card-body border p-4">
                                         <!-- Price and share button -->
@@ -195,27 +195,8 @@
                                                     class="text-decoration-line-through mb-0 me-2">{{ number_format($course->price) }}đ</span>
                                                 <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
                                             </div>
-                                            <!-- Share button with dropdown -->
-                                            <div class="dropdown">
-                                                <a href="#" class="btn btn-sm btn-light rounded mb-0 small"
-                                                    role="button" id="dropdownShare" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="fas fa-fw fa-share-alt"></i>
-                                                </a>
-                                                <!-- dropdown button -->
-                                                <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
-                                                    aria-labelledby="dropdownShare">
-                                                    <li><a class="dropdown-item" href="#"><i
-                                                                class="fab fa-twitter-square me-2"></i>Twitter</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i
-                                                                class="fab fa-facebook-square me-2"></i>Facebook</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i
-                                                                class="fab fa-linkedin me-2"></i>LinkedIn</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i
-                                                                class="fas fa-copy me-2"></i>Copy link</a></li>
-                                                </ul>
-                                            </div>
                                         </div>
+                                    </div>
                                 @endif
 
                                 <!-- Buttons -->
