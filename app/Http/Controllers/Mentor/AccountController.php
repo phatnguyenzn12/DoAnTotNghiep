@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\AccountRequest;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,23 +36,27 @@ class AccountController extends Controller
         }
     }
 
-      public function password(){
+    public function password()
+    {
 
         return view('screens.mentor.account.forgot-password');
-      }
+    }
 
     public function forgotPassword(Request $request, $id)
     {
 
         $mentor = Auth::guard('mentor')->user($id);
+        if($request->password == ''){
+            return redirect()->back()->with('error', 'Chưa nhập mật khẩu');
+        }
         if (Hash::check($request->password, $mentor->password)) {
             if ($request->password_1 == $request->password_2) {
                 $passnew = Hash::make($request->password_2);
                 $us = new Mentor();
                 $us->updatePass($id, $passnew);
                 return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
-            } else {
-                return redirect()->back()->with('error1', 'Mật khẩu mới không khớp !');
+            } elseif ($request->password_1 != $request->password_2) {
+                 return redirect()->back()->with('error1', 'Đổi thất bại');
             }
         } else {
             return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');
