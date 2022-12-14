@@ -130,7 +130,24 @@
                                             <li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i>
                                             </li>
                                             <li class="list-inline-item ms-2 h6 fw-light mb-0">
-                                                4.5/5.0
+                                                {{-- @php $item = 0 @endphp
+                                                @foreach ($result_votes as $result_vote)
+                                                    @if ($result_vote->course_id == $course->id)
+                                                        {{ $item++ }}
+                                                    @endif
+                                                @endforeach
+                                                @if ($item == 0)
+                                                    0
+                                                @else
+                                                    <div hidden>
+                                                        {{ $resultvote = 0 }}
+                                                        @foreach ($result_vote as $vote)
+                                                            {{ $resultvote += $vote->vote }}
+                                                        @endforeach
+                                                    </div>
+                                                    {{ round($resultvote / count($result_vote), 0) }}
+                                                @endif
+                                                /5.0 --}}
                                             </li>
                                         </ul>
                                     </div>
