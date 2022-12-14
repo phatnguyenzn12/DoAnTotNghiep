@@ -22,6 +22,6 @@ class CommentCourseController extends Controller
 
         CommentCourse::create($input);
 
-        return back();
+        return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá');
     }
 }

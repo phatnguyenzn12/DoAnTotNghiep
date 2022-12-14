@@ -12,5 +12,6 @@ Route::prefix('mentor/chapter')->name('mentor.chapter.')->middleware('role:mento
         Route::delete('delete/{chapter}','destroy')->name('delete');
         Route::get('show-sort/{course}', 'showSort')->name('showSort');
         Route::put('sort', 'sort')->name('sort');
+
     }
 );

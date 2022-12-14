@@ -30,6 +30,8 @@ Route::prefix('lesson')->name('client.certificate.')->controller(CertificateCont
     function () {
         Route::post('course/{course}/get-certificate', 'getCertificate')->name('getCertificate');
         Route::get('course/{certificate}/certificate', 'index')->name('index');
+        Route::get('exportpdf', 'exportpdf')->name('exportpdf');
+
     }
 );
 
