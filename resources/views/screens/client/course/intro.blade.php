@@ -276,7 +276,7 @@
                                     <div class="d-sm-flex align-items-center">
                                         <!-- Avatar image -->
                                         <div class="avatar avatar-xl">
-                                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/05.jpg"
+                                            <img class="avatar-img rounded-circle" src="{{ asset('app/' . $course->mentor->avatar) }}"
                                                 alt="avatar">
                                         </div>
                                         <div class="ms-sm-3 mt-2 mt-sm-0">
@@ -308,22 +308,6 @@
                                     </div>
                                 </div>
                                 <!-- Course info END -->
-                            </div>
-
-                            <!-- Tags START -->
-                            <div class="col-md-6 col-xl-12">
-                                <div class="card card-body border p-4">
-                                    <h4 class="mb-3">Các thẻ sản phẩm</h4>
-                                    <ul class="list-inline mb-0">
-                                        @forelse (explode(',',$course->tags) as $tag)
-                                            <li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
-                                                    href="#">{{ $tag }}</a> </li>
-                                        @empty
-                                        @endforelse
-
-
-                                    </ul>
-                                </div>
                             </div>
                             <!-- Tags END -->
                         </div><!-- Row End -->
@@ -400,5 +384,8 @@
                 }
             })
         }
+
+        let price: {{$course->current_price}};
+        let price1 = price.toLocaleString('vi', {style : 'currency', currency : 'VND'});
     </script>
 @endpush

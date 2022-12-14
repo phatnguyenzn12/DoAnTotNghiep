@@ -8,7 +8,7 @@
     <!-- Main Banner END -->
     @include('components.client.home.banner')
     <!-- =======================
-                                                        Counter START -->
+                                                                                Counter START -->
     <section class="py-0 py-xl-5">
         <div class="container">
             <div class="row g-4">
@@ -76,10 +76,10 @@
         </div>
     </section>
     <!-- =======================
-                                                        Counter END -->
+                                                                                                                                                                                Counter END -->
 
     <!-- =======================
-                                                        Popular course START -->
+                                                                                                                                                                                Popular course START -->
     <section>
         <div class="container">
             <!-- Title -->
@@ -102,8 +102,8 @@
                             <div class="col-sm-6 col-lg-4 col-xl-3">
                                 <div class="card shadow h-100">
                                     <!-- Image -->
-                                    <img src="/frontend/images/courses/4by3/07.jpg" class="card-img-top"
-                                        alt="course image">
+                                    <img src="{{ asset('app/' . $course->image) }}" class="card-img-top" alt="course image"
+                                        style="width: 300px; height: 160px;">
                                     <!-- Card body -->
                                     <div class="card-body pb-0">
                                         <!-- Badge and favorite -->
@@ -119,22 +119,19 @@
                                         <p class="mb-2 text-truncate-2">{{ $course->content }}.</p>
                                         <!-- Rating star -->
                                         <ul class="list-inline mb-0">
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
+                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
                                             </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
+                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
                                             </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
+                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
                                             </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
+                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
                                             </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="far fa-star text-warning"></i>
+                                            <li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i>
                                             </li>
-                                            <li class="list-inline-item ms-2 h6 fw-light mb-0">4.0/5.0</li>
+                                            <li class="list-inline-item ms-2 h6 fw-light mb-0">
+                                                4.5/5.0
+                                            </li>
                                         </ul>
                                     </div>
                                     <!-- Card footer -->
@@ -164,10 +161,10 @@
         </div>
     </section>
     <!-- =======================
-                                                        Popular course END -->
+                                                                                                                                                                                Popular course END -->
 
     <!-- =======================
-                                                        Action box START -->
+                                                                                                                                                                                Action box START -->
     <section class="pt-0 pt-lg-5">
         <div class="container position-relative">
             <!-- SVG decoration START -->
@@ -218,10 +215,10 @@
         </div>
     </section>
     <!-- =======================
-                                                        Action box END -->
+                                                                                                                                                                                Action box END -->
 
     <!-- =======================
-                                                        Trending courses START -->
+                                                                                                                                                                                Trending courses START -->
     <section class="pb-5 pt-0 pt-lg-5">
         <div class="container">
             <!-- Title -->
@@ -237,265 +234,79 @@
                     <div class="tiny-slider-inner pb-1" data-autoplay="true" data-arrow="true" data-edge="2"
                         data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
                         <!-- Card item START -->
-                        <div>
-                            <div class="card action-trigger-hover border bg-transparent">
-                                <!-- Image -->
-                                <img src="/frontend/images/courses/4by3/07.jpg" class="card-img-top" alt="course image">
-                                <!-- Ribbon -->
-                                <div class="ribbon mt-3"><span>Free</span></div>
-                                <!-- Card body -->
-                                <div class="card-body pb-0">
-                                    <!-- Badge and favorite -->
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="hstack gap-2">
-                                            <a href="#"
-                                                class="badge bg-primary bg-opacity-10 text-primary">Design</a>
-                                            <a href="#" class="badge text-bg-dark">Beginner</a>
-                                        </span>
-                                        <a href="#" class="h6 fw-light mb-0"><i class="far fa-bookmark"></i></a>
-                                    </div>
-                                    <!-- Title -->
-                                    <h5 class="card-title"><a href="#">The complete Digital Marketing Course -
-                                            8 Course in 1</a></h5>
-                                    <!-- Rating -->
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <div class="hstack gap-2">
-                                            <p class="text-warning m-0">4.5<i class="fas fa-star text-warning ms-1"></i>
-                                            </p>
-                                            <span class="small">(6500)</span>
+                        @forelse($courses as $course)
+                            <div>
+                                <div class="card action-trigger-hover border bg-transparent">
+                                    <!-- Image -->
+                                    <img src="{{ asset('app/' . $course->image) }}" class="card-img-top"
+                                        alt="course image" style="width: 400px; height: 215px;">
+                                    <!-- Ribbon -->
+                                    @if ($course->discount != 0)
+                                        <div class="ribbon mt-3 text-danger"><span>{{ $course->discount }}%</span></div>
+                                    @endif
+                                    <!-- Card body -->
+                                    <div class="card-body pb-0">
+                                        <!-- Badge and favorite -->
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span class="hstack gap-2">
+                                                <a href="#"
+                                                    class="badge bg-primary bg-opacity-10 text-primary">{{ $course->skill->title }}</a>
+                                            </span>
+                                            <a href="#" class="h6 fw-light mb-0"><i
+                                                    class="far fa-bookmark"></i></a>
                                         </div>
-                                        <div class="hstack gap-2">
-                                            <p class="h6 fw-light mb-0 m-0">6500</p>
-                                            <span class="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    <!-- Time -->
-                                    <div class="hstack gap-3">
-                                        <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>6h
-                                            56m</span>
-                                        <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>82
-                                            lectures</span>
-                                    </div>
-                                </div>
-                                <!-- Card footer -->
-                                <div class="card-footer pt-0 bg-transparent">
-                                    <hr>
-                                    <!-- Avatar and Price -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Avatar -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-sm">
-                                                <img class="avatar-img rounded-1" src="/frontend/images/avatar/10.jpg"
-                                                    alt="avatar">
+                                        <!-- Title -->
+                                        <h5 class="card-title"><a
+                                                href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}">{{ $course->title }}</a>
+                                        </h5>
+                                        <!-- Rating -->
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="hstack gap-2">
+                                                <p class="text-warning m-0">4.5<i
+                                                        class="fas fa-star text-warning ms-1"></i>
+                                                </p>
+                                                <span class="small">(3500)</span>
                                             </div>
-                                            <p class="mb-0 ms-2"><a href="#" class="h6 fw-light mb-0">Larry
-                                                    Lawson</a></p>
+                                            <div class="hstack gap-2">
+                                                <p class="h6 fw-light mb-0 m-0">{{ $course->order_details->count() }}</p>
+                                                <span class="small">(Lượt mua)</span>
+                                            </div>
                                         </div>
-                                        <!-- Price -->
-                                        <div>
-                                            <h4 class="text-success mb-0 item-show">Free</h4>
-                                            <a href="#" class="btn btn-sm btn-success-soft item-show-hover"><i
-                                                    class="fas fa-shopping-cart me-2"></i>Add to cart</a>
+                                        <!-- Time -->
+                                        <div class="hstack gap-3">
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="far fa-clock text-danger me-2"></i>{{ $course->total_time }}</span>
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="fas fa-table text-orange me-2"></i>{{ $course->lessons->count() }}</span>
+                                        </div>
+                                    </div>
+                                    <!-- Card footer -->
+                                    <div class="card-footer pt-0 bg-transparent">
+                                        <hr>
+                                        <!-- Avatar and Price -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Avatar -->
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-sm">
+                                                    <img class="avatar-img rounded-1"
+                                                        src="{{ asset('app/' . $course->mentor->avatar) }}"
+                                                        alt="avatar">
+                                                </div>
+                                                <p class="mb-0 ms-2"><a href="#"
+                                                        class="h6 fw-light mb-0">{{ $course->mentor->name }}</a></p>
+                                            </div>
+                                            <!-- Price -->
+                                            <div>
+                                                <h4 class="text-success mb-0 item-show">{{ $course->price }}</h4>
+                                                <a href="{{ route('client.order.addToCart', $course->id) }}"
+                                                    class="btn btn-sm btn-success-soft item-show-hover"><i
+                                                        class="fas fa-shopping-cart me-2"></i>Add to cart</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Card item END -->
-
-                        <!-- Card item START -->
-                        <div>
-                            <div class="card action-trigger-hover border bg-transparent">
-                                <!-- Image -->
-                                <img src="/frontend/images/courses/4by3/15.jpg" class="card-img-top" alt="course image">
-                                <!-- Card body -->
-                                <div class="card-body pb-0">
-                                    <!-- Badge and favorite -->
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="hstack gap-2">
-                                            <a href="#"
-                                                class="badge bg-primary bg-opacity-10 text-primary">Development</a>
-                                            <a href="#" class="badge text-bg-dark">All level</a>
-                                        </span>
-                                        <a href="#" class="h6 fw-light mb-0"><i class="far fa-bookmark"></i></a>
-                                    </div>
-                                    <!-- Title -->
-                                    <h5 class="card-title"><a href="#">Angular – The Complete Guide (2021
-                                            Edition)</a></h5>
-                                    <!-- Rating -->
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <div class="hstack gap-2">
-                                            <p class="text-warning m-0">4.0<i class="fas fa-star text-warning ms-1"></i>
-                                            </p>
-                                            <span class="small">(3500)</span>
-                                        </div>
-                                        <div class="hstack gap-2">
-                                            <p class="h6 fw-light mb-0 m-0">4500</p>
-                                            <span class="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    <!-- Time -->
-                                    <div class="hstack gap-3">
-                                        <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>12h
-                                            45m</span>
-                                        <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>65
-                                            lectures</span>
-                                    </div>
-                                </div>
-                                <!-- Card footer -->
-                                <div class="card-footer pt-0 bg-transparent">
-                                    <hr>
-                                    <!-- Avatar and Price -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Avatar -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-sm">
-                                                <img class="avatar-img rounded-1" src="/frontend/images/avatar/04.jpg"
-                                                    alt="avatar">
-                                            </div>
-                                            <p class="mb-0 ms-2"><a href="#" class="h6 fw-light mb-0">Billy
-                                                    Vasquez</a></p>
-                                        </div>
-                                        <!-- Price -->
-                                        <div>
-                                            <h4 class="text-success mb-0 item-show">$255</h4>
-                                            <a href="#" class="btn btn-sm btn-success-soft item-show-hover"><i
-                                                    class="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card item END -->
-
-                        <!-- Card item START -->
-                        <div>
-                            <div class="card action-trigger-hover border bg-transparent">
-                                <!-- Image -->
-                                <img src="/frontend/images/courses/4by3/17.jpg" class="card-img-top" alt="course image">
-                                <!-- Card body -->
-                                <div class="card-body pb-0">
-                                    <!-- Badge and favorite -->
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="hstack gap-2">
-                                            <a href="#"
-                                                class="badge bg-primary bg-opacity-10 text-primary">Design</a>
-                                            <a href="#" class="badge text-bg-dark">Beginner</a>
-                                        </span>
-                                        <a href="#" class="h6 fw-light mb-0"><i class="far fa-bookmark"></i></a>
-                                    </div>
-                                    <!-- Title -->
-                                    <h5 class="card-title"><a href="#">Time Management Mastery: Do More,
-                                            Stress Less</a></h5>
-                                    <!-- Rating -->
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <div class="hstack gap-2">
-                                            <p class="text-warning m-0">4.5<i class="fas fa-star text-warning ms-1"></i>
-                                            </p>
-                                            <span class="small">(2000)</span>
-                                        </div>
-                                        <div class="hstack gap-2">
-                                            <p class="h6 fw-light mb-0 m-0">8000</p>
-                                            <span class="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    <!-- Time -->
-                                    <div class="hstack gap-3">
-                                        <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>24h
-                                            56m</span>
-                                        <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>55
-                                            lectures</span>
-                                    </div>
-                                </div>
-                                <!-- Card footer -->
-                                <div class="card-footer pt-0 bg-transparent">
-                                    <hr>
-                                    <!-- Avatar and Price -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Avatar -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-sm">
-                                                <img class="avatar-img rounded-1" src="/frontend/images/avatar/09.jpg"
-                                                    alt="avatar">
-                                            </div>
-                                            <p class="mb-0 ms-2"><a href="#" class="h6 fw-light mb-0">Lori
-                                                    Stevens</a></p>
-                                        </div>
-                                        <!-- Price -->
-                                        <div>
-                                            <h4 class="text-success mb-0 item-show">$500</h4>
-                                            <a href="#" class="btn btn-sm btn-success-soft item-show-hover"><i
-                                                    class="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card item END -->
-
-                        <!-- Card item START -->
-                        <div>
-                            <div class="card action-trigger-hover border bg-transparent">
-                                <!-- Image -->
-                                <img src="/frontend/images/courses/4by3/16.jpg" class="card-img-top" alt="course image">
-                                <!-- Card body -->
-                                <div class="card-body pb-0">
-                                    <!-- Badge and favorite -->
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="hstack gap-2">
-                                            <a href="#"
-                                                class="badge bg-primary bg-opacity-10 text-primary">Design</a>
-                                            <a href="#" class="badge text-bg-dark">Beginner</a>
-                                        </span>
-                                        <a href="#" class="h6 fw-light mb-0"><i class="far fa-bookmark"></i></a>
-                                    </div>
-                                    <!-- Title -->
-                                    <h5 class="card-title"><a href="#">Time Management Mastery: Do More,
-                                            Stress Less</a></h5>
-                                    <!-- Rating -->
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <div class="hstack gap-2">
-                                            <p class="text-warning m-0">4.0<i class="fas fa-star text-warning ms-1"></i>
-                                            </p>
-                                            <span class="small">(2000)</span>
-                                        </div>
-                                        <div class="hstack gap-2">
-                                            <p class="h6 fw-light mb-0 m-0">1200</p>
-                                            <span class="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    <!-- Time -->
-                                    <div class="hstack gap-3">
-                                        <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>09h
-                                            56m</span>
-                                        <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>21
-                                            lectures</span>
-                                    </div>
-                                </div>
-                                <!-- Card footer -->
-                                <div class="card-footer pt-0 bg-transparent">
-                                    <hr>
-                                    <!-- Avatar and Price -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Avatar -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-sm">
-                                                <img class="avatar-img rounded-1" src="/frontend/images/avatar/01.jpg"
-                                                    alt="avatar">
-                                            </div>
-                                            <p class="mb-0 ms-2"><a href="#" class="h6 fw-light mb-0">Frances
-                                                    Guerrero</a></p>
-                                        </div>
-                                        <!-- Price -->
-                                        <div>
-                                            <h4 class="text-success mb-0 item-show">$200</h4>
-                                            <a href="#" class="btn btn-sm btn-success-soft item-show-hover"><i
-                                                    class="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                         <!-- Card item END -->
                     </div>
                 </div>
@@ -504,10 +315,10 @@
         </div>
     </section>
     <!-- =======================
-                                                        Trending courses END -->
+                                                                                                                                                                                Trending courses END -->
 
     <!-- =======================
-                                                        Reviews START -->
+                                                                                                                                                                                Reviews START -->
     <section class="bg-light">
         <div class="container">
             <div class="row g-4 g-lg-5 align-items-center">
@@ -527,15 +338,14 @@
                             <div class="bg-body shadow text-center p-4 rounded-3 position-relative mb-5 mb-md-0">
                                 <!-- Avatar -->
                                 <div class="avatar avatar-xl mb-3">
-                                    <img class="avatar-img rounded-circle" src="/frontend/assets/images/avatar/01.jpg"
+                                    <img class="avatar-img rounded-circle" src="/frontend/images/avatar/09.jpg"
                                         alt="avatar">
                                 </div>
                                 <!-- Content -->
                                 <blockquote>
                                     <p>
                                         <span class="me-1 small"><i class="fas fa-quote-left"></i></span>
-                                        Moonlight newspaper up its enjoyment agreeable depending. Timed voice share led
-                                        him to widen noisy young. At weddings believed laughing
+                                        Khóa học chất lượng dạy tốt, giá hợp lý với học sinh, sinh viên chúng tôi.
                                         <span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
                                     </p>
                                 </blockquote>
@@ -553,7 +363,7 @@
                                             class="fas fa-star-half-alt text-warning"></i></li>
                                 </ul>
                                 <!-- Info -->
-                                <h6 class="mb-0">Carolyn Ortiz</h6>
+                                <h6 class="mb-0">Đức Anh Trương</h6>
                             </div>
                         </div>
 
@@ -566,7 +376,7 @@
                                     <i class="bi bi-shield-fill-check text-dark"></i>
                                 </div>
                                 <!-- Title -->
-                                <h6 class="mb-3">100+ Verified Mentors</h6>
+                                <h6 class="mb-3">100+ Giảng viên đã xác nhận</h6>
                                 <!-- Mentor Item -->
                                 <div class="d-flex align-items-center mb-3">
                                     <!-- Avatar -->
@@ -576,8 +386,8 @@
                                     </div>
                                     <!-- Info -->
                                     <div class="ms-2">
-                                        <h6 class="mb-0">Lori Stevens</h6>
-                                        <p class="mb-0 small">Tutor of physic</p>
+                                        <h6 class="mb-0">Phát Nguyễn</h6>
+                                        <p class="mb-0 small">Giảng viên</p>
                                     </div>
                                 </div>
 
@@ -590,8 +400,8 @@
                                     </div>
                                     <!-- Info -->
                                     <div class="ms-2">
-                                        <h6 class="mb-0">Billy Vasquez</h6>
-                                        <p class="mb-0 small">Tutor of chemistry</p>
+                                        <h6 class="mb-0">Đặng Thùy</h6>
+                                        <p class="mb-0 small">Giảng viên</p>
                                     </div>
                                 </div>
 
@@ -604,8 +414,8 @@
                                     </div>
                                     <!-- Info -->
                                     <div class="ms-2">
-                                        <h6 class="mb-0">Larry Lawson</h6>
-                                        <p class="mb-0 small">Tutor of technology</p>
+                                        <h6 class="mb-0">Bách</h6>
+                                        <p class="mb-0 small">Giảng viên</p>
                                     </div>
                                 </div>
                             </div>
@@ -731,15 +541,14 @@
                             <div class="bg-body shadow text-center p-4 rounded-3">
                                 <!-- Avatar -->
                                 <div class="avatar avatar-xl mb-3">
-                                    <img class="avatar-img rounded-circle" src="/frontend/assets/images/avatar/03.jpg"
+                                    <img class="avatar-img rounded-circle" src="/frontend/images/avatar/04.jpg"
                                         alt="avatar">
                                 </div>
                                 <!-- Content -->
                                 <blockquote>
                                     <p>
                                         <span class="me-1 small"><i class="fas fa-quote-left"></i></span>
-                                        At weddings believed laughing although the Moonlight newspaper up its enjoyment
-                                        agreeable depending.
+                                        Khóa học rất hay và bổ ích nhất định tôi sẽ sử dụng tiếp các khóa học khác.
                                         <span class="ms-1 small"><i class="fas fa-quote-right"></i></span>
                                     </p>
                                 </blockquote>
@@ -757,7 +566,7 @@
                                             class="fas fa-star-half-alt text-warning"></i></li>
                                 </ul>
                                 <!-- Info -->
-                                <h6 class="mb-0">Dennis Barrett</h6>
+                                <h6 class="mb-0">Nghĩa</h6>
                             </div>
                         </div>
                     </div> <!-- Row END -->
@@ -765,17 +574,17 @@
                 <div class="col-xl-5 order-1 text-center text-xl-start">
                     <!-- Title -->
                     <h2 class="fs-1">Một số phản hồi có giá trị từ các sinh viên của chúng tôi</h2>
-                    <p>Supposing so be resolving breakfast am or perfectly. It drew a hill from me. Valley by oh twenty
-                        direct me so. Departure defective arranging rapturous did believe him all had supported. Family
-                        months lasted simple set nature vulgar him. Picture for attempt joy excited ten carried manners
-                        talking how.</p>
+                    <p>Giả sử như vậy hãy giải quyết bữa sáng sáng hoặc hoàn hảo. Nó đã vẽ một ngọn đồi từ tôi. Thung lũng
+                        bởi oh hai mươi chỉ đạo tôi như vậy. Khởi hành khiếm khuyết sắp xếp rapturous đã tin rằng tất cả anh
+                        ta đã hỗ trợ. Gia đình tháng kéo dài đơn giản thiết lập tự nhiên thô tục anh ta. Hình ảnh cho nỗ lực
+                        niềm vui phấn khích mười cách cư xử mang theo nói chuyện như thế nào.</p>
                     <a href="#" class="btn btn-primary mb-0">Xem đánh giá</a>
                 </div>
             </div> <!-- Row END -->
         </div>
     </section>
     <!-- =======================
-                                                        Reviews END -->
+                                                                                                                                                                                Reviews END -->
 
 @endsection
 @section('js-links')

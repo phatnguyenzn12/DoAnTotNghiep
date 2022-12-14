@@ -22,4 +22,9 @@ class Banner extends BaseModel
     public function discountCode(){
         return $this->belongsTo(DiscountCode::class,'discount_code_id');
     }
+    
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

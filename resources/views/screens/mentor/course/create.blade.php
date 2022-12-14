@@ -56,7 +56,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Chọn giảng viên</label>
-                                <select id="select2" class="form-control" name="language" id="">
+                                <select id="select2" class="form-control" name="mentor_id" id="">
                                     <option value="">Chọn giảng viên</option>
                                     @forelse ($teachers as $teacher)
                                     <option value="{{ $teacher->id }}">Tên giảng viên: {{ $teacher->name }} / email: {{ $teacher->email }}</option>

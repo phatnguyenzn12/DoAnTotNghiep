@@ -66,7 +66,7 @@ class CourseController extends Controller
         }
         $course->status = $request->status;
         $course->save();
-        dd($course->status);
+        // dd($course->status);
         if ($course->status == 1) {
             dd(1);
             Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course) {
@@ -108,7 +108,6 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $image = UploadFileService::storage_image($request->image);
-
         $course = Course::create(
             array_merge(
                 $request->only([
@@ -122,6 +121,7 @@ class CourseController extends Controller
                     'cate_course_id',
                     'skill_id',
                     'language',
+                    'mentor_id',
                     'certificate',
                     'description',
                     'certificate_id'

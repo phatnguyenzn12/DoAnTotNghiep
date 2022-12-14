@@ -6,8 +6,8 @@
         <div style="display: block; width: 600px; max-width: 600px; margin: 0 auto !important;">
             <div
                 style="box-sizing: border-box; width: 100%; margin-bottom: 30px; background: #ffffff; border: 1px solid #f0f0f0;">
-                <div class="wrapper"
-                    style="box-sizing: border-box; font-size: 16px; vertical-align: top; padding: 30px;" valign="top">
+                <div class="wrapper" style="box-sizing: border-box; font-size: 16px; vertical-align: top; padding: 30px;"
+                    valign="top">
                     <div>
                         <img src="https://uphinh.vn/images/2022/12/12/d318e0b5ffac44949b85de3b1a907f14.png"
                             alt="d318e0b5ffac44949b85de3b1a907f14.png" border="0"
@@ -18,27 +18,12 @@
                             EDUPORT HỆ THỐNG BÁN KHÓA HỌC TRỰC TUYẾN</h5>
                         <hr>
                         <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                            Xin chào {{ $teacher->name }},<br>
-                            Có tài khoản email là: {{ $teacher->email }}.
+                            Xin chào Admin {{ $admin->name }},<br>
+                            Bạn nhận được yêu cầu hỗ trợ
                         </p>
-                        <p>Một số thông tin của bạn đã được thay đổi</p>
-                        <p>Chuyên môn: {{ $teacher->number_phone }}</p>
-                        <p>Chuyên môn: {{ $teacher->specializations }}</p>
-                        <p>Kỹ năng: {{ $teacher->skills }}</p>
-                        <p>Trình độ học vấn: {{ $teacher->educations }}</p>
-                        <p>Kinh nghiệm: {{ $teacher->years_in_experience }}</p>
-
-                        <p style=" margin-bottom: 15px;">Để đăng nhập và sử dụng hệ thống
-                            nhấn vào nút đăng nhập bên dưới</p>
-                        <p align="center"
-                            style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
-                            valign="top">
-                            <a href="{{ route('mentor.login') }}"
-                                style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
-                                target="_blank">Đăng nhập</a>
-                        </p>
-                        <p>Cảm ơn bạn!</p>
-                        <p>Đã sử dụng hệ thống của chúng tôi!</p>
+                        <p>Họ tên: {{ $request->name }}</p>
+                        <p>Số điện thoại: {{$request->number}}</p>
+                        <p>Câu hỏi: {{ $request->content }}</p>
                     </div>
                     <hr>
                     <div align="center">

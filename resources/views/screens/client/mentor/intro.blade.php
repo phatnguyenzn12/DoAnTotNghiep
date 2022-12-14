@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-                    Page content START -->
+                        Page content START -->
     <section class="pt-5 pb-0">
         <div class="container">
             <div class="row g-0 g-lg-5">
@@ -17,7 +17,7 @@
                             <div class="card shadow p-2 mb-4 text-center">
                                 <div class="rounded-3">
                                     <!-- Image -->
-                                    <img src="/frontend/images/instructor/07.jpg" class="card-img" alt="course image">
+                                    <img src="{{ asset('app/' . $mentor->avatar) }}" class="card-img" alt="course image">
                                 </div>
 
                                 <!-- Card body -->
@@ -193,7 +193,7 @@
 
                                 <div class="card shadow h-100">
                                     <!-- Image -->
-                                    <img src="/frontend/images/courses/4by3/07.jpg" class="card-img-top"
+                                    <img src="{{ asset('app/' . $course->image) }}" class="card-img-top"
                                         alt="course image">
                                     <div class="card-body pb-0">
                                         <!-- Badge and favorite -->
@@ -232,10 +232,12 @@
                                         <hr>
                                         <div class="d-flex justify-content-between">
                                             <span class="h6 fw-light mb-0"><i
-                                                    class="far fa-clock text-danger me-2"></i>18h
+                                                    class="far fa-clock text-danger me-2"></i>
+                                                    18h
                                                 56m</span>
-                                            <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>99
-                                                lectures</span>
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="fas fa-table text-orange me-2"></i>{{ $course->chapters->count() }}
+                                                Bài học</span>
                                         </div>
                                     </div>
                                 </div>
@@ -252,10 +254,10 @@
         </div>
     </section>
     <!-- =======================
-                    Page content END -->
+                        Page content END -->
 
     <!-- =======================
-                    Related instructor START -->
+                        Related instructor START -->
     <section>
         <div class="container">
             <!-- Title -->
@@ -273,7 +275,7 @@
                         <div class="card bg-transparent">
                             <div class="position-relative">
                                 <!-- Image -->
-                                <img src="/frontend/images/instructor/02.jpg" class="card-img" alt="course image">
+                                <img src="{{asset('app/'.$mentor->avatar)}}" class="card-img" alt="course image">
                                 <!-- Overlay -->
                                 <div class="card-img-overlay d-flex flex-column p-3">
                                     <div class="w-100 mt-auto text-end">
@@ -318,7 +320,7 @@
         </div>
     </section>
     <!-- =======================
-                    Related instructor END -->
+                        Related instructor END -->
 @endsection
 
 @section('js-links')

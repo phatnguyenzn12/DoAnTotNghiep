@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\CateCourse;
 use App\Models\Censor;
@@ -11,6 +12,7 @@ use App\Models\Chapter;
 use App\Models\CommentCourse;
 use App\Models\CommentLesson;
 use App\Models\Course;
+use App\Models\DiscountCode;
 use App\Models\DisscountCode;
 use App\Models\Lesson;
 use App\Models\LessonVideo;
@@ -58,7 +60,7 @@ class BaseSeeder extends Seeder
                 'name' => 'chutatbach9',
                 'email' => 'chutatbach9@gmail.com',
                 'email_verified_at' => now(),
-                'avatar' => 'placeholder.png',
+                'avatar' => 'images/avatar_icon.jpg',
                 'number_phone' => fake()->phoneNumber(),
                 'password' => Hash::make('12345678'), // password
                 'is_active' => 1,
@@ -71,7 +73,7 @@ class BaseSeeder extends Seeder
                 // 'skills' => 'html,css,php',
                 'years_in_experience' => 10,
                 // 'point' => 100
-                'cate_course_id' => 1
+                'cate_course_id' => rand(1,3),
             ]
         );
         $mentor->assignRole('lead');
@@ -81,7 +83,7 @@ class BaseSeeder extends Seeder
                 'name' => 'chutatbach1',
                 'email' => 'chutatbach1@gmail.com',
                 'email_verified_at' => now(),
-                'avatar' => 'placeholder.png',
+                'avatar' => 'images/avatar_icon.jpg',
                 'number_phone' => fake()->phoneNumber(),
                 'password' => Hash::make('12345678'), // password
                 'is_active' => 1,
@@ -91,7 +93,7 @@ class BaseSeeder extends Seeder
                 'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
                 'educations' => 'dạy tại cao đẳng fpt',
                 'specializations' => 'html,css,php',
-                'cate_course_id' => 1
+                'cate_course_id' => rand(1,3),
             ]
         );
         $mentor->assignRole('teacher');
@@ -102,7 +104,7 @@ class BaseSeeder extends Seeder
                 'name' => 'bachctph16049',
                 'email' => 'bachctph16049@fpt.edu.vn',
                 'email_verified_at' => now(),
-                'avatar' => 'placeholder.png',
+                'avatar' => 'images/avatar_icon.jpg',
                 'number_phone' => fake()->phoneNumber(),
                 'password' => Hash::make('12345678'), // password
                 'is_active' => 1,
@@ -113,10 +115,31 @@ class BaseSeeder extends Seeder
                 'educations' => 'dạy tại cao đẳng fpt',
                 'specializations' => '',
                 'years_in_experience' => 10,
-                'cate_course_id' => 1
+                'cate_course_id' => rand(1,3),
             ]
         );
         $mentor->assignRole('teacher');
+
+        $mentor = Mentor::create(
+            [
+                'name' => 'Truong Duc Anh',
+                'email' => 'ducanh23072002a@gmail.com',
+                'email_verified_at' => now(),
+                'avatar' => 'images/avatar_icon.jpg',
+                'number_phone' => fake()->phoneNumber(),
+                'password' => Hash::make('12345678'), // password
+                'is_active' => 1,
+                'remember_token' => null,
+                'address' => 'hà nội',
+                'about_me' => fake()->text(700),
+                'social_networks' => 'https://www.facebook.com/bach.chu.3762584/,https://www.instagram.com/chutatbach2002/ ,twitter,linkedin',
+                'educations' => 'dạy tại cao đẳng fpt',
+                'specializations' => '',
+                'years_in_experience' => 10,
+                'cate_course_id' => rand(1,3),
+            ]
+        );
+        $mentor->assignRole('lead');
 
         Mentor::factory(3)->create();
         Admin::factory(1)->create();
@@ -142,5 +165,7 @@ class BaseSeeder extends Seeder
         Order::factory(100)->create();
         OrderDetail::factory(500)->create();
         OwnerCourse::factory(10)->create();
+        Banner::factory(3)->create();
+        DiscountCode::factory(3)->create();
     }
 }

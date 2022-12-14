@@ -54,8 +54,20 @@ class MentorController extends Controller
 
     public function list()
     {
-        $mentor = Mentor::paginate(8);
-        return view('screens.client.mentor.list',compact('mentor'));
+        return view('screens.client.mentor.list');
+    }
+
+    public function filterData(Request $request)
+    {
+
+        $mentors = Mentor::select('*')
+        ->role('lead')
+        ->sortdata($request)
+        ->search($request)
+        ->paginate($request->record);
+        
+        $html = view('components.client.mentor.list-mentor' ,compact('mentors'))->render();
+        return response()->json($html,200);
     }
 
     public function show(Mentor $mentor)
