@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\StatisticalController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin.statistical.')->name('admin.statistical.')->controller(StatisticalController::class)->group(
+Route::prefix('admin.statistical.')->name('admin.statistical.')->middleware('check-admin')->controller(StatisticalController::class)->group(
     function () {
         Route::get('home', 'home')->name('home');
         Route::get('course-list', 'course-course_list')->name('courseList');
@@ -11,14 +11,14 @@ Route::prefix('admin.statistical.')->name('admin.statistical.')->controller(Stat
     }
 );
 
-Route::prefix('api/admin/statistical')->name('api.admin.statistical.')->controller(StatisticalController::class)->group(
+Route::prefix('api/admin/statistical')->name('api.admin.statistical.')->middleware('check-admin')->controller(StatisticalController::class)->group(
     function () {
         Route::get('index','index')->name('index');
         Route::get('turnover','turnover')->name('turnover');
     }
 );
 
-Route::prefix('api/admin/statistical')->name('api.admin.statistical.')->controller(StatisticalController::class)->group(
+Route::prefix('api/admin/statistical')->name('api.admin.statistical.')->middleware('check-admin')->controller(StatisticalController::class)->group(
     function () {
         Route::get('student','apiListStudent')->name('listStudent');
         Route::get('turnover','apiTurnoverYear')->name('turnover');

@@ -18,13 +18,21 @@
             <div class="card-body">
                 @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
                     <div class="col-md-12 mb-3 ribbon ribbon-right">
-                        <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">{{ $lesson->edit_exit }}
+                        @if ($lesson->is_edit == 1)
+                            <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">{{ $lesson->edit_exit }}
+                                    </font>
                                 </font>
-                            </font>
-                        </div>
-
+                            </div>
+                        @else
+                            <div class="ribbon-target bg-danger" style="top: -20px; left: -2px;">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">{{ $lesson->edit_exit }}
+                                    </font>
+                                </font>
+                            </div>
+                        @endif
                         <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
                             <p class="lession-name m-0 font-weight-bold">
                                 @if ($lesson->lesson_type == 'exercise')

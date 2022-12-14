@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\SkillController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/skill')->name('admin.skill.')->middleware('role:admin')->controller(SkillController::class)->group(
+Route::prefix('admin/skill')->name('admin.skill.')->middleware('check-admin')->controller(SkillController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('list-data/{search?}/{record?}', 'filterData')->name('listData');

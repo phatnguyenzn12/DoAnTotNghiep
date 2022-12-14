@@ -56,6 +56,14 @@ class BaseModel extends Model
             $query = $query->where('is_demo', 0);
         }
 
+        if ($request->status == 'active') {
+            $query = $query->where('status', 1);
+        } elseif ($request->status == 'in_active') {
+            $query = $query->where('status', 0);
+        } elseif ($request->status == 'fix') {
+            $query = $query->where('status', 2);
+        }
+
         return $query;
     }
 

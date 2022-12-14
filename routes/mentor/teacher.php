@@ -3,7 +3,7 @@
 use App\Http\Controllers\Mentor\TeacherController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('mentor/teacher')->name('mentor.teacher.')->middleware(['role:mentor,lead'])->controller(TeacherController::class)->group(
+Route::prefix('mentor/teacher')->name('mentor.teacher.')->middleware(['check-mentor','check-lead'])->controller(TeacherController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('list-data/{search?}/{record?}','filterData')->name('listData');

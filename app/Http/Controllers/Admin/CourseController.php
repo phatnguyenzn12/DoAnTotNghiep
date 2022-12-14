@@ -39,7 +39,7 @@ class CourseController extends Controller
 
     public function actived(Request $request, Course $course)
     {
-        if($course->price == null){
+        if ($course->price == null) {
             return redirect()->back()->with('failed', 'Đã chưa thêm giá vào khóa học');
         }
         $course->status = $request->status;
@@ -57,7 +57,6 @@ class CourseController extends Controller
             });
             return redirect()->back()->with('failed', 'Đã bỏ kích hoạt khóa học');
         }
-
     }
 
     public function program($course_id)
@@ -70,14 +69,14 @@ class CourseController extends Controller
 
     public function filterDataChapter(Request $request)
     {
-       $chapters = Chapter::select('*')
-          ->where('course_id', $request->course_id)
-          ->sortdata($request)
-          ->search($request)
-          ->paginate($request->record);
+        $chapters = Chapter::select('*')
+            ->where('course_id', $request->course_id)
+            ->sortdata($request)
+            ->search($request)
+            ->paginate($request->record);
 
-       $html = view('components.admin.course.list-chapter', compact('chapters'))->render();
-       return response()->json($html, 200);
+        $html = view('components.admin.course.list-chapter', compact('chapters'))->render();
+        return response()->json($html, 200);
     }
 
     public function edit($id)
@@ -91,7 +90,7 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-        $course->price = $request->price;   
+        $course->price = $request->price;
         $course->discount = $request->discount;
         $course->percentage_pay = $request->percentage_pay;
         $course->save();
@@ -101,7 +100,7 @@ class CourseController extends Controller
         // });
 
         return redirect()
-            ->back()
+            ->route('admin.course.program',$course->id)
             ->with('success', 'Sửa khóa học thành công');
     }
 

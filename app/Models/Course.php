@@ -22,7 +22,6 @@ class Course extends BaseModel
         'mentor_id',
         'skill_id',
         'language',
-        'tags',
         // 'type',
         'percentage_pay',
         'description',
