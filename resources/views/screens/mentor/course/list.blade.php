@@ -85,7 +85,6 @@
             </div>
             {{-- @include('components.admin.pagination') --}}
             <!--end::table-->
-{{$course->links()}}
         </div>
     @endsection
     @section('js-links')

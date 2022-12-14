@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\MentorController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/mentor')->name('mentor.')->middleware('role:admin')->controller(MentorController::class)->group(
+Route::prefix('admin/mentor')->name('mentor.')->middleware('check-admin')->controller(MentorController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('list-data/{search?}/{record?}','filterData')->name('listData');

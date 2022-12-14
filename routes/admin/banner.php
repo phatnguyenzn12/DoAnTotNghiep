@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 //         Route::resource('admin/banner');
 //     }
 // );
-Route::prefix('admin/banner')->name('admin.banner.')->middleware('role:admin')->controller(BannerController::class)->group(
+Route::prefix('admin/banner')->name('admin.banner.')->middleware('check-admin')->controller(BannerController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('list-data/{search?}/{record?}', 'filterData')->name('listData');
