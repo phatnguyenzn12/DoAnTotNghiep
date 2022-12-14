@@ -63,4 +63,90 @@ class MentorController extends Controller
         $mentorRelated = Mentor::where('specializations',$mentor->specializations)->get();
         return view('screens.client.mentor.intro',compact('mentor','mentorRelated'));
     }
+
+
+      // public function getChapter(Mentor $mentor, Chapter $chapter)
+    // {
+    //     $html = view('components.client.lesson.chapter-review', compact('chapter', 'mentor'))->render();
+    //     return response()->json($html, 200);
+    // }
+
+    // public function postReview(Request $request, Chapter $chapter)
+    // {
+    //     if ($chapter->userLessonsComplete()->count() != $chapter->lessons->count()) {
+    //         return redirect()->back()->with('failed', 'Bạn phải hoàn thành chương học mới được đánh giá');
+    //     }
+
+    //     $chapterReview = $request->only('votes');
+
+    //     $chapterReview['chapter_id'] = $chapter->id;
+
+    //     $chapterReview['user_id'] = auth()->user()->id;
+
+    //     $chapterReview['content'] = $request->content
+    //         ? $request->content
+    //         : null;
+
+    //     $chapterReview = ChapterReview::create($chapterReview);
+
+    //     Notification::send(
+    //         $chapter->mentor,
+    //         new ChapterReviewNotification(
+    //             [
+    //                 'content' => 'đánh giá chương học ' . $chapterReview->chapter->title . ' của bạn với số điểm là ' . $chapterReview->votes,
+    //                 'name' => auth()->user()->name,
+    //             ]
+    //         )
+    //     );
+
+    //     return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá chương ' . $chapter->title);
+    // }
+
+    // public function getEditReview(Request $request, $chapterReview) //
+    // {
+    //     try {
+    //         $chapterReview = ChapterReview::FindOrFail($chapterReview);
+    //     } catch (ModelNotFoundException $exception) {
+    //         return response()->json($exception->getMessage(), 401);
+    //     }
+
+    //     $mentor = $chapterReview->chapter->mentor;
+
+    //     $chapter = $chapterReview->chapter;
+
+    //     $html = view('components.client.lesson.edit-chapter-review', compact('chapter', 'mentor', 'chapterReview'))->render();
+
+    //     return response()->json($html, 200);
+    // }
+
+    // public function editReview(Request $request, $review)
+    // {
+    //     try {
+    //         $chapterReview = ChapterReview::findOrFail($review);
+    //     } catch (ModelNotFoundException $exception) {
+    //         return response()->json($exception->getMessage(), 401);
+    //     }
+
+    //     $chapterReview->votes = $request->votes;
+
+    //     $chapterReview->user_id = auth()->user()->id;
+
+    //     $chapterReview->content = $request->content
+    //         ? $request->content
+    //         : null;
+
+    //     $chapterReview->save();
+
+    //     Notification::send(
+    //         $chapterReview->chapter->mentor,
+    //         new ChapterReviewNotification(
+    //             [
+    //                 'content' => 'đánh giá lại chương học ' . $chapterReview->chapter->title . ' của bạn với số điểm là ' . $chapterReview->votes,
+    //                 'name' => auth()->user()->name,
+    //             ]
+    //         )
+    //     );
+
+    //     return redirect()->back()->with('success', 'Bạn đã sửa lại đánh giá thành công');
+    // }
 }

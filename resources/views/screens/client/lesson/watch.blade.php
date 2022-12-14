@@ -104,23 +104,7 @@
                                 <div class="col-12">
                                     <h5 class="mb-4">Thảo luận bài học</h5>
 
-                                    <!-- Comment box -->
-                                    <div class="d-flex mb-4">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-sm flex-shrink-0 me-2">
-                                            <a href="#"> <img class="avatar-img rounded-circle"
-                                                    src="/frontend/images/avatar/09.jpg" alt=""> </a>
-                                        </div>
-
-                                        <form class="w-100 d-flex has-validation-ajax" method="POST"
-                                            action="{{ route('client.lesson.parentComment', $lesson->id) }}">
-                                            @csrf
-                                            <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
-                                                placeholder="Thêm bình luận..."></textarea>
-                                            <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
-                                                    class="fas fa-paper-plane fs-5"></i></button>
-                                        </form>
-                                    </div>
+                    
                                     <div class="comment-show-list">
                                         @include('components.client.lesson.comment')
                                     </div>
@@ -179,6 +163,7 @@
                 success: function(res) {
                     // window.location.href = _redirect
                     $('.comment-show-list').html(res)
+                    $('clear-input').value = ""
                 },
                 error: function(err) {
                     $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
