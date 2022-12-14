@@ -101,7 +101,7 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">DANH SÁCH</span>
+                                <span class="menu-text">Danh sách</span>
                             </a>
                         </li>
                     </ul>
@@ -138,15 +138,15 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">BẢNG ĐIỀU KIỂN</span>
+                                <span class="menu-text">Bảng điều kiển</span>
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('teacher.statistical.index') }}" class="menu-link">
+                            <a href="{{ route('teacher.account.salaryBonus') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">THU NHẬP</span>
+                                <span class="menu-text">Thu nhập của tôi</span>
                             </a>
                         </li>
                         <ul class="menu-subnav">
@@ -155,7 +155,7 @@
                                     <i class="menu-bullet menu-bullet-line">
                                         <span></span>
                                     </i>
-                                    <span class="menu-text">SINH VIÊN</span>
+                                    <span class="menu-text">Sinh viên</span>
                                 </a>
                             </li>
                         </ul>
@@ -190,7 +190,7 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">THÔNG TIN CÁ NHÂN</span>
+                                <span class="menu-text">Thông tin cá nhân</span>
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
@@ -198,16 +198,7 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">ĐỔI MẬT KHẨU</span>
-                            </a>
-                        </li>
-
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">NHẬN XÉT</span>
+                                <span class="menu-text">Đổi mật khẩu</span>
                             </a>
                         </li>
                     </ul>

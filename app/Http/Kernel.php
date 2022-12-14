@@ -2,8 +2,12 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\CheckAdmin;
+use App\Http\Middleware\CheckAuthLesson;
+use App\Http\Middleware\CheckLessonUserMentor;
 use App\Http\Middleware\CheckLesssonUser;
+use App\Http\Middleware\CheckMentor;
+use App\Http\Middleware\Checkout;
+use App\Http\Middleware\CheckUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -72,6 +76,9 @@ class Kernel extends HttpKernel
         //  'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         //  'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'check-lesson-user' => CheckLesssonUser::class,
-        'check-admin' => CheckAdmin::class,
+        'check-user' => CheckUser::class,
+        'check-mentor' => CheckMentor::class,
+        'check-auth-lesson' => CheckAuthLesson::class,
+        'check-out' => Checkout::class,
     ];
 }
