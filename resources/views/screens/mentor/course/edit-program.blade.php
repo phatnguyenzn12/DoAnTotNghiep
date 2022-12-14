@@ -108,7 +108,7 @@
                     </div>
 
                 </div>
-                {{$chapters->links()}}
+              
             </div>
         </div>
     </div>
@@ -231,7 +231,7 @@
         })
 
 
-        function showModal(id_video, title) {
+        function showModal(id_video,title) {
             $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
                 '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')

@@ -19,12 +19,11 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
 
         Route::get('lesson/lesson_video/{lesson_video}', 'demo')->name('lesson');
 
-        Route::get('lesson/lesson_video/{lesson_video}', 'demo')->name('lesson');
-
-        Route::get('certificate/{course}', 'demo')->name('generatePDF');
+        Route::get('certificate/{course}', 'demo')->middleware('check-user')->name('generatePDF');
     }
 );
-Route::name('commentcourse.')->controller(CommentCourseController::class)->group(
+
+Route::name('commentcourse.')->middleware('check-user')->controller(CommentCourseController::class)->group(
     function () {
         Route::post('store',  'store')->name('store');
     }

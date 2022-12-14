@@ -38,7 +38,7 @@ class LessonController extends Controller
                 ['reply', '0']
             ])
             ->where('status', '1')
-            ->paginate(5);
+            ->get();
 
         return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments', 'mentor'));
     }
@@ -61,7 +61,7 @@ class LessonController extends Controller
                 ['reply', '0']
             ])
             ->where('status', '1')
-            ->paginate(5);
+            ->get();
 
         return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments', 'mentor'));
     }
@@ -75,32 +75,41 @@ class LessonController extends Controller
         $comment_lesson = $comment_lesson->replies()
             ->orderBy('id', 'DESC')
             ->where('status', '1')
-            ->paginate(5);
+            ->get();
 
         $html = view('components.client.lesson.child-comment', compact('course_id', 'comment_lesson', 'comment_parent'))->render();
 
         return response()->json($html);
     }
 
-    public function parentComment(Request $request, Lesson $lesson)
+    public function parentComment(Request $request, Lesson $lesson, Course $course)
     {
+        $course = Course::where('id',$request->course)->first();
+
         $data = $request->only('comment');
         $data['lesson_id'] = $lesson->id;
-        $data['user_id'] = auth()->user()->id;
+
+        if ($mentor = auth()->guard('mentor')->user()) {
+            $data['mentor_id'] = $mentor->id;
+        }
+
+        if ($user = auth()->user()) {
+            $data['user_id'] = $user->id;
+        }
 
         $comment = CommentLesson::create($data);
 
         $comments = CommentLesson::where('lesson_id', $lesson->id)
             ->orderBy('id', 'DESC')
             ->where('status', '1')
-            ->paginate(5);
+            ->get();
 
         Notification::send(
-            $lesson->chapter->mentor,
+            $course->mentor,
             new CommentLessonNotification(
                 [
                     'lesson_id' => $lesson->id,
-                    'course_id'  => $lesson->chapter->course->id,
+                    'course_id'  => $course->id,
                     'content' => $data['comment'],
                     'name' => auth()->user()->name,
                 ]
@@ -128,9 +137,14 @@ class LessonController extends Controller
 
         $data['reply'] = $comment_parent->id;
         $data['lesson_id'] = $comment_parent->lesson_id;
-        $user = auth()->user();
 
-        $data['user_id'] = $user->id;
+        if ($mentor = auth()->guard('mentor')->user()) {
+            $data['mentor_id'] = $mentor->id;
+        }
+
+        if ($user = auth()->user()) {
+            $data['user_id'] = $user->id;
+        }
 
         $mentors_id = $comment_parent->replies->where('mentor_id', '!=', 0)->pluck('mentor_id');
 
@@ -185,95 +199,25 @@ class LessonController extends Controller
         $comment_lesson = $comment_parent->replies()
             ->orderBy('id', 'DESC')
             ->where('status', '1')
-            ->paginate(5);
+            ->get();
 
         $html = view('components.client.lesson.child-comment', compact('course_id', 'comment_lesson', 'comment_parent'))->render();
 
         return response()->json($html);
     }
 
-    public function getChapter(Mentor $mentor, Chapter $chapter)
+    public function removeComment(CommentLesson $commentLesson)
     {
-        $html = view('components.client.lesson.chapter-review', compact('chapter', 'mentor'))->render();
-        return response()->json($html, 200);
-    }
-
-    public function postReview(Request $request, Chapter $chapter)
-    {
-        if ($chapter->userLessonsComplete()->count() != $chapter->lessons->count()) {
-            return redirect()->back()->with('failed', 'Bạn phải hoàn thành chương học mới được đánh giá');
+        if (!$commentLesson) {
+            return redirect()->back()->with('failed', 'Bình luận không tồn tại');
         }
-
-        $chapterReview = $request->only('votes');
-
-        $chapterReview['chapter_id'] = $chapter->id;
-
-        $chapterReview['user_id'] = auth()->user()->id;
-
-        $chapterReview['content'] = $request->content
-            ? $request->content
-            : null;
-
-        $chapterReview = ChapterReview::create($chapterReview);
-
-        Notification::send(
-            $chapter->mentor,
-            new ChapterReviewNotification(
-                [
-                    'content' => 'đánh giá chương học ' . $chapterReview->chapter->title . ' của bạn với số điểm là ' . $chapterReview->votes,
-                    'name' => auth()->user()->name,
-                ]
-            )
-        );
-
-        return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá chương ' . $chapter->title);
-    }
-
-    public function getEditReview(Request $request, $chapterReview) //
-    {
-        try {
-            $chapterReview = ChapterReview::FindOrFail($chapterReview);
-        } catch (ModelNotFoundException $exception) {
-            return response()->json($exception->getMessage(), 401);
+        if (auth()->guard('mentor')->user()) {
+            $commentLesson->delete();
+            return redirect()->back()->with('success', 'Bạn xóa thành công bình luận');
         }
-
-        $mentor = $chapterReview->chapter->mentor;
-
-        $chapter = $chapterReview->chapter;
-
-        $html = view('components.client.lesson.edit-chapter-review', compact('chapter', 'mentor', 'chapterReview'))->render();
-
-        return response()->json($html, 200);
-    }
-
-    public function editReview(Request $request, $review)
-    {
-        try {
-            $chapterReview = ChapterReview::findOrFail($review);
-        } catch (ModelNotFoundException $exception) {
-            return response()->json($exception->getMessage(), 401);
+        if (auth()->user()->id == $commentLesson->id) {
+            $commentLesson->delete();
+            return redirect()->back()->with('success', 'Bạn xóa thành công bình luận');
         }
-
-        $chapterReview->votes = $request->votes;
-
-        $chapterReview->user_id = auth()->user()->id;
-
-        $chapterReview->content = $request->content
-            ? $request->content
-            : null;
-
-        $chapterReview->save();
-
-        Notification::send(
-            $chapterReview->chapter->mentor,
-            new ChapterReviewNotification(
-                [
-                    'content' => 'đánh giá lại chương học ' . $chapterReview->chapter->title . ' của bạn với số điểm là ' . $chapterReview->votes,
-                    'name' => auth()->user()->name,
-                ]
-            )
-        );
-
-        return redirect()->back()->with('success', 'Bạn đã sửa lại đánh giá thành công');
     }
 }

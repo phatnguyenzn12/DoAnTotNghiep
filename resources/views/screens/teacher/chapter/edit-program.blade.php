@@ -110,8 +110,11 @@
         }
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
-            // $('#modal-example').find('.modal-body').html(
-            //     '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            $('#progress_video').html(`
+            <div class="progress mt-3">
+                <div  class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+            style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>       `)
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
@@ -125,7 +128,15 @@
                 contentType: false,
                 processData: false,
                 success: function(res) {
-                    window.location.href = _redirect
+                    $('#progress_video').html(`
+            <div class="progress mt-3">
+                <div  class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+            style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div>  `)
+                    setTimeout(() => {
+                            window.location.href = _redirect
+                        },
+                        1000);
+
                 },
                 error: function(err) {
                     Swal.fire(
@@ -141,19 +152,43 @@
             })
         })
 
-        function showModal(id_video,title) {
+
+
+        function showModal(id_video, title) {
             $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
                 '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
                 .then(
                     res => {
-                        console.log(res)
                         $('#modal-example').find('.modal-body').html(res.data.html)
                         $('iframe').css({
                             'width': '100%',
                             'height': '100%',
                         });
+                    }
+                )
+                .catch(
+                    res => {
+                        Swal.fire(
+                            'chưa tải xong video, vui lòng đợi',
+                            res.message,
+                            'error'
+                        )
+                    }
+                )
+        }
+        function checkvideo(url,id_video) {
+            let _redirect = $(this).data('redirect') ?? ""
+            console.log(url,id_video)
+            axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
+                .then(
+                    res => {
+                        axios.get(url).then(
+                            (res) => {
+                                window.location.href = _redirect
+                            }
+                        )
                     }
                 )
                 .catch(

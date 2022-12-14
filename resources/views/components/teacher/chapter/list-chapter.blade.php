@@ -36,18 +36,27 @@
                             </p>
 
                             <p class="lession-tool m-0">
-                                @if ($lesson->is_edit != 0)
+                                @if ($lesson->is_edit == 2)
                                     <a class="">
                                         <span>
-                                            <button class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modal-example"
-                                                onclick="showModal('{{ $lesson->lessonVideo->video_path }}','Xem video')">Xem
-                                                video</button>
+                                            <button class="btn btn-primary"
+                                                onclick="checkvideo('{{route('teacher.lesson.compelete',$lesson->id)}}','{{ $lesson->lessonVideo->video_path }}')">Kiểm tra tải video</button>
                                         </span>
                                         <span>
                                             {{ $lesson->lessonVideo->time }}
                                         </span>
                                     </a>
+                                @elseif($lesson->is_edit == 1)
+                                <a class="">
+                                    <span>
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                            data-target="#modal-example"
+                                            onclick="showModal('{{ $lesson->lessonVideo->video_path }}','Xem video')">Xem video</button>
+                                    </span>
+                                    <span>
+                                        {{ $lesson->lessonVideo->time }}
+                                    </span>
+                                </a>
                                 @endif
 
                                 <a data-toggle="modal" data-target="#modal-example"
