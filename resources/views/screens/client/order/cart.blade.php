@@ -50,9 +50,9 @@
                                 <tbody class="border-top-0">
 
 
-                                    @forelse ($carts as $cart)
                                     <div style="margin-left: 420px"><span>Giá khuyến mãi</span> /
                                     <span >Giá gốc</span></div>
+                                    @forelse ($carts as $cart)
                                         <!-- Table item -->
                                         <tr>
                                             <!-- Course item -->

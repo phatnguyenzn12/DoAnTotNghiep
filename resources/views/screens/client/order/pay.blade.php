@@ -106,7 +106,7 @@
                                             <div class="row g-3">
                                                 <!-- Image -->
                                                 <div class="col-sm-4">
-                                                    <img class="rounded" src="/frontend/images/courses/4by3/08.jpg"
+                                                    <img class="rounded" src="{{asset('app/' . $course->image)}}"
                                                         alt="">
                                                 </div>
                                                 <!-- Info -->
@@ -117,7 +117,7 @@
                                                     <!-- Info -->
                                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                                         <!-- Price -->
-                                                        <span class="text-success">{{ $course->current_Price }}</span>
+                                                        <span class="text-success">{{number_format( $course->current_Price) }}</span>
 
                                                         <div class="text-primary-hover">
                                                             {{-- <button form="remove" type="submit"
@@ -145,8 +145,8 @@
                                 <!-- Price and detail -->
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h6 fw-light mb-0">Tổng giá</span>
-                                    <span class="h6 fw-light mb-0 fw-bold">{{ $courses->sum('current_price') }}đ</span>
-                                    <input type="text" hidden value="{{ $courses->sum('current_price') }}" total_price>
+                                    <span class="h6 fw-light mb-0 fw-bold">{{number_format( $courses->sum('current_price') )}}đ</span>
+                                    <input type="text" hidden value="{{number_format( $courses->sum('current_price')) }}" total_price>
                                 </li>
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h6 fw-light mb-0">Giảm được</span>
@@ -154,7 +154,7 @@
                                 </li>
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h5 mb-0">Kết quả</span>
-                                    <span class="h5 mb-0" total_discount>{{ $courses->sum('current_price') }}đ</span>
+                                    <span class="h5 mb-0" total_discount>{{ number_format($courses->sum('current_price')) }}đ</span>
                                 </li>
 
                                 <!-- Button -->
