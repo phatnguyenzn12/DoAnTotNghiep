@@ -225,7 +225,7 @@
                      <!-- Rating -->
                      <div class="col-12">
                          <select id="inputState2" name="vote" class="form-select  js-choice">
-                             <option style=" color: orange" value="5" checked ="" >★★★★★ (5/5)</option>
+                             <option style=" color: orange" value="5" checked="">★★★★★ (5/5)</option>
                              <option style=" color: orange" value="4">★★★★☆ (4/5)</option>
                              <option style=" color: orange" value="3">★★★☆☆ (3/5)</option>
                              <option style=" color: orange" value="2">★★☆☆☆ (2/5)</option>
