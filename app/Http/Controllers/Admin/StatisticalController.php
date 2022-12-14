@@ -91,18 +91,18 @@ class StatisticalController extends Controller
             ->orderBy('number', 'DESC')
             ->paginate(10);
 
-        return response()->json($selling);
+        $html = view('components.base.selling',compact('selling'))->render();
+
+        return response()->json($html);
     }
 
-    public function apiCourseSellingTop()
+    public function CourseSellingIndex()
     {
-        $selling = Course::selectRaw('count(*) as number,courses.title,sum(order_details.price) as total,courses.image')
-            ->join('order_details', 'order_details.course_id', '=', 'courses.id')
-            ->groupBy('courses.id')
-            ->orderBy('number', 'DESC')
-            ->take(3)
-            ->get();
+        return view('screens.admin.statistical.top-selling');
+    }
 
-        return response()->json(['title' => $selling->pluck('title')->toArray(), 'total' => $selling->pluck('total')->toArray()]);
+    public function CourseSellingdetail()
+    {
+        return view('screens.admin.statistical.top-selling-detail');
     }
 }

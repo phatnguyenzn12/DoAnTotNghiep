@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Course;
 use App\Models\DiscountCode;
+use App\Models\Mentor;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\PercentagePayable;
 use App\Models\User;
 use App\Services\VnPayService;
 use Illuminate\Http\Request;
@@ -58,17 +60,9 @@ class OrderController extends Controller
 
     public function vnpay(Request $request)
     {
-
         $courses = auth()->user()->load('carts')->carts()->get();
 
-        $courses->transform(
-            function ($course) {
-                $course->price = $course->current_price;
-                return [...$course->only('price'), ...['course_id' => $course->id]];
-            }
-        );
-
-        $total_price = $courses->sum('price');
+        $total_price = $courses->sum('current_price');
 
         if ($request->code != null) {
             $discount = DiscountCode::where('code', $request->code)->first()->discount;
@@ -77,15 +71,11 @@ class OrderController extends Controller
 
         $code = Str::random(9);
 
-        // Cookie::queue('courses', json_encode($courses->toArray()), 3600 * 1000);
-
-        VnPayService::create($request, $code, $total_price,$request->bank);
+        VnPayService::create($request, $code, $total_price, $request->bank);
     }
 
     public function resDataVnpay()
     {
-        dd(auth()->user());
-
         $courses = auth()->user()
             ->load('carts')
             ->carts()
@@ -107,7 +97,28 @@ class OrderController extends Controller
             'status' => 1
         ]);
 
-        $order->orderDetails()->attach($courses->keyby('course_id')->toArray());
+        $order_details = $order->courses()->attach($courses->keyby('course_id')->toArray());
+
+        $order->order_details->transform(
+            function ($order_detail) {
+                $course = $order_detail->course;
+                $teacher_amount = $course->amount_paid_teacher;
+                $admin_amount =  $course->price - $teacher_amount;
+                PercentagePayable::create(
+                    [
+                        'mentor_id' => $course->mentor_id,
+                        'order_detail_id' => $order_detail->id,
+                        'amount_paid_admin' => $admin_amount,
+                        'amount_paid_teacher' => $teacher_amount,
+                    ]
+                );
+                $mentor = $course->mentor;
+                $mentor->salary_bonus = $mentor->salary_bonus + $teacher_amount;
+                $mentor->save();
+            }
+        );
+
+
 
         auth()->user()->load('courses')
             ->courses()

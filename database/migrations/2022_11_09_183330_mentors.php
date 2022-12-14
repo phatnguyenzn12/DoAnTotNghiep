@@ -28,6 +28,7 @@ return new class extends Migration
             // $table->integer('point')->default(100); //Không sửa thằng này
             $table->unsignedBigInteger('cate_course_id')->nullable();
             // $table->string('skills')->nullable();
+            $table->integer('salary_bonus')->default(0);
             $table->string('code_pay')->nullable();
             $table->string('number_pay')->nullable();
             $table->string('name_payment')->nullable();

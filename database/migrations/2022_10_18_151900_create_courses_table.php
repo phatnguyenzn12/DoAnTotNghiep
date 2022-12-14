@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('status')->default(0);
             $table->text('video');
             $table->text('image');
-            $table->integer('percentage_pay');
+            $table->integer('percentage_pay')->nullable();
             $table->integer('language');
             $table->char('tags');
             $table->integer('type')->default(0);

@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('owner_course', function (Blueprint $table) {
+        Schema::create('percentage_payable', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('mentor_id')->nullable();
+            $table->unsignedBigInteger('order_detail_id')->nullable();
+            $table->integer('amount_paid_admin')->nullable();
+            $table->integer('amount_paid_teacher')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ownerCourse');
+        Schema::dropIfExists('percentage_payable');
     }
 };

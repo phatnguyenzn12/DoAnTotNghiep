@@ -15,7 +15,13 @@ class Order extends Model
         'user_id',
     ];
 
-    public function orderDetails() {
+    public function courses()
+    {
         return $this->belongsToMany(Course::class,OrderDetail::class);
+    }
+
+    public function order_details()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
 }
