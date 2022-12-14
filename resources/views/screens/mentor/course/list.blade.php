@@ -14,7 +14,7 @@
             <a href="{{ route('mentor.course.create') }}" class="btn btn-primary mr-2 mb-3">Thêm khóa học</a>
             <div class="card card-custom gutter-b">
                 <div class="card-body">
-                    <form action="">
+                    <form action="" method="GET">
                         <!--begin::Search Form-->
                         <div class="mb-7">
                             <div class="row align-items-center">
@@ -85,6 +85,7 @@
             </div>
             {{-- @include('components.admin.pagination') --}}
             <!--end::table-->
+{{$course->links()}}
         </div>
     @endsection
     @section('js-links')

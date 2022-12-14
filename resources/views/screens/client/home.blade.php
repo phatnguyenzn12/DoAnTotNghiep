@@ -68,7 +68,7 @@
                                     data-purecounter-delay="{{ $certificateAll->count() }}"></h5>
                                 <span class="mb-0 h5">+</span>
                             </div>
-                            <p class="mb-0">Các khóa học đã được trứng nhận</p>
+                            <p class="mb-0">Các khóa học đã được chứng nhận</p>
                         </div>
                     </div>
                 </div>

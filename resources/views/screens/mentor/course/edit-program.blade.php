@@ -108,7 +108,7 @@
                     </div>
 
                 </div>
-
+                {{$chapters->links()}}
             </div>
         </div>
     </div>
