@@ -102,10 +102,6 @@
                                 <input id="kt_tagify_2" class="form-control" name='description_details'
                                     placeholder='Write some tags' />
                             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 
                             <div class="form-group">
                                 <label>Ảnh slide</label>

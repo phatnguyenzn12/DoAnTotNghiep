@@ -113,7 +113,7 @@
                                         @foreach ($course->chapters as $key => $chapter)
                                             <div class="col-12">
                                                 <!-- Curriculum item -->
-                                                <h5 class="mb-4">{{ $chapter->title }} (3 lectures)</h5>
+                                                <h5 class="mb-4">{{ $chapter->title }} ({{$chapter->lessons->count()}} Bài)</h5>
                                                 @foreach ($chapter->lessons as $key2 => $lesson)
                                                     <div class="d-sm-flex justify-content-sm-between align-items-center">
                                                         <div class="d-flex">
