@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Client\AuthRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,7 @@ class AuthMentorController extends Controller
         return view('screens.mentor.auth.login');
     }
 
-    public function handleLogin(Request $request)
+    public function handleLogin(AuthRequest $request)
     {
         if (
             Auth::guard('mentor')->attempt([
@@ -27,10 +28,10 @@ class AuthMentorController extends Controller
                 return redirect()->route('mentor.login')->with('failed', 'Tài khoản chưa được xét duyệt');
             }
             else if(Auth::guard('mentor')->user()->hasRole('lead')){
-                return redirect()->route('mentor.course.index')->with('success', 'bạn đăng nhập tài khoản lead thành công');
+                return redirect()->route('mentor.course.index')->with('success', 'Bạn đăng nhập tài khoản lead thành công');
             }
             else if(Auth::guard('mentor')->user()->hasRole('teacher')){
-                return redirect()->route('teacher.course.index')->with('success', 'bạn đăng nhập tài khoản teacher thành công');
+                return redirect()->route('teacher.course.index')->with('success', 'Bạn đăng nhập tài khoản teacher thành công');
             }
 
             // return redirect()->route('mentor.home')->with('success', 'bạn đăng nhập thành công');

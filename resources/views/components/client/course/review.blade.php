@@ -172,7 +172,7 @@
          <!-- Student review START -->
          <div class="row">
              <!-- Review item START -->
-             @foreach ($course->commentCourses()->paginate(5) as $i)
+             @foreach ($course->commentCourses()->paginate(4) as $i)
                  <hr>
                  <div class="d-md-flex my-4">
                      <!-- Avatar -->
@@ -254,7 +254,29 @@
              @endif
          </div>
          <!-- Leave Review END -->
-
+         {{-- {{dd($course->commentCourses()->get())}} --}}
+         @php
+             $pagination = $comments;
+         @endphp
      </div>
+     <!-- Content END -->
+
+     <!-- Pagination START -->
+     <div class="col-12">
+         <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+             <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                 <li class="page-item mb-0"><a class="page-link" onclick="pagination(1)"><i
+                             class="fas fa-angle-double-left"></i></a></li>
+                 @for ($i = 1; $i <= $pagination->lastPage(); $i++)
+                     <li class="page-item mb-0"><a class="page-link"
+                             onclick="pagination('{{ $i }}')">{{ $i }}</a></li>
+                 @endfor
+                 <li class="page-item mb-0"><a class="page-link"
+                         onclick="pagination('{{ $pagination->lastPage() }}')"><i
+                             class="fas fa-angle-double-right"></i></a>
+                 </li>
+             </ul>
+         </nav>
+     </div>
+     <!-- Pagination END -->
  @endif
- <!-- Content END -->

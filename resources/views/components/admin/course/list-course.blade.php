@@ -5,11 +5,25 @@
             <div class="card card-custom gutter-b card-stretch">
                 <!--begin::Body-->
                 <a class="card-body pt-4 ribbon ribbon-right" href="{{ route('admin.course.program', $course->id) }}">
-                    <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
-                        <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">{{ $course->active }}</font>
-                        </font>
-                    </div>
+                    @if ($course->status == 1)
+                        <div class="ribbon-target bg-primary" style="top: 10px; right: -2px;">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">{{ $course->active }}</font>
+                            </font>
+                        </div>
+                    @elseif($course->status == 2)
+                        <div class="ribbon-target bg-success" style="top: 10px; right: -2px;">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">{{ $course->active }}</font>
+                            </font>
+                        </div>
+                    @else
+                        <div class="ribbon-target bg-danger" style="top: 10px; right: -2px;">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">{{ $course->active }}</font>
+                            </font>
+                        </div>
+                    @endif
 
                     <!--begin::User-->
                     <div class="d-flex align-items-center mb-7" style="aspect-ratio:1/1;overflow:hidden">
@@ -68,12 +82,6 @@
                                 class="text-success font-weight-bolder">{{ $course->certificate != null ? 'có giấy chứng nhận' : ' không Có giấy chứng nhận' }}</span>
                         </div>
 
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-dark-75 mr-2">tags</span>
-                            <span class="text-success font-weight-bolder">{{ $course->tags }}</span>
-                        </div>
-
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-dark-75 mr-2">Kỹ năng</span>
                             <span class="text-success font-weight-bolder">{{ $course->skill->title }}</span>
@@ -95,7 +103,7 @@
                                 </form>
 
 
-                                <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                                <a type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
                                     data-bs-target="#modalId" class="btn btn-danger">Ngừng hoạt động</a>
                             </div>
                         @endif

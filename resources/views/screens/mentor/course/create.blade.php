@@ -66,12 +66,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Thẻ
-                                    <span class="text-danger">*</span></label>
-                                <input id="kt_tagify_1" class="form-control" name='tags' placeholder='Thẻ'
-                                     />
-                            </div>
-                            <div class="form-group">
                                 <label>Giới thiệu</label>
                                 <textarea rows="5" class="form-control" name="content"></textarea>
                             </div>

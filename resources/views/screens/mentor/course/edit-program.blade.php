@@ -84,7 +84,7 @@
                                             <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
                                             <select class="form-control" id="kt_datatable_search_status"
                                                 onchange="fiterSort(this)">
-                                                <option value="0">All</option>
+                                                <option value="0">Mặc định</option>
                                                 <option value="id_desc">Mới đến cũ</option>
                                                 <option value="id_asc">Cũ đến mới</option>
                                             </select>

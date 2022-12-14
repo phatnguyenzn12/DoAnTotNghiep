@@ -3,7 +3,6 @@
 @section('title', 'Trang Đăng nhập')
 
 @section('content')
-
     <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
 
         <div class="container-fluid">
@@ -41,7 +40,8 @@
                                 </li>
                             </ul>
                             <!-- Content -->
-                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k + Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
+                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k + Sinh viên tham gia với chúng tôi, bây giờ đến lượt
+                                bạn.</p>
                         </div>
                     </div>
                 </div>
@@ -57,6 +57,7 @@
 
                             <!-- Form START -->
                             <form method="POST" action="{{ route('auth.handleLogin') }}">
+                                @include('_alert')
                                 @csrf
                                 <!-- Email -->
                                 <div class="mb-4">
@@ -87,7 +88,8 @@
                                 <div class="mb-4 d-flex justify-content-between mb-4">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Nhớ thông tin đăng nhập của tôi</label>
+                                        <label class="form-check-label" for="exampleCheck1">Nhớ thông tin đăng nhập của
+                                            tôi</label>
                                     </div>
                                     <div class="text-primary-hover">
                                         <a href="{{ route('auth.forgotPassword') }}" class="text-secondary">
@@ -109,7 +111,8 @@
                                 <!-- Divider with text -->
                                 <div class="position-relative my-4">
                                     <hr>
-                                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Hoặc</p>
+                                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Hoặc
+                                    </p>
                                 </div>
 
                                 <!-- Social btn -->
@@ -126,7 +129,7 @@
 
                             <!-- Sign up link -->
                             <div class="mt-4 text-center">
-                                <span>Bạn chưa có tài khoản? <a href="{{route('auth.register')}}">Đăng ký ngay</a></span>
+                                <span>Bạn chưa có tài khoản? <a href="{{ route('auth.register') }}">Đăng ký ngay</a></span>
                             </div>
                         </div>
                     </div> <!-- Row END -->

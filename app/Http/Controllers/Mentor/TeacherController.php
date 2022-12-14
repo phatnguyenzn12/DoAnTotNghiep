@@ -25,6 +25,7 @@ class TeacherController extends Controller
 
         $mentors = Mentor::select('*')
         ->role('teacher')
+        ->where('cate_course_id', auth()->guard('mentor')->user()->cate_course_id)
         ->sortdata($request)
         ->search($request)
         ->isactive($request)
@@ -52,7 +53,7 @@ class TeacherController extends Controller
                     ],
                     ['specializations' => implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray())],
                     ['skills' => implode(', ', collect(json_decode($request->skills))->pluck('value')->toArray())],
-                    ['cate_course_id' => auth()->guard('mentor')->user()->id],
+                    ['cate_course_id' => auth()->guard('mentor')->user()->cate_course_id],
                 )
             );
 
@@ -97,7 +98,7 @@ class TeacherController extends Controller
         //     $email->to($teacher->email, $teacher->name);
         // });
         //dd($mentor);
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->route('mentor.teacher.index')->with('success', 'Cập nhật thành công');
     }
 
     public function actived($id)
@@ -109,7 +110,7 @@ class TeacherController extends Controller
         else{
             $mentor->update(['is_active'=>0]);
         }
-        Mail::send('screens.email.mentor.actived', compact('mentor'), function ($email) use ($mentor) {
+        Mail::send('screens.email.mentor.activedTeacher', compact('mentor'), function ($email) use ($mentor) {
             $email->subject('Cập nhật trạng thái tài khoản');
             $email->to($mentor->email, $mentor->name);
         });

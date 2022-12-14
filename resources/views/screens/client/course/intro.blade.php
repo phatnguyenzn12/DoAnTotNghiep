@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- =======================
-                                                                                                                                                    Page content START -->
+                                                                                                                                                            Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -17,6 +17,7 @@
                         <!-- Title START -->
                         <div class="col-12">
                             <!-- Title -->
+                            @php $id = $course->id @endphp
                             <h2>{{ $course->title }}.</h2>
                             <p>{{ $course->content }}</p>
                             <!-- Content -->
@@ -110,36 +111,41 @@
                                     <div class="row g-5">
                                         <!-- Lecture item START -->
                                         @foreach ($course->chapters as $key => $chapter)
-                                            <div class="col-12">
-                                                <!-- Curriculum item -->
-                                                <h5 class="mb-4">{{ $chapter->title }} (3 lectures)</h5>
-                                                @foreach ($chapter->lessons as $key2 => $lesson)
-                                                    <div class="d-sm-flex justify-content-sm-between align-items-center">
-                                                        <div class="d-flex">
-                                                            <a href="#" class="btn btn-danger-soft btn-round mb-0"><i
-                                                                    class="fas fa-play"></i></a>
-                                                            <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
-                                                                <h6 class="mb-0">{{ $lesson->title }}</h6>
-                                                                <p class="mb-2 mb-sm-0 small"> {{ $lesson->time }}</p>
+                                            @if ($chapter->lessons->count() > 0)
+                                                <div class="col-12">
+                                                    <!-- Curriculum item -->
+                                                    <h5 class="mb-4">{{ $chapter->title }}
+                                                        ({{ $chapter->lessons->count() }} Bài)</h5>
+                                                    @foreach ($chapter->lessons as $key2 => $lesson)
+                                                        <div
+                                                            class="d-sm-flex justify-content-sm-between align-items-center">
+                                                            <div class="d-flex">
+                                                                <a href="#"
+                                                                    class="btn btn-danger-soft btn-round mb-0"><i
+                                                                        class="fas fa-play"></i></a>
+                                                                <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
+                                                                    <h6 class="mb-0">{{ $lesson->title }}</h6>
+                                                                    <p class="mb-2 mb-sm-0 small"> {{ $lesson->time }}</p>
+                                                                </div>
                                                             </div>
+                                                            <!-- Button -->
+                                                            @if ($lesson->is_demo == 1)
+                                                                <a class="btn btn-sm btn-success mb-0" data-toggle="modal"
+                                                                    data-bs-target="#modal-example"data-bs-toggle="modal"
+                                                                    data-bs-target="#viewReview"
+                                                                    onclick="showAjaxModal('{{ route('client.course.lesson', $lesson->id) }}','Xem thử video')">Xem
+                                                                    thử</a>
+                                                            @else
+                                                                <a href="#" @disabled(true)
+                                                                    class="btn btn-sm btn-orange mb-0">Mua khóa
+                                                                    học</a>
+                                                            @endif
                                                         </div>
-                                                        <!-- Button -->
-                                                        @if ($lesson->is_demo == 1)
-                                                            <a class="btn btn-sm btn-success mb-0" data-toggle="modal"
-                                                                data-bs-target="#modal-example"data-bs-toggle="modal"
-                                                                data-bs-target="#viewReview"
-                                                                onclick="showAjaxModal('{{ route('client.course.lesson', $lesson->id) }}','Xem thử video')">Xem
-                                                                thử</a>
-                                                        @else
-                                                            <a href="#" @disabled(true)
-                                                                class="btn btn-sm btn-orange mb-0">Mua khóa
-                                                                học</a>
-                                                        @endif
-                                                    </div>
-                                                    <!-- Divider -->
-                                                    <hr>
-                                                @endforeach
-                                            </div>
+                                                        <!-- Divider -->
+                                                        <hr>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                             <!-- Lecture item END -->
                                         @endforeach
 
@@ -159,8 +165,10 @@
                             </div>
                         </div>
                         <!-- Curriculum END -->
+                        <div id="table-innerHtml">
 
-                        @include('components.client.course.review')
+                        </div>
+                        {{-- @include('components.client.course.review') --}}
 
                     </div>
                 </div>
@@ -177,9 +185,10 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <!-- Price -->
                                         <div class="d-flex align-items-center">
-                                            <h3 class="fw-bold mb-0 me-2">{{ number_format($course->current_price )}}đ</h3>
+                                            <h3 class="fw-bold mb-0 me-2">{{ number_format($course->current_price) }}đ
+                                            </h3>
                                             <span
-                                                class="text-decoration-line-through mb-0 me-2">{{ $course->price }}đ</span>
+                                                class="text-decoration-line-through mb-0 me-2">{{ number_format($course->price) }}đ</span>
                                             <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
                                         </div>
                                         <!-- Share button with dropdown -->
@@ -276,11 +285,12 @@
                                     <div class="d-sm-flex align-items-center">
                                         <!-- Avatar image -->
                                         <div class="avatar avatar-xl">
-                                            <img class="avatar-img rounded-circle" src="{{ asset('app/' . $course->mentor->avatar) }}"
-                                                alt="avatar">
+                                            <img class="avatar-img rounded-circle"
+                                                src="{{ asset('app/' . $course->mentor->avatar) }}" alt="avatar">
                                         </div>
                                         <div class="ms-sm-3 mt-2 mt-sm-0">
-                                            <h5 class="mb-0"><a href="#">{{ $course->mentor->name }} <span class="text-danger">(quản lý)</span></a></h5>
+                                            <h5 class="mb-0"><a href="#">{{ $course->mentor->name }} <span
+                                                        class="text-danger">(quản lý)</span></a></h5>
                                             <p class="mb-0 small">{{ $course->mentor->specializations }}</p>
                                         </div>
                                     </div>
@@ -385,7 +395,28 @@
             })
         }
 
-        let price: {{$course->current_price}};
-        let price1 = price.toLocaleString('vi', {style : 'currency', currency : 'VND'});
+        objFiter = {
+            page: 1,
+            record: 4,
+            course_id: {{ $id }},
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('client.course.filterComment') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function pagination(page) {
+            objFiter.page = page
+            showAjax(objFiter);
+        }
     </script>
 @endpush

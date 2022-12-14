@@ -63,11 +63,7 @@
                     <div class="text-inverse-success font-weight-bolder font-size-h5 mb-2 mt-5">Các khóa học bán
                         được</div>
                     <div class="font-weight-bold text-inverse-success font-size-sm">{{ $selling }}</div>
-<<<<<<< HEAD
-                    <a href="{{ route('admin.statistical.CourseSelling') }}" class="btn btn-bg-white mt-3">Chi tiết</a>
-=======
                     <a href="{{ route('admin.statistical.courseList') }}" class="btn btn-bg-white mt-3">Chi tiết</a>
->>>>>>> refs/remotes/origin/dev_bach
                 </div>
                 <!--end::Body-->
             </div>
@@ -100,11 +96,7 @@
                     <div class="text-inverse-success font-weight-bolder font-size-h5 mb-2 mt-5">Số lượng khóa học
                         bán được</div>
                     <div class="font-weight-bold text-inverse-success font-size-sm">{{ $number_course_sold }}</div>
-<<<<<<< HEAD
-                    <a herf="" @disabled(true) class="btn btn-bg-white mt-3">Chi tiết</a>
-=======
                     <button class="btn btn-bg-white mt-3">Chi tiết</button>
->>>>>>> refs/remotes/origin/dev_bach
 
                 </div>
                 <!--end::Body-->
@@ -136,11 +128,7 @@
                     <div class="text-inverse-success font-weight-bolder font-size-h5 mb-2 mt-5">Học sinh theo học</div>
                     <div class="font-weight-bold text-inverse-success font-size-sm">{{ $student_number }}</div>
 
-<<<<<<< HEAD
-                    <button class="btn btn-bg-white mt-3" disabled>Chi tiết</button>
-=======
                     <button class="btn btn-bg-white mt-3">Chi tiết</button>
->>>>>>> refs/remotes/origin/dev_bach
                 </div>
                 <!--end::Body-->
             </div>
@@ -298,67 +286,6 @@
 
 @push('js-handles')
     <script>
-<<<<<<< HEAD
-        // Shared Colors Definition
-        const primary = '#6993FF';
-        const success = '#1BC5BD';
-        const info = '#8950FC';
-        const warning = '#FFA800';
-        const danger = '#F64E60';
-
-        // Class definition
-        function generateBubbleData(baseval, count, yrange) {
-            var i = 0;
-            var series = [];
-            while (i < count) {
-                var x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;;
-                var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-                var z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
-
-                series.push([x, y, z]);
-                baseval += 86400000;
-                i++;
-            }
-            return series;
-        }
-
-        function generateData(count, yrange) {
-            var i = 0;
-            var series = [];
-            while (i < count) {
-                var x = 'w' + (i + 1).toString();
-                var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-                series.push({
-                    x: x,
-                    y: y
-                });
-                i++;
-            }
-            return series;
-        }
-
-        var KTWidgets = function() {
-
-
-
-            var _demo2 = function(data) {
-                const apexChart = "#chart_2";
-                var options = {
-                    series: [{
-                        name: 'Giảng viên + quản lý',
-                        data: data.all
-                    }, {
-                        name: 'Quản lý',
-                        data: data.admin
-                    }, {
-                        name: 'Gỉang viên',
-                        data: data.teacher
-                    }],
-                    chart: {
-                        height: 350,
-                        type: 'area'
-=======
         var KTWidgets = function() {
             // Private properties
             var _initChartsWidget6 = function(data) {
@@ -402,41 +329,21 @@
                     },
                     legend: {
                         show: false
->>>>>>> refs/remotes/origin/dev_bach
                     },
                     dataLabels: {
                         enabled: false
                     },
                     stroke: {
-<<<<<<< HEAD
-                        curve: 'smooth'
-                    },
-                    xaxis: {
-                        // type: 'datetime',
-=======
                         curve: 'smooth',
                         show: true,
                         width: 2,
                         colors: ['transparent']
                     },
                     xaxis: {
->>>>>>> refs/remotes/origin/dev_bach
                         categories: ['tháng 1', 'tháng 2', 'tháng 3', 'tháng 4', 'tháng 5',
                             'tháng 6',
                             'tháng 7', 'tháng 8', 'tháng 9', 'tháng 10', 'tháng 11', 'tháng 12'
                         ],
-<<<<<<< HEAD
-                    },
-                    // tooltip: {
-                    //     x: {
-                    //         format: 'dd/MM/yy HH:mm'
-                    //     },
-                    // },
-                    colors: [primary, success, danger]
-                };
-
-                var chart = new ApexCharts(document.querySelector(apexChart), options);
-=======
                         axisBorder: {
                             show: false,
                         },
@@ -523,7 +430,6 @@
                 };
 
                 var chart = new ApexCharts(element, options);
->>>>>>> refs/remotes/origin/dev_bach
                 chart.render();
             }
 
@@ -537,11 +443,7 @@
                             (res) => {
                                 js_$('[total_price]').innerHTML = 'Thu nhập năm nay: ' + res.data.all.reduce((
                                     partialSum, a) => partialSum + Number(a), 0);
-<<<<<<< HEAD
-                                _demo2(res.data);
-=======
                                 _initChartsWidget6(res.data);
->>>>>>> refs/remotes/origin/dev_bach
                             }
                         )
 

@@ -67,17 +67,11 @@
                         </div>
                         <div class="form-group">
                             <label>Chọn giảng viên</label>
-                            <select id="select2" class="form-control" name="language" id="">
+                            <select id="select2" class="form-control" name="mentor_id" id="">
                                 @foreach ($teachers as $teacher)
                                 <option @selected($course->cate_course_id == $teacher->id ?? true) value="{{ $teacher->id }}">Tên giảng viên: {{ $teacher->name }} / email: {{ $teacher->email }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Thẻ
-                                <span class="text-danger">*</span></label>
-                            <input id="kt_tagify_1" type="text" name="tags" class="form-control"
-                                value="{{ str_replace(',', ', ', $course->tags) }}" placeholder="Thẻ">
                         </div>
                         <div class="form-group">
                             <label>Giới thiệu</label>

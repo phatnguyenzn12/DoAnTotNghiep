@@ -66,13 +66,9 @@
                     <ul class="dropdown-menu" aria-labelledby="demoMenu">
                         <li> <a class="dropdown-item" href="{{ route('client.mentor.list') }}">Người giảng dạy</a>
                         </li>
-                        <li> <a class="dropdown-item" href="{{ route('client.mentor.index') }}">Trở thành giáo viên</a>
-                        </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Danh sách khóa học</a>
                         </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Liên hệ</a>
-                        </li>
-                        <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Chính sách</a>
                         </li>
                     </ul>
                 </li>
@@ -121,7 +117,7 @@
                                         <div class="row p-3 g-2">
                                             <!-- Image -->
                                             <div class="col-3">
-                                                <img class="rounded-2" src="/frontend/images/book/02.jpg"
+                                                <img class="rounded-2" src="{{asset('app/'.$cart->image)}}"
                                                     alt="avatar">
                                             </div>
 
@@ -134,7 +130,7 @@
                                                 </div>
                                                 <!-- Select item -->
                                                 <span>
-                                                    {{ $cart->current_price }}
+                                                    {{ number_format($cart->current_price) }}đ
                                                 </span>
                                             </div>
                                         </div>
