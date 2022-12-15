@@ -8,7 +8,7 @@
     <!-- Main Banner END -->
     @include('components.client.home.banner')
     <!-- =======================
-                                                                                Counter START -->
+                                                                                                Counter START -->
     <section class="py-0 py-xl-5">
         <div class="container">
             <div class="row g-4">
@@ -75,11 +75,6 @@
             </div>
         </div>
     </section>
-    <!-- =======================
-                                                                                                                                                                                Counter END -->
-
-    <!-- =======================
-                                                                                                                                                                                Popular course START -->
     <section>
         <div class="container">
             <!-- Title -->
@@ -96,7 +91,6 @@
                 <div class="tab-pane fade show active" id="course-pills-tabs-1" role="tabpanel"
                     aria-labelledby="course-pills-tab-1">
                     <div class="row g-4">
-
                         @forelse($courses as $course)
                             <!-- Card item START -->
                             <div class="col-sm-6 col-lg-4 col-xl-3">
@@ -161,10 +155,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                Popular course END -->
+                                                                                                                                                                                                Popular course END -->
 
     <!-- =======================
-                                                                                                                                                                                Action box START -->
+                                                                                                                                                                                                Action box START -->
     <section class="pt-0 pt-lg-5">
         <div class="container position-relative">
             <!-- SVG decoration START -->
@@ -198,13 +192,13 @@
                                 <div class="row align-items-center">
                                     <!-- Title -->
                                     <div class="col-lg-7">
-                                        <h3 class="text-white">Giảm {{$interView->first()->discountCode->discount}}% cho khóa học {{$interView->first()->course->title}} !</h3>
-                                        <p class="text-white mb-3 mb-lg-0">Đang có sự kiện giảm {{$interView->first()->discountCode->discount}}% cho {{$interView->first()->course->title}}
-                                            gian từ {{$interView->first()->discountCode->start_time}} đến {{$interView->first()->discountCode->end_time}}</p>
+                                        <h3 class="text-white">Xem khóa học của Eduport </h3>
+                                        <p class="text-white mb-3 mb-lg-0">Các khóa học của Eduport gồm: FrontEnd, BackEnd
+                                            và các ngôn ngữ lập trình đa dạng khác nhau</p>
                                     </div>
                                     <!-- Content and input -->
                                     <div class="col-lg-5 text-lg-end">
-                                        <a href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}" class="btn btn-outline-warning mb-0">Bắt đâu sự kiện</a>
+                                        <a href="{{route('client.course.list')}}" class="btn btn-outline-warning mb-0">Tất cả </a>
                                     </div>
                                 </div>
                             </div>
@@ -215,10 +209,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                Action box END -->
+                                                                                                                                                                                                Action box END -->
 
     <!-- =======================
-                                                                                                                                                                                Trending courses START -->
+                                                                                                                                                                                                Trending courses START -->
     <section class="pb-5 pt-0 pt-lg-5">
         <div class="container">
             <!-- Title -->
@@ -297,7 +291,8 @@
                                             </div>
                                             <!-- Price -->
                                             <div>
-                                                <h4 class="text-success mb-0 item-show">{{ number_format($course->price) }}đ</h4>
+                                                <h4 class="text-success mb-0 item-show">
+                                                    {{ number_format($course->price) }}đ</h4>
                                                 <a href="{{ route('client.order.addToCart', $course->id) }}"
                                                     class="btn btn-sm btn-success-soft item-show-hover"><i
                                                         class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ hàng</a>

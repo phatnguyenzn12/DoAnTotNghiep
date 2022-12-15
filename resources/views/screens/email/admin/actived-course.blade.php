@@ -6,8 +6,8 @@
         <div style="display: block; width: 600px; max-width: 600px; margin: 0 auto !important;">
             <div
                 style="box-sizing: border-box; width: 100%; margin-bottom: 30px; background: #ffffff; border: 1px solid #f0f0f0;">
-                <div class="wrapper"
-                    style="box-sizing: border-box; font-size: 16px; vertical-align: top; padding: 30px;" valign="top">
+                <div class="wrapper" style="box-sizing: border-box; font-size: 16px; vertical-align: top; padding: 30px;"
+                    valign="top">
                     <div>
                         <img src="https://uphinh.vn/images/2022/12/12/d318e0b5ffac44949b85de3b1a907f14.png"
                             alt="d318e0b5ffac44949b85de3b1a907f14.png" border="0"
@@ -17,24 +17,45 @@
                         <h5 style="color: red; font: bold; text-align: center;">
                             EDUPORT HỆ THỐNG BÁN KHÓA HỌC TRỰC TUYẾN</h5>
                         <hr>
-                        @if (isset($course))
+                        @if (isset($course_active))
                             <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                                Xin chào {{ $course->mentor->name }},<br>
-                                Khóa học: {{ $course->title }} đã được thêm giá.
+                                Xin chào {{ $course_active->mentor->name }},<br>
+                                Khóa học: {{ $course_active->title }} đã được kích hoạt và sử dụng.
+                            </p>
+                            <p align="center"
+                                style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
+                                valign="top">
+                                <a href="{{ route('teacher.course.index') }}"
+                                    style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
+                                    target="_blank">Xem chi tiết</a>
+                            </p>
+                        @elseif (isset($course))
+                            <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
+                                Xin chào {{ $course->mentor->email }},<br>
+                                Khóa học: {{ $course->title }} đã ngừng kích hoạt.
+                            </p>
+                            <p>Lý do: {{ $request->content }}</p>
+                            <p align="center"
+                                style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
+                                valign="top">
+                                <a href="{{ route('teacher.course.index') }}"
+                                    style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
+                                    target="_blank">Xem chi tiết</a>
                             </p>
                         @else
                             <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                                Xin chào {{ $course_type->mentor->name }},<br>
-                                Khóa học: {{ $course_type->title }} đã được duyệt.
+                                Xin chào {{ $order_detail->order->user->name }},<br>
+                                Khóa học: {{ $order_detail->course->title }} đã ngừng kích hoạt.
+                            </p>
+                            <p>Lý do: {{ $request->content }}</p>
+                            <p align="center"
+                                style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
+                                valign="top">
+                                <a href="{{ route('auth.login') }}"
+                                    style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
+                                    target="_blank">Xem chi tiết</a>
                             </p>
                         @endif
-                        <p align="center"
-                            style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
-                            valign="top">
-                            <a href="{{ route('mentor.course.index') }}"
-                                style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
-                                target="_blank">Xem chi tiết</a>
-                        </p>
                         <p>Cảm ơn bạn!</p>
                         <p>Đã sử dụng hệ thống của chúng tôi!</p>
                     </div>

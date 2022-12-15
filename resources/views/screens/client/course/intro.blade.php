@@ -378,6 +378,13 @@
                                 )
                         }
                     })
+                },
+                error: function(err) {
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                 }
             })
         }

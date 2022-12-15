@@ -85,7 +85,7 @@
                                     <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
                                             class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
                                     <a class="list-group-item text-danger bg-danger-soft-hover" href="{{route('auth.logout')}}"><i
-                                            class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+                                            class="fas fa-sign-out-alt fa-fw me-2"></i>Đăng xuất</a>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                 <!-- About me -->
                                 <div class="col-12">
                                     <label class="form-label">Sở thích</label>
-                                    <textarea required name="about_me" value="{{ $user->about_me }}" class="form-control" rows="3"></textarea>
+                                    <input required name="about_me" value="{{ $user->about_me }}" class="form-control" rows="3">
                                     <div class="form-text">Mô tả ngắn về con người bạn.</div>
                                 </div>
 

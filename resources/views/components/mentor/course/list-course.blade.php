@@ -115,13 +115,7 @@
                                 </form>
 
                                 <a type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
                                     data-bs-target="#modalId" class="btn btn-danger">Bỏ duyệt khóa học</a>
-                                <button type="button" class="btn btn-outline-primary btn-pill"
-                                    onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
-                                    data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm
-                                    chương
-                                    học</button>
                             </div>
 
                         </div>

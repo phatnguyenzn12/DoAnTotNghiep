@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin/course')->name('admin.course.')->middleware('check-admin')->controller(CourseController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
-        Route::get('list-data','filterData')->name('listData');
+        Route::get('list-data', 'filterData')->name('listData');
         Route::get('edit-program/{course_id}', 'program')->name('program');
-        Route::get('list-data-chapter','filterDataChapter')->name('listDataChapter');
+        Route::get('list-data-chapter', 'filterDataChapter')->name('listDataChapter');
         Route::get('create/{id}', 'create')->name('create');
         Route::post('store/{id}', 'store')->name('store');
         Route::put('/actived/{course}', 'actived')->name('actived');
@@ -22,6 +22,7 @@ Route::prefix('admin/course')->name('admin.course.')->middleware('check-admin')-
 
         Route::get('detail/{lesson}', 'detailLesson')->name('detailLesson');
 
-        Route::get('create123','create123')->name('create123');
+        Route::get('form-active-course/{id}', 'formActiveCourse')->name('formActiveCourse');
+        Route::put('/actived-course/{course}', 'activedCourse')->name('activedCourse');
     }
 );

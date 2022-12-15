@@ -51,12 +51,14 @@ class LessonController extends Controller
 
     public function store(LessonValidateRequest $request)
     {
+        
         $lesson = $request->only(
             'title',
             'content',
             'chapter_id'
         );
 
+        $lesson ['is_edit'] = 0; 
         $lesson['sort'] = Lesson::where('chapter_id', $request->chapter_id)->max('sort') + 1 ?? 0;
 
         $lesson = Lesson::create($lesson);

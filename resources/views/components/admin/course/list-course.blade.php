@@ -100,20 +100,10 @@
                                     <button onclick="return confirm('Bạn có chắc muốn hoạt động')"
                                         class="btn btn-success">Kích hoạt</button>
                                 </form>
-
-
-                                {{-- <a type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
-                                    data-bs-target="#modalId" class="btn btn-danger"
-                                    onclick="showAjaxModal('{{ route('admin.course.create123') }}','Lý do ngừng kích hoạt')">Ngừng
-                                    kích hoạt</a> --}}
-                                <a type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
-                                onclick="showAjaxModal('{{ route('admin.course.create123') }}','Lý do ngừng kích hoạt')"
-                                    data-bs-target="#modalId" class="btn btn-danger">Ngừng kích hoạt</a>
-                                {{-- <button type="button" class="btn btn-outline-primary btn-pill"
-                                    onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
-                                    data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm
-                                    chương
-                                    học</button> --}}
+                                <a type="button" class="btn btn-danger btn-lg" data-toggle="modal"
+                                    data-target="#modalId"
+                                    onclick="showAjaxModal('{{ route('admin.course.formActiveCourse', $course->id) }}','Lý do ngừng kích hoạt')"
+                                    class="btn btn-danger">Ngừng kích hoạt</a>
                             </div>
                         @endif
                     </div>
@@ -137,28 +127,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitleId">Tại sao ngừng hoạt động</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.course.actived', ['course' => $course->id]) }}" method="post">
-                    @csrf
-                    @method('put')
-                    <div class="mb-3">
-                        <label for="" class="form-label">Lý do ngừng hoạt động</label>
-                        <input type="text" name="status" hidden value="1">
-                        <textarea type="text" name="content" placeholder="Nhập nội dung"></textarea>
-                    </div>
 
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Gửi đi</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Optional: Place to the bottom of scripts -->
 <script>
@@ -171,7 +150,7 @@
         $.ajax({
             url: url,
             timeout: 1000,
-            data: {},
+            // data: {},
             success: function(res) {
                 $('#modalId').find('.modal-body').html(res)
             }

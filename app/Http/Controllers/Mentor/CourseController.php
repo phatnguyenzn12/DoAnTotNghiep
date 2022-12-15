@@ -155,7 +155,6 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->description_details = implode(', ', collect(json_decode($request->description_details))->pluck('value')->toArray());
         $course->certificate_id =  $request->certificate_id;
-
         $course->fill($request->except(['_method', '_token']));
         if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('images');

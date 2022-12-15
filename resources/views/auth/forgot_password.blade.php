@@ -32,7 +32,7 @@
                                         src="frontend/images/avatar/04.jpg" alt="avatar"></li>
                             </ul>
                             <!-- Content -->
-                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k + Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
+                            <p class="mb-0 h6 fw-light ms-0 ms-sm-3">+ Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
                         </div>
                     </div>
                 </div>

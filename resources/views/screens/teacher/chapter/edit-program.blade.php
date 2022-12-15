@@ -93,6 +93,45 @@
 @endsection
 @push('js-handles')
     <script>
+        function upload_video() {
+            $('#customFile').on('change', function() {
+                let form = $('form.has-validation-ajax')[0]
+                let data = new FormData(form)
+                let _method = $(form).attr('method')
+                $.ajax({
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function(evt) {
+                            console.log(evt);
+                            if (evt.lengthComputable) {
+                                console.log(evt.lengthComputable);
+                                var percentComplete = evt.loaded / evt.total;
+                            }
+                        }, false);
+
+                        xhr.addEventListener("progress", function(evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = evt.loaded / evt.total;
+                            }
+                        }, false);
+
+                        return xhr;
+                    },
+                    url: '{{ route('teacher.lesson.uploadVideo') }}',
+                    timeout: 1000,
+                    type: _method,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function(res) {
+                        console.log(res);
+                    }
+                })
+
+                // let data = new FormData(this)
+            })
+        }
+
         function showAjaxModal(url, title) {
             $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
@@ -105,13 +144,18 @@
                 },
                 success: function(res) {
                     $('#modal-example').find('.modal-body').html(res)
+                    // upload_video()
                 }
             })
         }
+
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
-            // $('#modal-example').find('.modal-body').html(
-            //     '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            $('#progress_video').html(`
+            <div class="progress mt-3">
+                <div  class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+            style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>       `)
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
@@ -125,7 +169,15 @@
                 contentType: false,
                 processData: false,
                 success: function(res) {
-                    window.location.href = _redirect
+                    $('#progress_video').html(`
+            <div class="progress mt-3">
+                <div  class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+            style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div>  `)
+                    setTimeout(() => {
+                            window.location.href = _redirect
+                        },
+                        1000);
+
                 },
                 error: function(err) {
                     Swal.fire(
@@ -133,6 +185,7 @@
                         err,
                         'error'
                     )
+                    $('#progress_video').html(` `);
                     let errors = err.responseJSON.errors
                     Object.keys(errors).forEach(key => {
                         $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
@@ -141,19 +194,51 @@
             })
         })
 
-        function showModal(id_video,title) {
+
+
+        function showModal(id_video, title) {
             $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
                 '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
             axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
                 .then(
                     res => {
-                        console.log(res)
                         $('#modal-example').find('.modal-body').html(res.data.html)
                         $('iframe').css({
                             'width': '100%',
                             'height': '100%',
                         });
+                    }
+                )
+                .catch(
+                    res => {
+                        Swal.fire(
+                            'chưa tải xong video, vui lòng đợi',
+                            res.message,
+                            'error'
+                        )
+                    }
+                )
+        }
+
+        function checkvideo(url, id_video) {
+            let _redirect = $(this).data('redirect') ?? ""
+            axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
+                .then(
+                    res => {
+                        console.log(res);
+                        const date = new Date(null);
+                        date.setSeconds(res.data.duration); // specify value for SECONDS here
+                        const time = date.toISOString().slice(11, 19);
+                        axios.get(url, {
+                            params: {
+                                time: time
+                            }
+                        }).then(
+                            (res) => {
+                                window.location.href = _redirect
+                            }
+                        )
                     }
                 )
                 .catch(

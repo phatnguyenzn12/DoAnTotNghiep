@@ -23,16 +23,17 @@ class HomeController extends Controller
 
         $studentAll = OwnerCourse::select('*')->get()->unique('user_id');
 
-        $courses =  Course::select('*')->where('status', 1);
-        
+        $courses =  Course::select('*')->where('status', 2);
         if (auth()->user()) {
+            
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
             $courses = $courses->whereNotIn('id', $courses_id);
+            
         }
+      //  dd($courses->get());
+        $courses =  $courses->orderBy('id', 'DESC')->paginate(8);
+        //  dd($courses);
 
-        $courses =  $courses->orderBy('id','DESC')->paginate(8);
-
-        
         $certificateAll = $coursesAll->filter(
             function ($val) {
                 return $val->certificate()->first();
@@ -40,15 +41,15 @@ class HomeController extends Controller
         );
 
         $interView = Banner::select('*')->where('status', 1)->get();
-        return view('screens.client.home', compact('courses', 'cate','interView', 'coursesAll', 'mentorAll', 'studentAll','certificateAll'));
+        return view('screens.client.home', compact('courses', 'cate', 'interView', 'coursesAll', 'mentorAll', 'studentAll', 'certificateAll'));
     }
 
-    public function banner(){
+    public function banner()
+    {
         $interView = Banner::select('*')->where('status', 1)->get();
 
         $getCourseInBanner = Banner::select('course_id')->get();
 
-        return view('components.client.home.banner', compact( 'interView'));
-
+        return view('components.client.home.banner', compact('interView'));
     }
 }

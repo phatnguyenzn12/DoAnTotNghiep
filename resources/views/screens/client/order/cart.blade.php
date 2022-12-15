@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-                                        Page Banner START -->
+                                                        Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -26,10 +26,10 @@
         </div>
     </section>
     <!-- =======================
-                                        Page Banner END -->
+                                                        Page Banner END -->
 
     <!-- =======================
-                                        Page content START -->
+                                                        Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -54,21 +54,23 @@
                             <!-- Table START -->
                             <table class="table align-middle p-4 mb-0">
                                 <!-- Table head -->
+                              
+                                    <thead>
+                                        <th>Tên</th>
+                                        <th>Giá được giảm</th>
+                                        <th>Giá sản phẩm</th>
+                                    </thead>
+                           
                                 <!-- Table body START -->
                                 <tbody class="border-top-0">
-
-
                                     @forelse ($carts as $cart)
-                                    <div style="margin-left: 420px"><span>Giá khuyến mãi</span> /
-                                    <span >Giá gốc</span></div>
-                                        <!-- Table item -->
                                         <tr>
                                             <!-- Course item -->
                                             <td>
                                                 <div class="d-lg-flex align-items-center">
                                                     <!-- Image -->
                                                     <div class="w-100px w-md-80px mb-2 mb-md-0">
-                                                        <img src="{{asset('app/' . $cart->image)}}" class="rounded"
+                                                        <img src="{{ asset('app/' . $cart->image) }}" class="rounded"
                                                             alt="">
                                                     </div>
                                                     <!-- Title -->
@@ -80,15 +82,25 @@
 
                                             <!-- Amount item -->
                                             <td class="text-center">
-                                                <h5 class="text-success mb-0">{{number_format($cart->current_price) }} đ / {{number_format($cart->price) }} đ</h5>
+                                                <h5 class="text-success mb-0">
+                                                    {{ number_format($cart->current_price) }} đ</h5>
                                             </td>
+
+                                            <td class="text-center">
+                                                <h5 class="text-success mb-0">
+                                                    {{ number_format($cart->price) }} đ</h5>
+                                            </td>
+
+
                                             <!-- Action item -->
-                                            <form action="{{ route('client.order.cartRemove',$cart->id ) }}" id="remove" method="post">
+                                            <form action="{{ route('client.order.cartRemove', $cart->id) }}" id="remove"
+                                                method="post">
                                                 @csrf
                                                 @method('delete')
                                             </form>
                                             <td>
-                                                <button form="remove" type="submit" class="btn btn-sm btn-danger-soft px-2 mb-0"><i
+                                                <button form="remove" type="submit"
+                                                    class="btn btn-sm btn-danger-soft px-2 mb-0"><i
                                                         class="fas fa-fw fa-times"></i></button>
                                             </td>
                                         </tr>
@@ -118,7 +130,7 @@
                         <ul class="list-group list-group-borderless mb-2">
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Tổng giá</span>
-                                <span class="h6 fw-light mb-0 fw-bold">{{number_format($carts->sum('price')) }}đ</span>
+                                <span class="h6 fw-light mb-0 fw-bold">{{ number_format($carts->sum('price')) }}đ</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Giảm được</span>
@@ -126,7 +138,7 @@
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h5 mb-0">Kết quả</span>
-                                <span class="h5 mb-0">{{number_format($carts->sum('current_price'))}}đ</span>
+                                <span class="h5 mb-0">{{ number_format($carts->sum('current_price')) }}đ</span>
                             </li>
                         </ul>
 
@@ -146,7 +158,7 @@
         </div>
     </section>
     <!-- =======================
-                                        Page content END -->
+                                                        Page content END -->
 @endsection
 
 @section('js-links')

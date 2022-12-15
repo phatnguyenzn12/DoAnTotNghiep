@@ -1,6 +1,8 @@
+
 <div class="row g-4 justify-content-center">
 
     @forelse ($courses as $course)
+    
         <!-- Card item START -->
         <div class="col-lg-10 col-xxl-6">
             <div class="card rounded overflow-hidden shadow">
@@ -46,6 +48,7 @@
                                 <li class="list-inline-item me-0 small"><i
                                         class="fas fa-star-half-alt text-warning"></i></li>
                                 <li class="list-inline-item ms-2 h6 fw-light">4.5/5.0</li>
+                                <li class="list-inline-item ms-2 h6 fw-light">{{number_format($course->price)}}đ</li>
                             </ul>
                         </div>
                     </div>
