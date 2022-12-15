@@ -78,14 +78,6 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                         <div class="form-group">
-                            <label>Chọn giảng viên</label>
-                            <select id="select2" class="form-control" name="mentor_id" id="">
-                                @foreach ($teachers as $teacher)
-                                <option @selected($course->cate_course_id == $teacher->id ?? true) value="{{ $teacher->id }}">Tên giảng viên: {{ $teacher->name }} / email: {{ $teacher->email }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label>Giới thiệu</label>
                             <textarea rows="5" class="form-control" value="{{ old('content') ?? $course->content }}" name="content">{{ $course->content }}</textarea>
                         </div>

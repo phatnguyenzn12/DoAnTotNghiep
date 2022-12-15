@@ -15,14 +15,15 @@ class CourseController extends Controller
     public function index()
     {
         $cate_courses = CateCourse::all();
-        $min_price = Course::min('price');
-        $max_price = Course::max('price');
+        $min_price = Course::where('status',2)->min('price');
+        $max_price = Course::where('status',2)->max('price');
         return view('screens.client.course.list', compact('cate_courses', 'min_price', 'max_price'));
     }
 
     public function filterData(Request $request)
     {
         $courses = Course::select('*')
+        ->where('status',2)
         ->sortdata($request)
         ->search($request)
         ->category($request)
