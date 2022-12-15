@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <a href="{{ route('client.course.generatePDF') }}" class="btn btn-primary">Generate PDF</a>
+        <a href="{{ route('client.course.generatePDF') }}" class="btn btn-primary">Xuất file PDF</a>
 
     </div>
 

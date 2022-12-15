@@ -17,29 +17,30 @@ class VimeoService
     public function create($file_video, $title, $content, $is_demo)
     {
       //  dd($file_video, $title, $content, $is_demo);
-        if ($is_demo == 0) {
+        // if ($is_demo == 0) {
             $privacy = array(
                 'view' => 'disable',
                 'embed' => 'whitelist',
                 'download' => "false",
             );
-        } else {
-            $privacy = array(
-                'view' => 'anybody',
-                'embed' => 'public',
-                'download' => "true",
-            );
-        }
+        //  } 
+        //else {
+        //     $privacy = array(
+        //         'view' => 'anybody',
+        //         'embed' => 'public',
+        //         'download' => "true",
+        //     );
+        // }
         $url = $this->client->upload($file_video, array(
             "name" => $title,
             "description" => $content,
             'privacy' => $privacy,
         ));
 
-        $this->client->request($url . '/privacy/domains/' . env('DB_HOST'), [], 'PUT');
+       $this->client->request($url . '/privacy/domains/' . env('DB_HOST'), [], 'PUT');
         
         $url = Str::after($url, 'videos/');
-
+       
         return $url;
     }
 

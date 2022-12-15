@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CommentCourse extends Model
+class CommentCourse extends BaseModel
 {
     use HasFactory;
     protected $table = 'comment_courses';

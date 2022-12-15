@@ -29,9 +29,9 @@
                 </div>
                 <!--end::Toolbar-->
                 <!--begin::User-->
-                <div class="d-flex align-items-center mb-7" style="aspect-ratio:1/1;overflow:hidden">
+                {{-- <div class="d-flex align-items-center mb-7" style="aspect-ratio:1/1;overflow:hidden">
                     <img src="{{$discount->image}}" style="width: 100%;height:100%;object-fit:cover" alt="image">
-                </div>
+                </div> --}}
                 <!--end::User-->
                 <!--begin::Desc-->
                 <h4 class=" mb-7 font-weight-bold"><a class="text-dark text-hover-primary" href="">{{$discount->title}}</a> </h4>

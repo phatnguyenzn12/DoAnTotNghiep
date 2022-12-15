@@ -16,15 +16,16 @@ class CheckLesssonUser
      */
     public function handle(Request $request, Closure $next)
     {
+
         if (
             auth()->user()->load('lesson_user')
-            ->lesson_user
-            ->where(
-                'id',
-                $request->route()->parameter('lesson')->id
-            )->isEmpty() == true
+            ->lesson_user->isEmpty() == true
         ) {
-            return redirect()->back()->with('failed','bạn chưa học xong bài học');
+            return redirect()->back()->with('failed', 'bạn chưa học xong bài học');
+        }
+
+        if (!$request->route()->parameter('course')) {
+            return redirect()->back()->with('failed', 'Thiếu khóa học');
         }
 
         return $next($request);

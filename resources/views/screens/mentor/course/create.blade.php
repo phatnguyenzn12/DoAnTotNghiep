@@ -78,12 +78,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Thẻ
-                                    <span class="text-danger">*</span></label>
-                                <input id="kt_tagify_1" value="{{ old('tags') }}" class="form-control" name='tags' placeholder='Thẻ'
-                                     />
-                            </div>
-                            <div class="form-group">
                                 <label>Giới thiệu</label>
                                 <textarea rows="5" class="form-control" name="content">{{ old('content') }} </textarea>
                             </div>
@@ -112,10 +106,6 @@
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <div class="preview-image new"></div>
-                                <div class="preview-image old">
-                                    <img src="/"
-                                        style="display:block;margin:10px auto 0;width: auto;height: 150px;object-fit:cover;border:1px solid #3699ff;border-radius:5px;">
-                                </div>
                             </div>
                             @error('image')
                                 <p class="text-danger">{{ $message }}</p>

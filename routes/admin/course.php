@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 //     function () {
 //         Route::get('index', 'index')->name('index');
 
-Route::prefix('admin/course')->name('admin.course.')->middleware('role:admin')->controller(CourseController::class)->group(
+Route::prefix('admin/course')->name('admin.course.')->middleware('check-admin')->controller(CourseController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('list-data','filterData')->name('listData');

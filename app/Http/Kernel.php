@@ -2,7 +2,15 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAdmin;
+use App\Http\Middleware\CheckAuthLesson;
+use App\Http\Middleware\CheckLead;
+use App\Http\Middleware\CheckLessonUserMentor;
 use App\Http\Middleware\CheckLesssonUser;
+use App\Http\Middleware\CheckMentor;
+use App\Http\Middleware\Checkout;
+use App\Http\Middleware\CheckTeacher;
+use App\Http\Middleware\CheckUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -56,7 +64,6 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'role' => \App\Http\Middleware\PermissionCheck::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -67,9 +74,17 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
          //---permission---
-         'roles' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         //  'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         //  'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'check-lesson-user' => CheckLesssonUser::class,
+        'check-user' => CheckUser::class,
+        'check-admin' => checkAdmin::class,
+        'check-mentor' => CheckMentor::class,
+        'check-admin' => CheckAdmin::class,
+        'check-auth-lesson' => CheckAuthLesson::class,
+        'check-out' => Checkout::class,
+        'check-lead' => CheckLead::class,
+        'check-teacher' => CheckTeacher::class,
     ];
 }

@@ -45,11 +45,11 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">ĐĂNG XUẤT</span>
+                    <span class="menu-text">Đăng xuất</span>
                 </a>
             </li>
             <li class="menu-section">
-                <h4 class="menu-text">CỬA HÀNG</h4>
+                <h4 class="menu-text">Cửa hàng</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
             </li>
 
@@ -70,7 +70,7 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">QUẢN LÝ GIẢNG VIÊN</span>
+                    <span class="menu-text">Quản lý giảng viên</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="menu-submenu">
@@ -81,7 +81,7 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">DANH SÁCH</span>
+                                <span class="menu-text">Danh sách</span>
                             </a>
                         </li>
                     </ul>
@@ -104,7 +104,7 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">QUẢN LÝ KHÓA HỌC</span>
+                    <span class="menu-text">Quản lý khóa học</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="menu-submenu">
@@ -115,7 +115,7 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">DANH SÁCH</span>
+                                <span class="menu-text">Danh sách</span>
                             </a>
                         </li>
                     </ul>
@@ -140,7 +140,7 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">CÁ NHÂN</span>
+                    <span class="menu-text">Cá nhân</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="menu-submenu">
@@ -151,7 +151,7 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">THÔNG TIN</span>
+                                <span class="menu-text">Thông tin</span>
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
@@ -159,7 +159,7 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">ĐỔI MẬT KHẨU</span>
+                                <span class="menu-text">Đổi mật khẩu</span>
                             </a>
                         </li>
 
@@ -168,9 +168,11 @@
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">NHẬN XÉT</span>
+                                <span class="menu-text">Nhận xét</span>
                             </a>
                         </li>
+
+
                     </ul>
                 </div>
             </li>

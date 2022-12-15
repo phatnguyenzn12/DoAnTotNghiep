@@ -24,7 +24,7 @@
                         <!-- Notif item -->
                         @forelse ($notifications as $notification)
                             <li>
-                                <a href="{{ route('client.mentorLesson.show',['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                <a href="{{ route('client.mentorLesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
                                     class="list-group-item-action border-0 border-bottom d-flex p-3">
 
                                     <div class="me-3">
@@ -55,7 +55,7 @@
                         <!-- Notif item -->
                         @forelse ($notifications as $notification)
                             <li>
-                                <a href="{{ route('client.lesson.show',['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                <a href="{{ route('client.lesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
                                     class="list-group-item-action border-0 border-bottom d-flex p-3">
 
                                     <div class="me-3">
@@ -79,13 +79,18 @@
                                 </a>
                             </li>
                         @empty
+                            <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
+                                <h5 class="text-lg font-medium">
+                                    <ion-icon name="notifications-outline"></ion-icon> THÔNG BÁO TRỐNG
+                                </h5>
+                            </div>
                         @endforelse
                     @endif
                 </ul>
             </div>
             <!-- Button -->
             <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
-                <a href="#" class="stretched-link">Xem tất cả thông báo</a>
+                <a href="#" class="stretched-link">Xem thêm +</a>
             </div>
         </div>
     </div>
