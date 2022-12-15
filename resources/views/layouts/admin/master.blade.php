@@ -147,11 +147,9 @@
                     <!--end::Entry-->
                 </div>
                 <!--end::Content-->
-
-                @include('layouts.admin.footer')
-
             </div>
             <!--end::Wrapper-->
+            @include('layouts.admin.footer')
         </div>
         <!--end::Page-->
     </div>
