@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\CateCourse;
 use App\Models\Course;
+use App\Models\OrderDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -91,5 +92,21 @@ class AccountController extends Controller
         $user = auth()->user();
 
         return view('screens.client.account.my-course', compact('courses','user'));
+    }
+
+    public function myOrder()
+    {
+        $orders = auth()->user()->load('orders')
+            ->orders;
+
+        $user = auth()->user();
+
+        return view('screens.client.account.my-course', compact(['orders','user']));
+    }
+
+    public function show(OrderDetail $orderDetail)
+    {
+        $data = view('screens.client.account.order-detail', compact('orderDetail'))->render();
+        return response()->json($data, 200);
     }
 }
