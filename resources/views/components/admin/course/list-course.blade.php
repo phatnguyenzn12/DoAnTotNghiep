@@ -98,13 +98,12 @@
                                     @method('put')
                                     <input type="text" name="status" hidden value="2">
                                     <button onclick="return confirm('Bạn có chắc muốn hoạt động')"
-                                        class="btn btn-success">hoạt
-                                        động</button>
+                                        class="btn btn-success">Kích hoạt</button>
                                 </form>
-
-
-                                <a type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
-                                    data-bs-target="#modalId" class="btn btn-danger">Ngừng hoạt động</a>
+                                <a type="button" class="btn btn-danger btn-lg" data-toggle="modal"
+                                    data-target="#modalId"
+                                    onclick="showAjaxModal('{{ route('admin.course.formDeactiveCourse', $course->id) }}','Lý do ngừng kích hoạt')"
+                                    class="btn btn-danger">Ngừng kích hoạt</a>
                             </div>
                         @endif
                     </div>
@@ -128,32 +127,67 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitleId">Tại sao ngừng hoạt động</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.course.actived', ['course' => $course->id]) }}" method="post">
-                    @csrf
-                    @method('put')
-                    <div class="mb-3">
-                        <label for="" class="form-label">Lý do ngừng hoạt động</label>
-                        <input type="text" name="status" hidden value="1">
-                        <textarea type="text" name="content" placeholder="Nhập nội dung"></textarea>
-                    </div>
 
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Gửi đi</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
 
-
 <!-- Optional: Place to the bottom of scripts -->
 <script>
     const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+
+    function showAjaxModal(url, title) {
+        $('#modalId').find('.modal-title').text(title)
+        $('#modalId').find('.modal-body').html(
+            '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+        $.ajax({
+            url: url,
+            timeout: 1000,
+            // data: {},
+            success: function(res) {
+                $('#modalId').find('.modal-body').html(res)
+            }
+        })
+    }
+    $(document).on('submit', 'form.has-validation-ajax', function(e) {
+        e.preventDefault()
+        $('#modalId').find('.modal-body').html(
+            '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+        $(this).find('.errors').text('')
+        let _form = $(this)
+        let data = new FormData(this)
+        let _url = $(this).attr('action')
+        let _method = $(this).attr('method')
+        let _redirect = $(this).data('redirect') ?? ""
+        $.ajax({
+            url: _url,
+            type: _method,
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(res) {
+                window.location.href = _redirect
+            },
+            error: function(err) {
+                Swal.fire(
+                    'Có lỗi xảy ra, vui lòng thử lại',
+                    err,
+                    'error'
+                )
+                let errors = err.responseJSON.errors
+                Object.keys(errors).forEach(key => {
+                    $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
+                })
+            }
+        })
+    })
 </script>
 <div class="row p-5 mb-5">
     @include('components.admin.pagination-basic')

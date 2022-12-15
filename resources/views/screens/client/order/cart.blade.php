@@ -54,13 +54,13 @@
                             <!-- Table START -->
                             <table class="table align-middle p-4 mb-0">
                                 <!-- Table head -->
-                              
+
                                     <thead>
                                         <th>Tên</th>
                                         <th>Giá được giảm</th>
                                         <th>Giá sản phẩm</th>
                                     </thead>
-                           
+
                                 <!-- Table body START -->
                                 <tbody class="border-top-0">
                                     @forelse ($carts as $cart)

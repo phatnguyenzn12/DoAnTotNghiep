@@ -181,11 +181,7 @@
                     <div data-sticky data-margin-top="80" data-sticky-for="768">
                         <div class="row g-4">
                             <div class="col-md-6 col-xl-12">
-<<<<<<< HEAD
-                                @if (! $course->users()->get()->contains(auth()->user()->id))
-=======
                                 @if (!$course->users()->get()->contains(auth()->user()->id))
->>>>>>> main
                                     <!-- Course info START -->
                                     <div class="card card-body border p-4">
                                         <!-- Price and share button -->

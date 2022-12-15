@@ -24,7 +24,7 @@ class LessonValidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
+            'title' => 'required',
             'content' => 'required',
 
         ];
@@ -34,7 +34,6 @@ class LessonValidateRequest extends FormRequest
     {
         return [
             'title.required' => 'Vui lòng nhập tiêu đề',
-            'title.min' => 'Số kí tự lớn hơn 5',
             'content.required' => 'Vui lòng nhập nội dung',
 
         ];

@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <label>Tiêu đề
                                     <span class="text-danger">*</span></label>
-                                <input type="text" value="" name="title" class="form-control"
+                                <input type="text" value="{{ old('title') }}" name="title" class="form-control"
                                     placeholder="Nhập tiêu đề">
                             </div>
                             @error('title')
@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label>Đường dẫn
                                     <span class="text-danger">*</span></label>
-                                <input value="" type="text" name="slug" class="form-control"
+                                <input value="{{ old('slug') }}" type="text" name="slug" class="form-control"
                                     placeholder="Đường dẫn">
                             </div>
                             @error('slug')
@@ -37,7 +37,7 @@
                             @enderror
                             <div class="form-group">
                                 <label>Video demo</label>
-                                <input type="url" name="video" rows="5" class="form-control"
+                                <input type="url" name="video" value="{{ old('video') }}" rows="5" class="form-control"
                                     placeholder="nhập đường dẫn video youtube" />
                             </div>
                             @error('video')
@@ -67,6 +67,13 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                             <div class="form-group">
+                                <label>Giới thiệu</label>
+                                <textarea rows="5" class="form-control" name="content"></textarea>
+                            </div>
+                            @error('content')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            {{-- <div class="form-group">
                                 <label>Chọn giảng viên</label>
                                 <select id="select2" class="form-control" name="mentor_id" id="">
                                     <option value="">Chọn giảng viên</option>
@@ -76,17 +83,10 @@
                                     <option value="">Chưa có giảng viên</option>
                                     @endforelse
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Giới thiệu</label>
-                                <textarea rows="5" class="form-control" name="content"></textarea>
-                            </div>
-                            @error('content')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
+                            </div> --}}
                             <div class="form-group">
                                 <label>Mô tả</label>
-                                <textarea id="editor" rows="5" class="form-control" name="description" id=""></textarea>
+                                <textarea id="editor"  rows="5" class="form-control" name="description" id="">{{ old('description') }} </textarea>
                             </div>
                             @error('description')
                                 <p class="text-danger">{{ $message }}</p>

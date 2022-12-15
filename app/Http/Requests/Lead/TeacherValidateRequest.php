@@ -35,7 +35,7 @@ class TeacherValidateRequest extends FormRequest
                             "email" => "required|unique:mentors",
                             "number_phone" => "required|digits:10|numeric",
                             "educations" => "required",
-                            "years_in_experience" => "required|",
+                            "years_in_experience" => "required",
                         ];
                         break;
                 }
@@ -50,7 +50,6 @@ class TeacherValidateRequest extends FormRequest
     {
         return [
             'name.required' => 'Vui lòng nhập tên',
-            'name.min' => 'Số kí tự lớn hơn 5',
             'name.max' => 'Số kí tự nhỏ hơn 100',
             'name.not_regex' => 'Tên không chứa các kí tự đặc biệt',
             'name.unique' => 'Tên đã tồn tại',
@@ -65,7 +64,6 @@ class TeacherValidateRequest extends FormRequest
             'educations.not_regex' => 'Giáo dục không chứa các kí tự đặc biệt',
 
             'years_in_experience.required' => 'Vui lòng nhập số năm kinh nghiệm',
-            'years_in_experience.max' => 'Số kí tự nhỏ hơn 3',
 
         ];
     }

@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- =======================
-                            Page Banner START -->
+                                                                        Page Banner START -->
     <section class="pt-0">
         <!-- Main banner background image -->
         <div class="container-fluid px-0">
@@ -22,7 +22,7 @@
                             <div class="col-auto mt-4 mt-md-0">
                                 <div class="avatar avatar-xxl mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                        src="{{asset('app/'.$user->avatar)}}">
+                                        src="{{ asset('app/' . $user->avatar) }}">
                                 </div>
                             </div>
                             <!-- Profile info -->
@@ -56,10 +56,10 @@
         </div>
     </section>
     <!-- =======================
-                            Page Banner END -->
+                                                                        Page Banner END -->
 
     <!-- =======================
-                            Page content START -->
+                                                                        Page content START -->
     <section class="pt-0">
         <div class="container">
             <div class="row">
@@ -84,8 +84,9 @@
                                             class="bi bi-ui-checks-grid fa-fw me-2"></i>Khóa học của tôi</a>
                                     <a class="list-group-item active" href="{{ route('client.account.detail') }}"><i
                                             class="bi bi-pencil-square fa-fw me-2"></i>Thông tin cá nhân</a>
-                                    <a class="list-group-item text-danger bg-danger-soft-hover" href="{{route('auth.logout')}}"><i
-                                            class="fas fa-sign-out-alt fa-fw me-2"></i>Đăng xuất</a>
+                                    <a class="list-group-item text-danger bg-danger-soft-hover"
+                                        href="{{ route('auth.logout') }}"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Đăng
+                                        xuất</a>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +116,7 @@
                                         <label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
                                             <span class="avatar avatar-xl">
                                                 <img name="avatar" id="mat_truoc_preview"
-                                                    src="{{asset('app/'.$user->avatar)}}" alt="your image"
+                                                    src="{{ asset('app/' . $user->avatar) }}" alt="your image"
                                                     class="avatar-img rounded-circle border border-white border-3 shadow"
                                                     class="img-fluid" />
                                                 <label for="cmt_truoc">Mặt trước</label>
@@ -162,7 +163,8 @@
                                 <!-- About me -->
                                 <div class="col-12">
                                     <label class="form-label">Sở thích</label>
-                                    <input required name="about_me" value="{{ $user->about_me }}" class="form-control" rows="3">
+                                    <input required name="about_me" value="{{ $user->about_me }}" class="form-control"
+                                        rows="3">
                                     <div class="form-text">Mô tả ngắn về con người bạn.</div>
                                 </div>
 
@@ -175,6 +177,48 @@
                         <!-- Card body END -->
                     </div>
                     <!-- Edit profile END -->
+                    @if (!(auth()->user()->load('orders')->orders))
+                        <h5>Bạn chưa có đơn hàng nào!</h5>
+                    @else
+                        <div class="card bg-transparent border rounded-3 mt-5">
+                            <!-- Card header -->
+                            <div class="card-header bg-transparent border-bottom">
+                                <h3 class="card-header-title mb-0">Thông tin đơn hàng</h3>
+                            </div>
+                            <!-- Card body START -->
+
+                            <div class="card-body">
+                                <!-- Form -->
+                                <table class="table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>STT</th>
+                                            <th scope="col">Mã đơn hàng</th>
+                                            <th scope="col">Tổng tiền</th>
+                                            <th scope="col">Trạng thái</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (auth()->user()->load('orders')->orders as $i => $order)
+                                        <tbody>
+                                            <td>{{ $i + 1 }}</td>
+                                            <td>{{ $order->code }}</td>
+                                            <td>{{ number_format($order->total_price) }} đ</td>
+                                            <td>{{ $order->status }}</td>
+                                            <td><a data-toggle="modal" data-target="#modal-example"
+                                                    onclick="showAjaxModal('{{ route('client.account.show', $order->id) }}' ,'Chi tiết đơn hàng')"
+                                                    class="btn btn-icon btn-sm btn-primary mr-1">
+                                                    <i class="fas fa-edit"></i>
+                                                </a></td>
+                                        </tbody>
+                                    @endforeach
+                                </table>
+                            </div>
+                            <!-- Card body END -->
+                        </div>
+                    @endif
+
+                    {{-- END SHOPPING CART  --}}
 
                     <div class="row g-4 mt-3">
 
@@ -232,13 +276,31 @@
                 <!-- Main content END -->
             </div><!-- Row END -->
         </div>
+        <div class="modal fade" id="modal-example" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdrop" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Loading...</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold"
+                            data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- =======================
-                            Page content END -->
+                                                                        Page content END -->
 
 @endsection
 @section('js-links')
-
+    <script src="/backend/plugins/global/plugins.bundle.js"></script>
 @endsection
 @push('js-handles')
     <script type="module"></script>
@@ -260,5 +322,20 @@
             });
 
         });
+
+        function showAjaxModal(url, title) {
+            $('#modal-example').find('.modal-title').text(title)
+            $('#modal-example').find('.modal-body').html(
+                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+            $.ajax({
+                url: url,
+                timeout: 1000,
+                data: {},
+                success: function(res) {
+                    $('#modal-example').find('.modal-body').html(res)
+                    // upload_video()
+                }
+            })
+        }
     </script>
 @endpush
