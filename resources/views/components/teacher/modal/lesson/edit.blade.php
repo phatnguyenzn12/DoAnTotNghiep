@@ -30,8 +30,8 @@
     <div class="form-group" video>
         <label>Tải video lên</label>
         <div class="custom-file">
-            <input type="file" name="video_path" class="custom-file-input" id="customFile">
-            <label class="custom-file-label" for="customFile">Choose file</label>
+        <input type="file" name="video_path" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <p class="text-danger errors video_path"></p>
     </div>
@@ -43,3 +43,9 @@
     </div>
 
 </form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
+    integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+</script>

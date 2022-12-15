@@ -13,5 +13,6 @@ Route::prefix('mentor/teacher')->name('mentor.teacher.')->middleware(['check-men
         Route::get('subtract/{id}', 'subtract')->name('subtract');
         Route::get('detail/{id}', 'detail')->name('detail');
         Route::put('update/{id}', 'update')->name('update');
+
     }
 );
