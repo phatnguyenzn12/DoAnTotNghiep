@@ -20,5 +20,6 @@ Route::prefix('teacher/lesson')->name('teacher.lesson.')
             Route::put('edit-request/{lesson}', 'editRequest')->name('editRequest');
             Route::get('request-all/{chapter}', 'requestAll')->name('request-all');
             Route::put('edit-all-request/{chapter}', 'editAllRequest')->name('editAllRequest');
+            Route::put('upload-video','uploadVideo')->name('uploadVideo');
         }
     );

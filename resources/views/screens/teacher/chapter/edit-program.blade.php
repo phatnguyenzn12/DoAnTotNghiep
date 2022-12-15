@@ -93,6 +93,45 @@
 @endsection
 @push('js-handles')
     <script>
+        function upload_video() {
+            $('#customFile').on('change', function() {
+                let form = $('form.has-validation-ajax')[0]
+                let data = new FormData(form)
+                let _method = $(form).attr('method')
+                $.ajax({
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function(evt) {
+                            console.log(evt);
+                            if (evt.lengthComputable) {
+                                console.log(evt.lengthComputable);
+                                var percentComplete = evt.loaded / evt.total;
+                            }
+                        }, false);
+
+                        xhr.addEventListener("progress", function(evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = evt.loaded / evt.total;
+                            }
+                        }, false);
+
+                        return xhr;
+                    },
+                    url: '{{ route('teacher.lesson.uploadVideo') }}',
+                    timeout: 1000,
+                    type: _method,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function(res) {
+                        console.log(res);
+                    }
+                })
+
+                // let data = new FormData(this)
+            })
+        }
+
         function showAjaxModal(url, title) {
             $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
@@ -105,9 +144,11 @@
                 },
                 success: function(res) {
                     $('#modal-example').find('.modal-body').html(res)
+                    // upload_video()
                 }
             })
         }
+
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
             $('#progress_video').html(`
@@ -144,6 +185,7 @@
                         err,
                         'error'
                     )
+                    $('#progress_video').html(` `);
                     let errors = err.responseJSON.errors
                     Object.keys(errors).forEach(key => {
                         $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
@@ -178,13 +220,21 @@
                     }
                 )
         }
-        function checkvideo(url,id_video) {
+
+        function checkvideo(url, id_video) {
             let _redirect = $(this).data('redirect') ?? ""
-            console.log(url,id_video)
             axios.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + id_video)
                 .then(
                     res => {
-                        axios.get(url).then(
+                        console.log(res);
+                        const date = new Date(null);
+                        date.setSeconds(res.data.duration); // specify value for SECONDS here
+                        const time = date.toISOString().slice(11, 19);
+                        axios.get(url, {
+                            params: {
+                                time: time
+                            }
+                        }).then(
                             (res) => {
                                 window.location.href = _redirect
                             }

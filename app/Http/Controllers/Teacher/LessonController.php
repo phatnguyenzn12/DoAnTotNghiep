@@ -52,14 +52,18 @@ class LessonController extends Controller
         $data = view('components.teacher.modal.lesson.detail', compact('lesson'))->render();
         return response()->json($data, 200);
     }
-    public function complete_video(Lesson $lesson, VimeoService $vimeoService)
+    public function complete_video(Request $request, Lesson $lesson)
     {
-        $url =  $vimeoService->statusVimeo('/videos'.$lesson->lessonVideo->video_path);
-     //   dd($url);
         $lesson->is_edit = 1;
+        $lesson->lessonVideo->time  = $request->time;
         $lesson->save();
-        session()->flash('success', ' video tải thành công');
+        $lesson->lessonVideo->save();
+        session()->flash('success', ' video đã tải thành công');
         return response()->json(['success' => true], 201);
-        //  return redirect()->back()->with('success',"video đã tải thành công");
+    }
+
+    public function uploadVideo(Request $request)
+    {
+        dd($request->file('video_path'));
     }
 }
