@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('mentor/course')->name('mentor.course.')->middleware(['check-mentor','check-lead'])->controller(CourseController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
+        Route::get('comment-course', 'commentCourse')->name('commentCourse');
+        Route::get('list-comment','filterComment')->name('listComment');
+        Route::get('delete/{id}', 'deleteComment')->name('deleteComment');
         Route::get('list-data','filterData')->name('listData');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
