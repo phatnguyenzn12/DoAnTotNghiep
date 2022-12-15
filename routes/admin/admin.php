@@ -3,7 +3,7 @@
 use App\Http\Controllers\admin\AuthAdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/admins')->name('admins.')->middleware('role:admin')->controller(AuthAdminController::class)->group(
+Route::prefix('admin/admins')->name('admins.')->middleware('role:admin')->middleware('check-admin')->controller(AuthAdminController::class)->group(
     function () {
         Route::get('/index','index')->name('index');
         Route::get('/list-data/{search?}/{record?}','filterData')->name('listData');

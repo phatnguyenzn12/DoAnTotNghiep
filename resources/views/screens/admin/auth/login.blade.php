@@ -58,6 +58,7 @@
 
                             <!-- Form START -->
                             <form method="POST" action="{{ route('admin.handleLogin') }}">
+                                @include('_alert')
                                 @csrf
                                 <!-- Email -->
                                 <div class="mb-4">
