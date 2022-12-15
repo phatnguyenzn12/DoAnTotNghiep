@@ -59,21 +59,16 @@ class AccountController extends Controller
 
         $user = User::find($id);
         if (Hash::check($request->password, $user->password)) {
-            // Hash::make($request->password_1);
-            //  dd($abc);
-            //  Hash::make($request->password_2);
-            //dd($bc);
             if ($request->password_1 == $request->password_2) {
-                //  dd(Hash::check($abc, $request->password_2));
                 $passnew = Hash::make($request->password_2);
                 $us = new User();
                 $us->updatePass($id, $passnew);
                 return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
-            } else {
-                return redirect()->back()->with('error1', 'Mật khẩu mới không khớp !');
+            }elseif ($request->password_1 != $request->password_2) {
+                return redirect()->back()->with('failed', 'Mật khẩu mới không khớp');
             }
         } else {
-            return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');
+            return redirect()->back()->with('failed', 'Vui lòng nhập đúng mật khẩu !');
         }
     }
 

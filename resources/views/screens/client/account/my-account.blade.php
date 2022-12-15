@@ -237,7 +237,7 @@
                                         <!-- Current password -->
                                         <div class="mb-3">
                                             <label class="form-label">Mật khẩu cũ</label>
-                                            <input name="password" class="form-control" type="password"
+                                            <input name="password" required class="form-control" type="password"
                                                 placeholder="Mời nhập !">
                                             <strong style="color: rgb(242, 58, 58)">{{ Session::get('error') }}</strong>
                                         </div>
@@ -245,7 +245,7 @@
                                         <div class="mb-3">
                                             <label class="form-label"> Mật khẩu mới</label>
                                             <div class="input-group">
-                                                <input class="form-control" name="password_1" type="password"
+                                                <input class="form-control" required name="password_1" type="password"
                                                     placeholder="">
                                                 <span class="input-group-text p-0 bg-transparent">
                                                     <i class="far fa-eye cursor-pointer p-2 w-40px"></i>
@@ -257,7 +257,7 @@
                                         <!-- Confirm password -->
                                         <div>
                                             <label class="form-label">Nhập lại mật khẩu</label>
-                                            <input name="password_2" class="form-control" type="password"
+                                            <input name="password_2"required class="form-control" type="password"
                                                 placeholder="">
                                             <strong style="color: rgb(242, 58, 58)">{{ Session::get('error1') }}</strong>
                                         </div>
