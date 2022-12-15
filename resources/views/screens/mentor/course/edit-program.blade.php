@@ -84,7 +84,7 @@
                                             <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
                                             <select class="form-control" id="kt_datatable_search_status"
                                                 onchange="fiterSort(this)">
-                                                <option value="0">All</option>
+                                                <option value="0">Mặc định</option>
                                                 <option value="id_desc">Mới đến cũ</option>
                                                 <option value="id_asc">Cũ đến mới</option>
                                             </select>
@@ -108,7 +108,6 @@
                     </div>
 
                 </div>
-                {{$chapters->links()}}
             </div>
         </div>
     </div>
@@ -231,7 +230,7 @@
         })
 
 
-        function showModal(id_video, title) {
+        function showModal(id_video,title) {
             $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
                 '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')

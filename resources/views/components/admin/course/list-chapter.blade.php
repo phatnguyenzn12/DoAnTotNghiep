@@ -18,13 +18,21 @@
             <div class="card-body">
                 @foreach ($chapter->lessons()->get() as $keyLesson => $lesson)
                     <div class="col-md-12 mb-3 ribbon ribbon-right">
-                        <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">{{ $lesson->edit_exit }}
+                        @if ($lesson->is_edit == 1)
+                            <div class="ribbon-target bg-primary" style="top: -20px; left: -2px;">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">{{ $lesson->edit_exit }}
+                                    </font>
                                 </font>
-                            </font>
-                        </div>
-
+                            </div>
+                        @else
+                            <div class="ribbon-target bg-danger" style="top: -20px; left: -2px;">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">{{ $lesson->edit_exit }}
+                                    </font>
+                                </font>
+                            </div>
+                        @endif
                         <span class="bg-white d-flex p-5 d-flex justify-content-between align-items-center">
                             <p class="lession-name m-0 font-weight-bold">
                                 @if ($lesson->lesson_type == 'exercise')
@@ -50,14 +58,12 @@
                                     </a>
                                 @endif
 
-                                <a data-toggle="modal" data-target="#modal-example"
-                                    onclick="showAjaxModal('{{ route('admin.lesson.show', $lesson->id) }}','Thêm mới video')"
+                                <a data-toggle="modal" data-target="#modal-example" {{-- onclick="showAjaxModal('{{ route('admin.lesson.show', $lesson->id) }}','Thêm mới video')" --}}
                                     class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                <a data-toggle="modal" data-target="#modal-example"
-                                    onclick="showAjaxModal('{{ route('admin.lesson.detail', $lesson->id) }}','Bài học')"
+                                <a data-toggle="modal" data-target="#modal-example" {{-- onclick="showAjaxModal('{{ route('admin.lesson.detail', $lesson->id) }}','Bài học')" --}}
                                     class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x">
                                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Code\Info-circle.svg--><svg

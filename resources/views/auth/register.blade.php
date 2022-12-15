@@ -33,7 +33,7 @@
                             </ul>
                             <!-- Content -->
                             <p class="mb-0 h6 fw-light ms-0 ms-sm-3">
-                                4k + Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
+                                 + Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
                         </div>
                     </div>
                 </div>
@@ -129,11 +129,6 @@
                                 <div class="col-xxl-6 d-grid">
                                     <a href="{{ route('auth.google') }}" class="btn bg-google mb-2 mb-xxl-0"><i
                                             class="fab fa-fw fa-google text-white me-2"></i>Đăng nhập bằng Google</a>
-                                </div>
-                                <!-- Social btn -->
-                                <div class="col-xxl-6 d-grid">
-                                    <a href="#" class="btn bg-facebook mb-0"><i
-                                            class="fab fa-fw fa-facebook-f me-2"></i>Đăng nhập bằng Facebook</a>
                                 </div>
                             </div>
 

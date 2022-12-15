@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\AccountRequest;
 use App\Models\Course;
 use App\Models\Mentor;
 use App\Models\PercentagePayable;
@@ -47,14 +48,17 @@ class AccountController extends Controller
     {
 
         $mentor = Auth::guard('mentor')->user($id);
+        if($request->password == ''){
+            return redirect()->back()->with('error', 'Chưa nhập mật khẩu');
+        }
         if (Hash::check($request->password, $mentor->password)) {
             if ($request->password_1 == $request->password_2) {
                 $passnew = Hash::make($request->password_2);
                 $us = new Mentor();
                 $us->updatePass($id, $passnew);
                 return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
-            } else {
-                return redirect()->back()->with('error1', 'Mật khẩu mới không khớp !');
+            } elseif ($request->password_1 != $request->password_2) {
+                 return redirect()->back()->with('error1', 'mật khẩu mới không khớp');
             }
         } else {
             return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');

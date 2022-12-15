@@ -79,19 +79,12 @@
                         @enderror
                         <div class="form-group">
                             <label>Chọn giảng viên</label>
-                            <select id="select2" class="form-control" name="language" id="">
+                            <select id="select2" class="form-control" name="mentor_id" id="">
                                 @foreach ($teachers as $teacher)
                                 <option @selected($course->cate_course_id == $teacher->id ?? true) value="{{ $teacher->id }}">Tên giảng viên: {{ $teacher->name }} / email: {{ $teacher->email }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Thẻ
-                                <span class="text-danger">*</span></label>
-                            <input id="kt_tagify_1" type="text" name="tags" class="form-control"
-                                value="{{ str_replace(',', ', ', $course->tags) }}" placeholder="Thẻ">
-                        </div>
-
                         <div class="form-group">
                             <label>Giới thiệu</label>
                             <textarea rows="5" class="form-control" value="{{ old('content') ?? $course->content }}" name="content">{{ $course->content }}</textarea>
@@ -143,10 +136,6 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                             <a href="" class="btn btn-success mr-2">Danh sách slider</a>

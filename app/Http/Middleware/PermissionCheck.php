@@ -33,14 +33,6 @@ class PermissionCheck
                 return redirect()->route('mentor.login')->with('failed', 'Tài khoản chưa xác thực email');
             }
             // Check quyền thêm mới khóa học
-            $cate_cource = DB::table('cate_courses')->where('id',Auth::guard('mentor')->user()->cate_course_id)->get();
-            foreach ($cate_cource as $cate){}
-            if(isset($request->cate_course_id)){
-                if ($request->cate_course_id != Auth::guard('mentor')->user()->cate_course_id) {
-                    return redirect()->route('admin.course.create')->with('failed', 'Chỉ được thêm mới khóa học có danh mục '. $cate->name);
-                }
-                return $next($request);
-            }
             elseif (in_array(Auth::guard('mentor')->user()->PermissionCheck(), $allowRoles)) {
                 return $next($request);
             }
