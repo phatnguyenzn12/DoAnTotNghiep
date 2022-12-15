@@ -16,7 +16,7 @@
         </div>
         <!--end::Header-->
         <!--begin::Form-->
-        <form action="{{ route('mentor.account.forgotPassword', $mentor->id) }}" method="post" enctype="multipart/form-data"
+        <form action="{{ route('teacher.account.forgotPassword', $mentor->id) }}" method="post" enctype="multipart/form-data"
             class="form">
             @csrf
             <div class="card-body">
@@ -80,7 +80,6 @@
                     </div>    
                 <div class="card-toolbar">
                     <button type="submit" class="btn btn-success mr-2">Lưu thay đổi</button>
-                   
                 </div>
             </div>
         </form>

@@ -186,7 +186,7 @@
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('mentor.account.index') }}" class="menu-link">
+                            <a href="{{ route('teacher.account.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
@@ -194,7 +194,7 @@
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('mentor.account.password') }}" class="menu-link">
+                            <a href="{{ route('teacher.account.password') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
