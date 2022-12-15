@@ -176,6 +176,37 @@
                     </div>
                     <!-- Edit profile END -->
 
+                    <div class="card bg-transparent border rounded-3 mt-5">
+                        <!-- Card header -->
+                        <div class="card-header bg-transparent border-bottom">
+                            <h3 class="card-header-title mb-0">Thông tin đơn hàng</h3>
+                        </div>
+                        <!-- Card body START -->
+                        <div class="card-body">
+                            <!-- Form -->
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Mã đơn hàng</th>
+                                        <th scope="col">Tổng tiền</th>
+                                        <th scope="col">Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @dd($orders)
+                                    @foreach(auth()->user()->orders as $order)
+                                        <td>{{$order->code}}</td>
+                                        <td>{{$order->total_price}}</td>
+                                        <td>{{$order->status}}</td>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Card body END -->
+                    </div>
+
+                    {{-- END SHOPPING CART  --}}
+
                     <div class="row g-4 mt-3">
 
                         <!-- Password change START -->

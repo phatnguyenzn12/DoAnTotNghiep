@@ -92,4 +92,14 @@ class AccountController extends Controller
 
         return view('screens.client.account.my-course', compact('courses','user'));
     }
+
+    public function myOrder()
+    {
+        $orders = auth()->user()->load('orders')
+            ->orders;
+
+        $user = auth()->user();
+
+        return view('screens.client.account.my-course', compact('orders','user'));
+    }
 }
