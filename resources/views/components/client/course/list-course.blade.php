@@ -1,6 +1,8 @@
+
 <div class="row g-4 justify-content-center">
 
     @forelse ($courses as $course)
+    
         <!-- Card item START -->
         <div class="col-lg-10 col-xxl-6">
             <div class="card rounded overflow-hidden shadow">

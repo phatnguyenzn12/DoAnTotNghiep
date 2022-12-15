@@ -24,7 +24,7 @@ Main Banner START -->
                                                     <!-- SVG START -->
                                                     <span
                                                         class="position-absolute top-50 start-50 translate-middle ms-4 z-index-n1">
-                                                        <svg width="366px" height="62.1px"
+                                                        <svg width="700" height="200px"
                                                             enable-background="new 0 0 366 62.1" viewBox="0 0 366 62.1"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path class="fill-warning"
@@ -34,9 +34,8 @@ Main Banner START -->
                                                     <!-- SVG END -->
                                                     </span>
                                                 </h1>
-                                                <h3 class="text-danger " style="font-style: italic">
-                                                    {{ $banner->discountCode->discount }}%</h3>
-                                                <h4 class="text-white">Mã giảm giá: <span
+                                                <h4 class="text-white">Mã giảm giá
+                                                    {{ $banner->discountCode->discount }}%: <span
                                                         id="input-copy">{{ $banner->discountCode->code }}</span>
                                                 </h4>
                                                 <p class="text-white">{{ $banner->content }}</p>
@@ -57,7 +56,10 @@ Main Banner START -->
 </section>
 <!-- =======================
 Main Banner END -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
+    
     const buttoncopy = document.getElementById("button-copy");
     const inputcopy = document.getElementById("input-copy");
 
@@ -68,5 +70,12 @@ Main Banner END -->
         const buttoncopy = document.getElementById("button-copy");
 
         buttoncopy.innerText = "Token Copiado";
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Lấy mã thành công',
+            showConfirmButton: false,
+            timer: 1500
+        })
     });
 </script>
