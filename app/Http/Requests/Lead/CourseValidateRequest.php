@@ -27,7 +27,7 @@ class CourseValidateRequest extends FormRequest
         return [
             'title' => ['required', 'min:5','max:100','not_regex:/^.+@.+$/i',Rule::unique('courses')->ignore($this->id)],
             'slug' => ['required','max:100','not_regex:/^.+@.+$/i',Rule::unique('courses')->ignore($this->id)],
-            'video' => ['required',Rule::unique('courses')->ignore($this->id)],
+            'video' => ['required','mimes:mp4',Rule::unique('courses')->ignore($this->id)],
             'skill_id' => 'required',
             'language' => 'required',
 
@@ -53,6 +53,8 @@ class CourseValidateRequest extends FormRequest
 
             'video.required' => 'Vui lòng nhập video demo',
             'video.unique' => 'Video demo đã tồn tại',
+            'video.mimes' => 'Định dạng video chưa đúng',
+
 
             'skill_id.required' => 'Vui lòng chọn kĩ năng',
             'language.required' => 'Vui lòng chọn ngôn ngữ',
