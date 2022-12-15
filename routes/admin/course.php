@@ -21,5 +21,7 @@ Route::prefix('admin/course')->name('admin.course.')->middleware('check-admin')-
         Route::put('update-course/{course}', 'update')->name('update');
 
         Route::get('detail/{lesson}', 'detailLesson')->name('detailLesson');
+
+        Route::get('create123','create123')->name('create123');
     }
 );

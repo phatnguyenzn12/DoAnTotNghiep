@@ -45,7 +45,9 @@ class CourseController extends Controller
 
     public function program($course_id)
     {
-        return view('screens.mentor.course.edit-program', compact('course_id'));
+        $course = Course::findOrFail($course_id);
+        $teachers = Mentor::role('teacher')->where('cate_course_id', auth()->guard('mentor')->user()->cate_course_id)->get();
+        return view('screens.mentor.course.edit-program', compact('course_id', 'teachers', 'course'));
     }
 
     public function filterDataChapter(Request $request)
@@ -62,26 +64,30 @@ class CourseController extends Controller
 
     public function actived(Request $request, Course $course)
     {
-        if ($course->status == 2) {
-            return redirect()->back()->with('failed', 'Khóa học đã được kích hoạt');
+        if ($course->status == 1) {
+            return redirect()->back()->with('failed', 'Khóa học đã được duyệt');
         }
         $course->status = $request->status;
         $course->save();
         if ($course->status == 1) {
-            Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course) {
+            $admin = Admin::first();
+            Mail::send('screens.email.mentor.actived-course', compact('course','admin'), function ($email) use ($admin) {
+                $email->subject('Đã duyệt khóa học');
+                $email->to($admin->email, $admin->name);
+            });
+            Mail::send('screens.email.mentor.actived-course', compact('course'), function ($email) use ($course) {
                 $email->subject('Đã duyệt khóa học');
                 $email->to($course->mentor->email, $course->mentor->name);
-                $email->to(Admin::first()->email, Admin::first()->name);
             });
             return redirect()->back()->with('success', 'Cập nhập thành công');
         } elseif ($course->status == 0) {
-            Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course, $request) {
-                $email->subject($request->content);
+            Mail::send('screens.email.mentor.actived-course', compact('course'), function ($email) use ($course, $request) {
+                $email->subject('Tắt duyệt khóa học');
                 $email->to($course->mentor->email, $course->mentor->name);
             });
             return redirect()->back()->with('success', 'Tắt duyệt khóa học');
         }
-        return redirect()->back()->with('success', 'Bạn đã duyệt khóa học rồi');
+        // return redirect()->back()->with('success', 'Bạn đã duyệt khóa học rồi');
     }
 
     public function edit($id)
@@ -98,9 +104,8 @@ class CourseController extends Controller
     {
         $cateCourses = CateCourse::select('id', 'name')->get();
         $skills = Skill::select('id', 'title')->get();
-        $teachers = Mentor::role('teacher')->where('cate_course_id', auth()->guard('mentor')->user()->cate_course_id)->get();
 
-        return view('screens.mentor.course.create', compact('cateCourses', 'skills', 'teachers'));
+        return view('screens.mentor.course.create', compact('cateCourses', 'skills'));
     }
 
     public function store(CourseValidateRequest $request)
@@ -119,7 +124,6 @@ class CourseController extends Controller
                     'cate_course_id',
                     'skill_id',
                     'language',
-                    'mentor_id',
                     'certificate',
                     'description',
                     'certificate_id'
@@ -151,7 +155,6 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->description_details = implode(', ', collect(json_decode($request->description_details))->pluck('value')->toArray());
         $course->certificate_id =  $request->certificate_id;
-        $course->mentor_id =  $request->mentor_id;
 
         $course->fill($request->except(['_method', '_token']));
         if ($request->hasFile('image')) {
@@ -163,7 +166,27 @@ class CourseController extends Controller
         $course->save();
 
         return redirect()
-            ->route('mentor.course.program',$course->id)
+            ->route('mentor.course.program', $course->id)
             ->with('success', 'Sửa khóa học thành công');
+    }
+
+    public function courseTeach($id, Request $request)
+    {
+        $course = Course::findOrFail($id);
+        $course_old = $course->mentor_id;
+        $course->mentor_id = $request->mentor_id;
+        $course->save();
+        if ($course_old != $course->mentor_id) {
+            Mail::send('screens.email.mentor.course-teacher', compact('course'), function ($email) use ($course) {
+                $email->subject('Giao khóa học');
+                $email->to($course->mentor->email, $course->mentor->name);
+            });
+            return redirect()
+                ->route('mentor.course.program', $id)
+                ->with('success', 'Thêm giảng viên thành công');
+        }
+        return redirect()
+            ->route('mentor.course.program', $id)
+            ->with('failed', 'Giảng viên đang được giao khóa học');
     }
 }

@@ -18,19 +18,19 @@
                             EDUPORT HỆ THỐNG BÁN KHÓA HỌC TRỰC TUYẾN</h5>
                         <hr>
                         <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                            Xin chào {{ $chapter->mentor->name }},<br>
+                            Xin chào {{ $course->mentor->name }},<br>
                         </p>
                         <p>Bạn đã được giao việc đăng video bài học</p>
-                        <p>Chương học: {{ $chapter->title }}</p>
+                        <p>Khóa học: {{ $course->title }}</p>
 
                         <p align="center"
                             style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
                             valign="top">
-                            <a href="{{ route('teacher.chapter.program', $chapter->course_id) }}"
+                            <a href="{{ route('teacher.chapter.program', $course->id) }}"
                                 style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
                                 target="_blank">Xem chi tiết</a>
                         </p>
-                        <p>Cảm ơn {{ $admin->name }}!</p>
+                        <p>Cảm ơn {{ $course->mentor->name }}!</p>
                         <p>Đã sử dụng hệ thống của chúng tôi!</p>
                     </div>
                     <hr>

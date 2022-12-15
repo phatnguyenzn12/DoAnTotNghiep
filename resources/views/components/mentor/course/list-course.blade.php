@@ -45,11 +45,10 @@
                                 <span
                                     class="text-dark font-weight-bolder text-hover-primary">{{ $course->cateCourse->name }}</span>
                             </div>
-
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-dark-75 mr-2">Giảng viên sở hữu</span>
                                 <span
-                                    class="text-dark font-weight-bolder text-hover-primary">{{ $course->mentor->name }}</span>
+                                    class="text-dark font-weight-bolder text-hover-primary">{{ $course->mentor ? $course->mentor->name : 'Chưa có giảng viên' }}</span>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-cente my-1">
@@ -104,18 +103,25 @@
                                         hoạt</span>
                                 </div>
                             @endif
+
                             <div class="d-flex justify-content-between align-items-center">
                                 <form action="{{ route('mentor.course.actived', ['course' => $course->id]) }}"
                                     method="post">
                                     @csrf
                                     @method('put')
-                                    <input type="text" name="status" hidden value="2">
+                                    <input type="text" name="status" hidden value="1">
                                     <button onclick="return confirm('Bạn có chắc muốn hoạt động')"
                                         class="btn btn-success">Duyệt khóa học</button>
                                 </form>
 
                                 <a type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
                                     data-bs-target="#modalId" class="btn btn-danger">Bỏ duyệt khóa học</a>
+                                <button type="button" class="btn btn-outline-primary btn-pill"
+                                    onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
+                                    data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm
+                                    chương
+                                    học</button>
                             </div>
 
                         </div>

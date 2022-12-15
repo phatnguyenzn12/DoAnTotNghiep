@@ -67,6 +67,13 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                             <div class="form-group">
+                                <label>Giới thiệu</label>
+                                <textarea rows="5" class="form-control" name="content"></textarea>
+                            </div>
+                            @error('content')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            {{-- <div class="form-group">
                                 <label>Chọn giảng viên</label>
                                 <select id="select2" class="form-control" name="mentor_id" id="">
                                     <option value="">Chọn giảng viên</option>
@@ -76,14 +83,7 @@
                                     <option value="">Chưa có giảng viên</option>
                                     @endforelse
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Giới thiệu</label>
-                                <textarea rows="5" class="form-control" name="content"></textarea>
-                            </div>
-                            @error('content')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
+                            </div> --}}
                             <div class="form-group">
                                 <label>Mô tả</label>
                                 <textarea id="editor" rows="5" class="form-control" name="description" id=""></textarea>

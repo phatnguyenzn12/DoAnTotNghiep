@@ -65,9 +65,9 @@
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
                             Sắp xếp chương học</button>
                     </div>
-                    <div class="mb-7">
+                    <div class="mb-12">
                         <div class="row align-items-center">
-                            <div class="col-lg-9 col-xl-8">
+                            <div class="col-lg-8 col-xl-8">
                                 <div class="row align-items-center">
                                     <div class="col-md-4 my-2 my-md-0">
                                         <div class="input-icon">
@@ -100,8 +100,67 @@
                                     </div>
                                 </div>
                             </div>
+                            @if ($course->chapters->count() != 0)
+                                <div class="col-4">
+                                    <form action="{{ route('mentor.course.courseTeach', $course_id) }}" method="POST">
+                                        @csrf
+                                        <div class="row align-items-center">
+                                            <div class="col-md-8 my-2 my-md-0">
+                                                <div class="d-flex align-items-center">
+                                                    <select class="form-control" name="mentor_id">
+                                                        @if ($course->mentor)
+                                                            <option value="{{ $course->mentor->id }}">
+                                                                {{ $course->mentor->name }}</option>
+                                                        @else
+                                                            <option value="">Chọn giảng viên</option>
+                                                        @endif
+                                                        @if ($course->mentor)
+                                                            @forelse ($teachers as $teacher)
+                                                                @if ($teacher->id != $course->mentor->id)
+                                                                    <option value="{{ $teacher->id }}">Tên giảng viên:
+                                                                        {{ $teacher->name }}
+                                                                        / email: {{ $teacher->email }}</option>
+                                                                @endif
+                                                            @empty
+                                                                <option value="">Chưa có giảng viên</option>
+                                                            @endforelse
+                                                        @else
+                                                            @forelse ($teachers as $teacher)
+                                                                <option value="{{ $teacher->id }}">Tên giảng viên:
+                                                                    {{ $teacher->name }}
+                                                                    / email: {{ $teacher->email }}</option>
+                                                            @empty
+                                                                <option value="">Chưa có giảng viên</option>
+                                                            @endforelse
+                                                        @endif
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 my-2 my-md-0">
+                                                <div class="d-flex align-items-center">
+                                                    <button type="submit"
+                                                        class="btn btn-light-primary px-6 font-weight-bold">Gửi</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
                     </div>
+                    @if ($course->mentor_id)
+                        <div class="row mb-4">
+                            <div class="avatar avatar-xxl position-relative mt-n3">
+                                <img class="avatar-img rounded-circle border border-white border-3 shadow"
+                                    src="{{ asset('app/' . $course->mentor->avatar) }}" alt="" width="50px"
+                                    height="50px">
+                            </div>
+                            <div class="my-2">
+                                <h5>Giảng viên: {{ $course->mentor->name }}</h5>
+                            </div>
+                        </div>
+                    @endif
 
                     <div id="table-innerHtml">
 
@@ -126,7 +185,8 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>

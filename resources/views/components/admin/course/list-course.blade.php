@@ -98,13 +98,22 @@
                                     @method('put')
                                     <input type="text" name="status" hidden value="2">
                                     <button onclick="return confirm('Bạn có chắc muốn hoạt động')"
-                                        class="btn btn-success">hoạt
-                                        động</button>
+                                        class="btn btn-success">Kích hoạt</button>
                                 </form>
 
 
+                                {{-- <a type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
+                                    data-bs-target="#modalId" class="btn btn-danger"
+                                    onclick="showAjaxModal('{{ route('admin.course.create123') }}','Lý do ngừng kích hoạt')">Ngừng
+                                    kích hoạt</a> --}}
                                 <a type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
-                                    data-bs-target="#modalId" class="btn btn-danger">Ngừng hoạt động</a>
+                                onclick="showAjaxModal('{{ route('admin.course.create123') }}','Lý do ngừng kích hoạt')"
+                                    data-bs-target="#modalId" class="btn btn-danger">Ngừng kích hoạt</a>
+                                {{-- <button type="button" class="btn btn-outline-primary btn-pill"
+                                    onclick="showAjaxModal('{{ route('mentor.chapter.create') }}','Thêm chương học')"
+                                    data-toggle="modal" data-target="#modal-example"><i class="fas fa-plus"></i> Thêm
+                                    chương
+                                    học</button> --}}
                             </div>
                         @endif
                     </div>
@@ -154,6 +163,52 @@
 <!-- Optional: Place to the bottom of scripts -->
 <script>
     const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+
+    function showAjaxModal(url, title) {
+        $('#modalId').find('.modal-title').text(title)
+        $('#modalId').find('.modal-body').html(
+            '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+        $.ajax({
+            url: url,
+            timeout: 1000,
+            data: {},
+            success: function(res) {
+                $('#modalId').find('.modal-body').html(res)
+            }
+        })
+    }
+    $(document).on('submit', 'form.has-validation-ajax', function(e) {
+        e.preventDefault()
+        $('#modalId').find('.modal-body').html(
+            '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+        $(this).find('.errors').text('')
+        let _form = $(this)
+        let data = new FormData(this)
+        let _url = $(this).attr('action')
+        let _method = $(this).attr('method')
+        let _redirect = $(this).data('redirect') ?? ""
+        $.ajax({
+            url: _url,
+            type: _method,
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(res) {
+                window.location.href = _redirect
+            },
+            error: function(err) {
+                Swal.fire(
+                    'Có lỗi xảy ra, vui lòng thử lại',
+                    err,
+                    'error'
+                )
+                let errors = err.responseJSON.errors
+                Object.keys(errors).forEach(key => {
+                    $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
+                })
+            }
+        })
+    })
 </script>
 <div class="row p-5 mb-5">
     @include('components.admin.pagination-basic')
