@@ -23,4 +23,9 @@ class OrderDetail extends Model
         return $this->belongsTo(Course::class,'course_id');
     }
 
+    public function order()
+    {
+        return $this->belongsTo(Order::class,'order_id');
+    }
+
 }

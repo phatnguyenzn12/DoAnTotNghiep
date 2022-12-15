@@ -15,5 +15,10 @@ Route::prefix('mentor/course')->name('mentor.course.')->middleware(['check-mento
         Route::get('edit-course/{id}', 'edit')->name('edit');
         Route::put('update-course/{course}', 'update')->name('update');
         Route::put('update-actived/{course}', 'actived')->name('actived');
+
+        Route::post('course-teacher/{course}', 'courseTeach')->name('courseTeach');
+
+        Route::get('form-deactive-course/{id}', 'formDeactiveCourse')->name('formDeactiveCourse');
+        Route::put('deactive-course/{course}', 'deactiveCourse')->name('deactiveCourse');
     }
 );
