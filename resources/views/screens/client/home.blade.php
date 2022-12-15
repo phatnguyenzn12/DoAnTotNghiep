@@ -251,7 +251,7 @@
                                         </div>
                                         <!-- Title -->
                                         <h5 class="card-title"><a
-                                                href="{{ route('client.course.show', ['slug' => $interView->first()->course->slug, 'course' => $interView->first()->course->id]) }}">{{ $course->title }}</a>
+                                                href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}">{{ $course->title }}</a>
                                         </h5>
                                         <!-- Rating -->
                                         <div class="d-flex justify-content-between mb-2">

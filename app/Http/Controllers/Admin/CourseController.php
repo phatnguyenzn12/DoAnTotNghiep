@@ -43,6 +43,9 @@ class CourseController extends Controller
         if ($course_active->price == null) {
             return redirect()->back()->with('failed', 'Chưa thêm giá vào khóa học');
         }
+        if ($course_active->status == 0) {
+            return redirect()->back()->with('failed', 'Khóa học chưa được duyệt');
+        }
         if ($course_active->status == 2) {
             return redirect()->back()->with('failed', 'Khóa học đã kích hoạt');
         }
@@ -55,6 +58,40 @@ class CourseController extends Controller
             });
             return redirect()->back()->with('success', 'Kích hoạt thành công');
         }
+    }
+
+    public function formDeactiveCourse(Request $request, $course_id)
+    {
+        $data = view('components.admin.course.actived-course', compact('course_id'))->render();
+
+        return response()->json($data);
+    }
+
+    public function deactiveCourse(Request $request, Course $course)
+    {
+        if ($course->price == null) {
+            return redirect()->back()->with('failed', 'Chưa thêm giá vào khóa học');
+        }
+        if ($course->status == 1) {
+            return redirect()->back()->with('failed', 'Khóa học đang ngừng kích hoạt');
+        }
+        $course->status = $request->status;
+        $course->save();
+        if ($course->status == 1) {
+            Mail::send('screens.email.admin.actived-course', compact('course','request'), function ($email) use ($course) {
+                $email->subject('Khóa học đã ngừng kích hoạt và sử dụng');
+                $email->to($course->mentor->email, $course->mentor->name);
+            });
+
+            // $order_details = OrderDetail::where('course_id', $course->id)->get();
+            // foreach ($order_details as $order_detail) {
+            //     Mail::send('screens.email.admin.actived-course', compact('order_detail','request'), function ($email) use ($order_detail) {
+            //         $email->subject('Khóa học đã ngừng kích hoạt và sử dụng');
+            //         $email->to($order_detail->order->user->email, $order_detail->order->user->name);
+            //     });
+            // }
+            return redirect()->back()->with('success', 'Cập nhập thành công khóa học ngừng kích hoạt');
+        } 
     }
 
     public function program($course_id)
@@ -133,41 +170,6 @@ class CourseController extends Controller
     {
         $data = view('components.admin.lesson.detail', compact('lesson'))->render();
         return response()->json($data, 200);
-    }
-
-    public function formActiveCourse(Request $request, $course_id)
-    {
-        $data = view('components.admin.course.actived-course', compact('course_id'))->render();
-
-        return response()->json($data);
-    }
-
-    
-    public function activedCourse(Request $request, Course $course)
-    {
-        if ($course->price == null) {
-            return redirect()->back()->with('failed', 'Chưa thêm giá vào khóa học');
-        }
-        if ($course->status == 1) {
-            return redirect()->back()->with('failed', 'Khóa học đang ngừng kích hoạt');
-        }
-        $course->status = $request->status;
-        $course->save();
-        if ($course->status == 1) {
-            Mail::send('screens.email.admin.actived-course', compact('course','request'), function ($email) use ($course) {
-                $email->subject('Khóa học đã ngừng kích hoạt và sử dụng');
-                $email->to($course->mentor->email, $course->mentor->name);
-            });
-
-            // $order_details = OrderDetail::where('course_id', $course->id)->get();
-            // foreach ($order_details as $order_detail) {
-            //     Mail::send('screens.email.admin.actived-course', compact('order_detail','request'), function ($email) use ($order_detail) {
-            //         $email->subject('Khóa học đã ngừng kích hoạt và sử dụng');
-            //         $email->to($order_detail->order->user->email, $order_detail->order->user->name);
-            //     });
-            // }
-            return redirect()->back()->with('success', 'Cập nhập thành công khóa học ngừng kích hoạt');
-        } 
     }
 
     // public function create(Request $course_id){

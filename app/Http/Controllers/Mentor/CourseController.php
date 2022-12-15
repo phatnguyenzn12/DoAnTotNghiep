@@ -62,32 +62,56 @@ class CourseController extends Controller
         return response()->json($html, 200);
     }
 
-    public function actived(Request $request, Course $course)
+    public function actived(Request $request, $course)
     {
-        if ($course->status == 1) {
+        $course_active = Course::findOrFail($course);
+        if ($course_active->status == 2) {
+            return redirect()->back()->with('failed', 'Khóa học đang kích hoạt');
+        }
+        if ($course_active->status == 1) {
             return redirect()->back()->with('failed', 'Khóa học đã được duyệt');
         }
-        $course->status = $request->status;
-        $course->save();
-        if ($course->status == 1) {
+        $course_active->status = $request->status;
+        $course_active->save();
+        if ($course_active->status == 1) {
             $admin = Admin::first();
-            Mail::send('screens.email.mentor.actived-course', compact('course','admin'), function ($email) use ($admin) {
+            Mail::send('screens.email.mentor.actived-course', compact('course_active','admin'), function ($email) use ($admin) {
                 $email->subject('Đã duyệt khóa học');
                 $email->to($admin->email, $admin->name);
             });
-            Mail::send('screens.email.mentor.actived-course', compact('course'), function ($email) use ($course) {
+            Mail::send('screens.email.mentor.actived-course', compact('course_active'), function ($email) use ($course_active) {
                 $email->subject('Đã duyệt khóa học');
-                $email->to($course->mentor->email, $course->mentor->name);
+                $email->to($course_active->mentor->email, $course_active->mentor->name);
             });
             return redirect()->back()->with('success', 'Cập nhập thành công');
-        } elseif ($course->status == 0) {
-            Mail::send('screens.email.mentor.actived-course', compact('course'), function ($email) use ($course, $request) {
-                $email->subject('Tắt duyệt khóa học');
+        }
+    }
+
+    public function formDeactiveCourse(Request $request, $course_id)
+    {
+        $data = view('components.mentor.course.actived-course', compact('course_id'))->render();
+
+        return response()->json($data);
+    }
+
+    public function deactiveCourse(Request $request, Course $course)
+    {
+        if ($course->status == 2) {
+            return redirect()->back()->with('failed', 'Khóa học đang kích hoạt');
+        }
+        if ($course->status == 0) {
+            return redirect()->back()->with('failed', 'Khóa học đang chờ xử lý');
+        }
+        $course->status = $request->status;
+        $course->save();
+        if ($course->status == 0) {
+            Mail::send('screens.email.mentor.actived-course', compact('course','request'), function ($email) use ($course) {
+                $email->subject('Khóa học đã ngừng kích hoạt và sử dụng');
                 $email->to($course->mentor->email, $course->mentor->name);
             });
-            return redirect()->back()->with('success', 'Tắt duyệt khóa học');
-        }
-        // return redirect()->back()->with('success', 'Bạn đã duyệt khóa học rồi');
+
+            return redirect()->back()->with('success', 'Cập nhập thành công bỏ duyệt khóa học');
+        } 
     }
 
     public function edit($id)
@@ -188,4 +212,5 @@ class CourseController extends Controller
             ->route('mentor.course.program', $id)
             ->with('failed', 'Giảng viên đang được giao khóa học');
     }
+
 }

@@ -22,7 +22,7 @@ Route::prefix('admin/course')->name('admin.course.')->middleware('check-admin')-
 
         Route::get('detail/{lesson}', 'detailLesson')->name('detailLesson');
 
-        Route::get('form-active-course/{id}', 'formActiveCourse')->name('formActiveCourse');
-        Route::put('/actived-course/{course}', 'activedCourse')->name('activedCourse');
+        Route::get('form-deactive-course/{id}', 'formDeactiveCourse')->name('formDeactiveCourse');
+        Route::put('deactive-course/{course}', 'deactiveCourse')->name('deactiveCourse');
     }
 );

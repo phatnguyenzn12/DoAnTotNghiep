@@ -102,7 +102,7 @@
                                 </form>
                                 <a type="button" class="btn btn-danger btn-lg" data-toggle="modal"
                                     data-target="#modalId"
-                                    onclick="showAjaxModal('{{ route('admin.course.formActiveCourse', $course->id) }}','Lý do ngừng kích hoạt')"
+                                    onclick="showAjaxModal('{{ route('admin.course.formDeactiveCourse', $course->id) }}','Lý do ngừng kích hoạt')"
                                     class="btn btn-danger">Ngừng kích hoạt</a>
                             </div>
                         @endif
