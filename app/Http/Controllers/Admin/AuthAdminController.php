@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Client\AuthRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,7 +58,7 @@ class AuthAdminController extends Controller
         return view('screens.admin.admin.update', compact('admin'));
     }
 
-    public function handleLogin(Request $request)
+    public function handleLogin(AuthRequest $request)
     {
 
         if (
@@ -65,7 +66,6 @@ class AuthAdminController extends Controller
                 'email' => $request->email,
                 'password' => $request->password
             ])
-            // && $request->{'g-recaptcha-response'} != null
         ) {
             if (!Auth::guard('admin')->user()->remember_token == null) {
                 return redirect()->route('admin.login')->with('success', 'Vui lòng xác minh tài khoản');

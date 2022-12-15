@@ -45,10 +45,16 @@ class ChapterController extends Controller
 
    public function sendProcess(Course $course)
    {
-      if($course->lessons()->where('is_edit',0)->get()->isEmpty() == false){
-         return redirect()->back()->with('failed', 'Bạn chưa up đủ video bài học');
-      }
+      if ($course->lessons()->where('is_edit', 0)->get()->isEmpty() == false) {
 
+         return redirect()
+            ->back()
+            ->with('success', 'Bạn chưa thêm đủ video bài học');
+      } elseif ($course->lessons()->where('is_edit', 2)->get()->isEmpty() == false) {
+         return redirect()
+            ->back()
+            ->with('failed', 'Có video chưa tải lên hoặc chưa được kiểm tra');
+      }
       Mail::send('screens.email.teacher.process', compact('course'), function ($email) use ($course) {
          $email->subject('Yêu cầu chỉnh sửa');
          $email->to(
@@ -58,7 +64,8 @@ class ChapterController extends Controller
                ->email
          );
       });
-
-      return redirect()->back()->with('success', 'Bạn đã gửi thành công');
+      return redirect()
+         ->back()
+         ->with('success', 'Gửi yêu cầu thành công');
    }
 }

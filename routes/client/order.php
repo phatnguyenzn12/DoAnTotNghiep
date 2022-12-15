@@ -13,6 +13,6 @@ Route::prefix('order')->name('client.order.')->middleware('check-user')->control
         Route::post('check-code', 'checkCode')->name('checkCode')->middleware('check-out');
         Route::post('payment', 'handlePay')->name('handlePay')->middleware('check-out');
         Route::post('payment-vnpay', 'vnpay')->name('vnpay')->middleware('check-out');
-        Route::get('return-data-vnpay', 'resDataVnpay')->name('resvnpay')->middleware('check-out');
+        Route::get('return-data-vnpay', 'resDataVnpay')->name('resvnpay');
     }
 );

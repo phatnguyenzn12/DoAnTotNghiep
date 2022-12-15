@@ -33,8 +33,8 @@ class AuthRequest extends FormRequest
                             "name" => "required|unique:users",
                             "email" => "required|unique:users",
                             "number_phone" => "required|digits:10|numeric",
-                            "password" => "required|digits:10",
-                            "re_password" => "required|digits:10",
+                            "password" => "required|digits:6",
+                            "re_password" => "required|digits:6",
                         ];
                         break;
                     case 'handleLogin':
@@ -53,10 +53,17 @@ class AuthRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => 'Vui lòng nhập :attribute',
-            'unique' => ':attribute đã tồn tại',
-            'digits' => 'Vui lòng nhập đủ :attribute',
-            'numeric' => 'Vui lòng nhập đúng :attribute',
+            'name.required' => 'Vui lòng nhập tên',
+            'name.unique' => 'Tên đã tồn tại',
+            'email.required' => 'Vui lòng nhập email',
+            'email.unique' => 'Email đã tồn tại',
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'password.digits' => 'Vui lòng nhập đủ độ dài 6 kí tự',
+            're_password.required' => 'Vui lòng nhập lại mật khẩu',
+            're_password.digits' => 'Vui lòng nhập đủ độ dài 6 kí tự',
+            'number_phone.required' => 'Vui lòng nhập số điện thoại',
+            'number_phone.digits' => 'Vui lòng nhập đủ độ dài 10 số',
+            'number_phone.numeric' => 'Vui lòng nhập đúng định dạng số',
         ];
     }
 }

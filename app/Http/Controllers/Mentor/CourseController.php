@@ -32,7 +32,7 @@ class CourseController extends Controller
     public function filterData(Request $request)
     {
         $courses = Course::select('*')
-            ->where('mentor_id', auth()->guard('mentor')->user()->id)
+            ->where('cate_course_id', auth()->guard('mentor')->user()->cate_course_id)
             ->sortdata($request)
             ->search($request)
             ->isactive($request)
@@ -52,7 +52,6 @@ class CourseController extends Controller
     {
         $chapters = Chapter::select('*')
             ->where('course_id', $request->course_id)
-            // ->orderBy('id', 'DESC')
             ->sortdata($request)
             ->search($request)
             ->paginate($request->record);
@@ -63,14 +62,12 @@ class CourseController extends Controller
 
     public function actived(Request $request, Course $course)
     {
-        if($course->status == 2){
+        if ($course->status == 2) {
             return redirect()->back()->with('failed', 'Khóa học đã được kích hoạt');
         }
         $course->status = $request->status;
         $course->save();
-        // dd($course->status);
         if ($course->status == 1) {
-            dd(1);
             Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course) {
                 $email->subject('Đã duyệt khóa học');
                 $email->to($course->mentor->email, $course->mentor->name);
@@ -78,7 +75,6 @@ class CourseController extends Controller
             });
             return redirect()->back()->with('success', 'Cập nhập thành công');
         } elseif ($course->status == 0) {
-            dd(1);
             Mail::send('screens.email.teacher.actived-course', compact('course'), function ($email) use ($course, $request) {
                 $email->subject($request->content);
                 $email->to($course->mentor->email, $course->mentor->name);
@@ -128,15 +124,13 @@ class CourseController extends Controller
                     'description',
                     'certificate_id'
                 ]),
-                ['tags' => implode(', ', collect(json_decode($request->tags))->pluck('value')->toArray())],
                 ['description_details' => implode(', ', collect(json_decode($request->description_details))->pluck('value')->toArray())],
                 ['image' => $image],
-                ['mentor_id' => auth()->guard('mentor')->user()->id],
             )
         );
 
         return redirect()
-            ->back()
+            ->route('mentor.course.index')
             ->with('success', 'Thêm khóa học thành công');
     }
 
@@ -154,11 +148,10 @@ class CourseController extends Controller
         $course->discount = $request->discount;
         $course->skill_id = $request->skill_id;
         $course->language = $request->language;
-        $course->tags = implode(', ', collect(json_decode($request->tags))->pluck('value')->toArray());
         $course->description = $request->description;
         $course->description_details = implode(', ', collect(json_decode($request->description_details))->pluck('value')->toArray());
         $course->certificate_id =  $request->certificate_id;
-
+        $course->mentor_id =  $request->mentor_id;
         $course->fill($request->except(['_method', '_token']));
         if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('images');
@@ -169,7 +162,7 @@ class CourseController extends Controller
         $course->save();
 
         return redirect()
-            ->back()
-            ->with('success', 'sửa khóa học thành công');
+            ->route('mentor.course.program',$course->id)
+            ->with('success', 'Sửa khóa học thành công');
     }
 }

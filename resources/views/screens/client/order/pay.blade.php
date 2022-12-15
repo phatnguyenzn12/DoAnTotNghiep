@@ -5,21 +5,20 @@
 @section('content')
 
     <!-- =======================
-                                                                            Page Banner START -->
+                                                                                Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="bg-light p-4 text-center rounded-3">
-                        <h1 class="m-0">Checkout</h1>
+                        <h1 class="m-0">Thanh Toán</h1>
                         <!-- Breadcrumb -->
                         <div class="d-flex justify-content-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-dots mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Courses</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Cart</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Giỏ hàng</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
                                 </ol>
                             </nav>
                         </div>
@@ -29,10 +28,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                            Page Banner END -->
+                                                                                Page Banner END -->
 
     <!-- =======================
-                                                                            Page content START -->
+                                                                                Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -60,8 +59,8 @@
 
                             <!-- Cards -->
                             <div class="col-12">
-                                <label class="form-label">Your saved cards *</label>
-                                <div class="row g-2 " show-list-bank>
+                                <label class="form-label">Chọn phương thức thanh toán</label>
+                                <div class="row g-2 ">
 
                                 </div>
                             </div>
@@ -106,7 +105,7 @@
                                             <div class="row g-3">
                                                 <!-- Image -->
                                                 <div class="col-sm-4">
-                                                    <img class="rounded" src="/frontend/images/courses/4by3/08.jpg"
+                                                    <img class="rounded" src="{{ asset('app/' . $course->image) }}"
                                                         alt="">
                                                 </div>
                                                 <!-- Info -->
@@ -117,7 +116,8 @@
                                                     <!-- Info -->
                                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                                         <!-- Price -->
-                                                        <span class="text-success">{{ $course->current_Price }}</span>
+                                                        <span
+                                                            class="text-success">{{ number_format($course->current_Price) }}đ</span>
 
                                                         <div class="text-primary-hover">
                                                             {{-- <button form="remove" type="submit"
@@ -145,7 +145,8 @@
                                 <!-- Price and detail -->
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h6 fw-light mb-0">Tổng giá</span>
-                                    <span class="h6 fw-light mb-0 fw-bold">{{ $courses->sum('current_price') }}đ</span>
+                                    <span
+                                        class="h6 fw-light mb-0 fw-bold">{{ number_format($courses->sum('current_price')) }}đ</span>
                                     <input type="text" hidden value="{{ $courses->sum('current_price') }}" total_price>
                                 </li>
                                 <li class="list-group-item px-0 d-flex justify-content-between">
@@ -154,7 +155,8 @@
                                 </li>
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h5 mb-0">Kết quả</span>
-                                    <span class="h5 mb-0" total_discount>{{ $courses->sum('current_price') }}đ</span>
+                                    <span class="h5 mb-0"
+                                        total_discount>{{ number_format($courses->sum('current_price')) }}đ</span>
                                 </li>
 
                                 <!-- Button -->
@@ -164,8 +166,8 @@
                                 </div>
 
                                 <!-- Content -->
-                                <p class="small mb-0 mt-2 text-center">By completing your purchase, you agree to these
-                                    <a href="#"><strong>Terms of Service</strong></a>
+                                <p class="small mb-0 mt-2 text-center">Bằng cách hoàn tất giao dịch mua của mình,
+                                    <a href="#"><strong> bạn đồng ý với các Điều khoản dịch vụ này</strong></a>
                                 </p>
 
                             </div>
@@ -215,7 +217,7 @@
         </div>
     </section>
     <!-- =======================
-                                                                            Page content END -->
+                                                                                Page content END -->
 
 @endsection
 
@@ -238,34 +240,25 @@
                         js_$('[total_discount]').innerHTML = res.data.discount != undefined ? js_$('[total_price]').value -
                             (js_$('[total_price]').value * (res.data.discount / 100)) + ' đ' : js_$('[total_price]').value +
                             ' đ'
+                            Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Lấy mã thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                ).catch(
+                    res => {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'lấy mã không thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                     }
                 )
         }
-
-        axios.get('https://api.vietqr.io/v2/banks')
-            .then(
-                res => {
-                    html = res.data.data.map(
-                            (item) => {
-                                return `<div code="${item.code}" class="col-2 border rounded me-2" class="remove_code">
-                                <a href="#"><img src="${item.logo}"
-                                                alt=""></a></div>`
-                            }
-                        )
-                        .join('')
-
-                    $('[show-list-bank]').html(`<div code="VNPAY" class="col-2 border rounded me-2" class="remove_code" style="padding: 5px;">
-                                <a href="#"><img src="https://th.bing.com/th/id/R.0d4ecea0b6e472589c4c94b8e8afc17f?rik=5J7F3iDg2ZwJtw&pid=ImgRaw&r=0"
-                                                alt=""></a></div>` + html)
-
-                    $('[code]').on('click',
-                        (val) => {
-                            $('[input-pay]').val($(val.currentTarget).attr('code'))
-                            $('.remove_code').css({'background-color':'white'})
-                            $(val.currentTarget).css('background-color','beige')
-                        }
-                    )
-                }
-            )
     </script>
 @endpush

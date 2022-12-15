@@ -15,7 +15,9 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
 
         Route::get('/list-data','filterData')->name('listData');
 
-        Route::get('all-course','filterCourse')->name('filterCourse');
+        Route::get('all-course','filterCourse')->name('filterCourse')
+        ;
+        Route::get('list-comment','filterComment')->name('filterComment');
 
         Route::get('lesson/lesson_video/{lesson_video}', 'demo')->name('lesson');
 

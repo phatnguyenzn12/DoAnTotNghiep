@@ -17,7 +17,7 @@
                             <div class="d-flex flex-column flex-center">
                                 <!--begin::Symbol-->
                                 <div class="symbol symbol-120 symbol-circle symbol-success overflow-hidden">
-                                    <span class="symbol-label">
+                                    <span class="symbol symbol-120 symbol-circle symbol-success overflow-hidden">
                                         <img src="{{ asset('app/' . $mentor->avatar) }}" class="h-75 align-self-end"
                                             alt="">
                                     </span>

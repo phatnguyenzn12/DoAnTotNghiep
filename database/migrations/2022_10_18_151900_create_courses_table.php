@@ -27,7 +27,6 @@ return new class extends Migration
             $table->text('image');
             $table->integer('percentage_pay')->nullable();
             $table->integer('language');
-            $table->char('tags');
             $table->integer('type')->default(0);
             $table->char('slug');
             $table->unsignedBigInteger('skill_id');

@@ -41,7 +41,7 @@
                             </li>
                         </ul>
                         <!-- Content -->
-                        <p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k + Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
+                        <p class="mb-0 h6 fw-light ms-0 ms-sm-3">+ Sinh viên tham gia với chúng tôi, bây giờ đến lượt bạn.</p>
                     </div>
                 </div>
             </div>
@@ -57,6 +57,7 @@
 
                         <!-- Form START -->
                         <form method="POST" action="{{ route('mentor.handleLogin') }}">
+                            @include('_alert')
                             @csrf
                             <!-- Email -->
                             <div class="mb-4">
@@ -68,6 +69,7 @@
                                     <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
                                         name="email" placeholder="Info@example.com" id="exampleInputEmail1">
                                 </div>
+                                <p class="text-danger">{{ $errors->first('email') }}</p>
                             </div>
                             <!-- Password -->
                             <div class="mb-4">
@@ -80,6 +82,7 @@
                                         class="form-control border-0 bg-light rounded-end ps-1"name="password"
                                         placeholder="******" id="inputPassword5">
                                 </div>
+                                <p class="text-danger">{{ $errors->first('password') }}</p>
                             </div>
                             <!-- Button -->
                             <div class="align-items-center mt-0">

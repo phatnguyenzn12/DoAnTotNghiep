@@ -51,7 +51,7 @@ class Lesson extends BaseModel
 
     public function commentLessonUser()
     {
-        return $this->belongsToMany(User::class,CommentLesson::class);
+        return $this->belongsToMany(User::class, CommentLesson::class);
     }
 
     public function chapter()
@@ -77,6 +77,8 @@ class Lesson extends BaseModel
     {
         if ($this->is_edit == 0) {
             return "Chưa có video";
+        } elseif ($this->is_edit == 2) {
+            return "Video chưa tải xong";
         } else {
             return "Đã có video";
         }

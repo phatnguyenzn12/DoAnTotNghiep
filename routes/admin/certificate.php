@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\CertificateController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin/certificate')->name('admin.certificate.')->middleware('role:admin')->controller(CertificateController::class)->group(
+Route::prefix('admin/certificate')->name('admin.certificate.')->middleware('check-admin')->controller(CertificateController::class)->group(
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('create','create')->name('create');

@@ -47,8 +47,9 @@
                                                 <select class="form-control" id="kt_datatable_search_status"
                                                     onchange="fiterActive(this)">
                                                     <option value="0">Mặc định</option>
+                                                    <option value="in_active">Chờ xử lý</option>
+                                                    <option value="fix">Đã kích hoạt</option>
                                                     <option value="active">Đã được duyệt</option>
-                                                    <option value="in_active">Chưa được duyệt</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -84,7 +85,6 @@
             </div>
             {{-- @include('components.admin.pagination') --}}
             <!--end::table-->
-{{$course->links()}}
         </div>
     @endsection
     @section('js-links')
@@ -97,7 +97,7 @@
                 title: 0,
                 record: 6,
                 id: 'id_desc',
-                type: 0,
+                status: 0,
                 price: 0,
             }
 
@@ -125,7 +125,7 @@
             }
 
             function fiterActive(elemment) {
-                objFiter.type = elemment.value
+                objFiter.status = elemment.value
                 showAjax(objFiter);
             }
 

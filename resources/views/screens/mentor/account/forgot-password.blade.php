@@ -16,8 +16,8 @@
         </div>
         <!--end::Header-->
         <!--begin::Form-->
-        <form action="{{ route('mentor.account.forgotPassword', $mentor->id) }}" method="post"
-            enctype="multipart/form-data" class="form">
+        <form action="{{ route('mentor.account.forgotPassword', $mentor->id) }}" method="post" enctype="multipart/form-data"
+            class="form">
             @csrf
             <div class="card-body">
                 <!--begin::Alert-->
@@ -39,7 +39,8 @@
                             <!--end::Svg Icon-->
                         </span>
                     </div>
-                    <div class="alert-text font-weight-bold">Định cấu hình mật khẩu người dùng hết hạn định kỳ. Người dùng sẽ
+                    <div class="alert-text font-weight-bold">Định cấu hình mật khẩu người dùng hết hạn định kỳ. Người dùng
+                        sẽ
                         cần cảnh báo rằng mật khẩu của họ sắp hết hạn,
                         <br />hoặc họ có thể vô tình bị khóa khỏi hệ thống!
                     </div>
@@ -52,32 +53,35 @@
                     </div>
                 </div>
                 <!--end::Alert-->
-                <div class="form-group row">
-                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu cũ</label>
-                    <div class="col-lg-9 col-xl-6">
-                        <input type="password" name="password" class="form-control form-control-lg form-control-solid mb-2"
-                            />
-                        <a href="#" class="text-sm font-weight-bold">Nhập cho đúng ?</a>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu cũ</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input type="password" name="password"
+                                class="form-control form-control-lg form-control-solid mb-2" />
+                                <strong style="color: red">{{ Session::get('error') }}</strong>
+                            <a href="#" class="text-sm font-weight-bold">Nhập cho đúng ?</a>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu mới</label>
-                    <div class="col-lg-9 col-xl-6">
-                        <input type="password" name="password_1" class="form-control form-control-lg form-control-solid" 
-                           />
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu mới</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input required type="password" name="password_1"
+                                class="form-control form-control-lg form-control-solid" />
+                                <strong  style="color: red">{{ Session::get('error1') }}</strong>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Nhập lại mật khẩu</label>
-                    <div class="col-lg-9 col-xl-6">
-                        <input type="password" name="password_2" class="form-control form-control-lg form-control-solid" 
-                            />
-                    </div>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label text-alert">Nhập lại mật khẩu</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input required type="password" name="password_2"
+                                class="form-control form-control-lg form-control-solid" />
+                                <strong  style="color: red">{{ Session::get('error1') }}</strong>
+                        </div>
+                    </div>    
                 <div class="card-toolbar">
                     <button type="submit" class="btn btn-success mr-2">Lưu thay đổi</button>
                     <button type="" class="btn btn-secondary"><a href="{{ route('mentor.home') }}">Quay
-                        lại</a></button>
+                            lại</a></button>
                 </div>
             </div>
         </form>

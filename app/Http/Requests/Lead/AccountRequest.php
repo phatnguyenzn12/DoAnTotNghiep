@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Teacher;
+namespace App\Http\Requests\Lead;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LessonRequest extends FormRequest
+class AccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,35 +21,30 @@ class LessonRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function attributes()
-    {
-        return [
-            'video_path' => 'video',
-          
-        ];
-    }
     public function rules()
     {
         $rules = [];
+        $currentAction = $this->route()->getActionMethod();
         switch ($this->method()):
-            case 'PUT':
-                return  $rules = [
-                    // 'time' => "required",
-                    'video_path' => "required | mimes:mp4,mov,ogg,qt | max:200000"
-
-                ];
+            case 'POST':
+                switch ($currentAction) {
+                    case 'forgotPassword':
+                        $rules = [
+                            "password" => "required",
+                        ];
+                        break;
+                }
                 break;
             default:
                 break;
         endswitch;
         return $rules;
     }
+
     public function messages()
     {
         return [
-            'required' => 'Bạn chưa thêm :attribute ',
-            'mimes' => ':attribute Chưa đúng định dạng đuôi file là: mp4,,mov,ogg,qt',
-            'max' => ":attribute Nhập quá 100kb"
+            'password.required' => 'Chưa nhập mật khẩu',
         ];
     }
 }
