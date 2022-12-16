@@ -91,8 +91,7 @@ class AccountController extends Controller
 
     public function myOrder()
     {
-        $orders = auth()->user()->load('orders')
-            ->orders;
+        $orders = auth()->user()->load('orders')->orders;
 
         $user = auth()->user();
 

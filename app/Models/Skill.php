@@ -12,4 +12,9 @@ class Skill extends BaseModel
     protected $fillable = [
         'title',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

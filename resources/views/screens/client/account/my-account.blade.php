@@ -177,9 +177,7 @@
                         <!-- Card body END -->
                     </div>
                     <!-- Edit profile END -->
-                    @if (!(auth()->user()->load('orders')->orders))
-                        <h5>Bạn chưa có đơn hàng nào!</h5>
-                    @else
+                    @if (auth()->user()->load('orders')->orders)
                         <div class="card bg-transparent border rounded-3 mt-5">
                             <!-- Card header -->
                             <div class="card-header bg-transparent border-bottom">
@@ -194,8 +192,8 @@
                                         <tr>
                                             <th>STT</th>
                                             <th scope="col">Mã đơn hàng</th>
+                                            <th scope="col">Ngày mua</th>
                                             <th scope="col">Tổng tiền</th>
-                                            <th scope="col">Trạng thái</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -203,8 +201,8 @@
                                         <tbody>
                                             <td>{{ $i + 1 }}</td>
                                             <td>{{ $order->code }}</td>
+                                            <td>{{ date('d/m/Y', strtotime($order->created_at)) }}</td>
                                             <td>{{ number_format($order->total_price) }} đ</td>
-                                            <td>{{ $order->status }}</td>
                                             <td><a data-toggle="modal" data-target="#modal-example"
                                                     onclick="showAjaxModal('{{ route('client.account.show', $order->id) }}' ,'Chi tiết đơn hàng')"
                                                     class="btn btn-icon btn-sm btn-primary mr-1">
