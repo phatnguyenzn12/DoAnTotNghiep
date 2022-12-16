@@ -84,7 +84,8 @@ class LessonController extends Controller
 
     public function parentComment(Request $request, Lesson $lesson, Course $course)
     {
-        $course = Course::where('id',$request->course)->first();
+        $course = Course::where('id', $request->course)->first();
+        dd($course);
 
         $data = $request->only('comment');
         $data['lesson_id'] = $lesson->id;
@@ -104,17 +105,24 @@ class LessonController extends Controller
             ->where('status', '1')
             ->get();
 
-        Notification::send(
-            $course->mentor,
-            new CommentLessonNotification(
-                [
-                    'lesson_id' => $lesson->id,
-                    'course_id'  => $course->id,
-                    'content' => $data['comment'],
-                    'name' => auth()->user()->name,
-                ]
-            )
-        );
+        // Notification::send(
+        //     $course->mentor,
+        //     new CommentLessonNotification(
+
+        //         $request->lesson_id,
+        //         $request->course_id,
+        //         $request->comment,
+        //         // 'lesson_id' => $lesson->id,
+        //         // 'course_id'  => $course->id,
+        //         // 'content' => $data['comment'],
+        //         // 'name' => auth()->user()->name,
+
+        //     )
+        // );
+        //Notification TẠo thông báo
+         $users= User::where('id', '=', auth()->user()->id)->get();
+        // // dd($users);
+         Notification::send($users, new CommentLessonNotification($request->lesson_id,$request->course_id,  $request->comment));
 
         $html = view('components.client.lesson.comment', compact('comments'))->render();
 

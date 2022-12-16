@@ -15,26 +15,25 @@
             </td>
             <td class="col-2">
                 @if ($comment->status == 1)
-                    <span class="label label-lg label-light-success label-inline">Hoạt động</span>
+                    <span class="label label-lg label-light-success label-inline">Hiển thị</span>
                 @else
-                    <span class="label label-lg label-light-danger label-inline">Ngừng hoạt
-                        động</span>
+                    <span class="label label-lg label-light-danger label-inline">Ẩn</span>
                 @endif
             </td>
-            {{-- <td class="col-2">
+            <td class="col-2">
                 @if ($comment->status == 1)
-                    <a href="{{ route('mentor.teacher.actived', $comment->id) }}"
-                        onclick="return confirm('Bạn có chắc muốn ngừng hoạt động')" class="btn btn-danger">
-                        Ngừng hoạt động
+                    <a href="{{ route('mentor.course.activecomment', $comment->id) }}"
+                        onclick="return confirm('Bạn có chắc muốn ẩn')" class="btn btn-danger">
+                        Ẩn
                     </a>
                 @else
-                    <a href="{{ route('mentor.teacher.actived', $comment->id) }}"
-                        onclick="return confirm('Bạn có chắc muốn hoạt động')" class="btn btn-success">
-                        Hoạt động
+                    <a href="{{ route('mentor.course.activecomment', $comment->id) }}"
+                        onclick="return confirm('Bạn có chắc muốn hiển thị')" class="btn btn-success">
+                        Hiển thị
                     </a>
                 @endif
-            </td> --}}
-            <td class="col-xl-2">
+            </td>
+            <td class="col-xs-1">
                 <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
                     href="{{ route('mentor.course.deleteComment', ['id' => $comment->id]) }}">
                     <i class="flaticon2-trash text-danger"></i></a>

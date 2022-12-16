@@ -59,6 +59,20 @@ class CourseController extends Controller
         return response()->json($html, 200);
     }
 
+    public function activecomment(Request $request, $id)
+    {
+        $comment_active = CommentCourse::findOrFail($id);
+        if ($comment_active->status == 1) {
+            return redirect()->back()->with('failed', 'Bình luận đã hiển thị');
+        }
+        if ($comment_active->status == 0) {
+            return redirect()->back()->with('failed', 'Bình luận đã bị ẩn');
+        }
+        $comment_active->status = $request->status;
+        $comment_active->save();
+        return redirect()->back()->with('success', 'Cập nhập thành công');
+    }
+
     public function filterData(Request $request)
     {
         $courses = Course::select('*')

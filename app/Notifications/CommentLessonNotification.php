@@ -17,9 +17,11 @@ class CommentLessonNotification extends Notification
      * @return void
      */
 
-    public function __construct($post)
+     public function __construct($lesson_id, $course_id, $name )
     {
-        $this->post = $post;
+        $this->name=$name;
+        $this->lesson_id=$lesson_id;
+        $this->course_id=$course_id;
     }
 
     /**
@@ -55,6 +57,10 @@ class CommentLessonNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return $this->post;
+        return[
+            'name'=> $this->name,
+            'lesson_id'=> $this->lesson_id,
+            'course_id'=> $this->course_id,
+         ];
     }
 }
