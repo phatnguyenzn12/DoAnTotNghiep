@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('comment');
             $table->integer('reply')->default(0);
             $table->integer('status')->default(1);
-            $table->string('tag_name')->default(0);
-            $table->integer('pin')->default(1);
+            $table->string('tags')->nullable();
+            $table->string('image')->default(null);
             $table->unsignedBigInteger('user_id')->default(0);
             $table->unsignedBigInteger('mentor_id')->default(0);
             $table->unsignedBigInteger('lesson_id');

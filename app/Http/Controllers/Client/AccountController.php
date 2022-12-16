@@ -82,7 +82,7 @@ class AccountController extends Controller
     public function myCourse()
     {
         $courses = auth()->user()->load('courses')
-            ->courses;
+            ->courses()->where('status', 2)->get();
 
         $user = auth()->user();
 

@@ -98,6 +98,8 @@
                                 </div>
                             @endif
 
+                            <a href="{{ route('client.course.show',['slug' => $course->slug,'course' => $course->id]) }}" class="btn btn-bg-primary text-white mt-3">Chi tiết khóa học trang chủ</a>
+
                         </div>
                         <!--end::Info-->
                     </a>

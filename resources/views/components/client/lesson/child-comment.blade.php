@@ -1,5 +1,5 @@
 <form class="w-100 d-flex has-validation-ajax-child" method="POST"
-    action="{{ route('client.lesson.childComment', ['course_id' => $course_id,'comment_parent' => $comment_parent->id]) }}">
+    action="{{ route('client.lesson.childComment', ['course_id' => $course_id, 'comment_parent' => $comment_parent->id]) }}">
     @csrf
     <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
         placeholder="Thêm bình luận..."></textarea>
@@ -23,7 +23,7 @@
                         <div class="">
                             <div class="me-2">
                                 <h6 class="mb-1 lead fw-bold"> <a href="#">{{ $comment_reply->info->name }}
-                                        ({{ $comment_reply->role }})
+                                    ({!! $comment_reply->role !!})
                                     </a> </h6>
                                 <p class=" mb-0">{{ $comment_reply->comment }}
                                 </p>
@@ -44,7 +44,7 @@
                     <!-- collapse textarea -->
                     <div class="collapse" id="collapseComment{{ $comment_reply->id }}">
                         <form class="w-100 d-flex has-validation-ajax-child" method="POST"
-                            action="{{ route('client.lesson.childComment', ['course_id' => $course_id,'comment_parent' => $comment_parent->id]) }}">
+                            action="{{ route('client.lesson.childComment', ['course_id' => $course_id, 'comment_parent' => $comment_parent->id]) }}">
                             @csrf
                             <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
                                 placeholder="Thêm bình luận..."></textarea>
