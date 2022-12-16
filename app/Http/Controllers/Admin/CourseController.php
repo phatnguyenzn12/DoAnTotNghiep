@@ -91,7 +91,7 @@ class CourseController extends Controller
             //     });
             // }
             return redirect()->back()->with('success', 'Cập nhập thành công khóa học ngừng kích hoạt');
-        } 
+        }
     }
 
     public function program($course_id)
