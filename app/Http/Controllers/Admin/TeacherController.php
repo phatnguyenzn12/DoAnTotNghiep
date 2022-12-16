@@ -39,7 +39,7 @@ class TeacherController extends Controller
         //  dd($mentor);
         return view('screens.admin.teacher.detail', compact('mentor','id', 'cate_courses'));
     }
-    public function update(Request $request, $id)
+    public function update(MentorRequest $request, $id)
     {
         $mentor = Mentor::find($id);
         $mentor->name ;
