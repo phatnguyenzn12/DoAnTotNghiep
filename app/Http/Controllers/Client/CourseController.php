@@ -14,24 +14,16 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
-    public function index()
-    {
-        $cate_courses = CateCourse::all();
-        $min_price = Course::where('status',2)->min('price');
-        $max_price = Course::where('status',2)->max('price');
-        return view('screens.client.course.list', compact('cate_courses', 'min_price', 'max_price'));
-    }
-
-    public function index1(){
+    public function index(){
         $cate_courses = CateCourse::all();
         $skills = Skill::all();
         $teachers = Mentor::role('teacher')->get();
         $min_price = Course::where('status',2)->min('price');
         $max_price = Course::where('status',2)->max('price');
-        return view('screens.client.course.list-course', compact('cate_courses','skills', 'teachers', 'min_price', 'max_price'));
+        return view('screens.client.course.list', compact('cate_courses','skills', 'teachers', 'min_price', 'max_price'));
     }
 
-    public function filterData1(Request $request)
+    public function filterData(Request $request)
     {
         $courses = Course::select('*')
         ->where('status',2)
@@ -41,20 +33,6 @@ class CourseController extends Controller
         ->category($request)
         ->skill($request)
         ->teacher($request)
-        ->price($request)
-        ->paginate($request->record);
-        
-        $html = view('components.client.course.list-course1' ,compact('courses'))->render();
-        return response()->json($html,200);
-    }
-
-    public function filterData(Request $request)
-    {
-        $courses = Course::select('*')
-        ->where('status',2)
-        ->sortdata($request)
-        ->search($request)
-        ->category($request)
         ->price($request)
         ->paginate($request->record);
         
