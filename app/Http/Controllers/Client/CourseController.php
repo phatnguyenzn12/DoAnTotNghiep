@@ -7,17 +7,20 @@ use App\Models\CateCourse;
 use App\Models\CommentCourse;
 use App\Models\Course;
 use App\Models\LessonVideo;
+use App\Models\Mentor;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $cate_courses = CateCourse::all();
+        $skills = Skill::all();
+        $teachers = Mentor::role('teacher')->get();
         $min_price = Course::where('status',2)->min('price');
         $max_price = Course::where('status',2)->max('price');
-        return view('screens.client.course.list', compact('cate_courses', 'min_price', 'max_price'));
+        return view('screens.client.course.list', compact('cate_courses','skills', 'teachers', 'min_price', 'max_price'));
     }
 
     public function filterData(Request $request)
@@ -26,7 +29,10 @@ class CourseController extends Controller
         ->where('status',2)
         ->sortdata($request)
         ->search($request)
+        ->isactive($request)
         ->category($request)
+        ->skill($request)
+        ->teacher($request)
         ->price($request)
         ->paginate($request->record);
         
