@@ -34,10 +34,14 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7N7LGGGWT1"></script>
 
+
+
     @yield('head-links')
 </head>
 
 <body>
+    @include('_loading')
+
     @include('_alert')
     <!-- Header START -->
     <header class="navbar-light navbar-sticky">
@@ -45,6 +49,7 @@
     </header>
     <!-- Main Contents -->
     <main>
+
         @yield('content')
     </main>
     <!-- End Main Contents -->
@@ -72,7 +77,8 @@
     </div>
     <!-- Modal body END -->
     <!-- Back to top -->
-    <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+    <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+    </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"

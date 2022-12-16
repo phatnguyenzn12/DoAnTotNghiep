@@ -61,11 +61,6 @@ class Mentor extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function specialize()
-    {
-        return $this->belongsTo(Specialize::class);
-    }
-
     public function certificates()
     {
         return $this->hasMany(Certificate::class);
@@ -74,6 +69,11 @@ class Mentor extends Authenticatable
     public function notifications_custom()
     {
         return $this->hasMany(Notification::class, 'notifiable_id');
+    }
+
+    public function cate_course()
+    {
+        return $this->belongsTo(CateCourse::class, 'cate_course_id');
     }
 
 

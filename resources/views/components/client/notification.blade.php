@@ -12,80 +12,48 @@
         <div class="card bg-transparent">
             <div
                 class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
-                <h6 class="m-0">Notifications <span
+                <h6 class="m-0">Thông báo <span
                         class="badge bg-danger bg-opacity-10 text-danger ms-2">{{ $notifications != null ? $notifications->count() : 0 }}
 
-                        <a class="  small" href="#">Clear all</a>
+                        <a class="  small" href="#">Đọc hết</a>
             </div>
             <div class="card-body p-0" style="overflow: scroll;max-height: 400px;">
                 <ul class="list-group list-unstyled list-group-flush overflow-y">
+                    <!-- Notif item -->
+                    @forelse ($notifications as $notification)
+                        <li>
+                            <a href="{{ route('client.lesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                                class="list-group-item-action border-0 border-bottom d-flex p-3">
 
-                    @if (auth()->guard('mentor')->user())
-                        <!-- Notif item -->
-                        @forelse ($notifications as $notification)
-                            <li>
-                                <a href="{{ route('client.mentorLesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
-                                    class="list-group-item-action border-0 border-bottom d-flex p-3">
-
-                                    <div class="me-3">
-                                        <div class="avatar avatar-md">
-                                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
-                                                alt="avatar">
-                                        </div>
+                                <div class="me-3">
+                                    <div class="avatar avatar-md">
+                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
+                                            alt="avatar">
                                     </div>
+                                </div>
 
-                                    <div>
-                                        <p class="text-body small m-0">
-                                            <b>{{ $notification->data['name'] }} ()</b>
-                                            commented on
-                                        <p>{{ $notification->data['content'] }}</p>
+                                <div>
+                                    <p class="text-body small m-0">
+                                        <b>{{ $notification->data['name'] }} ()</b>
+                                        Đã trả lời
+                                    <p>{{ $notification->data['content'] }}</p>
 
-                                        </p>
+                                    </p>
 
-                                        <u class="small">Xem chi tiết </u>
-                                    </div>
+                                    <u class="small">Xem chi tiết </u>
+                                </div>
 
-                                </a>
+                            </a>
 
-                            </li>
+                        </li>
 
-                        @empty
-                        @endforelse
-                    @elseif (auth()->guard('web')->user())
-                        <!-- Notif item -->
-                        @forelse ($notifications as $notification)
-                            <li>
-                                <a href="{{ route('client.lesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
-                                    class="list-group-item-action border-0 border-bottom d-flex p-3">
-
-                                    <div class="me-3">
-                                        <div class="avatar avatar-md">
-                                            <img class="avatar-img rounded-circle" src="/frontend/images/avatar/01.jpg"
-                                                alt="avatar">
-
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <p class="text-body small m-0">
-                                            <b>{{ $notification->data['name'] }} ()</b>
-                                            đã trả lời
-                                        <p>{{ $notification->data['content'] }}
-                                        </p>
-                                        </p>
-                                        <u class="small">Xem chi tiết</u>
-                                    </div>
-
-                                </a>
-                            </li>
-                        @empty
-                            <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
-                                <h5 class="text-lg font-medium">
-                                    <ion-icon name="notifications-outline"></ion-icon> THÔNG BÁO TRỐNG
-                                </h5>
-                            </div>
-                        @endforelse
-                    @endif
+                    @empty
+                        <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
+                            <h5 class="text-lg font-medium">
+                                <ion-icon name="notifications-outline"></ion-icon> THÔNG BÁO TRỐNG
+                            </h5>
+                        </div>
+                    @endforelse
                 </ul>
             </div>
             <!-- Button -->
