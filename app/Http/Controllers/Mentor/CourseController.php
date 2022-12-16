@@ -47,8 +47,9 @@ class CourseController extends Controller
 
     public function filterComment(Request $request)
     {
+        // dd(auth()->guard('mentor')->user()->id);
         $comments = CommentCourse::select('*')
-            // ->where('user_id', auth()->guard('user')->user()->user_id)
+            ->where('mentor_id', auth()->guard('mentor')->user()->id)
             ->sortdata($request)
             ->search($request)
             ->isactive($request)
@@ -140,7 +141,7 @@ class CourseController extends Controller
             });
 
             return redirect()->back()->with('success', 'Cập nhập thành công bỏ duyệt khóa học');
-        } 
+        }
     }
 
     public function edit($id)

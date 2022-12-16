@@ -1,11 +1,10 @@
 <div class="row">
-    @foreach ($comments as $comment)
+    @foreach ($comments as $k=>$comment)
         <tr>
-            <td class="pl-0 py-8">
+            <td>{{$k+1}}</td>
+            <td class="">
                 {{ $comment->user->name }}
             </td>
-            <td>{{ $comment->user->email }}</td>
-
             <td class="col-2">
                 {{ $comment->comment }}
             </td>

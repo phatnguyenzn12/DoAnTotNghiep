@@ -241,6 +241,7 @@
                          <!-- Message -->
                          <div class="col-12">
                              <input type="hidden" name="course_id" value="{{ $course->id }}">
+                             <input type="hidden" name="mentor_id" value="{{ $course->mentor->id }}">
                              <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review"
                                  rows="3"></textarea>
                          </div>
