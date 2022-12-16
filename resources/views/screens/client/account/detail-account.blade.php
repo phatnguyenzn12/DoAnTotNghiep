@@ -36,7 +36,7 @@
                                     Đổi mật khẩu
                                 </a></li>
                             <li><a href="#">
-                                    <ion-icon name="card-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Khóa học 
+                                    <ion-icon name="card-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Khóa học
                                 </a></li>
                             <li><a href="#">
                                     <ion-icon name="film-outline" class="pr-2 text-2xl lg:block hidden"></ion-icon>Media
@@ -65,13 +65,13 @@
                                 <label for="course_basic" class="font-medium"> Họ và tên <span
                                         class="text-red-600">*</span></label>
                                 <div class="col-span-2">
-                                    <input type="text" id="course_basic" name="name" 
+                                    <input type="text" id="course_basic" name="name"
                                         class="shadow-none with-border" placeholder="Enter course title" required="">
                                 </div>
                                 <label for="course_basic" class="font-medium"> Số điện thoại <span
                                         class="text-red-600">*</span></label>
                                 <div class="col-span-2">
-                                    <input type="text" id="course_basic" 
+                                    <input type="text" id="course_basic"
                                         name="number_phone" class="shadow-none with-border" placeholder="Enter course title"
                                         required="">
                                 </div>
@@ -152,6 +152,11 @@
                         </form>
 
                     </div>
+                    {{-- END INFO  --}}
+
+
+
+                    {{-- END CART --}}
 
                     <!-- Pricing  -->
                     <div class="p-8 w-4/5 mx-auto py-12 md:space-y-10 space-y-4">
@@ -169,7 +174,7 @@
                                     </nav>
                                 </div>
                                 <div class="flex items-center p-5 space-x-3">
-                                    
+
                                     <div class="bg-gray-100 border inline-flex p-0.5 rounded-md text-lg fliter-tab"
                                         uk-switcher="connect: #course-tabs; animation: uk-animation-fade">
                                         <a href="#" class="py-1.5 px-2.5 rounded-md uk-active" data-tippy-placement="top"
@@ -190,15 +195,15 @@
                                             </svg>
                                         </a>
                                     </div>
-                        
+
                                 </div>
                             </div>
-                        
+
                             <!-- my course list -->
                             <div class="p-6 pt-0">
-                        
+
                                 <div class="uk-switcher" id="course-tabs" style="touch-action: pan-y pinch-zoom;">
-                        
+
                                     <!-- layout 1 -->
                                     <ul class="divide-y -mt-5 uk-active" style="">
                                             @foreach ($courses as $course)
@@ -237,17 +242,17 @@
                                             </a>
                                         </li>
                                         @endforeach
-                        
+
                                         <!-- Pagination -->
                                         @include('components.client.pagination')
-                        
+
                                     </ul>
                                     <!-- layout 2-->
                                     <div class="grid md:grid-cols-2 gap-6" style="">
                                     </div>
                                 </div>
                             </div>
-                        
+
                         </div>
 
                     </div>

@@ -8,11 +8,13 @@ use App\Models\Admin;
 use App\Models\CateCourse;
 use App\Models\Certificate;
 use App\Models\Chapter;
+use App\Models\CommentCourse;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\LessonVideo;
 use App\Models\Mentor;
 use App\Models\Skill;
+use App\Models\User;
 use App\Services\UploadFileService;
 use Http\Message\Authentication\Chain;
 use Illuminate\Http\Request;
@@ -27,6 +29,34 @@ class CourseController extends Controller
         $min_price = Course::where('mentor_id', auth()->guard('mentor')->user()->id)->min('price');
         $max_price = Course::where('mentor_id', auth()->guard('mentor')->user()->id)->max('price');
         return view('screens.mentor.course.list', compact('min_price', 'max_price'));
+    }
+
+    public function commentCourse()
+    {
+        $comment = CommentCourse::all();
+        return view('screens.mentor.course.list-comment', compact('comment'));
+    }
+
+    public function deleteComment($id)
+    {
+        $delete = CommentCourse::find($id);
+        $delete->delete();
+
+        return redirect()->back()->with('success', 'Xoá thành công');
+    }
+
+    public function filterComment(Request $request)
+    {
+        // dd(auth()->guard('mentor')->user()->id);
+        $comments = CommentCourse::select('*')
+            ->where('mentor_id', auth()->guard('mentor')->user()->id)
+            ->sortdata($request)
+            ->search($request)
+            ->isactive($request)
+            ->paginate($request->record);
+
+        $html = view('components.mentor.course.list-comment', compact('comments'))->render();
+        return response()->json($html, 200);
     }
 
     public function filterData(Request $request)
@@ -111,7 +141,7 @@ class CourseController extends Controller
             });
 
             return redirect()->back()->with('success', 'Cập nhập thành công bỏ duyệt khóa học');
-        } 
+        }
     }
 
     public function edit($id)

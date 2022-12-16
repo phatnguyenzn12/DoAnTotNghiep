@@ -7,6 +7,8 @@ Route::prefix('account')->name('client.account.')->middleware('check-user')->con
     function () {
         Route::get('/','index')->name('index');
         Route::get('/my-course','myCourse')->name('myCourse');
+        Route::get('/my-order','myOrder')->name('myOrder');
+        Route::get('show/{orderDetail}','show')->name('show');
         Route::get('/detail','detail')->name('detail');
         Route::post('update/{id}','update')->name('update');
         Route::post('updatepass/{id}','updatepass')->name('updatepass');

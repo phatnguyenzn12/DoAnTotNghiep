@@ -22,7 +22,7 @@
             </div>
             <!--end::Header-->
             <!--begin::Form-->
-            <form class="form" action="{{ route('mentor.account.update', $mentor->id) }}" method="post"
+            <form class="form" action="{{ route('teacher.account.update', $mentor->id) }}" method="post"
                 enctype="multipart/form-data">
                 <!--begin::Body-->
                 @csrf
@@ -41,7 +41,7 @@
                                 <div class="image-input-wrapper"
                                     style="background-image: url({{ asset('app/' . $mentor->avatar) }})">
                                     <img id="mat_truoc_preview" src="{{ asset('app/' . $mentor->avatar) }} alt="your image
-                                       class="image-input-wrapper" />
+                                        class="image-input-wrapper" />
                                 </div>
                                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
                                     data-action="change" data-toggle="tooltip" title=""
@@ -66,12 +66,12 @@
                         </div>
                     </div>
                     @if (Auth::guard('mentor')->user()->hasRole('teacher'))
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label">Điểm</label>
                             <div class="col-lg-9 col-xl-6">
                                 <p class="form-control form-control-lg form-control-solid">{{ $mentor->point }} </p>
                             </div>
-                        </div>
+                        </div> --}}
                     @endif
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Họ và tên</label>
@@ -162,6 +162,7 @@
                         </div>
                     </div>
                     <div class="card-toolbar">
+                     
                         <button type="submit" class="btn btn-success mr-2">Lưu thay đổi</button>
                     </div>
                 </div>
