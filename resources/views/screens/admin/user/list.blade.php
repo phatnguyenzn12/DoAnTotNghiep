@@ -10,10 +10,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
-                        <h3 class="card-label">Remote Datasource
-                            <span class="d-block text-muted pt-2 font-size-sm">Sorting &amp; pagination remote
-                                datasource</span>
-                        </h3>
+                        <h3 class="card-label">Danh sách người dùng
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -189,7 +186,7 @@ const filter1 = new filter(
                 <td col="name"><a class="text-dark" href="detail/${val.id}">${val.name}</a></td>                
                 <td><a class="btn btn-light btn-sm" href="detail/${val.id}">
                     <i class="flaticon2-pen text-warning"></i></a>
-                <a class="btn btn-light btn-sm" href="delete/${val.id}">
+                <a  onclick="return confirm('Bạn có chắc muốn xóa')" class="btn btn-light btn-sm" href="delete/${val.id}">
                     <i class="flaticon2-trash text-danger"></i></a></td></tr>`
                     }).join(',');
     },

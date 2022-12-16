@@ -13,7 +13,7 @@
                 <div class="dropdown dropdown-inline mr-2">
                     <a href="{{ route('admin.user.index')}}" class="btn btn-light-primary font-weight-bolder">
                         <span>
-                        </span>Back</a>
+                        </span>Quay lại</a>
                 </div>
             </div>
         </div>
@@ -1036,10 +1036,10 @@
                             <thead>
                                 <tr>
                                     <th class="p-0 w-40px">ID</th>
-                                    <th class="p-0 w-100px">Avatar</th>
-                                    <th class="p-0 min-w-100px">Name</th>
+                                    <th class="p-0 w-100px">Ảnh đại diện</th>
+                                    <th class="p-0 min-w-100px">Tên</th>
                                     <th class="p-0 min-w-100px">Email</th>
-                                    <th class="p-0 min-w-125px">Phone</th>
+                                    <th class="p-0 min-w-125px">Số điện thoại</th>
                                     {{-- <th class="p-0 min-w-110px"></th>
                                     <th class="p-0 min-w-150px"></th> --}}
                                 </tr>
@@ -1050,7 +1050,7 @@
                                     <td class="pl-0 py-4">
                                         <div>
                                             <span class="symbol-label">
-                                                <img src="{{ $user->avatar ? '' . Storage::url($user->avatar) : 'http://placehold.it/100x100' }}"
+                                                <img src="{{ asset('app/' . $user->avatar) }}"
                                                     class="h-50 align-self-center" alt="" width="100px" height="100px" />
                                             </span>
                                         </div>
@@ -1064,7 +1064,7 @@
                     </div>
                     <div class="card-footer">
                         <form action="{{route('admin.user.index')}}">
-                            <button type="submit" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-secondary">Quay lại</button>
                         </form>
                     </div>
                     <!--end::Table-->
