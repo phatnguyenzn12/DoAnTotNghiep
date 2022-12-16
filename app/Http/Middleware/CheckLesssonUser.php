@@ -28,6 +28,7 @@ class CheckLesssonUser
             return redirect()->back()->with('failed', 'Thiếu khóa học');
         }
 
+
         return $next($request);
     }
 }

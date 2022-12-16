@@ -12,31 +12,56 @@
 <!-- Collapse body START -->
 <div class="collapse-horizontal collapse show" id="collapseWidthExample">
     <div class="card vh-100 overflow-auto rounded-0 w-280px w-sm-400px">
-        <!-- Title -->
-        <div class="card-header bg-light rounded-0">
-            <h1 class="mt-2 fs-5">Hoành thành khóa học {{ $course->title }}:
-                <br>
-                {{ $course->number_lessons_complete }} bài học
-                trên {{ $course->lessons->count() }}
-            </h1>
-            <form action="{{ route('client.certificate.getCertificate', $course->id) }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-primary mb-0">Nhận chứng chỉ</button>
-            </form>
-            <div class="overflow-hidden">
-                <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
-                <div class="progress progress-sm bg-primary bg-opacity-10">
-                    <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"
-                        data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
-                        style="width: {{ $course->progress }}%" aria-valuenow="{{ $course->progress }}"
-                        aria-valuemin="0" aria-valuemax="100">
+
+
+
+
+
+        @if (auth()->guard('mentor')->user())
+            <!-- Title -->
+            <div class="card-header bg-light rounded-0">
+                <h1 class="mt-2 fs-5">khóa học: {{ $course->title }}</h1>
+            </div>
+        @else
+            <!-- Title -->
+            <div class="card-header bg-light rounded-0">
+                <h1 class="mt-2 fs-5">Hoành thành khóa học {{ $course->title }}:
+                    <br>
+                    {{ $course->number_lessons_complete }} bài học
+                    trên {{ $course->lessons->count() }}
+                </h1>
+                <form action="{{ route('client.certificate.getCertificate', $course->id) }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-primary mb-0">Nhận chứng chỉ</button>
+                </form>
+                <div class="overflow-hidden">
+                    <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
+                    <div class="progress progress-sm bg-primary bg-opacity-10">
+                        <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"
+                            data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
+                            style="width: {{ $course->progress }}%" aria-valuenow="{{ $course->progress }}"
+                            aria-valuemin="0" aria-valuemax="100">
+                        </div>
                     </div>
                 </div>
+
             </div>
+        @endif
 
+        <div class="bg-light p-3 rounded d-flex">
+            <div class="avatar avatar-sm flex-shrink-0">
+                <a href="#"><img class="avatar-img rounded-circle" src="/frontend/images/avatar/05.jpg"
+                        alt=""></a>
+            </div>
+            <div class="mx-3">
+                <div class="me-2">
+                    <h6 class="mb-1 lead fw-bold"> <a href="#!">
+                            chutatbach1 (Giảng viên) </a></h6>
+                    <p class="mb-0 mt-1">Gỉang viên của khóa học
+                    </p>
+                </div>
+            </div>
         </div>
-
-
 
         <!-- Course content START -->
         <div class="card-body">
@@ -70,14 +95,22 @@
                                                         <div
                                                             class="d-flex justify-content-between align-items-center mb-2">
                                                             <div class="position-relative d-flex align-items-center">
-                                                                <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
-                                                                    class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->check_lesson_user->contains(auth()->user()->id) == true ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
-                                                                    @if ($lesson->check_lesson_user->contains(auth()->user()->id) == true)
+                                                                @if (auth()->guard('mentor')->user())
+                                                                    <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
+                                                                        class="btn btn-round btn-sm mb-0 stretched-link position-static btn-danger-soft remove-all-click">
                                                                         <i class="fas fa-play me-0"></i>
-                                                                    @else
-                                                                        <i class="bi bi-lock-fill"></i>
-                                                                    @endif
-                                                                </a>
+                                                                    </a>
+                                                                @else
+                                                                    <a href="{{ route('client.lesson.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}"
+                                                                        class="btn btn-round btn-sm mb-0 stretched-link position-static {{ $lesson->check_lesson_user->contains(auth()->user()->id) == true ? 'btn-danger-soft remove-all-click' : 'btn-secondary' }}">
+                                                                        @if ($lesson->check_lesson_user->contains(auth()->user()->id) == true)
+                                                                            <i class="fas fa-play me-0"></i>
+                                                                        @else
+                                                                            <i class="bi bi-lock-fill"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                @endif
+
                                                                 <span
                                                                     class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px">Bài
                                                                     {{ ++$indexLesson }}. {{ $lesson->title }}</span>
