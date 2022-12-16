@@ -26,7 +26,6 @@
                     @include('components.client.lesson.sidebar')
                 </div>
 
-
             </div>
             <div class="col-12">
                 <!-- Tabs START -->
@@ -120,18 +119,19 @@
                     <!-- Tab contents END -->
                 </div>
 
-
     </section>
 @endsection
 @section('js-links')
-<script src="/js/tags.js"></script>
+    <script src="/js/tags.js"></script>
 @endsection
 @push('js-handles')
     <script>
         function showAjaxModal(url, title) {
-            $('#modal-example').find('.modal-title').text(title)
             $('#modal-example').find('.modal-body').html(
-                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+                `<div class="w-100 d-flex align-content-center p-5 justify-content-center"> <div class="spinner-border text-info spinner-lg p-5  spinner-center m-lg-auto" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div> </div>`)
+            $('#modal-example').find('.modal-title').text(title)
             $.ajax({
                 url: url,
                 timeout: 1000,
@@ -140,6 +140,13 @@
                 },
                 success: function(res) {
                     $('#modal-example').find('.modal-body').html(res)
+                },
+                error: function(err) {
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                 }
             })
         }
@@ -147,7 +154,9 @@
         $(document).on('submit', 'form.has-validation-ajax', function(e) {
             e.preventDefault()
             $('#modal-example').find('.modal-body').html(
-                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+                `<div class="w-100 d-flex align-content-center p-5 justify-content-center"> <div class="spinner-border text-info spinner-lg p-5  spinner-center m-lg-auto" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div> </div>`)
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
@@ -161,16 +170,22 @@
                 contentType: false,
                 processData: false,
                 success: function(res) {
-                    // window.location.href = _redirect
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Bạn gửi thành công bình luận',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     $('.comment-show-list').html(res)
-                    $('clear-input').value = ""
+                    $('.clear-input').value = ""
                 },
                 error: function(err) {
-                    $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
-                    let errors = err.responseJSON.errors
-                    Object.keys(errors).forEach(key => {
-                        $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
-                    })
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                 }
             })
         })
@@ -178,7 +193,9 @@
         $(document).on('submit', 'form.has-validation-ajax-child', function(e) {
             e.preventDefault()
             $('#modal-example').find('.modal-body').html(
-                '<div class="spinner spinner-primary spinner-lg p-15 spinner-center"></div>')
+                `<div class="w-100 d-flex align-content-center p-5 justify-content-center"> <div class="spinner-border text-info spinner-lg p-5  spinner-center m-lg-auto" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div> </div>`)
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
@@ -195,11 +212,11 @@
                     $('.modal').find('.modal-body').html(res)
                 },
                 error: function(err) {
-                    $('p.errors.system').text('Có lỗi xảy ra, vui lòng thử lại')
-                    let errors = err.responseJSON.errors
-                    Object.keys(errors).forEach(key => {
-                        $(_form).find('.errors.' + key.replace('\.', '')).text(errors[key][0])
-                    })
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                 }
             })
         })

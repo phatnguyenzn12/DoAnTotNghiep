@@ -117,7 +117,7 @@ class CourseController extends Controller
         }
     }
 
-    public function formDeactiveCourse(Request $request, $course_id)
+     public function formDeactiveCourse(Request $request, $course_id)
     {
         $data = view('components.mentor.course.actived-course', compact('course_id'))->render();
 

@@ -31,6 +31,7 @@ class ViewServiceProvider extends ServiceProvider
                 $ownerCourse = auth()->user()->load('courses')
                     ->courses()
                     ->select('*')
+                    ->where('status', 2)
                     ->get();
                 $view->with('ownerCourse', $ownerCourse);
             } else {
