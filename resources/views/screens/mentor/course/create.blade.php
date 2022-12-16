@@ -73,17 +73,6 @@
                             @error('content')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            {{-- <div class="form-group">
-                                <label>Chọn giảng viên</label>
-                                <select id="select2" class="form-control" name="mentor_id" id="">
-                                    <option value="">Chọn giảng viên</option>
-                                    @forelse ($teachers as $teacher)
-                                    <option value="{{ $teacher->id }}">Tên giảng viên: {{ $teacher->name }} / email: {{ $teacher->email }}</option>
-                                    @empty
-                                    <option value="">Chưa có giảng viên</option>
-                                    @endforelse
-                                </select>
-                            </div> --}}
                             <div class="form-group">
                                 <label>Mô tả</label>
                                 <textarea id="editor" rows="5" class="form-control" name="description" id=""></textarea>

@@ -13,7 +13,11 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
 
         Route::get('list', 'index')->name('list');
 
+        Route::get('list-course', 'index1')->name('list1');
+
         Route::get('/list-data','filterData')->name('listData');
+
+        Route::get('/list-data1','filterData1')->name('listData1');
 
         Route::get('all-course','filterCourse')->name('filterCourse')
         ;

@@ -64,6 +64,12 @@ class BaseModel extends Model
             $query = $query->where('status', 2);
         }
 
+        if ($request->language == 'viet') {
+            $query = $query->where('language', 0);
+        } elseif ($request->language == 'english') {
+            $query = $query->where('language', 1);
+        }
+
         return $query;
     }
 
@@ -96,6 +102,24 @@ class BaseModel extends Model
     {
         if ($request->has('cate_course') && $request->cate_course != 0) {
             $query->where('cate_course_id', $request->cate_course);
+        }
+
+        return $query;
+    }
+
+    function scopeSkill($query, Request $request)
+    {
+        if ($request->has('skill') && $request->skill != 0) {
+            $query->where('skill_id', $request->skill);
+        }
+
+        return $query;
+    }
+
+    function scopeTeacher($query, Request $request)
+    {
+        if ($request->has('teacher') && $request->teacher != 0) {
+            $query->where('mentor_id', $request->teacher);
         }
 
         return $query;

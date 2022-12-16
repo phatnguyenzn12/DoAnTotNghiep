@@ -104,7 +104,6 @@
                                         <div class="d-flex justify-content-between mb-2">
                                             <a href="#"
                                                 class="badge bg-purple bg-opacity-10 text-purple">{{ $course->skill->title }}</a>
-                                            <a href="#" class="h6 mb-0"><i class="far fa-heart"></i></a>
                                         </div>
                                         <!-- Title -->
                                         <h5 class="card-title fw-normal"><a
@@ -140,6 +139,8 @@
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-table text-orange me-2"></i>{{ $course->lessons()->count() }}
                                                 Bài học</span>
+                                            <div class="list-inline-item ms-2 h6 fw-light">{{number_format($course->price)}}đ</div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -246,8 +247,6 @@
                                                 <a href="#"
                                                     class="badge bg-primary bg-opacity-10 text-primary">{{ $course->skill->title }}</a>
                                             </span>
-                                            <a href="#" class="h6 fw-light mb-0"><i
-                                                    class="far fa-bookmark"></i></a>
                                         </div>
                                         <!-- Title -->
                                         <h5 class="card-title"><a

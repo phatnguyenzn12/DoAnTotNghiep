@@ -125,14 +125,15 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-        $course->price = $request->price;
-        $course->discount = $request->discount;
-        $course->percentage_pay = $request->percentage_pay;
-        $course->save();
-        // Mail::send('screens.email.admin.actived-course', compact('course'), function ($email) use ($course) {
-        //     $email->subject('Duyệt giá khóa học');
-        //     $email->to($course->mentor->email, $course->mentor->name);
-        // });
+        $course_price = $course;
+        $course_price->price = $request->price;
+        $course_price->discount = $request->discount;
+        $course_price->percentage_pay = $request->percentage_pay;
+        $course_price->save();
+        Mail::send('screens.email.admin.actived-course', compact('course_price'), function ($email) use ($course_price) {
+            $email->subject('Duyệt giá khóa học');
+            $email->to($course_price->mentor->email, $course_price->mentor->name);
+        });
 
         return redirect()
             ->route('admin.course.program', $course->id)

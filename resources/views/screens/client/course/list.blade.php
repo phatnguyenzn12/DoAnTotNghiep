@@ -65,7 +65,7 @@
                     <form class="border rounded p-2 input-borderless">
                         <select class="form-select form-select-sm js-choice" onchange="fiterSort(this)"
                             aria-label=".form-select-sm">
-                            <option value="0">Sort by</option>
+                            <option value="id_desc">Mặc định</option>
                             <option value="id_desc">Mới đến cũ</option>
                             <option value="id_asc">Cũ đến mới</option>
                         </select>
