@@ -177,9 +177,7 @@
                         <!-- Card body END -->
                     </div>
                     <!-- Edit profile END -->
-                    @if (!(auth()->user()->load('orders')->orders))
-                        <h5>Bạn chưa có đơn hàng nào!</h5>
-                    @else
+                    @if (auth()->user()->load('orders')->orders)
                         <div class="card bg-transparent border rounded-3 mt-5">
                             <!-- Card header -->
                             <div class="card-header bg-transparent border-bottom">
