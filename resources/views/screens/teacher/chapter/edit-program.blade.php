@@ -155,7 +155,7 @@
             <div class="progress mt-3">
                 <div  class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
             style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>       `)
+            </div>`)
             $(this).find('.errors').text('')
             let _form = $(this)
             let data = new FormData(this)
