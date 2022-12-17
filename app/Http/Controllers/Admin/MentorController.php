@@ -100,7 +100,7 @@ class MentorController extends Controller
         //  dd($mentor);
         return view('screens.admin.mentor.detail', compact('mentor','id', 'cate_courses'));
     }
-    public function update(Request $request, $id)
+    public function update(MentorRequest $request, $id)
     {
         $mentor = Mentor::find($id);
         $mentor->name ;
