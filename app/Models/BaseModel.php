@@ -25,6 +25,12 @@ class BaseModel extends Model
             $query = $query->orderBy('price', 'ASC');
         }
 
+        if ($request->reply == 'reply_desc') {
+            $query = $query->orderBy('reply', 'DESC');
+        } elseif ($request->reply == 'reply_asc') {
+            $query = $query->orderBy('reply', 'ASC');
+        }
+
         return $query;
     }
 

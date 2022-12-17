@@ -7,8 +7,16 @@
 
     <!-- Main Banner END -->
     @include('components.client.home.banner')
-    <!-- =======================
-                                                                                                Counter START -->
+
+    <div class="container">
+        <h4>Khóa học chất lượng cao được sản xuất bởi Eduport</h4>
+        <p>Những khóa học được Eduport sản xuất theo tiêu chuẩn chất lượng cao đối với học tập trực tuyến dựa trên ba trụ
+            cột:
+            Học liệu chất lượng quốc tế; Giảng viên & chuyên gia chất lượng cao, uy tín, kinh nghiệm; Mô hình học tập đa
+            tương
+            tác & định hướng kết quả đầu ra được tích hợp công nghệ giáo dục tiên tiến, cập nhật nhất.</p>
+    </div>
+
     <section class="py-0 py-xl-5">
         <div class="container">
             <div class="row g-4">
@@ -125,22 +133,34 @@
                                             <li class="list-inline-item ms-2 h6 fw-light mb-0">
                                                 4.5/5.0
                                             </li>
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="fas fa-table text-orange me-2"></i>{{ $course->lessons()->count() }}
+                                                (Bài)
+                                            </span>
                                         </ul>
                                     </div>
                                     <!-- Card footer -->
-                                    <div class="card-footer pt-0 pb-3">
+                                    <div class="card-footer pt-0 action-trigger-hover bg-transparent">
                                         <hr>
-                                        <div class="d-flex justify-content-between">
-                                            {{-- <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>
-                                                {{ $course->total_time }}
-
-                                            </span> --}}
-
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-table text-orange me-2"></i>{{ $course->lessons()->count() }}
-                                                Bài học</span>
-                                            <div class="list-inline-item ms-2 h6 fw-light">{{number_format($course->price)}}đ</div>
-
+                                        <!-- Avatar and Price -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Avatar -->
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-sm">
+                                                    <img class="avatar-img rounded-1"
+                                                        src="{{ asset('app/' . $course->mentor->avatar) }}" alt="avatar">
+                                                </div>
+                                                <p class="mb-0 ms-2"><a href="#"
+                                                        class="h6 fw-light mb-0">{{ $course->mentor->name }}</a></p>
+                                            </div>
+                                            <!-- Price -->
+                                            <div>
+                                                <h5 class="text-success mb-0 item-show">
+                                                    {{ number_format($course->price) }}đ</h5>
+                                                <a href="{{ route('client.order.addToCart', $course->id) }}"
+                                                    class="btn btn-sm btn-success-soft item-show-hover"><i
+                                                        class="fas fa-shopping-cart me-1"></i>Thêm vào</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -152,14 +172,16 @@
                 </div>
                 <!-- Content END -->
             </div>
-            <!-- Tabs content END -->
+            <!-- Card item END -->
+        </div>
+        <!-- Tabs content END -->
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                Popular course END -->
+                                                                                                                                                                                                                                                                                    Popular course END -->
 
     <!-- =======================
-                                                                                                                                                                                                Action box START -->
+                                                                                                                                                                                                                                                                                    Action box START -->
     <section class="pt-0 pt-lg-5">
         <div class="container position-relative">
             <!-- SVG decoration START -->
@@ -199,7 +221,8 @@
                                     </div>
                                     <!-- Content and input -->
                                     <div class="col-lg-5 text-lg-end">
-                                        <a href="{{route('client.course.list')}}" class="btn btn-outline-warning mb-0">Tất cả </a>
+                                        <a href="{{ route('client.course.list') }}"
+                                            class="btn btn-outline-warning mb-0">Tất cả </a>
                                     </div>
                                 </div>
                             </div>
@@ -210,10 +233,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                Action box END -->
+                                                                                                                                                                                                                                                                                    Action box END -->
 
     <!-- =======================
-                                                                                                                                                                                                Trending courses START -->
+                                                                                                                                                                                                                                                                                    Trending courses START -->
     <section class="pb-5 pt-0 pt-lg-5">
         <div class="container">
             <!-- Title -->
@@ -270,7 +293,9 @@
                                             {{-- <span class="h6 fw-light mb-0"><i
                                                     class="far fa-clock text-danger me-2"></i>{{ $course->total_time }}</span> --}}
                                             <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-table text-orange me-2"></i>{{ $course->lessons->count() }}</span>
+                                                    class="fas fa-table text-orange me-2"></i>{{ $course->lessons->count() }}
+                                                (Bài học)
+                                            </span>
                                         </div>
                                     </div>
                                     <!-- Card footer -->
@@ -289,6 +314,7 @@
                                                         class="h6 fw-light mb-0">{{ $course->mentor->name }}</a></p>
                                             </div>
                                             <!-- Price -->
+
                                             <div>
                                                 <h4 class="text-success mb-0 item-show">
                                                     {{ number_format($course->price) }}đ</h4>
