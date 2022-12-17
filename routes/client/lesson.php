@@ -13,6 +13,8 @@ Route::prefix('lesson')->name('client.lesson.')->middleware('check-auth-lesson')
         Route::get('comment-details/{comment_lesson}', 'commentDetails')->name('commentdetails');
         Route::post('comment-parent-add/{lesson}/{course}', 'parentComment')->name('parentComment');
         Route::post('course/{course_id}/comment-child-add/{comment_parent}', 'childComment')->name('childComment');
+        Route::get('delete/{commentLesson}', 'removeComment')->name('removeComment');
+
     }
 );
 
