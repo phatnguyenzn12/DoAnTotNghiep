@@ -58,7 +58,8 @@
                                     </a>
                                 @endif
 
-                                <a data-toggle="modal" data-target="#modal-example" {{-- onclick="showAjaxModal('{{ route('admin.lesson.show', $lesson->id) }}','Thêm mới video')" --}}
+                                <a data-toggle="modal" data-target="#modal-example"
+                                    onclick="showAjaxModal('{{ route('admin.lesson.show', $lesson->id) }}','Thêm mới video')"
                                     class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
                                     <i class="fas fa-edit"></i>
                                 </a>

@@ -22,6 +22,8 @@ Route::prefix('admin/course')->name('admin.course.')->middleware('check-admin')-
 
         Route::get('detail/{lesson}', 'detailLesson')->name('detailLesson');
 
+        Route::get('edit-lesson/{lesson}', 'editLesson')->name('editLesson');
+
         Route::get('form-deactive-course/{id}', 'formDeactiveCourse')->name('formDeactiveCourse');
         Route::put('deactive-course/{course}', 'deactiveCourse')->name('deactiveCourse');
     }

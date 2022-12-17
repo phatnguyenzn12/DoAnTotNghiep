@@ -180,6 +180,12 @@ class CourseController extends Controller
         return response()->json($data, 200);
     }
 
+    public function editLesson(Request $request, Lesson $lesson)
+    {
+        $data = view('components.admin.lesson.edit-lesson', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
+
     // public function create(Request $course_id){
     //     $certificates = Certificate::where('course_id', $course_id->course)->get();
     //     return view('screens.admin.certificate.create', compact('certificates','course_id'));
