@@ -49,11 +49,19 @@
                                           Thời gian ({{ date('d-m-Y', strtotime($comment->created_at)) }})</a> </li>
                                   <li class="nav-item"> <a class="text-primary-hover" href="#">
                                           Hồi đáp {{ $comment->replies->count() }}</a> </li>
-                                          {{-- @dd(auth()->user()) --}}
-                                @if($comment->user->id == auth()->user()->id)
-                                  <li class="nav-item"> <a onclick="return confirm('Bạn chắc chắn muốn xóa?')" href="{{route('client.lesson.removeComment', ['commentLesson'=>$comment->id])}}" class="text-primary-hover">
-                                          Xóa</a> </li>
-                                @endif
+                                  {{-- @dd(auth()->user()) --}}
+                                  @if (auth()->user())
+                                      @if ($comment->user->id == auth()->user()->id)
+                                          <li class="nav-item"> <a onclick="return confirm('Bạn chắc chắn muốn xóa?')"
+                                                  href="{{ route('client.lesson.removeComment', ['commentLesson' => $comment->id]) }}"
+                                                  class="text-primary-hover">
+                                                  Xóa</a> </li>
+                                          <li class="nav-item"> <a onclick="return confirm('Bạn chắc chắn muốn xóa?')"
+                                                  href="#"
+                                                  class="text-primary-hover">
+                                                  Chỉnh sửa</a> </li>
+                                      @endif
+                                  @endif
                               </ul>
                           </div>
 
