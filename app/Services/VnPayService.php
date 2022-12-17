@@ -12,13 +12,14 @@ class VnPayService
         $order_code,
         $total_price,
         $bank,
+        $discount
     ) {
-        $name = explode(' ', auth()->user()->name);
-        $vnp_Bill_FirstName = array_shift($name);
-        $vnp_Bill_LastName = array_pop($name);
+        // $name = explode(' ', auth()->user()->name);
+        // $vnp_Bill_FirstName = array_shift($name);
+        // $vnp_Bill_LastName = array_pop($name);
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = env('APP_URL') . "/order/return-data-vnpay";
+        $vnp_Returnurl = env('APP_URL') . "/order/return-data-vnpay?discount=$discount";
         $vnp_TmnCode = "9K1CI7PI";
         $vnp_HashSecret = "GVVBTDJXDNJYEIBETIFAUGFIVJHPBJMJ";
 
@@ -27,7 +28,7 @@ class VnPayService
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $total_price * 100;
         $vnp_Locale = 'vn';
-        $vnp_BankCode = $bank;
+        $vnp_BankCode = 'VNPAY';
         $vnp_IpAddr = request()->ip();
 
         $inputData = array(
@@ -43,10 +44,6 @@ class VnPayService
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
-            "vnp_Bill_FirstName" => $vnp_Bill_FirstName,
-            "vnp_Bill_LastName" => $vnp_Bill_LastName,
-            "vnp_Bill_Email" => auth()->user()->email,
-            "vnp_Bill_Address" => auth()->user()->location,
         );
 
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {

@@ -71,6 +71,18 @@ class LessonController extends Controller
         return view('screens.client.lesson.watch', compact('course', 'chapters', 'lesson', 'comments', 'mentor'));
     }
 
+    public function filterComment(Request $request)
+    {
+        $lesson = Lesson::findOrFail($request->lesson_id);
+        $comments = CommentLesson::select('*')
+            ->where('lesson_id', $request->lesson_id)
+            ->sortdata($request)
+            ->paginate($request->record);
+
+        $html = view('components.client.lesson.list-comment',compact('comments','lesson'))->render();
+        return response()->json($html, 200);
+    }
+
     public function commentDetails(Request $request, CommentLesson $comment_lesson)
     {
         $course_id = $request->course_id;
@@ -82,7 +94,7 @@ class LessonController extends Controller
             ->where('status', '1')
             ->get();
 
-        $html = view('components.client.lesson.child-comment', compact('course_id', 'comment_lesson', 'comment_parent'))->render();
+        $html = view('components.client.lesson.child-comment', compact('comment_lesson', 'comment_parent','course_id'))->render();
 
         return response()->json($html);
     }

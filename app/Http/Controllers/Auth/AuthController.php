@@ -88,7 +88,7 @@ class AuthController extends Controller
                 $db_user->updateToken($db->id, $token);
                 $db = $db_user->loadOne($db->id);
 
-                Mail::send('screens.email.userChangePassword', compact('db'), function ($email) use ($db) {
+                Mail::send('screens.email.user.userChangePassword', compact('db'), function ($email) use ($db) {
                     $email->subject('Quên mật khẩu');
                     $email->to($db->email, $db->name);
                 });

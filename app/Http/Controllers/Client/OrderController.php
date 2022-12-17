@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\Course;
 use App\Models\DiscountCode;
@@ -14,6 +15,7 @@ use App\Models\User;
 use App\Services\VnPayService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
@@ -67,6 +69,7 @@ class OrderController extends Controller
 
         $total_price = $courses->sum('current_price');
 
+        $discount = 0;
         if ($request->code != null) {
             $discount = DiscountCode::where('code', $request->code)->first()->discount;
             $total_price = $total_price - ($total_price * ($discount / 100));
@@ -74,25 +77,26 @@ class OrderController extends Controller
 
         $code = Str::random(9);
 
-        VnPayService::create($request, $code, $total_price, $request->bank);
+        VnPayService::create($request, $code, $total_price, $request->bank, $discount);
     }
 
     public function resDataVnpay()
     {
+
         $courses = auth()->user()
             ->load('carts')
             ->carts()
             ->get()
             ->map(
                 function ($val) {
-                    $course = $val->only('price');
+                    $course['price'] = $val->price - ($val->price * ($_GET['discount'] / 100));
                     $course['course_id'] = $val->id;
                     return $course;
                 }
             );
 
         $course_id = $courses->pluck('course_id')->toArray();
-
+        
         $order = Order::create([
             'code' => $_GET['vnp_TxnRef'],
             'user_id' => auth()->user()->id,
@@ -121,8 +125,6 @@ class OrderController extends Controller
             }
         );
 
-
-
         auth()->user()->load('courses')
             ->courses()
             ->syncWithoutDetaching($course_id);
@@ -131,6 +133,28 @@ class OrderController extends Controller
 
         Cart::destroy($cart_id);
 
+        $array = [];
+        $order = Order::orderBy('id', 'desc')->first();
+        foreach($order->order_details as $order_detail){
+            $array[] = $order_detail;
+        }
+        $admin = Admin::first();
+        Mail::send('screens.email.user.bill-course', compact('admin','order','array'), function ($email) use ($admin) {
+            $email->subject('Hóa đơn khóa học');
+            $email->to($admin->email, $admin->name);
+        });
+        $user = User::findOrFail(auth()->user()->id);
+        Mail::send('screens.email.user.bill-course', compact('user','order','array'), function ($email) use ($user) {
+            $email->subject('Hóa đơn khóa học');
+            $email->to($user->email, $user->name);
+        });
+        // $mentors = $order->order_details;
+        // foreach($mentors as $mentor){
+        //     Mail::send('screens.email.user.bill-course', compact('mentor','order','array'), function ($email) use ($mentor) {
+        //         $email->subject('Hóa đơn khóa học');
+        //         $email->to($mentor->email, $mentor->name);
+        //     });
+        // }
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }
 }
