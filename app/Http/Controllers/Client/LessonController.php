@@ -108,7 +108,7 @@ class LessonController extends Controller
             ->orderBy('id', 'DESC')
             ->where('status', '1')
             ->get();
-
+dd( $course);
         Notification::send(
             $course->mentor,
             new CommentLessonNotification(
