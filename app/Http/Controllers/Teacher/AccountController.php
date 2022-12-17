@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Lead\AccountRequest;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Mentor;
@@ -18,7 +19,7 @@ class AccountController extends Controller
         $mentor = Auth::guard('mentor')->user();
         return view('screens.teacher.account.my-account', compact('mentor'));
     }
-    public function update(Request $request, Mentor $mentor, $id)
+    public function update(AccountRequest $request, Mentor $mentor, $id)
     {
         $mentor = Auth::guard('mentor')->user($id);
         if (!$mentor) {

@@ -206,19 +206,11 @@
                              <p class="mb-2">{{ $i->comment }} </p>
                          </div>
                  @endif
+             @endforeach
          </div>
- @endforeach
+     </div>
+ @endif
  <hr>
- <!-- Divider -->
-
- <!-- Review item END -->
-
- <!-- Review item START -->
-
- <!-- Review item END -->
- <!-- Divider -->
-
- </div>
  <!-- Student review END -->
 
  <!-- Leave Review START -->
@@ -255,7 +247,6 @@
      @endif
  </div>
  <!-- Leave Review END -->
- {{-- {{dd($course->commentCourses()->get())}} --}}
  @php
      $pagination = $comments;
  @endphp
@@ -280,4 +271,3 @@
      </nav>
  </div>
  <!-- Pagination END -->
- @endif

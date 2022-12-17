@@ -33,6 +33,20 @@
                             <h5 class="font-weight-bold mb-6">Thông tin</h5>
                         </div>
                     </div>
+                    @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                @endif
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Ảnh đại diện</label>
                         <div class="col-lg-9 col-xl-6">
@@ -82,7 +96,7 @@
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Địa chỉ</label>
                         <div class="col-lg-9 col-xl-6">
-                            <input value="{{ $mentor->address }}" required name="address"
+                            <input value="{{ $mentor->address }}"  name="address"
                                 class="form-control form-control-lg form-control-solid" type="text" />
                             <span class="form-text text-muted">Ghi rõ địa chỉ hiện đang sinh sống.</span>
                         </div>
@@ -116,7 +130,7 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Bản thân</label>
                         <div class="col-lg-9 col-xl-6">
                             <div class="input-group input-group-lg input-group-solid">
-                                <input value="{{ $mentor->about_me }}" required name="about_me" type="text"
+                                <input value="{{ $mentor->about_me }}"  name="about_me" type="text"
                                     class="form-control form-control-lg form-control-solid" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
@@ -139,7 +153,7 @@
                                         <i class="la la-phone"></i>
                                     </span>
                                 </div>
-                                <input required value="{{ $mentor->number_phone }}" name="number_phone" type="number"
+                                <input  value="{{ $mentor->number_phone }}" name="number_phone" type="number"
                                     class="form-control form-control-lg form-control-solid" placeholder="Phone" />
                             </div>
                             <span class="form-text text-muted">Chúng tôi sẽ đảm bảo thông tin của bạn được bảo mật an toàn
@@ -155,7 +169,7 @@
                                         <i class="la la-at"></i>
                                     </span>
                                 </div>
-                                <input required value="{{ $mentor->social_networks }}" name="social_networks"
+                                <input  value="{{ $mentor->social_networks }}" name="social_networks"
                                     type="text" class="form-control form-control-lg form-control-solid"
                                     placeholder="facebook" />
                             </div>

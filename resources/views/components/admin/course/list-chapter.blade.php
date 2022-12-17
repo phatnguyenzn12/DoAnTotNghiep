@@ -58,13 +58,13 @@
                                     </a>
                                 @endif
 
-                                <a data-toggle="modal" data-target="#modal-example"
-                                    onclick="showAjaxModal('{{ route('admin.lesson.show', $lesson->id) }}','Thêm mới video')"
+                                <a data-toggle="modal" data-target="#modal-example" 
+                                onclick="showAjaxModal('{{ route('admin.course.formEditLesson',$lesson->id) }}','Thêm mới video')"
                                     class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                <a data-toggle="modal" data-target="#modal-example" {{-- onclick="showAjaxModal('{{ route('admin.lesson.detail', $lesson->id) }}','Bài học')" --}}
+                                <a data-toggle="modal" data-target="#modal-example" onclick="showAjaxModal('{{ route('admin.course.detailLesson', $lesson->id) }}','Chi tiết bài học')"
                                     class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x">
                                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Code\Info-circle.svg--><svg

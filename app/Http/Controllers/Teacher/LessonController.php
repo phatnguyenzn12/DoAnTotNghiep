@@ -22,6 +22,7 @@ class LessonController extends Controller
     {
         $url =  $vimeoService->create($request->video_path, $request->title, $request->content, $request->is_demo);
         $lessonVideo['video_path'] = $url;
+        $lessonVideo['time'] = 0;
         $lesson->lessonVideo()->update($lessonVideo);
         $lesson->is_edit = 2;
         $lesson->save();

@@ -136,10 +136,6 @@
                                                                     data-bs-target="#viewReview"
                                                                     onclick="showAjaxModal('{{ route('client.course.lesson', $lesson->id) }}','Xem thử video')">Xem
                                                                     thử</a>
-                                                            @else
-                                                                <a href="#" @disabled(true)
-                                                                    class="btn btn-sm btn-orange mb-0">Mua khóa
-                                                                    học</a>
                                                             @endif
                                                         </div>
                                                         <!-- Divider -->

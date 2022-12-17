@@ -65,102 +65,102 @@
                             data-toggle="modal" data-target="#modal-example"><i class="fas fa-sort-amount-down-alt"></i>
                             Sắp xếp chương học</button>
                     </div>
-                    <div class="mb-12">
-                        <div class="row align-items-center">
-                            <div class="col-lg-8 col-xl-8">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 my-2 my-md-0">
-                                        <div class="input-icon">
-                                            <input type="text" oninput="search(this)" class="form-control"
-                                                placeholder="Search..." id="kt_datatable_search_query"
-                                                filter-search-title />
-                                            <span>
-                                                <i class="flaticon2-search-1 text-muted"></i>
-                                            </span>
+                        <div class="mb-12">
+                            <div class="row align-items-center">
+                                <div class="col-lg-8 col-xl-8">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <div class="input-icon">
+                                                <input type="text" oninput="search(this)" class="form-control"
+                                                    placeholder="Search..." id="kt_datatable_search_query"
+                                                    filter-search-title />
+                                                <span>
+                                                    <i class="flaticon2-search-1 text-muted"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4 my-2 my-md-0">
-                                        <div class="d-flex align-items-center">
-                                            <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
-                                            <select class="form-control" id="kt_datatable_search_status"
-                                                onchange="fiterSort(this)">
-                                                <option value="0">Mặc định</option>
-                                                <option value="id_desc">Mới đến cũ</option>
-                                                <option value="id_asc">Cũ đến mới</option>
-                                            </select>
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <div class="d-flex align-items-center">
+                                                <label class="mr-3 mb-0 d-none d-md-block">Sort:</label>
+                                                <select class="form-control" id="kt_datatable_search_status"
+                                                    onchange="fiterSort(this)">
+                                                    <option value="0">Mặc định</option>
+                                                    <option value="id_desc">Mới đến cũ</option>
+                                                    <option value="id_asc">Cũ đến mới</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4 my-2 my-md-0">
-                                        <div class="d-flex align-items-center">
-                                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                                <a href="#"
-                                                    class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <div class="d-flex align-items-center">
+                                                <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                                                    <a href="#"
+                                                        class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            @if ($course->chapters->count() != 0)
-                                <div class="col-4">
-                                    <form action="{{ route('mentor.course.courseTeach', $course_id) }}" method="POST">
-                                        @csrf
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8 my-2 my-md-0">
-                                                <div class="d-flex align-items-center">
-                                                    <select class="form-control" name="mentor_id">
-                                                        @if ($course->mentor)
-                                                            <option value="{{ $course->mentor->id }}">
-                                                                {{ $course->mentor->name }}</option>
-                                                        @else
-                                                            <option value="">Chọn giảng viên</option>
-                                                        @endif
-                                                        @if ($course->mentor)
-                                                            @forelse ($teachers as $teacher)
-                                                                @if ($teacher->id != $course->mentor->id)
+                                @if ($course->chapters->count() != 0)
+                                    <div class="col-4">
+                                        <form action="{{ route('mentor.course.courseTeach', $course_id) }}" method="POST">
+                                            @csrf
+                                            <div class="row align-items-center">
+                                                <div class="col-md-8 my-2 my-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <select class="form-control" name="mentor_id">
+                                                            @if ($course->mentor)
+                                                                <option value="{{ $course->mentor->id }}">
+                                                                    {{ $course->mentor->name }}</option>
+                                                            @else
+                                                                <option value="">Chọn giảng viên</option>
+                                                            @endif
+                                                            @if ($course->mentor)
+                                                                @forelse ($teachers as $teacher)
+                                                                    @if ($teacher->id != $course->mentor->id)
+                                                                        <option value="{{ $teacher->id }}">Tên giảng viên:
+                                                                            {{ $teacher->name }}
+                                                                            / email: {{ $teacher->email }}</option>
+                                                                    @endif
+                                                                @empty
+                                                                    <option value="">Chưa có giảng viên</option>
+                                                                @endforelse
+                                                            @else
+                                                                @forelse ($teachers as $teacher)
                                                                     <option value="{{ $teacher->id }}">Tên giảng viên:
                                                                         {{ $teacher->name }}
                                                                         / email: {{ $teacher->email }}</option>
-                                                                @endif
-                                                            @empty
-                                                                <option value="">Chưa có giảng viên</option>
-                                                            @endforelse
-                                                        @else
-                                                            @forelse ($teachers as $teacher)
-                                                                <option value="{{ $teacher->id }}">Tên giảng viên:
-                                                                    {{ $teacher->name }}
-                                                                    / email: {{ $teacher->email }}</option>
-                                                            @empty
-                                                                <option value="">Chưa có giảng viên</option>
-                                                            @endforelse
-                                                        @endif
+                                                                @empty
+                                                                    <option value="">Chưa có giảng viên</option>
+                                                                @endforelse
+                                                            @endif
 
-                                                    </select>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 my-2 my-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <button type="submit"
+                                                            class="btn btn-light-primary px-6 font-weight-bold">Gửi</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 my-2 my-md-0">
-                                                <div class="d-flex align-items-center">
-                                                    <button type="submit"
-                                                        class="btn btn-light-primary px-6 font-weight-bold">Gửi</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        @if ($course->mentor_id)
+                            <div class="row mb-4">
+                                <div class="avatar avatar-xxl position-relative mt-n3">
+                                    <img class="avatar-img rounded-circle border border-white border-3 shadow"
+                                        src="{{ asset('app/' . $course->mentor->avatar) }}" alt="" width="50px"
+                                        height="50px">
                                 </div>
-                            @endif
-                        </div>
-                    </div>
-                    @if ($course->mentor_id)
-                        <div class="row mb-4">
-                            <div class="avatar avatar-xxl position-relative mt-n3">
-                                <img class="avatar-img rounded-circle border border-white border-3 shadow"
-                                    src="{{ asset('app/' . $course->mentor->avatar) }}" alt="" width="50px"
-                                    height="50px">
+                                <div class="my-2">
+                                    <h5>Giảng viên: {{ $course->mentor->name }}</h5>
+                                </div>
                             </div>
-                            <div class="my-2">
-                                <h5>Giảng viên: {{ $course->mentor->name }}</h5>
-                            </div>
-                        </div>
-                    @endif
+                        @endif
 
                     <div id="table-innerHtml">
 

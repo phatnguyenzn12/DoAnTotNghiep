@@ -19,7 +19,7 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">RA TRANG CHỦ</span>
+                    <span class="menu-text">Ra trang chủ</span>
                 </a>
             </li>
             <li class="menu-item" aria-haspopup="true">
