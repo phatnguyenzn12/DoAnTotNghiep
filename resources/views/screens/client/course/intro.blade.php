@@ -256,7 +256,7 @@
                                 <div class="d-sm-flex align-items-center">
                                     <!-- Avatar image -->
                                     <div class="avatar avatar-xl">
-                                        <img class="avatar-img rounded-circle" src="/frontend/images/avatar/05.jpg"
+                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.$course->mentor->avatar)}}"
                                             alt="avatar">
                                     </div>
                                     <div class="ms-sm-3 mt-2 mt-sm-0">
