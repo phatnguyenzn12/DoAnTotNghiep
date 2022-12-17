@@ -38,7 +38,43 @@
                 <span></span>
             </span>
         </button>
+        <!-- Category menu START -->
+        <ul class="navbar-nav navbar-nav-scroll dropdown-clickable">
+            <li class="nav-item dropdown dropdown-menu-shadow-stacked">
+                <a class="nav-link" href="#" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="bi bi-grid-3x3-gap-fill me-3 fs-5 me-xl-1 d-xl-none"></i>
+                    <i class="bi bi-grid-3x3-gap-fill me-1 d-none d-xl-inline-block"></i>
+                    <span class="d-none d-xl-inline-block">Danh mục</span>
+                </a>
 
+                <ul class="dropdown-menu z-index-unset" aria-labelledby="categoryMenu">
+                    @foreach ($cate_courses = DB::table('cate_courses')->get() as $cate_course)
+                        <!-- Dropdown submenu -->
+                        <li class="dropdown-submenu dropend">
+                            <a class="dropdown-item dropdown-toggle" href="#">{{ $cate_course->name }}</a>
+                            <ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+                                <!-- dropdown submenu open right -->
+                                <div class="col-12">
+                                    @forelse ($courses = DB::table('courses')->where('status', 2)->where('cate_course_id', $cate_course->id)->get() as $course)
+                                        <div class="">
+                                            <li> <a class="dropdown-item"
+                                                    href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}">{{ $course->title }}</a>
+                                            </li>
+                                        </div>
+                                    @empty
+                                        <li> <a class="dropdown-item" href="#">Không có khóa học</a> </li>
+                                    @endforelse
+                                </div>
+                            </ul>
+                        </li>
+                        {{-- <li> <a class="dropdown-item"
+                                href="{{ route('client.course.list') }}">{{ $cate_course->name }}</a></li> --}}
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+        <!-- Category menu END -->
         <!-- Main navbar START -->
         <div class="navbar-collapse collapse" id="navbarCollapse">
             <!-- Nav Search START -->
@@ -75,7 +111,8 @@
 
                 @if (Auth::guard('web')->user())
                     <!-- Nav item 2 Course -->
-                    <li class="nav-item dropdown"><a class="nav-link" href="{{ route('client.account.myCourse') }}">Khoá học của tôi</a></li>
+                    <li class="nav-item dropdown"><a class="nav-link" href="{{ route('client.account.myCourse') }}">Khoá
+                            học của tôi</a></li>
                 @endif
 
             </ul>
@@ -130,7 +167,7 @@
                                                 </div>
                                                 <!-- Select item -->
                                                 <span>
-                                                    {{number_format($cart->current_price)  }}đ
+                                                    {{ number_format($cart->current_price) }}đ
                                                 </span>
                                             </div>
                                         </div>
@@ -151,7 +188,8 @@
                                         class="btn btn-sm btn-light mb-0">Xem
                                         giỏ
                                         hàng</a>
-                                    <a href="{{ route('client.order.pay') }}" class="btn btn-sm btn-success mb-0">Thanh
+                                    <a href="{{ route('client.order.pay') }}"
+                                        class="btn btn-sm btn-success mb-0">Thanh
                                         toán ngay</a>
                                 </div>
                             </div>
@@ -175,14 +213,14 @@
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         @if (Auth::guard('admin')->user())
-                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('admin')->user()->avatar)}}"
-                                alt="avatar">
+                            <img class="avatar-img rounded-circle"
+                                src="{{ asset('app/' .auth()->guard('admin')->user()->avatar) }}" alt="avatar">
                         @elseif (Auth::guard('mentor')->user())
-                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('mentor')->user()->avatar)}}"
-                                alt="avatar">
+                            <img class="avatar-img rounded-circle"
+                                src="{{ asset('app/' .auth()->guard('mentor')->user()->avatar) }}" alt="avatar">
                         @else
-                            <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('web')->user()->avatar)}}"
-                                alt="avatar">
+                            <img class="avatar-img rounded-circle"
+                                src="{{ asset('app/' .auth()->guard('web')->user()->avatar) }}" alt="avatar">
                         @endif
                     </a>
 
@@ -195,13 +233,16 @@
                                 <!-- Avatar -->
                                 <div class="avatar me-3">
                                     @if (Auth::guard('admin')->user())
-                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('admin')->user()->avatar)}}"
+                                        <img class="avatar-img rounded-circle"
+                                            src="{{ asset('app/' .auth()->guard('admin')->user()->avatar) }}"
                                             alt="avatar">
                                     @elseif (Auth::guard('mentor')->user())
-                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('mentor')->user()->avatar)}}"
+                                        <img class="avatar-img rounded-circle"
+                                            src="{{ asset('app/' .auth()->guard('mentor')->user()->avatar) }}"
                                             alt="avatar">
                                     @else
-                                        <img class="avatar-img rounded-circle" src="{{asset('app/'.auth()->guard('web')->user()->avatar)}}"
+                                        <img class="avatar-img rounded-circle"
+                                            src="{{ asset('app/' .auth()->guard('web')->user()->avatar) }}"
                                             alt="avatar">
                                     @endif
                                 </div>
