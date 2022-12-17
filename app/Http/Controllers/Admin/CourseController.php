@@ -96,10 +96,11 @@ class CourseController extends Controller
 
     public function program($course_id)
     {
+        $course = Course::findOrFail($course_id);
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
             ->paginate(10);
-        return view('screens.admin.course.edit-program', compact('chapters', 'course_id'));
+        return view('screens.admin.course.edit-program', compact('chapters', 'course_id', 'course'));
     }
 
     public function filterDataChapter(Request $request)
@@ -173,6 +174,13 @@ class CourseController extends Controller
         return response()->json($data, 200);
     }
 
+    public function editLesson(Request $request, $course,  Lesson $lesson)
+    {
+        $course_active = Course::findOrFail($course);
+        
+        $data = view('components.admin.lesson.edit', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
     // public function create(Request $course_id){
     //     $certificates = Certificate::where('course_id', $course_id->course)->get();
     //     return view('screens.admin.certificate.create', compact('certificates','course_id'));

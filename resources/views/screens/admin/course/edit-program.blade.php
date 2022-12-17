@@ -87,7 +87,23 @@
                             </div>
                         </div>
                     </div>
-
+                    @if ($course->mentor_id)
+                    <div class="row mb-4">
+                        <div class="avatar avatar-xxl position-relative mt-n3">
+                            <img class="avatar-img rounded-circle border border-white border-3 shadow"
+                                src="{{ asset('app/' . $course->mentor->avatar) }}" alt="" width="50px"
+                                height="50px">
+                        </div>
+                        <div class="my-2">
+                            <h5>Giảng viên: {{ $course->mentor->name }}</h5>
+                        </div>
+                    </div>
+                    @else
+                    <div class="my-2">
+                        <h5>Chưa có giảng viên</h5>
+                    </div>
+                    @endif
+                
                     <div id="table-innerHtml">
 
                     </div>

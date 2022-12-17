@@ -149,9 +149,10 @@
                 <!--end::Content-->
             </div>
             <!--end::Wrapper-->
-            @include('layouts.admin.footer')
         </div>
         <!--end::Page-->
+        @include('layouts.admin.footer')
+
     </div>
     <!--end::Demo Panel-->
     <script>

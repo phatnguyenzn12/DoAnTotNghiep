@@ -25,9 +25,9 @@ class CourseValidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'min:5','max:100','not_regex:/^.+@.+$/i',Rule::unique('courses')->ignore($this->id)],
-            'slug' => ['required','max:100','not_regex:/^.+@.+$/i',Rule::unique('courses')->ignore($this->id)],
-            'video' => ['required','mimes:mp4',Rule::unique('courses')->ignore($this->id)],
+            'title' => 'required', 'min:5','max:100','not_regex:/^.+@.+$/i',
+            'slug' => 'required','max:100','not_regex:/^.+@.+$/i',
+            'video' => 'required',
             'skill_id' => 'required',
             'language' => 'required',
 
@@ -41,20 +41,16 @@ class CourseValidateRequest extends FormRequest
     {
         return [
             'title.required' => 'Vui lòng nhập tiêu đề',
-            'title.min' => 'Số kí tự lớn hơn 5',
-            'title.max' => 'Số kí tự nhỏ hơn 100',
-            'title.not_regex' => 'Tiêu đề không chứa các kí tự đặc biệt',
-            'title.unique' => 'Tiêu đề đã tồn tại',
-
+            'title.min' => 'Phải trên 5 ký tự',
+            'title.max' => 'Phải dưới 100 ký tự',
+            'title.not_regex' => 'Tiêu đề không được chứa chứa các kí tự đặc biệt',
+            
             'slug.required' => 'Vui lòng nhập đường dẫn',
             'slug.max' => 'Số kí tự nhỏ hơn 100',
             'slug.not_regex' => 'Đường dẫn không chứa các kí tự đặc biệt',
-            'slug.unique' => 'Đường dẫn đã tồn tại',
+            
 
             'video.required' => 'Vui lòng nhập video demo',
-            'video.unique' => 'Video demo đã tồn tại',
-            'video.mimes' => 'Định dạng video chưa đúng',
-
 
             'skill_id.required' => 'Vui lòng chọn kĩ năng',
             'language.required' => 'Vui lòng chọn ngôn ngữ',
