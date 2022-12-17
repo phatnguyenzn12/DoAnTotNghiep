@@ -33,6 +33,14 @@ class AccountRequest extends FormRequest
                             "password" => "required",
                         ];
                         break;
+                    case 'update':
+                        $rules = [
+                            "address" => "required",
+                            "about_me" => "required",
+                            "number_phone" => "required|digits:10|numeric",
+                            "social_networks" => "required",
+                        ];
+                        break;
                 }
                 break;
             default:
@@ -45,6 +53,11 @@ class AccountRequest extends FormRequest
     {
         return [
             'password.required' => 'Chưa nhập mật khẩu',
+            'address.required' => 'Chưa nhập địa chỉ',
+            'about_me.required' => 'Chưa nhập thông tin cơ bản',
+            'number_phone.required' => 'Chưa nhập số điện thoại',
+            'number_phone.digits' => 'Vui lòng nhập đúng số điện thoại',
+            'social_networks.required' => 'Chưa có nền tảng mạng xã hội',
         ];
     }
 }
