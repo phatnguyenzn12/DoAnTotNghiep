@@ -59,7 +59,7 @@
                                 @endif
 
                                 <a data-toggle="modal" data-target="#modal-example" 
-                                onclick="showAjaxModal('{{ route('admin.course.editLesson') }}','Thêm mới video')"
+                                onclick="showAjaxModal('{{ route('admin.course.formEditLesson',$lesson->id) }}','Thêm mới video')"
                                     class="btn btn-text-dark-50 btn-icon-primary font-weight-bold btn-hover-bg-light">
                                     <i class="fas fa-edit"></i>
                                 </a>

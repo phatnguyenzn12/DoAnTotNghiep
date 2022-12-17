@@ -181,6 +181,42 @@ class CourseController extends Controller
         return response()->json($data, 200);
     }
 
+    public function formEditLesson(Request $request, Lesson $lesson)
+    {
+        $data = view('components.admin.lesson.edit-lesson', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
+
+    public function activeIsDemo(Lesson $lesson)
+    {
+        if ($lesson->is_demo == 1) {
+            return redirect()->back()->with('failed', 'Video đang xem thử');
+        }
+        if ($lesson->lessonVideo->video_path == 0) {
+            return redirect()->back()->with('failed', 'Không có video');
+        }
+        $lesson->is_demo = 1;
+        $lesson->save();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Cập nhập xem thử video');
+    }
+    public function deactiveIsDemo(Lesson $lesson)
+    {
+        if ($lesson->is_demo == 0) {
+            return redirect()->back()->with('failed', 'Video đang không xem thử');
+        }
+        if ($lesson->lessonVideo->video_path == 0) {
+            return redirect()->back()->with('failed', 'Không có video');
+        }
+        $lesson->is_demo = 0;
+        $lesson->save();
+        return redirect()
+            ->back()
+            ->with('success', 'Cập nhập không xem thử video');
+    }
+
     // public function create(Request $course_id){
     //     $certificates = Certificate::where('course_id', $course_id->course)->get();
     //     return view('screens.admin.certificate.create', compact('certificates','course_id'));

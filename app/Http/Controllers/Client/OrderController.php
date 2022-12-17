@@ -96,6 +96,14 @@ class OrderController extends Controller
             );
 
         $course_id = $courses->pluck('course_id')->toArray();
+
+        // $array = [];
+        // $order = Order::orderBy('id', 'desc')->first();
+        // $order_details = OrderDetail::where('order_id',$order->id)->groupBy('course_id')->get();
+        // foreach($order_details as $order_detail){
+        //     $array[] = Mentor::where('id',$order_detail->course->mentor_id)->first();
+        // }
+        // dd($array);
         
         $order = Order::create([
             'code' => $_GET['vnp_TxnRef'],
@@ -148,7 +156,13 @@ class OrderController extends Controller
             $email->subject('Hóa đơn khóa học');
             $email->to($user->email, $user->name);
         });
-        
+        // $mentors = $order->order_details;
+        // foreach($mentors as $mentor){
+        //     Mail::send('screens.email.user.bill-course', compact('mentor','order','array'), function ($email) use ($mentor) {
+        //         $email->subject('Hóa đơn khóa học');
+        //         $email->to($mentor->email, $mentor->name);
+        //     });
+        // }
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }
 }
