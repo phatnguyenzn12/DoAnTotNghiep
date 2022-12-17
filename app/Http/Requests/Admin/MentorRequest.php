@@ -24,23 +24,28 @@ class MentorRequest extends FormRequest
     public function rules()
     {
         $rules = [];
-        $currentAction = $this->route()->getActionMethod();
+        //    $currentAction = $this->route()->getActionMethod();
         switch ($this->method()):
             case 'POST':
-                switch ($currentAction) {
-                    case 'create':
-                        $rules = [
-                            "name" => "required|unique:mentors",
-                            "email" => "required|unique:mentors",
-                            "number_phone" => "required|digits:10|numeric",
-                            "address" => "required",
-                            "years_in_experience" => "required|",
-                            "cate_course_id" => "required",
-                            "skills" => "required",
-                            "specializations" => "required",
-                        ];
-                        break;
-                }
+                $rules = [
+                    "name" => "required|unique:mentors",
+                    "email" => "required|unique:mentors",
+                    "number_phone" => "required|digits:10|numeric",
+                    "address" => "required",
+                    "years_in_experience" => "required|",
+                    "cate_course_id" => "required",
+                    "skills" => "required",
+                    "specializations" => "required",
+                ];
+                break;
+            case 'PUT':
+                $rules = [
+                    "number_phone" => "required|digits:10|numeric",
+                    "address" => "required",
+                    "years_in_experience" => "required|",
+                    "cate_course_id" => "required",
+                    "specializations" => "required",
+                ];
                 break;
             default:
                 break;

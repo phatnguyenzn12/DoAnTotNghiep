@@ -148,13 +148,12 @@
                     <!--end::Entry-->
                 </div>
                 <!--end::Content-->
-
-                @include('layouts.admin.footer')
-
             </div>
             <!--end::Wrapper-->
         </div>
         <!--end::Page-->
+        @include('layouts.admin.footer')
+
     </div>
     <!--end::Demo Panel-->
     <script>

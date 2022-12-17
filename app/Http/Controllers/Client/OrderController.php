@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\Course;
 use App\Models\DiscountCode;
@@ -14,6 +15,7 @@ use App\Models\User;
 use App\Services\VnPayService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
@@ -95,6 +97,14 @@ class OrderController extends Controller
 
         $course_id = $courses->pluck('course_id')->toArray();
 
+        // $array = [];
+        // $order = Order::orderBy('id', 'desc')->first();
+        // $order_details = OrderDetail::where('order_id',$order->id)->groupBy('course_id')->get();
+        // foreach($order_details as $order_detail){
+        //     $array[] = Mentor::where('id',$order_detail->course->mentor_id)->first();
+        // }
+        // dd($array);
+        
         $order = Order::create([
             'code' => $_GET['vnp_TxnRef'],
             'user_id' => auth()->user()->id,
@@ -123,8 +133,6 @@ class OrderController extends Controller
             }
         );
 
-
-
         auth()->user()->load('courses')
             ->courses()
             ->syncWithoutDetaching($course_id);
@@ -133,6 +141,28 @@ class OrderController extends Controller
 
         Cart::destroy($cart_id);
 
+        $array = [];
+        $order = Order::orderBy('id', 'desc')->first();
+        foreach($order->order_details as $order_detail){
+            $array[] = $order_detail;
+        }
+        $admin = Admin::first();
+        Mail::send('screens.email.user.bill-course', compact('admin','order','array'), function ($email) use ($admin) {
+            $email->subject('Hóa đơn khóa học');
+            $email->to($admin->email, $admin->name);
+        });
+        $user = User::findOrFail(auth()->user()->id);
+        Mail::send('screens.email.user.bill-course', compact('user','order','array'), function ($email) use ($user) {
+            $email->subject('Hóa đơn khóa học');
+            $email->to($user->email, $user->name);
+        });
+        // $mentors = $order->order_details;
+        // foreach($mentors as $mentor){
+        //     Mail::send('screens.email.user.bill-course', compact('mentor','order','array'), function ($email) use ($mentor) {
+        //         $email->subject('Hóa đơn khóa học');
+        //         $email->to($mentor->email, $mentor->name);
+        //     });
+        // }
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }
 }

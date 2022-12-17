@@ -78,7 +78,7 @@ class CourseController extends Controller
         $course->status = $request->status;
         $course->save();
         if ($course->status == 1) {
-            Mail::send('screens.email.admin.actived-course', compact('course','request'), function ($email) use ($course) {
+            Mail::send('screens.email.admin.actived-course', compact('course', 'request'), function ($email) use ($course) {
                 $email->subject('Khóa học đã ngừng kích hoạt và sử dụng');
                 $email->to($course->mentor->email, $course->mentor->name);
             });
@@ -96,10 +96,11 @@ class CourseController extends Controller
 
     public function program($course_id)
     {
+        $course = Course::findOrFail($course_id);
         $chapters = Chapter::select('*')
             ->where('course_id', $course_id)
             ->paginate(10);
-        return view('screens.admin.course.edit-program', compact('chapters', 'course_id'));
+        return view('screens.admin.course.edit-program', compact('chapters', 'course_id', 'course'));
     }
 
     public function filterDataChapter(Request $request)
@@ -125,19 +126,26 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-        $course_price = $course;
-        $course_price->price = $request->price;
-        $course_price->discount = $request->discount;
-        $course_price->percentage_pay = $request->percentage_pay;
-        $course_price->save();
-        Mail::send('screens.email.admin.actived-course', compact('course_price'), function ($email) use ($course_price) {
-            $email->subject('Duyệt giá khóa học');
-            $email->to($course_price->mentor->email, $course_price->mentor->name);
-        });
-
+        if (!$course->mentor) {
+            return redirect()->back()->with('failed', 'Khóa học chưa có giảng viên');
+        }
+        if ($course->chapters->count() == 0) {
+            return redirect()->back()->with('failed', 'Khóa học chưa có nội dung');
+        }
+        if ($course->price != $request->price || $course->discount != $request->discount) {
+            $course_price = $course;
+            $course_price->price = $request->price;
+            $course_price->discount = $request->discount;
+            $course_price->percentage_pay = $request->percentage_pay;
+            $course_price->save();
+            Mail::send('screens.email.admin.actived-course', compact('course_price'), function ($email) use ($course_price) {
+                $email->subject('Duyệt giá khóa học');
+                $email->to($course_price->mentor->email, $course_price->mentor->name);
+            });
+        }
         return redirect()
             ->route('admin.course.program', $course->id)
-            ->with('success', 'Sửa khóa học thành công');
+            ->with('success', 'Cập nhật giá khóa học thành công');
     }
 
     public function create($id)
@@ -171,6 +179,42 @@ class CourseController extends Controller
     {
         $data = view('components.admin.lesson.detail', compact('lesson'))->render();
         return response()->json($data, 200);
+    }
+
+    public function formEditLesson(Request $request, Lesson $lesson)
+    {
+        $data = view('components.admin.lesson.edit-lesson', compact('lesson'))->render();
+        return response()->json($data, 200);
+    }
+
+    public function activeIsDemo(Lesson $lesson)
+    {
+        if ($lesson->is_demo == 1) {
+            return redirect()->back()->with('failed', 'Video đang xem thử');
+        }
+        if ($lesson->lessonVideo->video_path == 0) {
+            return redirect()->back()->with('failed', 'Không có video');
+        }
+        $lesson->is_demo = 1;
+        $lesson->save();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Cập nhập xem thử video');
+    }
+    public function deactiveIsDemo(Lesson $lesson)
+    {
+        if ($lesson->is_demo == 0) {
+            return redirect()->back()->with('failed', 'Video đang không xem thử');
+        }
+        if ($lesson->lessonVideo->video_path == 0) {
+            return redirect()->back()->with('failed', 'Không có video');
+        }
+        $lesson->is_demo = 0;
+        $lesson->save();
+        return redirect()
+            ->back()
+            ->with('success', 'Cập nhập không xem thử video');
     }
 
     // public function create(Request $course_id){

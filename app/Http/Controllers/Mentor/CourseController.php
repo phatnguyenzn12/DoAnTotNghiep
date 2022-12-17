@@ -59,6 +59,21 @@ class CourseController extends Controller
         return response()->json($html, 200);
     }
 
+    public function activecomment(Request $request, $comment)
+    {
+        $comment_active = CommentCourse::findOrFail($comment);
+        if ($comment_active->status == 1) {
+            return redirect()->back()->with('failed', 'Bình luận đã hiển thị');
+        }
+        if ($comment_active->status == 0) {
+            return redirect()->back()->with('failed', 'Bình luận đã bị ẩn');
+        }
+        $comment_active->status = $request->status;
+        $comment_active->save();
+        // return view('abbaa');
+        return redirect()->back()->with('success', 'Cập nhập thành công');
+    }
+
     public function filterData(Request $request)
     {
         $courses = Course::select('*')
@@ -95,6 +110,9 @@ class CourseController extends Controller
     public function actived(Request $request, $course)
     {
         $course_active = Course::findOrFail($course);
+        if(!$course_active->mentor){
+            return redirect()->back()->with('failed', 'Khóa học chưa có giảng viên');
+        }
         if ($course_active->status == 2) {
             return redirect()->back()->with('failed', 'Khóa học đang kích hoạt');
         }
@@ -113,7 +131,7 @@ class CourseController extends Controller
                 $email->subject('Đã duyệt khóa học');
                 $email->to($course_active->mentor->email, $course_active->mentor->name);
             });
-            return redirect()->back()->with('success', 'Cập nhập thành công');
+            return redirect()->back()->with('success', 'Duyệt khóa học thành công');
         }
     }
 
@@ -140,7 +158,7 @@ class CourseController extends Controller
                 $email->to($course->mentor->email, $course->mentor->name);
             });
 
-            return redirect()->back()->with('success', 'Cập nhập thành công bỏ duyệt khóa học');
+            return redirect()->back()->with('success', 'Cập nhập bỏ duyệt khóa học');
         }
     }
 

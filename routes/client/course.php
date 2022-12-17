@@ -4,7 +4,7 @@ use App\Http\Controllers\Client\CommentCourseController;
 use App\Http\Controllers\Client\CourseController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('course')->name('client.course.')->controller(CourseController::class)->group(
+Route::prefix('course')->name('client.course.')->middleware('check-client')->controller(CourseController::class)->group(
     function () {
         Route::get('{slug}-{course}', 'show')->name('show')->where([
             'slug' => '.*',
@@ -15,8 +15,8 @@ Route::prefix('course')->name('client.course.')->controller(CourseController::cl
 
         Route::get('/list-data','filterData')->name('listData');
 
-        Route::get('all-course','filterCourse')->name('filterCourse')
-        ;
+        Route::get('all-course','filterCourse')->name('filterCourse');
+
         Route::get('list-comment','filterComment')->name('filterComment');
 
         Route::get('lesson/lesson_video/{lesson_video}', 'demo')->name('lesson');

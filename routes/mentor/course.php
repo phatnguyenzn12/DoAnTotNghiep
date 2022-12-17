@@ -8,8 +8,10 @@ Route::prefix('mentor/course')->name('mentor.course.')->middleware(['check-mento
     function () {
         Route::get('index', 'index')->name('index');
         Route::get('comment-course', 'commentCourse')->name('commentCourse');
+        Route::put('update-activecomment/{comment}', 'activecomment')->name('activecomment');
         Route::get('list-comment','filterComment')->name('listComment');
         Route::get('delete/{id}', 'deleteComment')->name('deleteComment');
+
         Route::get('list-data','filterData')->name('listData');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');

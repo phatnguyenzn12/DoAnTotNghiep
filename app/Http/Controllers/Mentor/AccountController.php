@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\MentorRequest;
 use App\Http\Requests\Lead\AccountRequest;
 use App\Models\Course;
 use App\Models\Mentor;
@@ -21,7 +22,7 @@ class AccountController extends Controller
         $mentor = Auth::guard('mentor')->user();
         return view('screens.mentor.account.my-account', compact('mentor'));
     }
-    public function update(Request $request, Mentor $mentor, $id)
+    public function update(AccountRequest $request, Mentor $mentor, $id)
     {
         $mentor = Auth::guard('mentor')->user($id);
         if (!$mentor) {
@@ -48,17 +49,16 @@ class AccountController extends Controller
     {
 
         $mentor = Auth::guard('mentor')->user($id);
-        if($request->password == ''){
+        if ($request->password == '') {
             return redirect()->back()->with('error', 'Chưa nhập mật khẩu');
-        }
-        if (Hash::check($request->password, $mentor->password)) {
+        } elseif (Hash::check($request->password, $mentor->password)) {
             if ($request->password_1 == $request->password_2) {
                 $passnew = Hash::make($request->password_2);
                 $us = new Mentor();
                 $us->updatePass($id, $passnew);
                 return redirect()->back()->with('success', 'Đổi mật khẩu thành công');
             } elseif ($request->password_1 != $request->password_2) {
-                 return redirect()->back()->with('error1', 'mật khẩu mới không khớp');
+                return redirect()->back()->with('error1', 'mật khẩu mới không khớp');
             }
         } else {
             return redirect()->back()->with('error', 'Vui lòng nhập đúng mật khẩu !');
@@ -81,8 +81,8 @@ class AccountController extends Controller
     public function salaryBonus()
     {
         $mentor = auth()->guard('mentor')->user();
-        $percentages = PercentagePayable::where('mentor_id', $mentor->id)->with(['order_detail:id,price,course_id','order_detail.course:id,title,image,percentage_pay'])->paginate(10);
-        $course_count = Course::selectRaw('count(id) as number')->where('mentor_id',$mentor->id)->first()->number;
-        return view('screens.teacher.account.salary-bonus',compact('percentages','mentor','course_count'));
+        $percentages = PercentagePayable::where('mentor_id', $mentor->id)->with(['order_detail:id,price,course_id', 'order_detail.course:id,title,image,percentage_pay'])->paginate(10);
+        $course_count = Course::selectRaw('count(id) as number')->where('mentor_id', $mentor->id)->first()->number;
+        return view('screens.teacher.account.salary-bonus', compact('percentages', 'mentor', 'course_count'));
     }
 }

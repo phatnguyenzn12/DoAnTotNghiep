@@ -39,7 +39,7 @@ class TeacherController extends Controller
         //  dd($mentor);
         return view('screens.admin.teacher.detail', compact('mentor','id', 'cate_courses'));
     }
-    public function update(Request $request, $id)
+    public function update(MentorRequest $request, $id)
     {
         $mentor = Mentor::find($id);
         $mentor->name ;
@@ -51,6 +51,7 @@ class TeacherController extends Controller
         $mentor->specializations =  implode(', ', collect(json_decode($request->specializations))->pluck('value')->toArray());
         $mentor->cate_course_id = $request->cate_course_id;
         $mentor->save();
+        
         //dd($mentor);
         // Mail::send('screens.email.admin.update-lead', compact('mentor'), function ($email) use ($mentor) {
         //     $email->subject('Thông báo thay đổi thông tin cơ bản');
