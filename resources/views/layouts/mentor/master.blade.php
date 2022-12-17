@@ -35,6 +35,8 @@
 <!--end::Head-->
 <!--begin::Body-->
 
+@include('_loading')
+
 @include('_alert')
 
 <body id="kt_body"
@@ -244,6 +246,7 @@
     @yield('js-links')
     @stack('js-handles')
     <!--end::Page Scripts-->
+
 </body>
 <!--end::Body-->
 

@@ -34,6 +34,7 @@
 </head>
 <!--end::Head-->
 <!--begin::Body-->
+@include('_loading')
 
 @include('_alert')
 

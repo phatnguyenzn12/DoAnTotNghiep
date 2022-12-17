@@ -67,6 +67,7 @@ class OrderController extends Controller
 
         $total_price = $courses->sum('current_price');
 
+        $discount = 0;
         if ($request->code != null) {
             $discount = DiscountCode::where('code', $request->code)->first()->discount;
             $total_price = $total_price - ($total_price * ($discount / 100));
@@ -74,18 +75,19 @@ class OrderController extends Controller
 
         $code = Str::random(9);
 
-        VnPayService::create($request, $code, $total_price, $request->bank);
+        VnPayService::create($request, $code, $total_price, $request->bank, $discount);
     }
 
     public function resDataVnpay()
     {
+
         $courses = auth()->user()
             ->load('carts')
             ->carts()
             ->get()
             ->map(
                 function ($val) {
-                    $course = $val->only('price');
+                    $course['price'] = $val->price - ($val->price * ($_GET['discount'] / 100));
                     $course['course_id'] = $val->id;
                     return $course;
                 }

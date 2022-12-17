@@ -36,7 +36,6 @@
 <body>
 
     <main>
-
         @yield('content')
     </main>
 
