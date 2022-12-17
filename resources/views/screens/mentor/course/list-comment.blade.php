@@ -71,6 +71,7 @@
                             <th>Nội dung bình luận</th>
                             <th>Khóa học</th>
                             <th>Lượt đánh giá</th>
+                            <td>Trạng thái</td>
                             <th>Kích hoạt</th>
                             <th>Hiệu lực</th>
                         </tr>
