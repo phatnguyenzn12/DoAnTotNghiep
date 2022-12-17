@@ -17,7 +17,19 @@
                         <h5 style="color: red; font: bold; text-align: center;">
                             EDUPORT HỆ THỐNG BÁN KHÓA HỌC TRỰC TUYẾN</h5>
                         <hr>
-                        @if (isset($course_active))
+                        @if (isset($course_price))
+                            <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
+                                Xin chào {{ $course_price->mentor->name }},<br>
+                                Khóa học: {{ $course_price->title }} đã được thêm giá.
+                            </p>
+                            <p align="center"
+                                style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
+                                valign="top">
+                                <a href="{{ route('teacher.course.index') }}"
+                                    style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
+                                    target="_blank">Xem chi tiết</a>
+                            </p>
+                        @elseif (isset($course_active))
                             <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
                                 Xin chào {{ $course_active->mentor->name }},<br>
                                 Khóa học: {{ $course_active->title }} đã được kích hoạt và sử dụng.

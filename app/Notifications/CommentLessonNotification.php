@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Lesson;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -17,11 +18,9 @@ class CommentLessonNotification extends Notification
      * @return void
      */
 
-     public function __construct($lesson_id, $course_id, $name )
+     public function __construct($post )
     {
-        $this->name=$name;
-        $this->lesson_id=$lesson_id;
-        $this->course_id=$course_id;
+        $this->post=$post;
     }
 
     /**
@@ -32,7 +31,7 @@ class CommentLessonNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -43,10 +42,15 @@ class CommentLessonNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $lesson = Lesson::where('id',$this->post['lesson_id'])->first();
+        $course_id = $this->post['course_id'];
+        $lesson_id =  $lesson->id;
+        $content =  $this->post['content'];
+        $auth =  $notifiable;
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->view(
+                'screens.email.comment',compact('course_id','lesson_id','auth','lesson','content')
+            );
     }
 
     /**
@@ -57,10 +61,8 @@ class CommentLessonNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return[
-            'name'=> $this->name,
-            'lesson_id'=> $this->lesson_id,
-            'course_id'=> $this->course_id,
-         ];
+        $this->post['name'] = $notifiable->name;
+        $this->post['user_id'] = $notifiable->id;
+        return $this->post;
     }
 }

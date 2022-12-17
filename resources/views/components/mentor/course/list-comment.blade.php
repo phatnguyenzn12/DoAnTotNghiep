@@ -1,7 +1,7 @@
 <div class="row">
-    @foreach ($comments as $k=>$comment)
+    @foreach ($comments as $k => $comment)
         <tr>
-            <td>{{$k+1}}</td>
+            <td>{{ $k + 1 }}</td>
             <td class="">
                 {{ $comment->user->name }}
             </td>
@@ -22,15 +22,21 @@
             </td>
             <td class="col-2">
                 @if ($comment->status == 1)
-                    <a href="{{ route('mentor.course.activecomment', $comment->id) }}"
-                        onclick="return confirm('Bạn có chắc muốn ẩn')" class="btn btn-danger">
-                        Ẩn
-                    </a>
+                    <form action="{{ route('mentor.course.activecomment', ['comment' => $comment->id]) }}" method="PUT">
+                        @csrf
+                        <button type="submit"
+                            onclick="return confirm('Bạn có chắc muốn ẩn')" class="btn btn-danger">
+                            Ẩn
+                        </button>
+                    </form>
                 @else
-                    <a href="{{ route('mentor.course.activecomment', $comment->id) }}"
-                        onclick="return confirm('Bạn có chắc muốn hiển thị')" class="btn btn-success">
-                        Hiển thị
-                    </a>
+                    <form action="{{ route('mentor.course.activecomment', ['comment' => $comment->id]) }}" method="PUT">
+                        @csrf
+                        <button type="submit"
+                            onclick="return confirm('Bạn có chắc muốn hiển thị')" class="btn btn-success">
+                            Hiển thị
+                        </button>
+                    </form>
                 @endif
             </td>
             <td class="col-xs-1">
@@ -40,9 +46,9 @@
             </td>
         </tr>
     @endforeach
-        @php
-            $pagination = $comments;
-        @endphp
+    @php
+        $pagination = $comments;
+    @endphp
 </div>
 <div class="p-3 mb-5 card">
     @include('components.admin.pagination-basic')

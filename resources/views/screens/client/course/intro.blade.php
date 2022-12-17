@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- =======================
-                                                                                                                                                                                    Page content START -->
+                                                                                                                                                                                                            Page content START -->
     <section class="pt-3 pt-xl-5">
         <div class="container" data-sticky-container>
             <div class="row g-4">
@@ -181,7 +181,7 @@
                     <div data-sticky data-margin-top="80" data-sticky-for="768">
                         <div class="row g-4">
                             <div class="col-md-6 col-xl-12">
-                                @if (!$course->users()->get()->contains(auth()->user()->id))
+                                @if ($user == null)
                                     <!-- Course info START -->
                                     <div class="card card-body border p-4">
                                         <!-- Price and share button -->
@@ -191,9 +191,12 @@
                                             <div class="d-flex align-items-center">
                                                 <h3 class="fw-bold mb-0 me-2">{{ number_format($course->current_price) }}đ
                                                 </h3>
-                                                <span
-                                                    class="text-decoration-line-through mb-0 me-2">{{ number_format($course->price) }}đ</span>
-                                                <span class="badge text-bg-orange mb-0">{{ $course->discount }}% off</span>
+                                                @if ($course->discount != 0)
+                                                    <span
+                                                        class="text-decoration-line-through mb-0 me-2">{{ number_format($course->price) }}đ</span>
+                                                    <span class="badge text-bg-orange mb-0">{{ $course->discount }}%
+                                                        off</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -201,34 +204,19 @@
 
                                 <!-- Buttons -->
                                 <div class="mt-3 d-grid">
-                                    @if (auth()->user())
-                                        @if ($course->users()->get()->contains(auth()->user()->id))
-                                            <a href="{{ route('client.lesson.index', $course->id) }}"
-                                                class="btn btn-success">
-                                                Vào học
-                                            </a>
-                                        @else
-                                            <form action="{{ route('client.order.addToCart', $course->id) }}"
-                                                method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-success">Thêm vào giỏ
-                                                    hàng</button>
-                                            </form>
-                                        @endif
+                                    @if ($user == true || $mentor == true)
+                                        <a href="{{ route('client.lesson.index', $course->id) }}" class="btn btn-success">
+                                            Tham gia học
+                                        </a>
                                     @else
-                                        @if (auth()->guard('mentor')->user())
-                                            <a href="{{ route('client.mentorLesson.index', $course->id) }}"
-                                                class="btn btn-success">
-                                                Tham gia khóa học
-                                            </a>
-                                        @else
-                                            <form action="{{ route('client.order.addToCart', $course->id) }}"
-                                                method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-success">Thêm vào giỏ
-                                                    hàng</button>
-                                            </form>
-                                        @endif
+                                    @endif
+
+                                    @if ($user == false && $mentor == null)
+                                        <form action="{{ route('client.order.addToCart', $course->id) }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">Thêm vào giỏ
+                                                hàng</button>
+                                        </form>
                                     @endif
                                 </div>
                                 <!-- Divider -->
@@ -403,6 +391,13 @@
 
                 success: function(res) {
                     $('#table-innerHtml').html(res)
+                },
+                error: function(err) {
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
                 }
             })
         }

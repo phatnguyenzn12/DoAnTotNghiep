@@ -8,6 +8,5 @@ Route::prefix('admin/order')->name('admin.order.')->middleware('check-admin')->c
         Route::get('index', 'index')->name('index');
         Route::get('show/{id}','show')->name('show');
         Route::get('list-data/{search?}/{record?}', 'filterData')->name('listData');
-        Route::get('delete/{id}', 'destroy')->name('delete');
     }
 );

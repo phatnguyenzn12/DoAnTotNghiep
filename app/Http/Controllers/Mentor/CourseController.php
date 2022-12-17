@@ -59,9 +59,9 @@ class CourseController extends Controller
         return response()->json($html, 200);
     }
 
-    public function activecomment(Request $request, $id)
+    public function activecomment(Request $request, $comment)
     {
-        $comment_active = CommentCourse::findOrFail($id);
+        $comment_active = CommentCourse::findOrFail($comment);
         if ($comment_active->status == 1) {
             return redirect()->back()->with('failed', 'Bình luận đã hiển thị');
         }
@@ -70,6 +70,7 @@ class CourseController extends Controller
         }
         $comment_active->status = $request->status;
         $comment_active->save();
+        // return view('abbaa');
         return redirect()->back()->with('success', 'Cập nhập thành công');
     }
 
@@ -131,7 +132,7 @@ class CourseController extends Controller
         }
     }
 
-    public function formDeactiveCourse(Request $request, $course_id)
+     public function formDeactiveCourse(Request $request, $course_id)
     {
         $data = view('components.mentor.course.actived-course', compact('course_id'))->render();
 

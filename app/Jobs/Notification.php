@@ -18,9 +18,10 @@ class Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    protected $notifications;
+    public function __construct($notifications)
     {
-        //
+        $this->notifications = $notifications;
     }
 
     /**
@@ -30,6 +31,6 @@ class Notification implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $this->notifications;
     }
 }

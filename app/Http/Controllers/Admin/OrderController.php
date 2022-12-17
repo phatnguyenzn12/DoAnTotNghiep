@@ -37,12 +37,4 @@ class OrderController extends Controller
         return view('screens.admin.order.order-detail', compact('orderDetail'));
     }
 
-    public function destroy($id)
-    {
-        $order = Order::find($id);
-
-        $order->delete();
-
-        return redirect()->back()->with('success', 'Xóa thành công');
-    }
 }

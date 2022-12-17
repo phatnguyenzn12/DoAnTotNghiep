@@ -7,12 +7,12 @@
       </div>
 
       <form class="w-100 d-flex has-validation-ajax" method="POST"
-          action="{{ route('client.lesson.parentComment', $lesson->id, $course->id) }}">
+          action="{{ route('client.lesson.parentComment', ['lesson' => $lesson->id, 'course' => $course->id]) }}">
           @csrf
           <input type="hidden" name="course_id" value="{{ $course->id }}">
           <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
           <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
-              placeholder="Thêm bình luận..."></textarea>
+              placeholder="Thêm bình luận..." class="clear-input"></textarea>
           <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
                   class="fas fa-paper-plane fs-5"></i></button>
       </form>
@@ -35,7 +35,8 @@
                                   <div class="">
                                       <div class="me-2">
                                           <h6 class="mb-1 lead fw-bold"> <a href="#!">
-                                                  {{ $comment->info->name }} ({{ $comment->role }}) </a></h6>
+                                                  {{ $comment->info->name }} ({!! $comment->role !!}) {{ $comment->mentor ? $comment->mentor->cate_course->name : '' }}
+                                              </a></h6>
                                           <p class="mb-0 mt-3">Bình luận: {{ $comment->comment }}
                                           </p>
                                       </div>

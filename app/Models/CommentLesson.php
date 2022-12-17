@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,43 +15,45 @@ class CommentLesson extends Model
         'image',
         'reply',
         'status',
+        'tags',
         'mentor_id',
         'lesson_id',
         'user_id',
     ];
 
     protected $appends = [
-        'info','role'
+        'info', 'role'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function mentor()
     {
-        return $this->belongsTo(Mentor::class,'mentor_id');
+        return $this->belongsTo(Mentor::class, 'mentor_id');
     }
 
     public function lesson()
     {
-        return $this->belongsTo(Lesson::class,'lesson_id','id');
+        return $this->belongsTo(Lesson::class, 'lesson_id', 'id');
     }
 
     public function replies()
     {
-        return $this->hasMany(CommentLesson::class,'reply');
+        return $this->hasMany(CommentLesson::class, 'reply');
     }
 
     public function reply_parent()
     {
-        return $this->belongsTo(CommentLesson::class,'reply');
+        return $this->belongsTo(CommentLesson::class, 'reply');
     }
+
 
     public function getInfoAttribute()
     {
-        if($this->user){
+        if ($this->user) {
             return $this->user;
         }
 
@@ -59,11 +62,10 @@ class CommentLesson extends Model
 
     public function getRoleAttribute()
     {
-        if($this->user){
-            return "Người dùng" ;
+        if ($this->user) {
+            return "Người dùng";
         }
 
-        return "Giảng viên";
+        return '<span class="text-danger">Giảng viên</span>';
     }
-
 }
