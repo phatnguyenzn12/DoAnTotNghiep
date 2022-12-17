@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CommentLesson extends Model
+class CommentLesson extends BaseModel
 {
     use HasFactory;
     protected $table = 'comment_lessons';

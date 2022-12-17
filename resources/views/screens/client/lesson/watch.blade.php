@@ -120,6 +120,7 @@
                 </div>
 
     </section>
+    @php $id = $lesson->id @endphp
 @endsection
 @section('js-links')
     <script src="/js/tags.js"></script>
@@ -220,5 +221,48 @@
                 }
             })
         })
+
+        objFiter = {
+            page: 1,
+            record: 4,
+            id: "id_desc",
+            reply: 0,
+            lesson_id: {{ $id }},
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('client.lesson.filterComment') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                },
+                error: function(err) {
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function fiterSort(elemment) {
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSortReply(elemment) {
+            objFiter.reply = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page) {
+            objFiter.page = page
+            showAjax(objFiter);
+        }
     </script>
 @endpush
