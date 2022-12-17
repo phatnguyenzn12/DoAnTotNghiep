@@ -237,7 +237,7 @@
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
-                            title: 'Lấy mã thành công',
+                            title: 'Kiểm tra thành công',
                             showConfirmButton: false,
                             timer: 1500
                         })

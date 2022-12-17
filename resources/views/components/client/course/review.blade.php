@@ -21,10 +21,9 @@
                              {{ round($resultvote / count($result_vote), 0) }}</h1>
                          @for ($j = 0; $j < 5; $j++)
                              @if ($j < round($resultvote / count($result_vote), 0))
-                             <span style="font-size: 18px; color: rgb(255, 255, 0)" class="fa fa-star"></span>
+                                 <span style="font-size: 18px; color: rgb(255, 255, 0)" class="fa fa-star"></span>
                              @else
-                             <span style="font-size: 18px" class="fa fa-star"></span>
-
+                                 <span style="font-size: 18px" class="fa fa-star"></span>
                              @endif
                          @endfor
                      @endif
@@ -174,110 +173,111 @@
              <!-- Review item START -->
              @foreach ($course->commentCourses()->paginate(4) as $i)
                  <hr>
-                 <div class="d-md-flex my-4">
-                     <!-- Avatar -->
-                     <div class="avatar avatar-xl me-4 flex-shrink-0">
-                         <img class="avatar-img rounded-circle" src="/frontend/images/avatar/09.jpg" alt="avatar">
-                     </div>
-                     <!-- Text -->
-                     <div>
-                         <div class="d-sm-flex mt-1 mt-md-0 align-items-center">
-                             <h5 class="me-3 mb-0">
-                                 {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}
-                             </h5>
-                             <!-- Review star -->
-                             @for ($j = 0; $j < 5; $j++)
-                                 <ul class="list-inline mb-0">
-                                     @if ($j < $i->vote)
-                                         <li class="list-inline-item me-0"><i class="fas fa-star text-warning"></i>
-                                         </li>
-                                     @else
-                                         <li class="list-inline-item me-0"><i class="far fa-star text-warning"></i>
-                                         </li>
-                                     @endif
-                                 </ul>
-                             @endfor
+                 @if ($i->status == 1)
+                     <div class="d-md-flex my-4">
+                         <!-- Avatar -->
+                         <div class="avatar avatar-xl me-4 flex-shrink-0">
+                             <img class="avatar-img rounded-circle" src="{{ asset('app/' . $i->user->avatar) }}"
+                                 alt="avatar">
                          </div>
-                         <!-- Info -->
-                         <p class="small mb-2">{{ date('d/m/Y', strtotime($i->created_at)) }}</p>
-                         <p class="mb-2">{{ $i->comment }} </p>
-
-                         <!-- Reply button -->
-                         {{-- <a href="#" class="text-body mb-0"><i
-                            class="fas fa-reply me-2"></i>Reply</a> --}}
-                     </div>
-                 </div>
-                 <hr>
-             @endforeach
-             <!-- Divider -->
-
-             <!-- Review item END -->
-
-             <!-- Review item START -->
-
-             <!-- Review item END -->
-             <!-- Divider -->
-
-         </div>
-         <!-- Student review END -->
-
-         <!-- Leave Review START -->
-         <div class="mt-2">
-             @if (auth()->user())
-                 @if ($course->users()->get()->contains(auth()->user()->id))
-                     <h5 class="mb-4">Đánh giá khoá học</h5>
-                     <form class="row g-3" action="{{ route('commentcourse.store') }}" method="post">
-                         @csrf
-                         <!-- Rating -->
-                         <div class="col-12">
-                             <select id="inputState2" name="vote" class="form-select  js-choice">
-                                 <option selected="" value="5">★★★★★ (5/5)</option>
-                                 <option value="4">★★★★☆ (4/5)</option>
-                                 <option value="3">★★★☆☆ (3/5)</option>
-                                 <option value="2">★★☆☆☆ (2/5)</option>
-                                 <option value="1">★☆☆☆☆ (1/5)</option>
-                             </select>
+                         <!-- Text -->
+                         <div>
+                             <div class="d-sm-flex mt-1 mt-md-0 align-items-center">
+                                 <h5 class="me-3 mb-0">
+                                     {{ DB::table('users')->where('id', '=', $i->user_id)->first()->name }}
+                                 </h5>
+                                 <!-- Review star -->
+                                 @for ($j = 0; $j < 5; $j++)
+                                     <ul class="list-inline mb-0">
+                                         @if ($j < $i->vote)
+                                             <li class="list-inline-item me-0"><i
+                                                     class="fas fa-star text-warning"></i>
+                                             </li>
+                                         @else
+                                             <li class="list-inline-item me-0"><i
+                                                     class="far fa-star text-warning"></i>
+                                             </li>
+                                         @endif
+                                     </ul>
+                                 @endfor
+                             </div>
+                             <!-- Info -->
+                             <p class="small mb-2">{{ date('d/m/Y', strtotime($i->created_at)) }}</p>
+                             <p class="mb-2">{{ $i->comment }} </p>
                          </div>
-                         <!-- Message -->
-                         <div class="col-12">
-                             <input type="hidden" name="course_id" value="{{ $course->id }}">
-                             <input type="hidden" name="mentor_id" value="{{ $course->mentor->id }}">
-                             <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review"
-                                 rows="3"></textarea>
-                         </div>
-                         <!-- Button -->
-                         <div class="col-12">
-                             <button type="submit" class="btn btn-primary mb-0">Đăng bình
-                                 luận</button>
-                         </div>
-                     </form>
                  @endif
-             @endif
          </div>
-         <!-- Leave Review END -->
-         {{-- {{dd($course->commentCourses()->get())}} --}}
-         @php
-             $pagination = $comments;
-         @endphp
-     </div>
-     <!-- Content END -->
+ @endforeach
+ <hr>
+ <!-- Divider -->
 
-     <!-- Pagination START -->
-     <div class="col-12">
-         <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
-             <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                 <li class="page-item mb-0"><a class="page-link" onclick="pagination(1)"><i
-                             class="fas fa-angle-double-left"></i></a></li>
-                 @for ($i = 1; $i <= $pagination->lastPage(); $i++)
-                     <li class="page-item mb-0"><a class="page-link"
-                             onclick="pagination('{{ $i }}')">{{ $i }}</a></li>
-                 @endfor
+ <!-- Review item END -->
+
+ <!-- Review item START -->
+
+ <!-- Review item END -->
+ <!-- Divider -->
+
+ </div>
+ <!-- Student review END -->
+
+ <!-- Leave Review START -->
+ <div class="mt-2">
+     @if (auth()->user())
+         @if ($course->users()->get()->contains(auth()->user()->id))
+             <h5 class="mb-4">Đánh giá khoá học</h5>
+             <form class="row g-3" action="{{ route('commentcourse.store') }}" method="post">
+                 @csrf
+                 <!-- Rating -->
+                 <div class="col-12">
+                     <select id="inputState2" name="vote" class="form-select  js-choice">
+                         <option selected="" value="5">★★★★★ (5/5)</option>
+                         <option value="4">★★★★☆ (4/5)</option>
+                         <option value="3">★★★☆☆ (3/5)</option>
+                         <option value="2">★★☆☆☆ (2/5)</option>
+                         <option value="1">★☆☆☆☆ (1/5)</option>
+                     </select>
+                 </div>
+                 <!-- Message -->
+                 <div class="col-12">
+                     <input type="hidden" name="course_id" value="{{ $course->id }}">
+                     <input type="hidden" name="mentor_id" value="{{ $course->mentor->id }}">
+                     <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review"
+                         rows="3"></textarea>
+                 </div>
+                 <!-- Button -->
+                 <div class="col-12">
+                     <button type="submit" class="btn btn-primary mb-0">Đăng bình
+                         luận</button>
+                 </div>
+             </form>
+         @endif
+     @endif
+ </div>
+ <!-- Leave Review END -->
+ {{-- {{dd($course->commentCourses()->get())}} --}}
+ @php
+     $pagination = $comments;
+ @endphp
+ </div>
+ <!-- Content END -->
+
+ <!-- Pagination START -->
+ <div class="col-12">
+     <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+         <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+             <li class="page-item mb-0"><a class="page-link" onclick="pagination(1)"><i
+                         class="fas fa-angle-double-left"></i></a></li>
+             @for ($i = 1; $i <= $pagination->lastPage(); $i++)
                  <li class="page-item mb-0"><a class="page-link"
-                         onclick="pagination('{{ $pagination->lastPage() }}')"><i
-                             class="fas fa-angle-double-right"></i></a>
-                 </li>
-             </ul>
-         </nav>
-     </div>
-     <!-- Pagination END -->
+                         onclick="pagination('{{ $i }}')">{{ $i }}</a></li>
+             @endfor
+             <li class="page-item mb-0"><a class="page-link"
+                     onclick="pagination('{{ $pagination->lastPage() }}')"><i
+                         class="fas fa-angle-double-right"></i></a>
+             </li>
+         </ul>
+     </nav>
+ </div>
+ <!-- Pagination END -->
  @endif

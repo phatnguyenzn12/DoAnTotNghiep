@@ -9,6 +9,8 @@
       <form class="w-100 d-flex has-validation-ajax" method="POST"
           action="{{ route('client.lesson.parentComment', ['lesson' => $lesson->id, 'course' => $course->id]) }}">
           @csrf
+          <input type="hidden" name="course_id" value="{{ $course->id }}">
+          <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
           <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
               placeholder="Thêm bình luận..." class="clear-input"></textarea>
           <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
@@ -33,20 +35,25 @@
                                   <div class="">
                                       <div class="me-2">
                                           <h6 class="mb-1 lead fw-bold"> <a href="#!">
-                                                  {{ $comment->info->name }} ({!! $comment->role !!}) {{ $comment->mentor ? $comment->mentor->cate_course->name : '' }}
+                                                  {{ $comment->info->name }} ({!! $comment->role !!})
+                                                  {{ $comment->mentor ? $comment->mentor->cate_course->name : '' }}
                                               </a></h6>
                                           <p class="mb-0 mt-3">Bình luận: {{ $comment->comment }}
                                           </p>
                                       </div>
-                                      <small>5hr</small>
                                   </div>
                               </div>
                               <!-- Comment react -->
                               <ul class="nav nav-divider py-2 small">
                                   <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                          Thời gian ({{ $comment->created_at }})</a> </li>
+                                          Thời gian ({{ date('d-m-Y', strtotime($comment->created_at)) }})</a> </li>
                                   <li class="nav-item"> <a class="text-primary-hover" href="#">
                                           Hồi đáp {{ $comment->replies->count() }}</a> </li>
+                                          {{-- @dd(auth()->user()) --}}
+                                @if($comment->user->id == auth()->user()->id)
+                                  <li class="nav-item"> <a onclick="return confirm('Bạn chắc chắn muốn xóa?')" href="{{route('client.lesson.removeComment', ['commentLesson'=>$comment->id])}}" class="text-primary-hover">
+                                          Xóa</a> </li>
+                                @endif
                               </ul>
                           </div>
 

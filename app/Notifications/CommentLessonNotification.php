@@ -18,9 +18,9 @@ class CommentLessonNotification extends Notification
      * @return void
      */
 
-    public function __construct($post)
+     public function __construct($post )
     {
-        $this->post = $post;
+        $this->post=$post;
     }
 
     /**
