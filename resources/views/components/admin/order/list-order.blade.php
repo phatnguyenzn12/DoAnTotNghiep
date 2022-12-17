@@ -24,9 +24,6 @@
                      class="btn btn-light btn-sm" >
                         <i class="fas fa-info text-primary"></i></a>
                 </a>
-                    <a class="btn btn-light btn-sm" onclick="return confirm('Bạn có chắc muốn xóa')"
-                        href="{{ route('admin.order.delete', ['id' => $order->id]) }}">
-                        <i class="flaticon2-trash text-danger"></i></a>
                 </td>
             </tr>
     @endforeach

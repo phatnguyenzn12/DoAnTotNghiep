@@ -15,6 +15,7 @@ Route::prefix('lesson')->name('client.lesson.')->middleware(['check-auth-lesson'
         Route::post('course/{course_id}/comment-child-add/{comment_parent}', 'childComment')->name('childComment');
 
         Route::get('list-comment','filterComment')->name('filterComment');
+        Route::get('delete/{commentLesson}', 'removeComment')->name('removeComment');
     }
 );
 

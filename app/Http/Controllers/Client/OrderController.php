@@ -148,13 +148,7 @@ class OrderController extends Controller
             $email->subject('Hóa đơn khóa học');
             $email->to($user->email, $user->name);
         });
-        // $mentors = $order->order_details;
-        // foreach($mentors as $mentor){
-        //     Mail::send('screens.email.user.bill-course', compact('mentor','order','array'), function ($email) use ($mentor) {
-        //         $email->subject('Hóa đơn khóa học');
-        //         $email->to($mentor->email, $mentor->name);
-        //     });
-        // }
+        
         return redirect()->route('client.order.cartList')->with('success', 'Bạn mua các khóa học thành công');
     }
 }

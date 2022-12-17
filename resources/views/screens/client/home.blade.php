@@ -314,6 +314,7 @@
                                                         class="h6 fw-light mb-0">{{ $course->mentor->name }}</a></p>
                                             </div>
                                             <!-- Price -->
+
                                             <div>
                                                 <h4 class="text-success mb-0 item-show">
                                                     {{ number_format($course->price) }}đ</h4>

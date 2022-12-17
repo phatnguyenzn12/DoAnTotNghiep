@@ -260,9 +260,9 @@ class LessonController extends Controller
             $commentLesson->delete();
             return redirect()->back()->with('success', 'Bạn xóa thành công bình luận');
         }
-        if (auth()->user()->id == $commentLesson->id) {
+        if (auth()->user()) {
             $commentLesson->delete();
-            return redirect()->back()->with('success', 'Bạn xóa thành công bình luận');
+            return redirect()->back()->with('success', 'Xóa thành công bình luận');
         }
     }
 }
