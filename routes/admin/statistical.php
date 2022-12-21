@@ -9,7 +9,6 @@ Route::prefix('admin.statistical.')->name('admin.statistical.')->middleware('che
         Route::get('course-list', 'course-course_list')->name('courseList');
         Route::get('course-selling-index','CourseSellingIndex')->name('CourseSelling');
         Route::get('teacher-list','teacherList')->name('teacherList');
-        Route::get('teacher-list','teacherList')->name('teacherList');
     }
 );
 

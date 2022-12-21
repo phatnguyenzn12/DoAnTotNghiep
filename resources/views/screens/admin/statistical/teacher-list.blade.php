@@ -9,18 +9,18 @@
             <div class="row mt-3">
                 <div class="col-md-4 my-2 my-md-0">
                     <div class="d-flex align-items-center">
-                        <label class="mr-3 mb-0 d-none d-md-block">Ngày:</label>
-                        <select class="form-control" id="kt_datatable_search_status" filter-sort>
-                            <option value="0">Mặc định</option>
-                            <option value="id_desc">Mới đến cũ</option>
-                            <option value="id_asc">Cũ đến mới</option>
+                        <label class="mr-3 mb-0 d-none d-md-block">Từ ngày 1 đến:</label>
+                        <select class="form-control" id="kt_datatable_search_status" onchange="day_fill(this)">
+                            <option value="0">Tất cả</option>
+                            <optgroup label="Danh sách ngày" id="days">
+                            </optgroup>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4 my-2 my-md-0">
                     <div class="d-flex align-items-center">
                         <label class="mr-3 mb-0 d-none d-md-block">Tháng:</label>
-                        <select class="form-control" id="kt_datatable_search_status" filter-sort>
+                        <select class="form-control" id="kt_datatable_search_status" onchange="month_fill(this)">
                             <option value="0">Tất cả</option>
                             <optgroup label="Danh sách tháng">
                                 <option value="1">Tháng 1</option>
@@ -36,24 +36,24 @@
                                 <option value="11">Tháng 11</option>
                                 <option value="12">Tháng 12</option>
                             </optgroup>
+
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4 my-2 my-md-0">
                     <div class="d-flex align-items-center">
                         <label class="mr-3 mb-0 d-none d-md-block">Năm:</label>
-                        <select class="form-control" id="kt_datatable_search_status" filter-sort>
+                        <select class="form-control" id="kt_datatable_search_status" onchange="year_fill(this)">
                             <option value="0">Tất cả</option>
-                            <optgroup label="Danh sách năm">
-                                <option value="2022">Năm 2022</option>
+                            <optgroup label="Danh sách năm" id="year">
                             </optgroup>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            @include('components.admin.statistical.teacher-list')
+        <div class="card-body" id="inner-html">
+            {{-- @include('components.admin.statistical.teacher-list') --}}
         </div>
     </div>
 
@@ -64,5 +64,61 @@
 @endsection
 
 @push('js-handles')
-    <script></script>
+    <script>
+        var getDaysInMonth = function(month, year) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        function show_year() {
+            let html = null
+            let years = new Date().getFullYear();
+            for (let index = 2010; index <= years; index++) {
+                html += `<option value="${index}">năm ${index}</option>`;
+            }
+            $('#year').html(html);
+        }
+        show_year()
+
+
+        objFiter = {
+            year: 0,
+            month: 0,
+            day: 0,
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('api.admin.statistical.apiTeacherList') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#inner-html').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function year_fill(elm) {
+            objFiter.year = elm.value
+            showAjax(objFiter)
+        }
+
+        function month_fill(elm) {
+            objFiter.month = elm.value
+            let days = getDaysInMonth(3, 2022)
+            let html = null
+            for (let index = 1; index <= days; index++) {
+                html += `<option value="${index}">ngày ${index}</option>`;
+            }
+            $('#days').html(html);
+
+            showAjax(objFiter)
+        }
+
+        function day_fill(elm) {
+            objFiter.day = elm.value
+            showAjax(objFiter)
+        }
+    </script>
 @endpush

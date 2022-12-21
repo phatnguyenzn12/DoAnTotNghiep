@@ -214,24 +214,26 @@ class Mentor extends Authenticatable
         }
     }
 
-    function scopeCheckYDM($query,string $col_name,Request $request)
+    function scopeCheckYear($query, string $col_name, Request $request)
     {
-        if ($request->has('year')  && $request->year != 0) {
-            return $query->whereRaw('YEAR(' . $col_name . ') = ' . $request->year);
-        } else {
-            return $query->whereRaw('YEAR(' . $col_name . ') = (SELECT YEAR(MAX(' . $col_name . ')))');
+        if ($request->has('year') && $request->year != 0) {
+            return $query->whereRaw("YEAR($col_name ) = $request->year");
         }
+    }
 
-        if ($request->has('day')  && $request->day != 0) {
-            return $query->whereRaw('DAY(' . $col_name . ') = ' . $request->day);
-        } else {
-            return $query->whereRaw('DAY(' . $col_name . ') = (SELECT DAY(MAX(' . $col_name . ')))');
+    function scopeCheckMonth($query, string $col_name, Request $request)
+    {
+
+        if ($request->has('month') && $request->month != 0) {
+            return $query->whereRaw("MONTH($col_name) = $request->month");
         }
+    }
 
-        if ($request->has('month')  && $request->month != 0) {
-            return $query->whereRaw('MONTH(' . $col_name . ') = ' . $request->month);
-        } else {
-            return $query->whereRaw('MONTH(' . $col_name . ') = (SELECT MONTH(MAX(' . $col_name . ')))');
+    function scopeCheckDay($query, string $col_name, Request $request)
+    {
+
+        if ($request->has('day') && $request->day != 0) {
+           return  $query->whereRaw("DAY($col_name) <= $request->day");
         }
     }
 

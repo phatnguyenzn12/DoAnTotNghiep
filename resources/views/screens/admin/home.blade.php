@@ -320,12 +320,6 @@
                         <select class="form-control" id="kt_datatable_search_status" onchange="year_fill(this)">
                             <option value="0">Tất cả</option>
                             <optgroup label="Danh sách năm" id="year">
-                                <option value="2022">Năm 2022</option>
-                                <option value="2021">Năm 2021</option>
-                                <option value="2020">Năm 2020</option>
-                                <option value="2019">Năm 2019</option>
-                                <option value="2018">Năm 2018</option>
-                                <option value="2017">Năm 2017</option>
                             </optgroup>
                         </select>
                     </div>
@@ -361,6 +355,16 @@
             month: 0,
             day: 0,
         }
+
+        function show_year() {
+            let html = null
+            let years = new Date().getFullYear();
+            for (let index = 2010; index <= years; index++) {
+                html += `<option value="${index}">năm ${index}</option>`;
+            }
+            $('#year').html(html);
+        }
+        show_year()
 
         function showAjax(obj) {
             $.ajax({

@@ -142,16 +142,15 @@ class BaseModel extends Model
     {
 
         if ($request->has('month') && $request->month != 0) {
-            $query->whereRaw("MONTH($col_name) = $request->month");
+            return $query->whereRaw("MONTH($col_name) = $request->month");
         }
-
     }
 
     function scopeCheckDay($query, string $col_name, Request $request)
     {
 
         if ($request->has('day') && $request->day != 0) {
-            $query->whereRaw("DAY($col_name) <= $request->day");
+           return  $query->whereRaw("DAY($col_name) <= $request->day");
         }
     }
 

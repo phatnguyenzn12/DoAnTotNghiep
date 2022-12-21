@@ -391,6 +391,16 @@
                             </a>
                         </li>
                     </ul>
+                    <ul class="menu-subnav">
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="{{ route('admin.statistical.CourseSelling') }}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Thu nhập từ các khóa học</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </li>
         </ul>

@@ -153,19 +153,6 @@ class StatisticalController extends Controller
     //     return $turnoverNewYear->pluck('total')->toArray();
     // }
 
-    public function apiCourseSelling()
-    {
-        $selling = Course::selectRaw('count(*) as number,courses.title,sum(order_details.price) as total,courses.image')
-            ->join('order_details', 'order_details.course_id', '=', 'courses.id')
-            ->groupBy('courses.id')
-            ->orderBy('number', 'DESC')
-            ->paginate(10);
-
-        $html = view('components.base.selling', compact('selling'))->render();
-
-        return response()->json($html);
-    }
-
     public function teacherList()
     {
         return view('screens.admin.statistical.teacher-list');
@@ -175,11 +162,12 @@ class StatisticalController extends Controller
     {
         $teachers = Mentor::role('teacher')
             ->select(
-                DB::raw('name,avatar,email,salary_bonus'),
-                DB::raw('SUM(percentage_payable.amount_paid_teacher) as total_price')
+                DB::raw('name,avatar,email,salary_bonus,educations'),
+                DB::raw('SUM(percentage_payable.amount_paid_teacher) as amount_paid_teacher,
+                SUM(percentage_payable.amount_paid_admin) as amount_paid_admin,
+                SUM(percentage_payable.amount_paid_admin + percentage_payable.amount_paid_teacher) as total_price'),
             )
             ->join('percentage_payable', 'percentage_payable.mentor_id', '=', 'mentors.id')
-            ->scopeCheckYDM('percentage_payable.created', $request)
             ->groupBy('mentors.id')
             ->paginate(10);
 
@@ -193,8 +181,26 @@ class StatisticalController extends Controller
         return view('screens.admin.statistical.top-selling');
     }
 
-    public function CourseSellingdetail()
+    public function apiCourseSelling()
     {
-        return view('screens.admin.statistical.top-selling-detail');
+        $selling = Course::select(
+            DB::raw('count(courses.id) as number,courses.title,courses.image as image,courses.percentage_pay as percentage_pay'),
+            DB::raw('SUM(percentage_payable.amount_paid_admin + percentage_payable.amount_paid_teacher) as total,
+            SUM(percentage_payable.amount_paid_admin) as amount_price_admin,
+            SUM(percentage_payable.amount_paid_teacher) as amount_price_teacher'),
+            )
+            ->join('mentors', 'mentors.id', '=', 'courses.mentor_id')
+            ->join('percentage_payable', 'percentage_payable.mentor_id', '=', 'mentors.id')
+            ->groupBy('courses.id')
+            ->orderBy('number', 'DESC')
+            ->paginate(10);
+
+        $html = view('components.base.selling', compact('selling'))->render();
+
+        return response()->json($html);
     }
+    // public function CourseSellingdetail()
+    // {
+    //     return view('screens.admin.statistical.top-selling-detail');
+    // }
 }
