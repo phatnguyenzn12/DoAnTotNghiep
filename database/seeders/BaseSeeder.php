@@ -20,6 +20,7 @@ use App\Models\Mentor;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OwnerCourse;
+use App\Models\PercentagePayable;
 use App\Models\Skill;
 use App\Models\Specialize;
 use App\Models\User;
@@ -164,6 +165,7 @@ class BaseSeeder extends Seeder
         Cart::factory(10)->create();
         Order::factory(100)->create();
         OrderDetail::factory(500)->create();
+        PercentagePayable::factory(500)->create();
         OwnerCourse::factory(10)->create();
         Banner::factory(3)->create();
         DiscountCode::factory(3)->create();

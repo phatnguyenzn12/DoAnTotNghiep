@@ -79,7 +79,10 @@ class AccountController extends Controller
     public function salaryBonus()
     {
         $mentor = auth()->guard('mentor')->user();
-        $percentages = PercentagePayable::where('mentor_id', $mentor->id)->with(['order_detail:id,price,course_id', 'order_detail.course:id,title,image,percentage_pay'])->paginate(10);
+        $percentages = PercentagePayable::where('mentor_id', $mentor->id)
+        ->with(['order_detail:id,price,course_id', 'order_detail.course:id,title,image,percentage_pay'])
+        ->paginate(10);
+
         $course_count = Course::selectRaw('count(id) as number')->where('mentor_id', $mentor->id)->first()->number;
         return view('screens.teacher.account.salary-bonus', compact('percentages', 'mentor', 'course_count'));
     }

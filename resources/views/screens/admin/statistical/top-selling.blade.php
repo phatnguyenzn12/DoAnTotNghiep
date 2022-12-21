@@ -2,7 +2,7 @@
 
 @section('title', 'Trang danh sách Khóa học')
 @section('content')
-    <div class="row">
+
         <div class="col-md-12">
             @if (session()->has('success'))
                 <div class="alert alert-success text-center">{{ session()->get('success') }}</div>
@@ -13,7 +13,7 @@
             <!--begin::table-->
             <div class="card card-custom gutter-b">
                 <div class="card-body">
-                    <h4>Danh sách khóa học bán chạy</h4>
+                    <h4>Danh sách khóa học thu được</h4>
                 </div>
                 <div class="card-body">
                     <form action="">
@@ -40,6 +40,8 @@
                                                     <option value="id_desc">All</option>
                                                     <option value="id_desc">Mới đến cũ</option>
                                                     <option value="id_asc">Cũ đến mới</option>
+                                                    <option value="price_desc">Gía từ cao đến thấp</option>
+                                                    <option value="price_desc">Gía từ thấp đến cao</option>
                                                 </select>
                                             </div>
                                         </div>
