@@ -134,15 +134,7 @@
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('teacher.statistical.index') }}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Bảng điều kiển</span>
-                            </a>
-                        </li>
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('teacher.account.salaryBonus') }}" class="menu-link">
+                            <a href="{{ route('teacher.statistical.salaryBonus') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
@@ -155,7 +147,7 @@
                                     <i class="menu-bullet menu-bullet-line">
                                         <span></span>
                                     </i>
-                                    <span class="menu-text">Sinh viên</span>
+                                    <span class="menu-text">thu nhập từ sinh viên</span>
                                 </a>
                             </li>
                         </ul>

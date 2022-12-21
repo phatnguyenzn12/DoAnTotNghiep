@@ -271,10 +271,78 @@
 
     </div>
 
-    @include('components.base.statistical')
+    <!--begin::Card-->
+    <div class="card card-custom gutter-b">
 
-    {{-- @include('components.admin.statistical.chart-home') --}}
+        <div class="card-header h-auto d-flex justify-content-between align-items-between">
+            <!--begin::Title-->
+            <div class="card-title py-5">
+                <h3 class="card-label">Tổng thu nhập </h3>
+            </div>
 
+            <div class="row align-items-center">
+                <div class="col-md-4 my-2 my-md-0">
+                    <div class="d-flex align-items-center">
+                        <label class="mr-3 mb-0 d-none d-md-block">Từ ngày 1 đến:</label>
+                        <select class="form-control" id="kt_datatable_search_status" onchange="day_fill(this)">
+                            <option value="0">Tất cả</option>
+                            <optgroup label="Danh sách ngày" id="days">
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 my-2 my-md-0">
+                    <div class="d-flex align-items-center">
+                        <label class="mr-3 mb-0 d-none d-md-block">Tháng:</label>
+                        <select class="form-control" id="kt_datatable_search_status" onchange="month_fill(this)">
+                            <option value="0">Tất cả</option>
+                            <optgroup label="Danh sách tháng">
+                                <option value="1">Tháng 1</option>
+                                <option value="2">Tháng 2</option>
+                                <option value="3">Tháng 3</option>
+                                <option value="4">Tháng 4</option>
+                                <option value="5">Tháng 5</option>
+                                <option value="6">Tháng 6</option>
+                                <option value="7">Tháng 7</option>
+                                <option value="8">Tháng 8</option>
+                                <option value="9">Tháng 9</option>
+                                <option value="10">Tháng 10</option>
+                                <option value="11">Tháng 11</option>
+                                <option value="12">Tháng 12</option>
+                            </optgroup>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 my-2 my-md-0">
+                    <div class="d-flex align-items-center">
+                        <label class="mr-3 mb-0 d-none d-md-block">Năm:</label>
+                        <select class="form-control" id="kt_datatable_search_status" onchange="year_fill(this)">
+                            <option value="0">Tất cả</option>
+                            <optgroup label="Danh sách năm" id="year">
+                                <option value="2022">Năm 2022</option>
+                                <option value="2021">Năm 2021</option>
+                                <option value="2020">Năm 2020</option>
+                                <option value="2019">Năm 2019</option>
+                                <option value="2018">Năm 2018</option>
+                                <option value="2017">Năm 2017</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--end::Title-->
+        </div>
+
+        <div class="card-body">
+
+            @include('components.base.statistical')
+        </div>
+
+    </div>
 
 @endsection
 
@@ -284,178 +352,51 @@
 
 @push('js-handles')
     <script>
-        var KTWidgets = function() {
-            // Private properties
-            var _initChartsWidget6 = function(data) {
-                console.log(data);
-                var element = document.getElementById("kt_charts_widget_6_chart");
-
-                if (!element) {
-                    return;
-                }
-
-                var options = {
-                    series: [{
-                        name: 'Quản lý',
-                        type: 'bar',
-                        stacked: true,
-                        data: data.admin
-                    }, {
-                        name: 'Giảng viên',
-                        type: 'bar',
-                        stacked: true,
-                        data: data.teacher
-                    }, {
-                        name: 'Tổng',
-                        type: 'area',
-                        data: data.all
-                    }],
-                    chart: {
-                        stacked: true,
-                        height: 350,
-                        toolbar: {
-                            show: false
-                        }
-                    },
-                    plotOptions: {
-                        bar: {
-                            stacked: true,
-                            horizontal: false,
-                            endingShape: 'rounded',
-                            columnWidth: ['12%']
-                        },
-                    },
-                    legend: {
-                        show: false
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        curve: 'smooth',
-                        show: true,
-                        width: 2,
-                        colors: ['transparent']
-                    },
-                    xaxis: {
-                        categories: ['tháng 1', 'tháng 2', 'tháng 3', 'tháng 4', 'tháng 5',
-                            'tháng 6',
-                            'tháng 7', 'tháng 8', 'tháng 9', 'tháng 10', 'tháng 11', 'tháng 12'
-                        ],
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    yaxis: {
-                        max: 120,
-                        labels: {
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    fill: {
-                        opacity: 1
-                    },
-                    states: {
-                        normal: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        hover: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        active: {
-                            allowMultipleDataPointsSelection: false,
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        }
-                    },
-                    tooltip: {
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: KTApp.getSettings()['font-family']
-                        },
-                        y: {
-                            formatter: function(val) {
-                                return "" + val + " Đồng"
-                            }
-                        }
-                    },
-                    colors: [KTApp.getSettings()['colors']['theme']['base']['info'], KTApp
-                        .getSettings()[
-                            'colors']['theme']['base']['primary'], KTApp.getSettings()['colors']
-                        [
-                            'theme'
-                        ][
-                            'light'
-                        ]['primary']
-                    ],
-                    grid: {
-                        borderColor: KTApp.getSettings()['colors']['gray']['gray-200'],
-                        strokeDashArray: 4,
-                        yaxis: {
-                            lines: {
-                                show: true
-                            }
-                        },
-                        padding: {
-                            top: 0,
-                            right: 0,
-                            bottom: 0,
-                            left: 0
-                        }
-                    }
-                };
-
-                var chart = new ApexCharts(element, options);
-                chart.render();
-            }
-
-
-
-            // Public methods
-            return {
-                init: function() {
-                    axios.get('{{ route('api.admin.statistical.turnover') }}')
-                        .then(
-                            (res) => {
-                                js_$('[total_price]').innerHTML = 'Thu nhập năm nay: ' + res.data.all.reduce((
-                                    partialSum, a) => partialSum + Number(a), 0);
-                                _initChartsWidget6(res.data);
-                            }
-                        )
-
-                }
-            }
-        }();
-
-        // Webpack support
-        if (typeof module !== 'undefined') {
-            module.exports = KTWidgets;
+        var getDaysInMonth = function(month, year) {
+            return new Date(year, month, 0).getDate();
         }
 
-        jQuery(document).ready(function() {
-            KTWidgets.init();
-        });
+        objFiter = {
+            year: 0,
+            month: 0,
+            day: 0,
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('api.admin.statistical.apiAmount') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#total_price').html(res.total_course)
+                    $('#admin').html(res.amount_price_admin)
+                    $('#teacher').html(res.amount_price_teacher)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function year_fill(elm) {
+            objFiter.year = elm.value
+            showAjax(objFiter)
+        }
+
+        function month_fill(elm) {
+            objFiter.month = elm.value
+            let days = getDaysInMonth(3, 2022)
+            let html = null
+            for (let index = 1; index <= days; index++) {
+                html += `<option value="${index}">ngày ${index}</option>`;
+            }
+                $('#days').html(html);
+
+            showAjax(objFiter)
+        }
+
+        function day_fill(elm) {
+            objFiter.day = elm.value
+            showAjax(objFiter)
+        }
     </script>
 @endpush

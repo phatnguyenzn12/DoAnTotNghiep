@@ -69,7 +69,7 @@
                                         <a href="#"
                                             class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Số
                                             tiền đang có</a>
-                                        <span class="text-muted font-weight-bold">{{ $mentor->salary_bonus }}</span>
+                                        <span class="text-muted font-weight-bold">{{ number_format($mentor->salary_bonus) }}</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -134,7 +134,7 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label font-weight-bolder text-dark">Danh sách chương học</span>
+                            <span class="card-label font-weight-bolder text-dark">Danh sách Khóa học</span>
                             <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
                         </h3>
                     </div>
@@ -146,19 +146,19 @@
                             <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
                                 <thead>
                                     <tr class="text-uppercase">
-                                        <th style="min-width: 250px" class="pl-7">
-                                            <span class="text-dark-75">Ảnh khóa học</span>
-                                        </th>
-                                        <th style="min-width: 250px" class="pl-7">
+                                        <th style="min-width: 300px" class="pl-7">
                                             <span class="text-dark-75">Tên khóa học</span>
                                         </th>
-                                        <th style="min-width: 100px">Tổng tiền</th>
-                                        <th style="min-width: 100px">Phần trăm</th>
-                                        <th style="min-width: 100px">Tiền lời </th>
-                                        <th style="min-width: 120px">Thời gian</th>
+                                        <th style="min-width: 100px">Chi tiết</th>
+                                        <th style="min-width: 100px">Bán được</th>
+                                        <th style="min-width: 150px">Phần trăm nhận</th>
+                                        <th style="min-width: 150px">Tiền nhận được </th>
                                     </tr>
                                 </thead>
-                                @include('components.teacher.account.list-salary-bonus')
+                                <tbody id="table-innerHtml">
+
+                                </tbody>
+
                             </table>
                         </div>
                         <!--end::Table-->
@@ -278,16 +278,15 @@
 
         function showAjax(obj) {
             $.ajax({
-                url: '{{ route('teacher.chapter.listDataChapter') }}',
+                url: '{{ route('api.teacher.statistical.apiCourseSellingTop') }}',
                 timeout: 1000,
-                data: obj,
-
+                // data: obj,
                 success: function(res) {
                     $('#table-innerHtml').html(res)
                 }
             })
         }
-        // showAjax(objFiter);
+        showAjax(objFiter);
 
         function search(elemment) {
             objFiter.title = elemment.value

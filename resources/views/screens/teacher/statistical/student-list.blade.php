@@ -61,7 +61,7 @@
 
 @push('js-handles')
     <script>
-        axios.get('{{ route('api.mentor.statistical.listStudent') }}')
+        axios.get('{{ route('api.teacher.statistical.listStudent') }}')
         .then(
             res => {
                 js_$('[show-list-student]').innerHTML = res.data

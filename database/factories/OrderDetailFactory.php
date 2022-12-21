@@ -26,7 +26,7 @@ class OrderDetailFactory extends Factory
             'price' => $course->price,
             'course_id' => $course->id,
             'order_id' => $order,
-            'percentage_pay' =>  Arr::random([0, 20, 50, 90]),
+            'percentage_pay' =>   $course->percentage_pay,
             'created_at' => $random_Date
         ];
     }

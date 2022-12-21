@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PercentagePayable extends Model
+class PercentagePayable extends BaseModel
 {
     use HasFactory;
 
@@ -20,6 +20,6 @@ class PercentagePayable extends Model
 
     public function order_detail()
     {
-        return $this->belongsTo(OrderDetail::class,'order_detail_id');
+        return $this->belongsTo(OrderDetail::class, 'order_detail_id');
     }
 }

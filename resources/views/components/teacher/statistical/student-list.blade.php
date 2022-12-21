@@ -29,34 +29,6 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-                                        <span class="navi-text">
-                                            <span class="label label-xl label-inline label-light-danger">Partner</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-                                        <span class="navi-text">
-                                            <span class="label label-xl label-inline label-light-warning">Suplier</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-                                        <span class="navi-text">
-                                            <span class="label label-xl label-inline label-light-primary">Member</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-                                        <span class="navi-text">
-                                            <span class="label label-xl label-inline label-light-dark">Staff</span>
-                                        </span>
-                                    </a>
-                                </li>
                                 <li class="navi-separator mt-3 opacity-70"></li>
                                 <li class="navi-footer py-4">
                                     <a class="btn btn-clean font-weight-bold btn-sm" href="#">
@@ -75,7 +47,7 @@
                         <!--begin::Pic-->
                         <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
                             <div class="symbol symbol-circle symbol-lg-75">
-                                <img src="/backend/media/users/300_1.jpg" alt="image" />
+                                <img src="{{ asset('app/'.$student->avatar ) }}" alt="image" />
                             </div>
                             <div class="symbol symbol-lg-75 symbol-circle symbol-primary d-none">
                                 <span class="font-size-h3 font-weight-boldest">JM</span>
@@ -86,7 +58,7 @@
                         <div class="d-flex flex-column">
                             <a href="#"
                                 class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">{{ $student->name }}</a>
-                            <span class="text-muted font-weight-bold">Người đã mua  </span>
+                            <span class="text-muted font-weight-bold">Người đã mua </span>
                         </div>
                         <!--end::Title-->
                     </div>
@@ -109,7 +81,7 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 font-weight-bolder mr-2">Số tiền bỏ ra: </span>
-                        <span class="text-muted font-weight-bold">{{ $student->price }}</span>
+                        <span class="text-muted font-weight-bold">{{ number_format($student->price) }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-dark-75 font-weight-bolder mr-2">Số khóa học đã mua: </span>
@@ -117,9 +89,8 @@
                     </div>
                 </div>
                 <!--end::Info-->
-                <a href="#"
-                    class="btn btn-block btn-sm btn-light-warning font-weight-bolder text-uppercase py-4">write
-                    message</a>
+                <a href="{{ route('teacher.statistical.studentDetail',$student->id) }}"
+                    class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">Xem chi tiết</a>
             </div>
             <!--end::Body-->
         </div>

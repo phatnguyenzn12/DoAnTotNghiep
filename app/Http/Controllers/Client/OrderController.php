@@ -91,6 +91,7 @@ class OrderController extends Controller
                 function ($val) {
                     $course['price'] = $val->price - ($val->price * ($_GET['discount'] / 100));
                     $course['course_id'] = $val->id;
+                    $course['percentage_pay'] = $val->percentage_pay;
                     return $course;
                 }
             );
@@ -104,7 +105,7 @@ class OrderController extends Controller
         //     $array[] = Mentor::where('id',$order_detail->course->mentor_id)->first();
         // }
         // dd($array);
-        
+
         $order = Order::create([
             'code' => $_GET['vnp_TxnRef'],
             'user_id' => auth()->user()->id,
