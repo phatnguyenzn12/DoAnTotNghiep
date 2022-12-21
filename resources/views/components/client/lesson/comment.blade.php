@@ -2,7 +2,7 @@
   <div class="d-flex mb-4">
       <!-- Avatar -->
       <div class="avatar avatar-sm flex-shrink-0 me-2">
-          <a href="#"> <img class="avatar-img rounded-circle" src="/frontend/images/avatar/09.jpg" alt="">
+          <a href="#"> <img class="avatar-img rounded-circle" src="{{auth()->user() ? asset('app/'.auth()->user()->avatar) : asset('app/images/avatr_icon.jpg')}}" alt="">
           </a>
       </div>
 

@@ -76,6 +76,11 @@ class Mentor extends Authenticatable
         return $this->belongsTo(CateCourse::class, 'cate_course_id');
     }
 
+    public function history_withdrawal()
+    {
+        return $this->hasMany(HistoryWithdrawal::class);
+    }
+
 
     public function PermissionCheck()
     {

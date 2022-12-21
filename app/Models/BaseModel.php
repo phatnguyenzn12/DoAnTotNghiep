@@ -130,6 +130,17 @@ class BaseModel extends Model
 
         return $query;
     }
+    function scopeTime($query, Request $request)
+    {
+        if ($request->has('start_time') && $request->start_time != 0) {
+            $query->where('time' ,'>=',  str_replace('T', ' ', $request->start_time));
+        }
+        elseif ($request->has('end_time') && $request->end_time != 0) {
+            $query->where('time' ,'<=',  str_replace('T', ' ', $request->end_time));
+        }
+
+        return $query;
+    }
 
     function scopeCheckYear($query, $request)
     {
