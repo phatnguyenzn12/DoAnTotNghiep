@@ -37,6 +37,7 @@ class CourseFactory extends Factory
             'language' => 0,
             'description' => fake()->text(1000),
             'description_details' => fake()->text(30) . ',' . fake()->text(30) . ',' . fake()->text(30),
+            'percentage_pay' =>  Arr::random([10, 20, 50, 90]),
             // 'type' => rand(0, 1),
         ];
     }

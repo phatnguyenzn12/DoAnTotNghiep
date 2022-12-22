@@ -7,7 +7,7 @@ use App\Http\Requests\Admin\MentorRequest;
 use App\Http\Requests\Lead\AccountRequest;
 use App\Models\Course;
 use App\Models\Mentor;
-use App\Models\PercentagePayable;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -78,11 +78,6 @@ class AccountController extends Controller
     //     return $file->storeAs('images', $fileName, 'public');
     // }
 
-    public function salaryBonus()
-    {
-        $mentor = auth()->guard('mentor')->user();
-        $percentages = PercentagePayable::where('mentor_id', $mentor->id)->with(['order_detail:id,price,course_id', 'order_detail.course:id,title,image,percentage_pay'])->paginate(10);
-        $course_count = Course::selectRaw('count(id) as number')->where('mentor_id', $mentor->id)->first()->number;
-        return view('screens.teacher.account.salary-bonus', compact('percentages', 'mentor', 'course_count'));
-    }
+
+
 }

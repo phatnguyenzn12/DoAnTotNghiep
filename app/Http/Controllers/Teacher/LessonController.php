@@ -20,11 +20,12 @@ class LessonController extends Controller
 
     public function update(LessonRequest $request, Lesson $lesson, VimeoService $vimeoService)
     {
-        $url =  $vimeoService->create($request->video_path, $request->title, $request->content, $request->is_demo);
+        $url =  $vimeoService->create($request->video_path, $request->title, $request->content, 0);
         $lessonVideo['video_path'] = $url;
         $lessonVideo['time'] = 0;
         $lesson->lessonVideo()->update($lessonVideo);
         $lesson->is_edit = 2;
+        $lesson->is_demo = 0;
         $lesson->save();
         if ($request->ajax()) {
             session()->flash('success', 'Bạn tạo video bài học thành công');

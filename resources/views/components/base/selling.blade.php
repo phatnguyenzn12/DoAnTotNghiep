@@ -1,30 +1,36 @@
 <!--end: Search Form-->
 <!--begin: Datatable-->
-<div id="datatable">
-    <table class="table table-separate table-head-custom table-checkable">
-        <thead>
+<table class="table table-separate table-head-custom table-checkable">
+    <thead>
+        <tr class="text-uppercase">
+            <th style="min-width: 250px">Khóa học</th>
+            <th>Số lượng bán được</th>
+            <th>Tổng lợi nhuận thu được</th>
+            <th>Phần trăm triết khấu cho giảng viên</th>
+            <th>Giá triết khấu cho giảng viên</th>
+            <th>Giá tôi thu được</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse ($selling as $item)
             <tr>
-                <th>ảnh</th>
-                <th>Tên khóa học</th>
-                <th>Thu nhập</th>
-                <th>Số lượng bán được</th>
-                <th>Chi tiết doanh thu</th>
+                <td><img src="{{ asset('app/' . $item->image) }}" width="100px" alt="">
+                    {{ $item->title }}
+                </td>
+                <td>{{ $item->number }}</td>
+                <td>{{ number_format($item->total) }}</td>
+                <td>{{ $item->percentage_pay }} %</td>
+                <td>{{ number_format($item->amount_price_teacher) }}</td>
+                <td>{{ number_format($item->amount_price_admin) }}</td>
             </tr>
-        </thead>
-        <tbody>
-            @forelse ($selling as $item)
-                <tr>
-                    <td><img src="{{ asset('app/' . $item->image) }}" width="100px" alt="">
-                    </td>
-                    <td>{{ $item->title }}</td>
-                    <td>{{ $item->total }}</td>
-                    <td>{{ $item->number }}</td>
-                    <td><button class="btn btn-bg-info text-white">Chi tiết</button></td>
-                </tr>
-            @empty
-            @endforelse
+        @empty
+        @endforelse
 
-        </tbody>
-    </table>
-    @include('components.admin.pagination')
+    </tbody>
+</table>
+@php
+    $pagination = $selling;
+@endphp
+<div class="p-3 mb-5">
+    @include('components.admin.pagination-basic')
 </div>

@@ -5,18 +5,18 @@
             <div class="row align-items-center">
                 <div class="col-md-3 my-2 my-md-0">
                     <div class="d-flex align-items-center">
-                        <label class="mr-3 mb-0 d-none d-md-block">Start</label>
+                        <label class="mr-3 mb-0 d-none d-md-block">Bắt đầu:</label>
                         <input type="datetime-local" name="" id="" class="form-control"
-                            min="{{ $withdraws->min('time') }}" value="{{ $withdraws->min('time') }}"
-                            max="{{ $withdraws->max('time') }}" onchange="fiterStartTime(this)">
+                            min="{{ $withdraws->min('created_at') }}" value="{{ $withdraws->min('created_at') }}"
+                            max="{{ $withdraws->max('created_at') }}" onchange="fiterStartTime(this)">
                     </div>
                 </div>
                 <div class="col-md-3 my-2 my-md-0">
                     <div class="d-flex align-items-center">
-                        <label class="mr-3 mb-0 d-none d-md-block">End</label>
+                        <label class="mr-3 mb-0 d-none d-md-block">Kết thúc:</label>
                         <input type="datetime-local" name="" id="" class="form-control"
-                            value="{{ $withdraws->max('time') }}" max="{{ $withdraws->max('time') }}"
-                            min="{{ $withdraws->min('time') }}" onchange="fiterEndTime(this)">
+                            value="{{ $withdraws->max('created_at') }}" max="{{ $withdraws->max('created_at') }}"
+                            min="{{ $withdraws->min('created_at') }}" onchange="fiterEndTime(this)">
                     </div>
                 </div>
             </div>
