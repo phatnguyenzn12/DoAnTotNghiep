@@ -104,6 +104,8 @@
                         </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Danh sách khóa học</a>
                         </li>
+                        <li> <a class="dropdown-item" href="{{ route('ab.policy') }}">Chính sách</a>
+                        </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Liên hệ</a>
                         </li>
                     </ul>

@@ -80,9 +80,15 @@
                             <!-- Comment react -->
                             <ul class="nav nav-divider py-2 small">
                                 <li class="nav-item"> <a class="text-primary-hover" href="#">
-                                        Thời gian ({{ $comment->created_at }})</a> </li>
+                                        Thời gian ({{ date('d-m-Y', strtotime($comment->created_at)) }})</a> </li>
                                 <li class="nav-item"> <a class="text-primary-hover" href="#">
                                         Hồi đáp {{ $comment->replies->count() }}</a> </li>
+                                @if (auth()->user() && auth()->user()->id == $comment->user_id  )
+                                    <li class="nav-item"> <a onclick="return confirm('Bạn chắc chắn muốn xóa?')"
+                                            href="{{ route('client.lesson.removeComment', ['commentLesson' => $comment->id]) }}"
+                                            class="text-primary-hover">
+                                            Xóa</a> </li>
+                                @endif
                             </ul>
                         </div>
 

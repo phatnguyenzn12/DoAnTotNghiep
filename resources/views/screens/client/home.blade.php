@@ -153,6 +153,7 @@
                                                 <p class="mb-0 ms-2"><a href="#"
                                                         class="h6 fw-light mb-0">{{ $course->mentor->name }}</a></p>
                                             </div>
+                                            
                                             <!-- Price -->
                                             <div>
                                                 <h5 class="text-success mb-0 item-show">

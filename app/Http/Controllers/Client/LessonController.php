@@ -76,6 +76,10 @@ class LessonController extends Controller
         $lesson = Lesson::findOrFail($request->lesson_id);
         $comments = CommentLesson::select('*')
             ->where('lesson_id', $request->lesson_id)
+            ->where([
+                ['status', '1'],
+                ['reply', '0']
+            ])
             ->sortdata($request)
             ->paginate($request->record);
 
@@ -132,6 +136,7 @@ class LessonController extends Controller
             )
         );
 
+
         $html = view('components.client.lesson.comment', compact('comments', 'course', 'lesson'))->render();
 
         return response()->json($html);
@@ -185,6 +190,7 @@ class LessonController extends Controller
             $data['comment']
         )));
 
+// dd(  $data['mentor_id'] );
         CommentLesson::create($data);
 
         $comment_lesson = $comment_parent->replies()

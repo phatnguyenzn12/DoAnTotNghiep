@@ -52,4 +52,10 @@ class HomeController extends Controller
 
         return view('components.client.home.banner', compact('interView'));
     }
+
+    public function policy()
+    {
+
+        return view('components.client.home.policy');
+    }
 }
