@@ -1,24 +1,16 @@
-
 <div class="d-flex justify-content-between align-items-center flex-wrap">
     <div class="d-flex flex-wrp py-2 mr-3">
         <a class="btn btn-icon btn-sm btn-light-success mr-2 my-1" onclick="pagination(1)" page-start><i
                 class="ki ki-bold-double-arrow-back icon-xs"></i></a>
-            {{-- {{dd($cate_courses)}} --}}
         <div show-page>
-            <a href="#" class="btn btn-icon btn-sm btn-light-success mr-2 my-1">
-                <i class="ki ki-bold-arrow-back icon-xs"></i>
-            </a>
             @for ($i = 1; $i <= $pagination->lastPage(); $i++)
-            <p class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 {{ $pagination->currentPage() == $i ? 'active' : '' }}"  onclick="pagination('{{$i}}')">{{$i}}</p>
-            {{-- <a  class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1" onclick="filterRecord($i)">{{$i}}</a> --}}
+                <p class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 {{ $pagination->currentPage() == $i ? 'active' : '' }}"
+                    onclick="pagination('{{ $i }}')">{{ $i }}</p>
             @endfor
-            <a href="#" class="btn btn-icon btn-sm btn-light-success mr-2 my-1" >
-                <i class="ki ki-bold-arrow-next icon-xs"></i>
-            </a>
         </div>
 
-        <a class="btn btn-icon btn-sm btn-light-success mr-2 my-1" onclick="pagination('{{$pagination->lastPage()}}')" page-end><i
-                class="ki ki-bold-double-arrow-next icon-xs"></i></a>
+        <a class="btn btn-icon btn-sm btn-light-success mr-2 my-1" onclick="pagination('{{ $pagination->lastPage() }}')"
+            page-end><i class="ki ki-bold-double-arrow-next icon-xs"></i></a>
     </div>
 
     <div class="d-flex align-items-center py-3">

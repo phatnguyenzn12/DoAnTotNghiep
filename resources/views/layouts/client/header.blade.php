@@ -272,8 +272,13 @@
                                     quản
                                     trị</a></li>
                         @elseif (Auth::guard('mentor')->user())
-                            <li><a class="dropdown-item" href="{{ route('teacher.course.index') }}"><i
-                                        class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
+                            @if (auth()->guard('mentor')->hasRole('lead'))
+                                <li><a class="dropdown-item" href="{{ route('mentor.course.index') }}"><i
+                                            class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
+                            @elseif(auth()->guard('mentor')->hasRole('teacher'))
+                                <li><a class="dropdown-item" href="{{ route('teacher.course.index') }}"><i
+                                            class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
+                            @endif
                         @endif
                         <li><a class="dropdown-item" href="{{ route('client.account.detail') }}"><i
                                     class="bi bi-person fa-fw me-2"></i>Sửa thông tin cá nhân</a></li>

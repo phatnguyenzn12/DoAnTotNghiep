@@ -219,6 +219,8 @@
  <!-- Divider -->
 
  </div>
+ @endif
+
  <!-- Student review END -->
 
  <!-- Leave Review START -->
@@ -280,4 +282,3 @@
      </nav>
  </div>
  <!-- Pagination END -->
- @endif

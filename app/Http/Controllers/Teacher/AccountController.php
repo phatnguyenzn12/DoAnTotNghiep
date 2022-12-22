@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Lead\AccountRequest;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\HistoryWithdrawal;
 use App\Models\Mentor;
 use App\Models\PercentagePayable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AccountController extends Controller
 {
@@ -79,8 +81,64 @@ class AccountController extends Controller
     public function salaryBonus()
     {
         $mentor = auth()->guard('mentor')->user();
-        $percentages = PercentagePayable::where('mentor_id', $mentor->id)->with(['order_detail:id,price,course_id', 'order_detail.course:id,title,image,percentage_pay'])->paginate(10);
+        $percentages = PercentagePayable::where('mentor_id', $mentor->id)
+        ->with(['order_detail:id,price,course_id', 'order_detail.course:id,title,image,percentage_pay'])
+        ->paginate(10);
+
         $course_count = Course::selectRaw('count(id) as number')->where('mentor_id', $mentor->id)->first()->number;
         return view('screens.teacher.account.salary-bonus', compact('percentages', 'mentor', 'course_count'));
+    }
+
+    public function formWithdraw($mentor_id)
+    {
+        $data = view('components.teacher.account.form-withdraw-money', compact('mentor_id'))->render();
+        return response()->json($data);
+    }
+
+    public function withdraw(Request $request, Mentor $mentor_id)
+    {
+        if ($request->money > $mentor_id->salary_bonus) {
+            if ($request->ajax()) {
+                session()->flash('failed', 'Tài khoản không đủ để rút');
+                return response()->json(['failed' => true], 201);
+            }
+        }
+
+        $money_later = $mentor_id->salary_bonus - $request->money;
+        $mentor_id->salary_bonus = $money_later;
+        $mentor_id->save();
+
+        HistoryWithdrawal::create([
+            'mentor_id' => $mentor_id->id,
+            'money' => $request->money,
+            'time' => date('Y-m-d H:i:s'),
+        ]);
+
+        Mail::send('screens.email.teacher.withdraw-money', compact('request', 'mentor_id'), function ($email) use ($mentor_id) {
+            $email->subject('Rút tiền');
+            $email->to($mentor_id->email, $mentor_id->name);
+        });
+        if ($request->ajax()) {
+            session()->flash('success', 'Rút tiền thành công');
+            return response()->json(['success' => true], 201);
+        }
+        return redirect()
+            ->back()
+            ->with('success', 'Rút tiền thành công');
+    }
+
+    public function listWithdraw($mentor_id)
+    {
+        return view('screens.teacher.account.list-withdraw', compact('mentor_id'));
+    }
+    public function filterWithdraw(Request $request)
+    {
+        $withdraws = HistoryWithdrawal::where('mentor_id', $request->mentor_id)
+        // ->where('created_at','=','2022-12-21 15:02:43 ')
+            ->sortdata($request)
+            ->time($request)
+            ->paginate($request->record);
+        $html = view('components.teacher.account.list-withdraw', compact('withdraws'))->render();
+        return response()->json($html, 200);
     }
 }

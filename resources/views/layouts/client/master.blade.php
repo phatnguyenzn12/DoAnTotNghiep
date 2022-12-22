@@ -48,7 +48,6 @@
 </head>
 
 <body>
-    @include('_loading')
 
     @include('_alert')
 

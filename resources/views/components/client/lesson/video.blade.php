@@ -20,7 +20,15 @@
                 });
             }
         )
-
+        .catch(
+            res => {
+                Swal.fire(
+                    'Video chưa tồn tại',
+                    err,
+                    'error'
+                )
+            }
+        )
 </script>
 <!-- Full screen video END -->
 

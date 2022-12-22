@@ -3,7 +3,7 @@
         position: fixed;
         z-index: 10000;
         inset: 0;
-        background-color: #dbd6d661;
+        background-color: #978f8f1f;
         display: flex;
         justify-content: center;
         align-items: center;

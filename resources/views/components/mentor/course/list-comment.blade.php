@@ -22,17 +22,21 @@
             </td>
             <td class="col-2">
                 @if ($comment->status == 1)
-                    <form action="{{ route('mentor.course.activecomment', ['comment' => $comment->id]) }}" method="PUT">
+                    <form action="{{ route('mentor.course.deactivecomment', ['comment' => $comment->id]) }}" method="post">
                         @csrf
-                        <button type="submit"
+                        @method('PUT')
+                        <input type="text" name="status" hidden value="0">
+                        <button
                             onclick="return confirm('Bạn có chắc muốn ẩn')" class="btn btn-danger">
                             Ẩn
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('mentor.course.activecomment', ['comment' => $comment->id]) }}" method="PUT">
+                    <form action="{{ route('mentor.course.activecomment', ['comment' => $comment->id]) }}" method="post">
                         @csrf
-                        <button type="submit"
+                        @method('PUT')
+                        <input type="text" name="status" hidden value="1">
+                        <button
                             onclick="return confirm('Bạn có chắc muốn hiển thị')" class="btn btn-success">
                             Hiển thị
                         </button>

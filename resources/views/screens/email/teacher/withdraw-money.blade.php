@@ -17,13 +17,21 @@
                         <h5 style="color: red; font: bold; text-align: center;">
                             EDUPORT HỆ THỐNG BÁN KHÓA HỌC TRỰC TUYẾN</h5>
                         <hr>
-                        <p style="margin: 20 0 0 0; margin-bottom: 15px; ">
-                            Xin chào Admin {{ $admin->name }},<br>
-                            Bạn nhận được yêu cầu hỗ trợ
+                        <p>Xin chào {{ $mentor_id->name }},</p>
+                        <br>
+                        <p>Bạn đã rút tiền tại hệ thống: <span
+                                style="color: red">{{ number_format($request->money) }}đ</span></p>
+                        <p>Số tiền còn dư: <span
+                                style="color: red">{{ number_format($mentor_id->salary_bonus) }}đ</span></p>
+                        <p align="center"
+                            style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
+                            valign="top">
+                            <a href="{{ route('teacher.account.salaryBonus') }}"
+                                style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
+                                target="_blank">Xem chi tiết</a>
                         </p>
-                        <p>Họ tên: {{ $request->name }}</p>
-                        <p>Số điện thoại: {{$request->number}}</p>
-                        <p>Câu hỏi: {{ $request->content }}</p>
+                        <p>Cảm ơn {{ $mentor_id->name }}!</p>
+                        <p>Đã sử dụng hệ thống của chúng tôi!</p>
                     </div>
                     <hr>
                     <div align="center">

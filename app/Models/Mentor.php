@@ -76,6 +76,11 @@ class Mentor extends Authenticatable
         return $this->belongsTo(CateCourse::class, 'cate_course_id');
     }
 
+    public function history_withdrawal()
+    {
+        return $this->hasMany(HistoryWithdrawal::class);
+    }
+
 
     public function PermissionCheck()
     {
@@ -207,19 +212,34 @@ class Mentor extends Authenticatable
         return $query;
     }
 
-    function scopeCheckYear($query, $request)
-    {
-        if ($request->has('year')  && $request->year != 0) {
-            return $query->whereRaw('YEAR(order_details.created_at) = ' . $request->year);
-        } else {
-            return $query->whereRaw('YEAR(order_details.created_at) = (SELECT YEAR(MAX(order_details.created_at)))');
-        }
-    }
-
     function scopeCheckCourse($query, $request)
     {
         if ($request->has('course_id')  && $request->course_id != 0) {
             return $query->whereRaw('courses.id = ' . $request->course_id);
         }
     }
+
+    function scopeCheckYear($query, string $col_name, Request $request)
+    {
+        if ($request->has('year') && $request->year != 0) {
+            return $query->whereRaw("YEAR($col_name ) = $request->year");
+        }
+    }
+
+    function scopeCheckMonth($query, string $col_name, Request $request)
+    {
+
+        if ($request->has('month') && $request->month != 0) {
+            return $query->whereRaw("MONTH($col_name) = $request->month");
+        }
+    }
+
+    function scopeCheckDay($query, string $col_name, Request $request)
+    {
+
+        if ($request->has('day') && $request->day != 0) {
+           return  $query->whereRaw("DAY($col_name) <= $request->day");
+        }
+    }
+
 }
