@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Client\CommentCourseController;
 use App\Http\Controllers\Client\CourseController;
+use App\Http\Controllers\Client\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('course')->name('client.course.')->middleware('check-client')->controller(CourseController::class)->group(
@@ -28,5 +29,11 @@ Route::prefix('course')->name('client.course.')->middleware('check-client')->con
 Route::name('commentcourse.')->middleware('check-user')->controller(CommentCourseController::class)->group(
     function () {
         Route::post('store',  'store')->name('store');
+    }
+);
+
+Route::name('ab.')->controller(HomeController::class)->group(
+    function () {
+        Route::get('policy',  'policy')->name('policy');
     }
 );
