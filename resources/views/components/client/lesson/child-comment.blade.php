@@ -14,7 +14,8 @@
             <div class="d-flex">
                 <!-- Avatar -->
                 <div class="avatar avatar-xs flex-shrink-0">
-                    <a href="#"><img class="avatar-img rounded-circle" src="/frontend/images/avatar/06.jpg"
+                    <a href="#"><img class="avatar-img rounded-circle"
+                            src="{{ auth()->user() ? asset('app/' . auth()->user()->avatar) : asset('app/' .auth()->guard('mentor')->user()->avatar) }}"
                             alt=""></a>
                 </div>
                 <!-- Comment by -->
@@ -23,7 +24,7 @@
                         <div class="">
                             <div class="me-2">
                                 <h6 class="mb-1 lead fw-bold"> <a href="#">{{ $comment_reply->info->name }}
-                                    ({!! $comment_reply->role !!})
+                                        ({!! $comment_reply->role !!})
                                     </a> </h6>
                                 <p class=" mb-0">{{ $comment_reply->comment }}
                                 </p>

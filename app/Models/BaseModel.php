@@ -34,6 +34,15 @@ class BaseModel extends Model
         return $query;
     }
 
+    function scopeSortDataCourse($query, Request $request)
+    {
+        if ($request->id == 'id_desc') {
+            $query = $query->orderBy('courses.id', 'DESC');
+        } elseif ($request->id == 'id_asc') {
+            $query = $query->orderBy('courses.id', 'ASC');
+        }
+    }
+
     function scopeIsActive($query, Request $request)
     {
         if ($request->is_active == 'active') {
@@ -126,6 +135,23 @@ class BaseModel extends Model
     {
         if ($request->has('teacher') && $request->teacher != 0) {
             $query->where('mentor_id', $request->teacher);
+        }
+
+        return $query;
+    }
+    function scopeTime($query, Request $request)
+    {
+        if ($request->has('start_time') && $request->start_time != 0) {
+            $query->where('created_at' ,'>=',  str_replace('T', ' ', $request->start_time));
+        }
+        elseif ($request->has('end_time') && $request->end_time != 0) {
+            $query->where('created_at' ,'<=',  str_replace('T', ' ', $request->end_time));
+        }
+        if ($request->has('start_time_course') && $request->start_time_course != 0) {
+            $query->where('courses.created_at' ,'>=',  str_replace('T', ' ', $request->start_time_course));
+        }
+        elseif ($request->has('end_time_course') && $request->end_time_course != 0) {
+            $query->where('courses.created_at' ,'<=',  str_replace('T', ' ', $request->end_time_course));
         }
 
         return $query;

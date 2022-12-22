@@ -10,5 +10,11 @@ Route::prefix('teacher/account')->name('teacher.account.')->middleware(['check-m
         Route::post('update/{id}', 'update')->name('update');
         Route::get('password', 'password')->name('password');
         Route::post('forgot-password/{id}', 'forgotPassword')->name('forgotPassword');
+
+        Route::get('form-withdraw/{mentor_id}', 'formWithdraw')->name('formWithdraw');
+        Route::post('withdraw/{mentor_id}','withdraw')->name('withdraw');
+        Route::get('list-withdraw-money/{mentor_id}', 'listWithdraw')->name('listWithdraw');
+        Route::get('list-data-withdraw-money', 'filterWithdraw')->name('filterWithdraw');
+
     }
 );

@@ -169,6 +169,7 @@ class StatisticalController extends Controller
             )
             ->join('percentage_payable', 'percentage_payable.mentor_id', '=', 'mentors.id')
             ->groupBy('mentors.id')
+            // ->time('mentor.created_at', $request)
             ->paginate(10);
 
         $html = view('components.admin.statistical.teacher-list', compact('teachers'))->render();
@@ -178,23 +179,28 @@ class StatisticalController extends Controller
 
     public function CourseSellingIndex()
     {
-        return view('screens.admin.statistical.top-selling');
+        $courses = Course::all();
+        return view('screens.admin.statistical.top-selling',compact('courses'));
     }
 
-    public function apiCourseSelling()
+    public function apiCourseSelling(Request $request)
     {
         $selling = Course::select(
-            DB::raw('count(courses.id) as number,courses.title,courses.image as image,courses.percentage_pay as percentage_pay'),
+            DB::raw('count(percentage_payable.id) as number,courses.title,courses.image as image,courses.percentage_pay as percentage_pay'),
             DB::raw('SUM(percentage_payable.amount_paid_admin + percentage_payable.amount_paid_teacher) as total,
             SUM(percentage_payable.amount_paid_admin) as amount_price_admin,
             SUM(percentage_payable.amount_paid_teacher) as amount_price_teacher'),
-            )
+            DB::raw('courses.created_at','courses.id'),
+        )
             ->join('mentors', 'mentors.id', '=', 'courses.mentor_id')
-            ->join('percentage_payable', 'percentage_payable.mentor_id', '=', 'mentors.id')
+            ->join('order_details', 'order_details.course_id', '=', 'courses.id')
+            ->join('percentage_payable', 'percentage_payable.order_detail_id', '=', 'order_details.id')
             ->groupBy('courses.id')
             ->orderBy('number', 'DESC')
-            ->paginate(10);
-
+            ->search($request)
+            ->sortdatacourse($request)
+            ->time($request)
+            ->paginate($request->record);
         $html = view('components.base.selling', compact('selling'))->render();
 
         return response()->json($html);
