@@ -68,8 +68,7 @@ class CourseController extends Controller
         $course = Course::findOrFail($request->course_id);
         $comments = CommentCourse::select('*')
             ->where('course_id', $request->course_id)
-            ->sortdata($request)
-            ->search($request)
+            ->orderBy('id', 'DESC')
             ->category($request)
             ->price($request)
             ->paginate($request->record);

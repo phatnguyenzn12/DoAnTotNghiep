@@ -18,7 +18,7 @@ class CommentCourseController extends Controller
         $cmt->mentor_id = $request->mentor_id;
         $cmt->vote = $request->vote;
         $cmt->course_id = $request->course_id;
-        $cmt->status = 0;
+        $cmt->status = 1;
         $cmt->user_id = auth()->user()->id;
 
         $cmt->save();

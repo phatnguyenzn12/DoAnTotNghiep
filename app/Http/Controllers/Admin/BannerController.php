@@ -20,8 +20,6 @@ class BannerController extends Controller
      */
     public function index()
     {
-        // $index = Banner::all();
-        // dd($index);
         return view('screens.admin.banner.list');
     }
 
@@ -46,7 +44,6 @@ class BannerController extends Controller
     public function create()
     {
         $courses = Course::select('id', 'title')->get();
-        // dd( $courses);
         $coupons = DiscountCode::select('id', 'title')->get();
         return view('screens.admin.banner.add', compact('courses', 'coupons'));
     }

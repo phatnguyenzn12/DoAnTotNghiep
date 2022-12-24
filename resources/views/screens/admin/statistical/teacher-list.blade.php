@@ -7,7 +7,28 @@
         <div class="card-body">
             <h4>Danh sách thu nhập của giảng viên</h4>
             <div class="row mt-3">
+                <div class="col-md-3 my-2 my-md-0">
+                    <div class="d-flex align-items-center">
+                        <button class="form-control">Mặc định</button>
+                    </div>
+                </div>
                 <div class="col-md-4 my-2 my-md-0">
+                    <div class="d-flex align-items-center">
+                        <label class="mr-3 mb-0 d-none d-md-block">Bắt đầu:</label>
+                        <input type="datetime-local" name="" id="" class="form-control"
+                            min="{{ $min }}" value="{{ $min }}" max="{{ $max }}"
+                            onchange="fiterStartTime(this)">
+                    </div>
+                </div>
+                <div class="col-md-4 my-2 my-md-0">
+                    <div class="d-flex align-items-center">
+                        <label class="mr-3 mb-0 d-none d-md-block">Kết thúc:</label>
+                        <input type="datetime-local" name="" id="" class="form-control"
+                            value="{{ $max }}" max="{{ $max }}" min="{{ $min }}"
+                            onchange="fiterEndTime(this)">
+                    </div>
+                </div>
+                {{-- <div class="col-md-4 my-2 my-md-0">
                     <div class="d-flex align-items-center">
                         <label class="mr-3 mb-0 d-none d-md-block">Từ ngày 1 đến:</label>
                         <select class="form-control" id="kt_datatable_search_status" onchange="day_fill(this)">
@@ -49,7 +70,7 @@
                             </optgroup>
                         </select>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="card-body" id="inner-html">
@@ -81,9 +102,12 @@
 
 
         objFiter = {
+            page: 1,
             year: 0,
             month: 0,
             day: 0,
+            start_time: 0,
+            end_time: 0,
         }
 
         function showAjax(obj) {
@@ -119,6 +143,21 @@
         function day_fill(elm) {
             objFiter.day = elm.value
             showAjax(objFiter)
+        }
+
+        function fiterStartTime(elemment) {
+            objFiter.start_time = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterEndTime(elemment) {
+            objFiter.end_time = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page) {
+            objFiter.page = page
+            showAjax(objFiter);
         }
     </script>
 @endpush

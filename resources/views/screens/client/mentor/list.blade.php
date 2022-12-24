@@ -39,7 +39,7 @@
                     <form class="border rounded p-2">
                         <div class="input-group input-borderless">
                             <input class="form-control me-1" oninput="search(this)" type="search"
-                                placeholder="Search course">
+                                placeholder="Tìm kiếm giảng viên">
                             <button type="button" class="btn btn-primary mb-0 rounded"><i
                                     class="fas fa-search"></i></button>
                         </div>
@@ -51,7 +51,7 @@
                     <form class="border rounded p-2 input-borderless">
                         <select class="form-select form-select-sm js-choice" onchange="fiterSort(this)"
                             aria-label=".form-select-sm">
-                            <option value="0">Sort by</option>
+                            <option value="id_desc">Mặc định</option>
                             <option value="id_desc">Mới đến cũ</option>
                             <option value="id_asc">Cũ đến mới</option>
                         </select>
@@ -60,7 +60,7 @@
 
                 <!-- Button -->
                 <div class="col-sm-6 col-xl-2 mt-3 mt-xl-0 d-grid">
-                    <a href="#" class="btn btn-lg btn-primary mb-0">Filter Results</a>
+                    <a href="#" class="btn btn-lg btn-primary mb-0">Tìm kiếm</a>
                 </div>
             </div>
             <!-- Search option END -->
@@ -78,7 +78,7 @@
 
     <!-- =======================
                 Action box START -->
-    <section class="pt-0">
+    {{-- <section class="pt-0">
         <div class="container position-relative">
             <!-- SVG -->
             <figure class="position-absolute top-50 start-50 translate-middle ms-2">
@@ -126,7 +126,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- =======================
                 Action box END -->
 @endsection

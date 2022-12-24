@@ -56,3 +56,9 @@
 
     </tbody>
 </table>
+@php
+    $pagination = $teachers;
+@endphp
+<div class="p-3 mb-5">
+    @include('components.admin.pagination-basic')
+</div>

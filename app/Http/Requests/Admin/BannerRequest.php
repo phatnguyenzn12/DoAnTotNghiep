@@ -40,6 +40,7 @@ class BannerRequest extends FormRequest
                         $rules = [
                             "title" => "required",
                             "content" => "required",
+                            "discount_id" => "required",
                         ];
                         break;
                 }
@@ -52,8 +53,11 @@ class BannerRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => 'Vui lòng nhập :attribute',
-            'unique' => ':attribute đã tồn tại',
+            'title.required' => 'Vui lòng nhập tiêu đề',
+            'title.unique' => 'Tiêu đề đã tồn tại',
+            'content.required' => 'Vui lòng nhập nội dung',
+            'image.required' => 'Vui lòng nhập hình ảnh',
+            'discount_id.required' => 'Vui lòng chọn mã giảm giá',
         ];
     }
 }

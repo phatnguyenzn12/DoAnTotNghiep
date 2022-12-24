@@ -69,7 +69,8 @@
                                         <a href="#"
                                             class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Số
                                             tiền đang có</a>
-                                        <span class="text-muted font-weight-bold">{{ number_format($mentor->salary_bonus )}}đ</span>
+                                        <span
+                                            class="text-muted font-weight-bold">{{ number_format($mentor->salary_bonus) }}đ</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -115,18 +116,36 @@
                                             <span class="svg-icon svg-icon-2x svg-icon-dark-50">
                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-                                                    viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24"/>
-                                                        <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3"/>
-                                                        <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000"/>
-                                                        <rect fill="#000000" opacity="0.3" x="10" y="9" width="7" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="7" y="9" width="2" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="7" y="13" width="2" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="10" y="13" width="7" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="7" y="17" width="2" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="10" y="17" width="7" height="2" rx="1"/>
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                    height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none"
+                                                        fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24"
+                                                            height="24" />
+                                                        <path
+                                                            d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z"
+                                                            fill="#000000" opacity="0.3" />
+                                                        <path
+                                                            d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z"
+                                                            fill="#000000" />
+                                                        <rect fill="#000000" opacity="0.3" x="10"
+                                                            y="9" width="7" height="2"
+                                                            rx="1" />
+                                                        <rect fill="#000000" opacity="0.3" x="7"
+                                                            y="9" width="2" height="2"
+                                                            rx="1" />
+                                                        <rect fill="#000000" opacity="0.3" x="7"
+                                                            y="13" width="2" height="2"
+                                                            rx="1" />
+                                                        <rect fill="#000000" opacity="0.3" x="10"
+                                                            y="13" width="7" height="2"
+                                                            rx="1" />
+                                                        <rect fill="#000000" opacity="0.3" x="7"
+                                                            y="17" width="2" height="2"
+                                                            rx="1" />
+                                                        <rect fill="#000000" opacity="0.3" x="10"
+                                                            y="17" width="7" height="2"
+                                                            rx="1" />
                                                     </g>
                                                 </svg>
                                                 <!--end::Svg Icon-->
@@ -136,9 +155,11 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column flex-grow-1">
-                                        <a href="{{route('teacher.account.listWithdraw',$mentor->id)}}"
-                                            class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Lịch sử rút tiền</a>
-                                        <span class="text-muted font-weight-bold">{{ $mentor->history_withdrawal->count() }}</span>
+                                        <a href="{{ route('teacher.account.listWithdraw', $mentor->id) }}"
+                                            class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Lịch
+                                            sử rút tiền</a>
+                                        <span
+                                            class="text-muted font-weight-bold">{{ $mentor->history_withdrawal->count() }}</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -152,7 +173,9 @@
                         <div class="d-flex flex-center" id="kt_sticky_toolbar_chat_toggler_1" data-toggle="tooltip"
                             title="" data-placement="right" data-original-title="Chat Example">
                             <button class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14" data-toggle="modal"
-                                data-target="#modal-example" onclick="showAjaxModal('{{ route('teacher.account.formWithdraw', $mentor->id) }}' ,'Rút tiền')">Rút tiền</button>
+                                data-target="#modal-example"
+                                onclick="showAjaxModal('{{ route('teacher.account.formWithdraw', $mentor->id) }}' ,'Rút tiền')">Rút
+                                tiền</button>
                         </div>
                         <!--end::Footer-->
                     </div>
@@ -175,25 +198,45 @@
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body pt-0 pb-3">
+                        <div class="mb-7">
+                            <div class="row align-items-center">
+                                <div class="col-lg-9 col-xl-11">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3 my-2 my-md-0">
+                                            <div class="input-icon">
+                                                <input type="text" oninput="search(this)" class="form-control"
+                                                    placeholder="Tìm kiếm..." id="kt_datatable_search_query"
+                                                    filter-search-title />
+                                                <span>
+                                                    <i class="flaticon2-search-1 text-muted"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 my-2 my-md-0">
+                                            <div class="d-flex align-items-center">
+                                                <label class="mr-3 mb-0 d-none d-md-block">Bắt đầu:</label>
+                                                <input type="datetime-local" name="" id=""
+                                                    class="form-control" value="{{ $min }}"
+                                                    max="{{ $max }}" min="{{ $min }}"
+                                                    onchange="fiterStartTime(this)">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <div class="d-flex align-items-center">
+                                                <label class="mr-3 mb-0 d-none d-md-block">Kết thúc:</label>
+                                                <input type="datetime-local" name="" id=""
+                                                    class="form-control" value="{{ $max }}"
+                                                    max="{{ $max }}" min="{{ $min }}"
+                                                    onchange="fiterEndTime(this)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!--begin::Table-->
-                        <div class="table-responsive">
-                            <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
-                                <thead>
-                                    <tr class="text-uppercase">
-                                        <th style="min-width: 300px" class="pl-7">
-                                            <span class="text-dark-75">Tên khóa học</span>
-                                        </th>
-                                        <th style="min-width: 100px">Chi tiết</th>
-                                        <th style="min-width: 100px">Bán được</th>
-                                        <th style="min-width: 150px">Phần trăm nhận</th>
-                                        <th style="min-width: 150px">Tiền nhận được </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-innerHtml">
+                        <div id="table-innerHtml">
 
-                                </tbody>
-
-                            </table>
                         </div>
                         <!--end::Table-->
                     </div>
@@ -306,15 +349,16 @@
         objFiter = {
             page: 1,
             title: 0,
-            record: 10,
             id: 0,
+            start_time: 0,
+            end_time: 0,
         }
 
         function showAjax(obj) {
             $.ajax({
                 url: '{{ route('api.teacher.statistical.apiCourseSellingTop') }}',
                 timeout: 1000,
-                // data: obj,
+                data: obj,
                 success: function(res) {
                     $('#table-innerHtml').html(res)
                 }
@@ -324,6 +368,16 @@
 
         function search(elemment) {
             objFiter.title = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterStartTime(elemment) {
+            objFiter.start_time = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterEndTime(elemment) {
+            objFiter.end_time = elemment.value
             showAjax(objFiter);
         }
 

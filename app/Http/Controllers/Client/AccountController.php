@@ -89,6 +89,19 @@ class AccountController extends Controller
         return view('screens.client.account.my-course', compact('courses','user'));
     }
 
+    public function filterMyCourse(Request $request)
+    {
+        $courses = auth()->user()->load('courses')
+            ->courses()
+            ->where('status', 2)
+            ->sortdata($request)
+            ->search($request)
+            ->paginate(3);
+
+        $html = view('components.client.account.list-my-course', compact('courses'))->render();
+        return response()->json($html, 200);
+    }
+
     public function myOrder()
     {
         $orders = auth()->user()->load('orders')->orders;

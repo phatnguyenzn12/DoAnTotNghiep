@@ -26,7 +26,7 @@
                         <p align="center"
                             style="box-sizing: border-box; padding: 0; font-size: 16px; vertical-align: top; padding-bottom: 15px;"
                             valign="top">
-                            <a href="{{ route('teacher.account.salaryBonus') }}"
+                            <a href="{{ route('teacher.statistical.salaryBonus') }}"
                                 style="box-sizing: border-box; width: 100%; border-color: #348eda; font-weight: 400; text-decoration: none; display: inline-block; margin: 0; color: #ffffff; background-color: #348eda; border: solid 1px #348eda; border-radius: 2px; cursor: pointer; font-size: 14px; padding: 12px 45px;"
                                 target="_blank">Xem chi tiết</a>
                         </p>

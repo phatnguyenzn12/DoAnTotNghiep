@@ -171,7 +171,7 @@
          <!-- Student review START -->
          <div class="row">
              <!-- Review item START -->
-             @foreach ($course->commentCourses()->paginate(4) as $i)
+             @foreach ($comments as $i)
                  <hr>
                  @if ($i->status == 1)
                      <div class="d-md-flex my-4">
@@ -227,32 +227,34 @@
  <div class="mt-2">
      @if (auth()->user())
          @if ($course->users()->get()->contains(auth()->user()->id))
-             <h5 class="mb-4">Đánh giá khoá học</h5>
-             <form class="row g-3" action="{{ route('commentcourse.store') }}" method="post">
-                 @csrf
-                 <!-- Rating -->
-                 <div class="col-12">
-                     <select id="inputState2" name="vote" class="form-select  js-choice">
-                         <option selected="" value="5">★★★★★ (5/5)</option>
-                         <option value="4">★★★★☆ (4/5)</option>
-                         <option value="3">★★★☆☆ (3/5)</option>
-                         <option value="2">★★☆☆☆ (2/5)</option>
-                         <option value="1">★☆☆☆☆ (1/5)</option>
-                     </select>
-                 </div>
-                 <!-- Message -->
-                 <div class="col-12">
-                     <input type="hidden" name="course_id" value="{{ $course->id }}">
-                     <input type="hidden" name="mentor_id" value="{{ $course->mentor->id }}">
-                     <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review"
-                         rows="3"></textarea>
-                 </div>
-                 <!-- Button -->
-                 <div class="col-12">
-                     <button type="submit" class="btn btn-primary mb-0">Đăng bình
-                         luận</button>
-                 </div>
-             </form>
+             @if (auth()->user()->comment_course->count() == 0)
+                 <h5 class="mb-4">Đánh giá khoá học</h5>
+                 <form class="row g-3" action="{{ route('commentcourse.store') }}" method="post">
+                     @csrf
+                     <!-- Rating -->
+                     <div class="col-12">
+                         <select id="inputState2" name="vote" class="form-select  js-choice">
+                             <option selected="" value="5">★★★★★ (5/5)</option>
+                             <option value="4">★★★★☆ (4/5)</option>
+                             <option value="3">★★★☆☆ (3/5)</option>
+                             <option value="2">★★☆☆☆ (2/5)</option>
+                             <option value="1">★☆☆☆☆ (1/5)</option>
+                         </select>
+                     </div>
+                     <!-- Message -->
+                     <div class="col-12">
+                         <input type="hidden" name="course_id" value="{{ $course->id }}">
+                         <input type="hidden" name="mentor_id" value="{{ $course->mentor->id }}">
+                         <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review"
+                             rows="3"></textarea>
+                     </div>
+                     <!-- Button -->
+                     <div class="col-12">
+                         <button type="submit" class="btn btn-primary mb-0">Đăng bình
+                             luận</button>
+                     </div>
+                 </form>
+             @endif
          @endif
      @endif
  </div>

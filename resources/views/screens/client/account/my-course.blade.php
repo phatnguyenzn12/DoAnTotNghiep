@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- =======================
-                        Page Banner START -->
+                            Page Banner START -->
     <section class="pt-0">
         <div class="container-fluid px-0">
             <div class="card bg-blue h-100px h-md-200px rounded-0"
@@ -50,10 +50,10 @@
         </div>
     </section>
     <!-- =======================
-                        Page Banner END -->
+                            Page Banner END -->
 
     <!-- =======================
-                        Page content START -->
+                            Page content START -->
     <section class="pt-0">
         <div class="container">
             <div class="row">
@@ -157,8 +157,8 @@
                                 <!-- Content -->
                                 <div class="col-md-8">
                                     <form class="rounded position-relative">
-                                        <input class="form-control pe-5 bg-transparent" type="search" placeholder="Search"
-                                            aria-label="Search">
+                                        <input class="form-control pe-5 bg-transparent" type="search"
+                                            oninput="search(this)" placeholder="Tìm kiếm khóa học" aria-label="Search">
                                         <button
                                             class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
                                             type="submit">
@@ -172,12 +172,10 @@
                                     <!-- Short by filter -->
                                     <form>
                                         <select class="form-select js-choice border-0 z-index-9 bg-transparent"
-                                            aria-label=".form-select-sm">
-                                            <option value="">Sort by</option>
-                                            <option>Free</option>
-                                            <option>Newest</option>
-                                            <option>Most popular</option>
-                                            <option>Most Viewed</option>
+                                            aria-label=".form-select-sm" onchange="fiterSort(this)">
+                                            <option value="id_desc">Mặc định</option>
+                                            <option value="id_desc">Mới đến cũ</option>
+                                            <option value="id_asc">Cũ đến mới</option>
                                         </select>
                                     </form>
                                 </div>
@@ -185,107 +183,10 @@
                             <!-- Search and select END -->
 
                             <!-- Course list table START -->
-                            <div class="table-responsive border-0">
-                                <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
-                                    <!-- Table head -->
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="border-0 rounded-start">Tên khóa học</th>
-                                            <th scope="col" class="border-0">Tổng bài học</th>
-                                            <th scope="col" class="border-0">Số bài học hoàn thành</th>
-                                            <th scope="col" class="border-0">Hoạt động</th>
-                                            <th scope="col" class="border-0 rounded-end">Chứng chỉ</th>
-                                        </tr>
-                                    </thead>
+                            <div id="table-innerHtml">
 
-                                    <!-- Table body START -->
-                                    <tbody>
-                                        @forelse($courses as $course)
-                                            <!-- Table item -->
-                                            <tr>
-                                                <!-- Table data -->
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <!-- Image -->
-                                                        <div class="w-100px">
-                                                            <img src="{{ asset('app/' . $course->image) }}" class="rounded"
-                                                                alt="">
-                                                        </div>
-                                                        <div class="mb-0 ms-2">
-                                                            <!-- Title -->
-                                                            <h6><a
-                                                                    href="{{ route('client.course.show', ['slug' => $course['slug'], 'course' => $course['id']]) }}">
-                                                                    {{ $course->title }}</a></h6>
-                                                            <!-- Info -->
-                                                            <div class="overflow-hidden">
-                                                                <h6 class="mb-0 text-end">{{ $course->progress }}%</h6>
-                                                                <div class="progress progress-sm bg-primary bg-opacity-10">
-                                                                    <div class="progress-bar bg-primary aos"
-                                                                        role="progressbar" data-aos="slide-right"
-                                                                        data-aos-delay="200" data-aos-duration="1000"
-                                                                        data-aos-easing="ease-in-out"
-                                                                        style="width: {{ $course->progress }}%"
-                                                                        aria-valuenow="{{ $course->progress }}"
-                                                                        aria-valuemin="0" aria-valuemax="100">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <!-- Table data -->
-                                                <td>{{ $course->lessons->count() }}</td>
-
-                                                <!-- Table data -->
-                                                <td>{{ $course->number_lessons_complete }}</td>
-
-                                                <!-- Table data -->
-                                                <td>
-                                                    <a href="{{ route('client.course.show', ['slug' => $course['slug'], 'course' => $course['id']]) }}"
-                                                        class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
-                                                            class="bi bi-play-circle me-1"></i>Tiếp tục</a>
-                                                </td>
-                                                @if ($course->certificate)
-                                                    <td>
-                                                        <a href="{{ route('client.certificate.index', $course->certificate->id) }}"
-                                                            class="btn btn-primary">Xem chứng chỉ</a>
-                                                    </td>
-                                                @else
-                                                    <td>
-                                                        <a class="btn btn-danger">không chứng chỉ</a>
-                                                    </td>
-                                                @endif
-
-                                            </tr>
-                                        @empty
-                                        @endforelse
-
-                                    </tbody>
-                                    <!-- Table body END -->
-                                </table>
                             </div>
                             <!-- Course list table END -->
-
-                            <!-- Pagination START -->
-                            <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-                                <!-- Content -->
-                                <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
-                                <!-- Pagination -->
-                                <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-                                    <ul
-                                        class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                                        <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
-                                                    class="fas fa-angle-left"></i></a></li>
-                                        <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item mb-0"><a class="page-link" href="#"><i
-                                                    class="fas fa-angle-right"></i></a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- Pagination END -->
                         </div>
                         <!-- Card body START -->
                     </div>
@@ -295,11 +196,45 @@
         </div>
     </section>
     <!-- =======================
-                        Page content END -->
+                            Page content END -->
 @endsection
 @section('js-links')
 
 @endsection
 @push('js-handles')
-    <script type="module"></script>
+    <script>
+        objFiter = {
+            page: 1,
+            title: 0,
+            id: 'id_desc',
+        }
+
+        function showAjax(obj) {
+            $.ajax({
+                url: '{{ route('client.account.filterMyCourse') }}',
+                timeout: 1000,
+                data: obj,
+
+                success: function(res) {
+                    $('#table-innerHtml').html(res)
+                }
+            })
+        }
+        showAjax(objFiter);
+
+        function search(elemment) {
+            objFiter.title = elemment.value
+            showAjax(objFiter);
+        }
+
+        function fiterSort(elemment) {
+            objFiter.id = elemment.value
+            showAjax(objFiter);
+        }
+
+        function pagination(page) {
+            objFiter.page = page
+            showAjax(objFiter);
+        }
+    </script>
 @endpush

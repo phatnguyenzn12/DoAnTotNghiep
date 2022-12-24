@@ -139,22 +139,14 @@ class BaseModel extends Model
 
         return $query;
     }
-    function scopeTime($query, Request $request)
+
+    function scopeTime($query, string $col_name, Request $request)
     {
         if ($request->has('start_time') && $request->start_time != 0) {
-            $query->where('created_at' ,'>=',  str_replace('T', ' ', $request->start_time));
+            $query->where($col_name, '>=',  str_replace('T', ' ', $request->start_time));
+        } elseif ($request->has('end_time') && $request->end_time != 0) {
+            $query->where($col_name, '<=',  str_replace('T', ' ', $request->end_time));
         }
-        elseif ($request->has('end_time') && $request->end_time != 0) {
-            $query->where('created_at' ,'<=',  str_replace('T', ' ', $request->end_time));
-        }
-        if ($request->has('start_time_course') && $request->start_time_course != 0) {
-            $query->where('courses.created_at' ,'>=',  str_replace('T', ' ', $request->start_time_course));
-        }
-        elseif ($request->has('end_time_course') && $request->end_time_course != 0) {
-            $query->where('courses.created_at' ,'<=',  str_replace('T', ' ', $request->end_time_course));
-        }
-
-        return $query;
     }
 
     function scopeCheckYear($query, string $col_name, Request $request)
@@ -176,18 +168,18 @@ class BaseModel extends Model
     {
 
         if ($request->has('day') && $request->day != 0) {
-           return  $query->whereRaw("DAY($col_name) <= $request->day");
+            return  $query->whereRaw("DAY($col_name) <= $request->day");
         }
     }
 
-// function scopeSelectRawTurnover($query, $auth)
-// {
-//     if ($auth == 'admin') {
-//         return $query->selectRaw('CAST( SUM( order_details.price - (order_details.price * 0.2) ) AS UNSIGNED ) as total');
-//     } elseif ($auth == 'teacher') {
-//         return $query->selectRaw('CAST( SUM( order_details.price - (order_details.price * 0.8) ) AS UNSIGNED ) as total');
-//     } elseif ($auth == 'all') {
-//         return $query->selectRaw('CAST( SUM( order_details.price ) AS UNSIGNED ) as total');
-//     }
-// }
+    // function scopeSelectRawTurnover($query, $auth)
+    // {
+    //     if ($auth == 'admin') {
+    //         return $query->selectRaw('CAST( SUM( order_details.price - (order_details.price * 0.2) ) AS UNSIGNED ) as total');
+    //     } elseif ($auth == 'teacher') {
+    //         return $query->selectRaw('CAST( SUM( order_details.price - (order_details.price * 0.8) ) AS UNSIGNED ) as total');
+    //     } elseif ($auth == 'all') {
+    //         return $query->selectRaw('CAST( SUM( order_details.price ) AS UNSIGNED ) as total');
+    //     }
+    // }
 }

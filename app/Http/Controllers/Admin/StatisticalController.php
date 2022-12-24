@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Mentor;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\PercentagePayable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -83,27 +84,21 @@ class StatisticalController extends Controller
         $total_course = Order::select(
             DB::raw('SUM(total_price) as total')
         )
-            ->checkYear('orders.created_at', $request)
-            ->checkMonth('orders.created_at', $request)
-            ->checkDay('orders.created_at', $request)
+            ->time('orders.created_at',$request)
             ->first()->total;
 
         $amount_price_teacher = OrderDetail::select(
             DB::raw('SUM(percentage_payable.amount_paid_teacher) as amount_price_teacher')
         )
             ->join('percentage_payable', 'order_details.id', '=', 'percentage_payable.order_detail_id')
-            ->checkYear('percentage_payable.created_at', $request)
-            ->checkMonth('percentage_payable.created_at', $request)
-            ->checkDay('percentage_payable.created_at', $request)
+            ->time('percentage_payable.created_at',$request)
             ->first()->amount_price_teacher;
 
         $amount_price_admin = OrderDetail::select(
             DB::raw('SUM(percentage_payable.amount_paid_admin) as amount_price_admin')
         )
             ->join('percentage_payable', 'order_details.id', '=', 'percentage_payable.order_detail_id')
-            ->checkYear('percentage_payable.created_at', $request)
-            ->checkMonth('percentage_payable.created_at', $request)
-            ->checkDay('percentage_payable.created_at', $request)
+            ->time('percentage_payable.created_at',$request)
             ->first()->amount_price_admin;
 
         $data = [
@@ -155,7 +150,10 @@ class StatisticalController extends Controller
 
     public function teacherList()
     {
-        return view('screens.admin.statistical.teacher-list');
+        $teachers = PercentagePayable::all();
+        $min = $teachers->min('created_at');
+        $max = $teachers->max('created_at');
+        return view('screens.admin.statistical.teacher-list',compact('min','max'));
     }
 
     public function apiTeacherList(Request $request)
@@ -166,10 +164,11 @@ class StatisticalController extends Controller
                 DB::raw('SUM(percentage_payable.amount_paid_teacher) as amount_paid_teacher,
                 SUM(percentage_payable.amount_paid_admin) as amount_paid_admin,
                 SUM(percentage_payable.amount_paid_admin + percentage_payable.amount_paid_teacher) as total_price'),
+                DB::raw('percentage_payable.created_at')
             )
             ->join('percentage_payable', 'percentage_payable.mentor_id', '=', 'mentors.id')
             ->groupBy('mentors.id')
-            // ->time('mentor.created_at', $request)
+            ->time('percentage_payable.created_at', $request)
             ->paginate(10);
 
         $html = view('components.admin.statistical.teacher-list', compact('teachers'))->render();
@@ -199,8 +198,9 @@ class StatisticalController extends Controller
             ->orderBy('number', 'DESC')
             ->search($request)
             ->sortdatacourse($request)
-            ->time($request)
+            ->time('percentage_payable.created_at',$request)
             ->paginate($request->record);
+
         $html = view('components.base.selling', compact('selling'))->render();
 
         return response()->json($html);

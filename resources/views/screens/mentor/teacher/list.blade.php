@@ -75,25 +75,8 @@
                 </div>
             </div>
             <!--begin::Table-->
-            <div class="table-responsive">
-                <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
-                    <thead>
-                        <tr class="text-uppercase">
-                            <th>Tên</th>
-                            <th>Địa chỉ</th>
-                            <th>Chuyên môn</th>
-                            <th>Giáo dục</th>
-                            <th>Số năm kinh nghiệm</th>
-                            <th>Số điện thoại</th>
-                            <th>Trạng thái</th>
-                            <td>Kích hoạt</td>
-                            <th>Hiệu lực</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-innerHtml">
+            <div id="table-innerHtml">
 
-                    </tbody>
-                </table>
             </div>
             <!--end::Table-->
             <!--end::Body-->

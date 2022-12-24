@@ -68,7 +68,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="bi bi-envelope-fill"></i></span>
                                         <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
-                                            name="email" placeholder="Info@example.com" id="exampleInputEmail1">
+                                            name="email" placeholder="Info@example.com" value="{{ old('email') }}" id="exampleInputEmail1">
                                     </div>
                                     <p class="text-danger">{{ $errors->first('email') }}</p>
                                 </div>
@@ -81,16 +81,13 @@
                                                 class="fas fa-lock"></i></span>
                                         <input type="password"
                                             class="form-control border-0 bg-light rounded-end ps-1"name="password"
-                                            placeholder="******" id="inputPassword5">
+                                            placeholder="******"  value="{{ old('password') }}" id="inputPassword5">
                                     </div>
                                     <p class="text-danger">{{ $errors->first('password') }}</p>
                                 </div>
                                 <!-- Check box -->
                                 <div class="mb-4 d-flex justify-content-between mb-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Nhớ thông tin đăng nhập của
-                                            tôi</label>
                                     </div>
                                     <div class="text-primary-hover">
                                         <a href="{{ route('auth.forgotPassword') }}" class="text-secondary">

@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-                        Page content START -->
+                                Page content START -->
     <section class="pt-5 pb-0">
         <div class="container">
             <div class="row g-0 g-lg-5">
@@ -18,35 +18,6 @@
                                 <div class="rounded-3">
                                     <!-- Image -->
                                     <img src="{{ asset('app/' . $mentor->avatar) }}" class="card-img" alt="course image">
-                                </div>
-
-                                <!-- Card body -->
-                                <div class="card-body px-3">
-                                    <!-- Rating -->
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item me-0 small"><i
-                                                class="fas fa-star-half-alt text-warning"></i></li>
-                                        <li class="list-inline-item ms-2 h6 fw-light mb-0">4.5/5.0</li>
-                                    </ul>
-                                    <!-- Social media button -->
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item"> <a class="btn px-2 btn-sm bg-facebook"
-                                                href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
-                                        <li class="list-inline-item"> <a class="btn px-2 btn-sm bg-instagram-gradient"
-                                                href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
-                                        <li class="list-inline-item"> <a class="btn px-2 btn-sm bg-twitter"
-                                                href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
-                                        <li class="list-inline-item"> <a class="btn px-2 btn-sm bg-linkedin"
-                                                href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
-                                    </ul>
                                 </div>
                             </div>
                             <!-- Instructor image END -->
@@ -66,7 +37,6 @@
                                                 class="fas fa-graduation-cap"></i></span>
                                         <div class="ms-3">
                                             <h6 class="mb-0">{{ $education }}</h6>
-                                            <p class="mb-0 small">Bachelor in Computer Graphics</p>
                                         </div>
                                     </div>
                                 @endforeach
@@ -77,10 +47,10 @@
                                 <!-- Skills START -->
                                 <h4 class="mb-3">Kỹ năng</h4>
 
-                                @foreach (explode(',', $mentor->skills) as $skill)
+                                @foreach (explode(',', $mentor->specializations) as $specialization)
                                     <!-- Progress item -->
                                     <div class="overflow-hidden mb-4">
-                                        <h6 class="uppercase">{{ $skill }}</h6>
+                                        <h6 class="uppercase">{{ $specialization }}</h6>
                                         <div class="progress progress-sm bg-primary bg-opacity-10">
                                             <div class="progress-bar bg-danger aos" role="progressbar"
                                                 data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000"
@@ -90,7 +60,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-
 
                             </div>
                         </div>
@@ -110,7 +79,7 @@
                     <ul class="list-group list-group-borderless">
                         <li class="list-group-item px-0">
                             <span class="h6 fw-light"><i
-                                    class="fas fa-fw fa-map-marker-alt text-primary me-1 me-sm-3"></i>Address:</span>
+                                    class="fas fa-fw fa-map-marker-alt text-primary me-1 me-sm-3"></i>Địa chỉ:</span>
                             <span>{{ $mentor->address }}</span>
                         </li>
                         <li class="list-group-item px-0">
@@ -119,8 +88,9 @@
                             <span>{{ $mentor->email }}</span>
                         </li>
                         <li class="list-group-item px-0">
-                            <span class="h6 fw-light"><i class="fas fa-fw fa-headphones text-primary me-1 me-sm-3"></i>Phone
-                                number:</span>
+                            <span class="h6 fw-light"><i class="fas fa-fw fa-headphones text-primary me-1 me-sm-3"></i>Số
+                                điện thoại
+                                :</span>
                             <span>{{ $mentor->number_phone }}</span>
                         </li>
                         <li class="list-group-item px-0">
@@ -187,64 +157,100 @@
                     <div class="row g-4 mt-4">
                         <!-- Title -->
                         <h2>Danh sách khóa học</h2>
-                        @forelse ($mentor->courses()->paginate(2) as $course)
-                            <!-- Card item START -->
-                            <div class="col-sm-6">
+                        <!-- Slider START -->
+                        <div class="tiny-slider arrow-round arrow-blur arrow-hover">
+                            <div class="tiny-slider-inner pb-1" data-autoplay="true" data-arrow="true" data-edge="2"
+                                data-dots="false" data-items="2" data-items-lg="2" data-items-sm="1">
+                                <!-- Card item START -->
+                                @forelse($mentor->courses()->where('status', 2)->get() as $course)
+                                    <div>
+                                        <div class="card action-trigger-hover border bg-transparent">
+                                            <!-- Image -->
+                                            <img src="{{ asset('app/' . $course->image) }}" class="card-img-top"
+                                                alt="course image" style="width: 400px; height: 215px;">
+                                            <!-- Ribbon -->
+                                            @if ($course->discount != 0)
+                                                <div class="ribbon mt-3 text-danger">
+                                                    <span>{{ $course->discount }}%</span>
+                                                </div>
+                                            @endif
+                                            <!-- Card body -->
+                                            <div class="card-body pb-0">
+                                                <!-- Badge and favorite -->
+                                                <div class="d-flex justify-content-between mb-3">
+                                                    <span class="hstack gap-2">
+                                                        <a href="#"
+                                                            class="badge bg-primary bg-opacity-10 text-primary">{{ $course->skill->title }}</a>
+                                                    </span>
+                                                </div>
+                                                <!-- Title -->
+                                                <h5 class="card-title"><a
+                                                        href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}">{{ $course->title }}</a>
+                                                </h5>
+                                                <!-- Rating -->
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <div class="hstack gap-2">
+                                                        <p class="text-warning m-0">4.5<i
+                                                                class="fas fa-star text-warning ms-1"></i>
+                                                        </p>
+                                                        <span class="small">(3500)</span>
+                                                    </div>
+                                                    <div class="hstack gap-2">
+                                                        <p class="h6 fw-light mb-0 m-0">
+                                                            {{ $course->order_details->count() }}</p>
+                                                        <span class="small">(Lượt mua)</span>
+                                                    </div>
+                                                </div>
+                                                <!-- Time -->
+                                                <div class="hstack gap-3">
+                                                    {{-- <span class="h6 fw-light mb-0"><i
+                                                class="far fa-clock text-danger me-2"></i>{{ $course->total_time }}</span> --}}
+                                                    <span class="h6 fw-light mb-0"><i
+                                                            class="fas fa-table text-orange me-2"></i>{{ $course->lessons->count() }}
+                                                        (Bài học)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!-- Card footer -->
+                                            <div class="card-footer pt-0 bg-transparent">
+                                                <hr>
+                                                <!-- Avatar and Price -->
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <!-- Avatar -->
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-sm">
+                                                            <img class="avatar-img rounded-1"
+                                                                src="{{ asset('app/' . $course->mentor->avatar) }}"
+                                                                alt="avatar">
+                                                        </div>
+                                                        <p class="mb-0 ms-2"><a href="#"
+                                                                class="h6 fw-light mb-0">{{ $course->mentor->name }}</a>
+                                                        </p>
+                                                    </div>
+                                                    <!-- Price -->
 
-                                <div class="card shadow h-100">
-                                    <!-- Image -->
-                                    <img src="{{ asset('app/' . $course->image) }}" class="card-img-top"
-                                        alt="course image">
-                                    <div class="card-body pb-0">
-                                        <!-- Badge and favorite -->
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <a href="#"
-                                                class="badge bg-success bg-opacity-10 text-success">Beginner</a>
-                                            <a href="#" class="text-danger"><i class="fas fa-heart"></i></a>
-                                        </div>
-                                        <!-- Title -->
-                                        <h5 class="card-title fw-normal"><a
-                                                href="{{ route('client.course.show', ['slug' => $course->slug, 'course' => $course->id]) }}">{{ $course->title }}
-                                            </a></h5>
-                                        <p class="mb-2 text-truncate-2">{{ $course->content }}</p>
-                                        <!-- Rating star -->
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i
-                                                    class="far fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item ms-2 h6 fw-light mb-0">4.0/5.0</li>
-                                        </ul>
-                                    </div>
-                                    <!-- Card footer -->
-                                    <div class="card-footer pt-0 pb-3">
-                                        <hr>
-                                        <div class="d-flex justify-content-between">
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="far fa-clock text-danger me-2"></i>
-                                                    18h
-                                                56m</span>
-                                            <span class="h6 fw-light mb-0"><i
-                                                    class="fas fa-table text-orange me-2"></i>{{ $course->chapters->count() }}
-                                                Bài học</span>
+                                                    <div>
+                                                        <h4 class="text-success mb-0 item-show">
+                                                            {{ number_format($course->price) }}đ</h4>
+                                                        <form action="{{ route('client.order.addToCart', $course->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-success-soft item-show-hover"><i
+                                                                    class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
+                                                                hàng</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @empty
+                                @endforelse
+                                <!-- Card item END -->
                             </div>
-                            <!-- Card item END -->
-                        @empty
-                        @endforelse
+                        </div>
+                        <!-- Slider END -->
                     </div>
                     <!-- Course END -->
                 </div>
@@ -254,10 +260,10 @@
         </div>
     </section>
     <!-- =======================
-                        Page content END -->
+                                Page content END -->
 
     <!-- =======================
-                        Related instructor START -->
+                                Related instructor START -->
     <section>
         <div class="container">
             <!-- Title -->
@@ -275,17 +281,8 @@
                         <div class="card bg-transparent">
                             <div class="position-relative">
                                 <!-- Image -->
-                                <img src="{{asset('app/'.$mentor->avatar)}}" class="card-img" alt="course image">
+                                <img src="{{ asset('app/' . $mentor->avatar) }}" class="card-img" alt="course image">
                                 <!-- Overlay -->
-                                <div class="card-img-overlay d-flex flex-column p-3">
-                                    <div class="w-100 mt-auto text-end">
-                                        <!-- Card category -->
-                                        <a href="#" class="badge text-bg-info rounded-1"><i
-                                                class="fas fa-user-graduate me-2"></i>25</a>
-                                        <a href="#" class="badge text-bg-orange rounded-1"><i
-                                                class="fas fa-clipboard-list me-2"></i>15</a>
-                                    </div>
-                                </div>
                             </div>
                             <!-- Card body -->
                             <div class="card-body text-center">
@@ -293,18 +290,7 @@
                                 <h5 class="card-title"><a
                                         href="{{ route('client.mentor.show', $mentor->id) }}">{{ $mentor->name }}</a>
                                 </h5>
-                                <p class="mb-2">Web Developer</p>
-                                <!-- Rating -->
-                                <ul class="list-inline hstack justify-content-center">
-                                    <li class="list-inline-item ms-2 h6 mb-0 fw-normal">4.5/5.0</li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i
-                                            class="fas fa-star-half-alt text-warning"></i>
-                                    </li>
-                                </ul>
+                                <p class="mb-2">{{ $mentor->cate_course->name }}</p>
                             </div>
                         </div>
                         <!-- Card item END -->
@@ -320,7 +306,7 @@
         </div>
     </section>
     <!-- =======================
-                        Related instructor END -->
+                                Related instructor END -->
 @endsection
 
 @section('js-links')

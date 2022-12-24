@@ -134,9 +134,8 @@ class AccountController extends Controller
     public function filterWithdraw(Request $request)
     {
         $withdraws = HistoryWithdrawal::where('mentor_id', $request->mentor_id)
-        // ->where('created_at','=','2022-12-21 15:02:43 ')
             ->sortdata($request)
-            ->time($request)
+            ->time('history_withdrawal.created_at',$request)
             ->paginate($request->record);
         $html = view('components.teacher.account.list-withdraw', compact('withdraws'))->render();
         return response()->json($html, 200);

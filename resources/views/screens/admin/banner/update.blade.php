@@ -25,30 +25,18 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    <span class="sr-only">Close</span>
-                                                </button>
-                                            </div>
-                                        @endif
                                         <div class="form-group">
                                             <label for="">Tiêu đề</label>
                                             <input type="text" name="title" value="{{ $edit->title }}"
                                                 class="form-control" placeholder="">
                                         </div>
+                                        <p class="text-danger">{{ $errors->first('title') }}</p>
                                         <div class="form-group">
                                             <label for="">Nội dung</label>
                                             <input type="text" name="content" value="{{ $edit->content }}"
                                                 class="form-control" placeholder="">
                                         </div>
+                                        <p class="text-danger">{{ $errors->first('content') }}</p>
                                         <div class="form-group">
                                             <label for="">Hình Ảnh</label>
                                             <div class="row">
@@ -69,7 +57,7 @@
                                             <label for="">Mã giảm giá</label>
 
                                             <select name="discount_id" id="select2" class="form-control">
-                                                <option value="">Chọn mã giảm giá</option>
+                                                {{-- <option value="">Chọn mã giảm giá</option> --}}
                                                 @foreach ($discountCodes as $discountCode)
                                                     <option @selected($discountCode->discount_id == $edit->discount_code_id ?? true) value="{{ $discountCode->id }}">
                                                         {{ $discountCode->title }}
@@ -77,6 +65,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <p class="text-danger">{{ $errors->first('discount_id') }}</p>
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Trạng thái</label>
                                             <div class="col-9 col-form-label">

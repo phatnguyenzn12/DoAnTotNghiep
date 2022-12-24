@@ -93,6 +93,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Chapter::class,ChapterReview::class);
     }
 
+    public function comment_course() {
+        return $this->hasMany(CommentCourse::class);
+    }
+
     function scopeName($query, Request $request)
     {
         if ($request->has('name') && $request->name != 0) {

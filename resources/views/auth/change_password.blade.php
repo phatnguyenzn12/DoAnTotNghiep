@@ -59,6 +59,7 @@
                                         <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
                                             placeholder="********" id="exampleInputEmail1" name="password">
                                     </div>
+                                    <p class="text-danger">{{ $errors->first('password') }}</p>
                                 </div>
                                 <div class="mb-4">
                                     <label for="exampleInputEmail1" class="form-label">Nhập lại mật khẩu mới *</label>
@@ -67,8 +68,9 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="bi bi-envelope-fill"></i></span>
                                         <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="********" id="exampleInputEmail1" name="password_1">
+                                            placeholder="********" id="exampleInputEmail1" name="re_password">
                                     </div>
+                                    <p class="text-danger">{{ $errors->first('re_password') }}</p>
                                 </div>
                                 <!-- Button -->
                                 <div class="align-items-center">
