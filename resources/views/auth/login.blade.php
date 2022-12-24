@@ -88,9 +88,6 @@
                                 <!-- Check box -->
                                 <div class="mb-4 d-flex justify-content-between mb-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Nhớ thông tin đăng nhập của
-                                            tôi</label>
                                     </div>
                                     <div class="text-primary-hover">
                                         <a href="{{ route('auth.forgotPassword') }}" class="text-secondary">
