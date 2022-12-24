@@ -91,8 +91,8 @@
             record: 8,
             id: 0,
             price: 0,
-            start_time_course: 0,
-            end_time_course: 0,
+            start_time: 0,
+            end_time: 0,
         }
 
         function showAjax(obj) {
@@ -119,11 +119,11 @@
         }
 
         function fiterStartTime(elemment) {
-            objFiter.start_time_course = elemment.value
+            objFiter.start_time = elemment.value
             showAjax(objFiter);
         }
         function fiterEndTime(elemment) {
-            objFiter.end_time_course = elemment.value
+            objFiter.end_time = elemment.value
             showAjax(objFiter);
         }
 

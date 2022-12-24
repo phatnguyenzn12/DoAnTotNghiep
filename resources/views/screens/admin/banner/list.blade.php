@@ -123,7 +123,7 @@
                     <td>${val.id}</td>
                     <td><a class="text-dark" >${val.title}</a></td>
                     <td><a class="text-dark" >${val.content}</a></td>
-                    <td><img src="{{asset('app')}}/${val.image}" alt=""></td>
+                    <td><img src="{{asset('app')}}/${val.image}" alt="" width="150px" height="80px"></td>
                     <td><a class="text-dark" >${val.type}</a></td>
                     <td><button></button></td>
                     <td><a class="btn btn-light btn-sm" href="edit-banner/${val.id}">

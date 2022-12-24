@@ -57,7 +57,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="fa fa-user-secret"></i></span>
                                         <input type="text" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="Name" id="" name="name">
+                                            placeholder="Name" value="{{ old('name') }}" id="" name="name">
                                     </div>
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
@@ -69,7 +69,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="bi bi-envelope-fill"></i></span>
                                         <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="E-mail" id="exampleInputEmail1" name="email">
+                                            placeholder="E-mail" id="exampleInputEmail1" value="{{ old('email') }}" name="email">
                                     </div>
                                     <p class="text-danger">{{ $errors->first('email') }}</p>
                                 </div>
@@ -80,7 +80,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="fa fa-phone"></i></span>
                                         <input type="text" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="Phone" id="" name="number_phone">
+                                            placeholder="Phone" id="" value="{{ old('number_phone') }}" name="number_phone">
                                     </div>
                                     <p class="text-danger">{{ $errors->first('number_phone') }}</p>
                                 </div>
@@ -92,7 +92,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="fas fa-lock"></i></span>
                                         <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="*********" id="inputPassword5" name="password">
+                                            placeholder="*********" id="inputPassword5" value="{{ old('password') }}" name="password">
                                     </div>
                                     <p class="text-danger">{{ $errors->first('password') }}</p>
                                 </div>
@@ -104,7 +104,7 @@
                                             class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i
                                                 class="fas fa-lock"></i></span>
                                         <input type="password" class="form-control border-0 bg-light rounded-end ps-1"
-                                            placeholder="*********" id="inputPassword6" name="re_password">
+                                            placeholder="*********" id="inputPassword6" value="{{ old('re_password') }}" name="re_password">
                                     </div>
                                     <p class="text-danger">{{ $errors->first('re_password') }}</p>
                                 </div>

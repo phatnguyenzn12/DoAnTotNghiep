@@ -78,7 +78,7 @@ class AuthController extends Controller
         }
     }
 
-    public function forgotPassword(Request $request)
+    public function forgotPassword(AuthRequest $request)
     {
         if ($request->isMethod('post')) {
             if (DB::table('users')->where('email', 'like', $request->email)->first()) {
@@ -100,13 +100,13 @@ class AuthController extends Controller
         return view('auth.forgot_password');
     }
 
-    public function handleChangePassword($id, $token, Request $request)
+    public function handleChangePassword($id, $token, AuthRequest $request)
     {
         $db = new User();
         $db_user = $db->loadOne($id);
         if ($db_user->remember_token === $token) {
             if ($request->isMethod('post')) {
-                if ($request->password == $request->password_1) {
+                if ($request->password == $request->re_password) {
                     $password = Hash::make($request->password);
                     $db_user = new User();
                     $db_user->updatePass($id, $password);

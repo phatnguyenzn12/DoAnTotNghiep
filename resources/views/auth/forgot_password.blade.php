@@ -60,6 +60,7 @@
                                         <input type="email" class="form-control border-0 bg-light rounded-end ps-1"
                                             placeholder="E-mail" id="exampleInputEmail1" name="email">
                                     </div>
+                                    <p class="text-danger">{{ $errors->first('email') }}</p>
                                 </div>
                                 <!-- Button -->
                                 <div class="align-items-center">

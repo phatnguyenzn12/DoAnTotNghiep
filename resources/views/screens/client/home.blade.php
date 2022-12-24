@@ -153,7 +153,7 @@
                                                 <p class="mb-0 ms-2"><a href="#"
                                                         class="h6 fw-light mb-0">{{ $course->mentor->name }}</a></p>
                                             </div>
-                                            
+
                                             <!-- Price -->
                                             <div>
                                                 <h5 class="text-success mb-0 item-show">
@@ -179,10 +179,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                                                                                                    Popular course END -->
+                                                                                                                                                                                                                                                                                            Popular course END -->
 
     <!-- =======================
-                                                                                                                                                                                                                                                                                    Action box START -->
+                                                                                                                                                                                                                                                                                            Action box START -->
     <section class="pt-0 pt-lg-5">
         <div class="container position-relative">
             <!-- SVG decoration START -->
@@ -234,10 +234,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                                                                                                    Action box END -->
+                                                                                                                                                                                                                                                                                            Action box END -->
 
     <!-- =======================
-                                                                                                                                                                                                                                                                                    Trending courses START -->
+                                                                                                                                                                                                                                                                                            Trending courses START -->
     <section class="pb-5 pt-0 pt-lg-5">
         <div class="container">
             <!-- Title -->
@@ -319,9 +319,14 @@
                                             <div>
                                                 <h4 class="text-success mb-0 item-show">
                                                     {{ number_format($course->price) }}đ</h4>
-                                                <a href="{{ route('client.order.addToCart', $course->id) }}"
-                                                    class="btn btn-sm btn-success-soft item-show-hover"><i
-                                                        class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ hàng</a>
+                                                <form action="{{ route('client.order.addToCart', $course->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-success-soft item-show-hover"><i
+                                                            class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
+                                                        hàng</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

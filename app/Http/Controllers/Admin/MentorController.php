@@ -97,14 +97,13 @@ class MentorController extends Controller
     {
         $cate_courses = DB::table('cate_courses')->select('*')->get();
         $mentor = Mentor::find($id);
-        //  dd($mentor);
         return view('screens.admin.mentor.detail', compact('mentor','id', 'cate_courses'));
     }
     public function update(MentorRequest $request, $id)
     {
         $mentor = Mentor::find($id);
-        $mentor->name ;
-        $mentor->email ;
+        $mentor->name;
+        $mentor->email;
         $mentor->number_phone = $request->number_phone;
         $mentor->address = $request->address;
         $mentor->educations = $request->educations;

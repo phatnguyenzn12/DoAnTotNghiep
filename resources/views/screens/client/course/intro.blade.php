@@ -375,7 +375,7 @@
 
         objFiter = {
             page: 1,
-            record: 4,
+            record: 5,
             course_id: {{ $id }},
         }
 

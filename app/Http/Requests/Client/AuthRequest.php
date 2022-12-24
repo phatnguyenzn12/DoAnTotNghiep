@@ -33,14 +33,25 @@ class AuthRequest extends FormRequest
                             "name" => "required|unique:users",
                             "email" => "required|unique:users",
                             "number_phone" => "required|digits:10|numeric",
-                            "password" => "required|digits:6",
-                            "re_password" => "required|digits:6",
+                            "password" => "required",
+                            "re_password" => "required",
                         ];
                         break;
                     case 'handleLogin':
                         $rules = [
                             "email" => "required",
                             "password" => "required",
+                        ];
+                        break;
+                    case 'forgotPassword':
+                        $rules = [
+                            "email" => "required",
+                        ];
+                        break;
+                    case 'handleChangePassword':
+                        $rules = [
+                            "password" => "required",
+                            "re_password" => "required",
                         ];
                         break;
                 }
@@ -58,9 +69,7 @@ class AuthRequest extends FormRequest
             'email.required' => 'Vui lòng nhập email',
             'email.unique' => 'Email đã tồn tại',
             'password.required' => 'Vui lòng nhập mật khẩu',
-            'password.digits' => 'Vui lòng nhập đủ độ dài 6 kí tự',
             're_password.required' => 'Vui lòng nhập lại mật khẩu',
-            're_password.digits' => 'Vui lòng nhập đủ độ dài 6 kí tự',
             'number_phone.required' => 'Vui lòng nhập số điện thoại',
             'number_phone.digits' => 'Vui lòng nhập đủ độ dài 10 số',
             'number_phone.numeric' => 'Vui lòng nhập đúng định dạng số',
