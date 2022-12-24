@@ -20,20 +20,16 @@
                                 <div class="avatar avatar-xxl position-relative mt-n3">
                                     <img class="avatar-img rounded-circle border border-white border-3 shadow"
                                         src="{{ asset('app/' . $user->avatar) }}" alt="">
-                                    <span
-                                        class="badge text-bg-success rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Pro</span>
                                 </div>
                             </div>
                             <!-- Profile info -->
                             <div class="col d-sm-flex justify-content-between align-items-center">
                                 <div>
-                                    <h1 class="my-1 fs-4">{{ $user->name }}</h1>
+                                    <h1 class="my-1 fs-4">{{ $user->name }} <i
+                                            class="bi bi-patch-check-fill text-info small"></i></h1>
+
                                 </div>
-                                <!-- Button -->
-                                <div class="mt-2 mt-sm-0">
-                                    <a href="student-course-list.html" class="btn btn-outline-primary mb-0">Xem tất cả khóa
-                                        học của tôi</a>
-                                </div>
+
                             </div>
                         </div>
                     </div>
