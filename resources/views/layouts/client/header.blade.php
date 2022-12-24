@@ -104,6 +104,8 @@
                         </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Danh sách khóa học</a>
                         </li>
+                        <li> <a class="dropdown-item" href="{{ route('ab.policy') }}">Chính sách</a>
+                        </li>
                         <li> <a class="dropdown-item" href="{{ route('client.course.list') }}">Liên hệ</a>
                         </li>
                     </ul>
@@ -270,14 +272,16 @@
                                     quản
                                     trị</a></li>
                         @elseif (Auth::guard('mentor')->user())
-                            <li><a class="dropdown-item" href="{{ route('teacher.course.index') }}"><i
-                                        class="bi bi-person fa-fw me-2"></i>Trang Giảng Viên</a></li>
+                            @if (auth()->guard('mentor')->user()->hasRole('lead'))
+                                <li><a class="dropdown-item" href="{{ route('mentor.course.index') }}"><i
+                                            class="bi bi-person fa-fw me-2"></i>Trang Lead</a></li>
+                            @elseif(auth()->guard('mentor')->user()->hasRole('teacher'))
+                                <li><a class="dropdown-item" href="{{ route('teacher.course.index') }}"><i
+                                            class="bi bi-person fa-fw me-2"></i>Trang Giảng viên</a></li>
+                            @endif
                         @endif
                         <li><a class="dropdown-item" href="{{ route('client.account.detail') }}"><i
                                     class="bi bi-person fa-fw me-2"></i>Sửa thông tin cá nhân</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Hỗ
-                                trợ</a>
-                        </li>
                         <li>
                             @if (Auth::guard('admin')->user())
                                 <a class="dropdown-item bg-danger-soft-hover" href="{{ route('admin.logout') }}"><i

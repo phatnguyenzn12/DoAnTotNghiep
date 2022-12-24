@@ -50,14 +50,14 @@
 
         <div class="bg-light p-3 rounded d-flex">
             <div class="avatar avatar-sm flex-shrink-0">
-                <a href="#"><img class="avatar-img rounded-circle" src="/frontend/images/avatar/05.jpg"
+                <a href="#"><img class="avatar-img rounded-circle" src="{{asset('app/'. $course->mentor->avatar)}}"
                         alt=""></a>
             </div>
             <div class="mx-3">
                 <div class="me-2">
                     <h6 class="mb-1 lead fw-bold"> <a href="#!">
-                            chutatbach1 (Giảng viên) </a></h6>
-                    <p class="mb-0 mt-1">Gỉang viên của khóa học
+                        {{ $course->mentor->name }} </a></h6>
+                    <p class="mb-0 mt-1">Giảng viên của khóa học
                     </p>
                 </div>
             </div>

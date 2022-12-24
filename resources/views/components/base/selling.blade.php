@@ -1,6 +1,5 @@
 <!--end: Search Form-->
 <!--begin: Datatable-->
-
 <table class="table table-separate table-head-custom table-checkable">
     <thead>
         <tr class="text-uppercase">
@@ -29,3 +28,9 @@
 
     </tbody>
 </table>
+@php
+    $pagination = $selling;
+@endphp
+<div class="p-3 mb-5">
+    @include('components.admin.pagination-basic')
+</div>

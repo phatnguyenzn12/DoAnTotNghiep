@@ -66,7 +66,7 @@
                 <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
                     <thead>
                         <tr class="text-uppercase">
-                            <th style="width:30px" >STT</th>
+                            <th style="width:30px">STT</th>
                             <th>Tên</th>
                             <th>Nội dung bình luận</th>
                             <th>Khóa học</th>

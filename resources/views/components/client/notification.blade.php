@@ -34,11 +34,12 @@
 
                                 <div>
                                     <p class="text-body small m-0">
-                                        <b>{{ $notification->data['name'] }} ()</b>
+                                        <b>{{ $notification->data['name'] }} ({{ $notification->data['role']}})</b>
                                         Đã trả lời
                                     <p>{{ $notification->data['content'] }}</p>
-
+                                    <p>{{ $notification->created_at }}</p>
                                     </p>
+
 
                                     <u class="small">Xem chi tiết </u>
                                 </div>
