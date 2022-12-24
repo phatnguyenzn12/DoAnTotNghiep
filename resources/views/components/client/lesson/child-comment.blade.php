@@ -1,10 +1,14 @@
-<form class="w-100 d-flex has-validation-ajax-child" method="POST"
+<form class="w-100 d-flex has-validation-ajax-child row" method="POST"
     action="{{ route('client.lesson.childComment', ['course_id' => $course_id, 'comment_parent' => $comment_parent->id]) }}">
     @csrf
-    <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
-        placeholder="Thêm bình luận..."></textarea>
-    <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
-            class="fas fa-paper-plane fs-5"></i></button>
+    <div class="col-12">
+        <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review" rows="3"></textarea>
+    </div>
+    <!-- Button -->
+    <div class="col-12 mt-3">
+        <button type="submit" class="btn btn-primary mb-0">Đăng bình
+            luận</button>
+    </div>
 </form>
 
 <ul class="list-unstyled ms-4 mt-5">
@@ -15,7 +19,7 @@
                 <!-- Avatar -->
                 <div class="avatar avatar-xs flex-shrink-0">
                     <a href="#"><img class="avatar-img rounded-circle"
-                            src="{{ auth()->user() ? asset('app/' . auth()->user()->avatar) : asset('app/' .auth()->guard('mentor')->user()->avatar) }}"
+                            src="{{ auth()->user()? asset('app/' . auth()->user()->avatar): asset('app/' .auth()->guard('mentor')->user()->avatar) }}"
                             alt=""></a>
                 </div>
                 <!-- Comment by -->
@@ -29,7 +33,7 @@
                                 <p class=" mb-0">{{ $comment_reply->comment }}
                                 </p>
                             </div>
-                            <small>2hr</small>
+                            {{-- <small>2hr</small> --}}
                         </div>
                     </div>
                     <!-- Comment react -->
@@ -44,13 +48,17 @@
 
                     <!-- collapse textarea -->
                     <div class="collapse" id="collapseComment{{ $comment_reply->id }}">
-                        <form class="w-100 d-flex has-validation-ajax-child" method="POST"
+                        <form class="w-100 d-flex has-validation-ajax-child row" method="POST"
                             action="{{ route('client.lesson.childComment', ['course_id' => $course_id, 'comment_parent' => $comment_parent->id]) }}">
                             @csrf
-                            <textarea class="one form-control pe-4 bg-light" name="comment" id="autoheighttextarea" rows="1"
-                                placeholder="Thêm bình luận..."></textarea>
-                            <button class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0"><i
-                                    class="fas fa-paper-plane fs-5"></i></button>
+                            <div class="col-12">
+                                <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" placeholder="Your review" rows="3"></textarea>
+                            </div>
+                            <!-- Button -->
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-primary mb-0">Đăng bình
+                                    luận</button>
+                            </div>
                         </form>
                     </div>
 
@@ -60,5 +68,38 @@
     @empty
     @endforelse
     <!-- Comment item END -->
-
 </ul>
+
+@php
+    $pagination = $comment_lesson;
+@endphp
+<!-- Pagination START -->
+@if ($comment_lesson->count() != 0)
+    <div class="col-12 row mb-2">
+
+        <div class="col-12">
+            <nav class="mt-4 d-flex justify-content-end" aria-label="navigation">
+                <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                    <li class="page-item mb-0"><a class="page-link"
+                            onclick="pagination_child('{{ route('client.lesson.commentdetails', $comment_parent->id) }}',1)"><i
+                                class="fas fa-angle-double-left"></i></a></li>
+                    @for ($i = 1; $i <= $pagination->lastPage(); $i++)
+                        <li class="page-item mb-0"><a class="page-link"
+                                onclick="pagination_child(
+                                    '{{ route('client.lesson.commentdetails', $comment_parent->id) }}',
+                                    '{{ $i }}'
+                                    )">{{ $i }}</a>
+                        </li>
+                    @endfor
+                    <li class="page-item mb-0"><a class="page-link"
+                            onclick="pagination_child(
+                                '{{ route('client.lesson.commentdetails', $comment_parent->id) }}',
+                            '{{ $pagination->lastPage() }}'
+                            )"><i
+                                class="fas fa-angle-double-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+@endif

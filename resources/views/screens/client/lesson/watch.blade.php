@@ -12,6 +12,11 @@
             display: none;
         }
     </style>
+    @if(session('notification_route'))
+    <script>
+        alert(1);
+    </script>
+    @endif
     <section class="py-0 position-relative">
 
         <div class="row g-0">
@@ -102,10 +107,70 @@
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <h5 class="mb-4">Thảo luận bài học</h5>
+                                    <!-- Comment box -->
+                                    <div class="d-flex mb-4">
+                                        <!-- Avatar -->
+                                        <div class="avatar avatar-sm flex-shrink-0 me-2">
+                                            @if (auth()->guard('mentor')->user())
+                                                <a href="#"> <img class="avatar-img rounded-circle"
+                                                        src="{{ asset('app/' .auth()->guard('mentor')->user()->avatar) }}"
+                                                        alt="">
+                                                </a>
+                                            @else
+                                                <a href="#"> <img class="avatar-img rounded-circle"
+                                                        src="{{ asset('app/' . auth()->user()->avatar) }}" alt="">
+                                                </a>
+                                            @endif
+                                        </div>
 
+                                        <form class="w-100 d-flex has-validation-ajax row" method="POST"
+                                            action="{{ route('client.lesson.parentComment', ['lesson' => $lesson->id, 'course' => $course->id]) }}">
+                                            @csrf
+                                            <div class="col-12">
+                                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                                <input type="hidden" name="lesson_id" value="{{ $lesson->id }}">
+                                                <textarea class="form-control clear-input" name="comment" id="exampleFormControlTextarea1" placeholder="Your review"
+                                                    rows="3"></textarea>
+                                            </div>
+                                            <!-- Button -->
+                                            <div class="col-12 mt-3">
+                                                <button type="submit" class="btn btn-primary mb-0">Đăng bình
+                                                    luận</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="mt-4 row">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-9 col-xl-8">
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-4 my-2 my-md-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <select class="form-control" id="kt_datatable_search_status"
+                                                                onchange="fiterSort(this)">
+                                                                <option value="0">Sắp xếp theo thời gian</option>
+                                                                <option value="id_desc">Mặc định</option>
+                                                                <option value="id_desc">Mới đến cũ</option>
+                                                                <option value="id_asc">Cũ đến mới</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 my-2 my-md-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <select class="form-control" id="kt_datatable_search_status"
+                                                                onchange="fiterSortReply(this)">
+                                                                <option value="0">Sắp xếp trả lời bình luận</option>
+                                                                <option value="reply_desc">Trả lời nhiều nhất</option>
+                                                                <option value="reply_asc">Trả lời ít ít nhất</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="comment-show-list">
-                                        @include('components.client.lesson.comment')
+
                                     </div>
 
                                 </div>
@@ -230,6 +295,8 @@
             lesson_id: {{ $id }},
         }
 
+
+
         function showAjax(obj) {
             $.ajax({
                 url: '{{ route('client.lesson.filterComment') }}',
@@ -237,7 +304,7 @@
                 data: obj,
 
                 success: function(res) {
-                    $('#table-innerHtml').html(res)
+                    $('.comment-show-list').html(res)
                 },
                 error: function(err) {
                     Swal.fire(
@@ -263,6 +330,32 @@
         function pagination(page) {
             objFiter.page = page
             showAjax(objFiter);
+        }
+
+
+        objFiterChild = {
+            page: 1,
+            course_id: {{ $course->id }}
+        }
+
+        function pagination_child(url,page){
+            objFiterChild.page = page
+            $.ajax({
+                url: url,
+                timeout: 1000,
+                data: objFiterChild,
+
+                success: function(res) {
+                    $('#modal-example').find('.modal-body').html(res)
+                },
+                error: function(err) {
+                    Swal.fire(
+                        'Có lỗi xảy ra, vui lòng thử lại',
+                        err,
+                        'error'
+                    )
+                }
+            })
         }
     </script>
 @endpush

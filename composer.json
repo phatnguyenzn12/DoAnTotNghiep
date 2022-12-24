@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.7",
         "psr/simple-cache": "2.0",
         "spatie/laravel-permission": "^5.7",
+        "stripe/stripe-php": "^10.2",
         "vimeo/vimeo-api": "^3.0"
     },
     "require-dev": {
