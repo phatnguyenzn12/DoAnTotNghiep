@@ -29,7 +29,7 @@ class Course extends BaseModel
     ];
 
     protected $appends = [
-        'current_price', 'active', 'language_rule', 'total_time', 'progress', 'number_lessons_complete', 'amount_paid_teacher',
+        'current_price', 'active', 'language_rule', 'total_time', 'progress', 'number_lessons_complete', 'amount_paid_teacher','current_rating'
     ];
 
     ////////////////////////////////////////////////////////////////
@@ -182,5 +182,11 @@ class Course extends BaseModel
             ? $this->price - ($this->price * ((100 - $this->percentage_pay) / 100))
             : $this->price;
         return $price;
+    }
+
+    public function getCurrentRatingAttribute()
+    {
+
+        return round($this->commentCourses->avg('vote'));
     }
 }

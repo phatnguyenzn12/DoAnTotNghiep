@@ -11,6 +11,7 @@ use App\Models\Mentor;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CourseController extends Controller
 {

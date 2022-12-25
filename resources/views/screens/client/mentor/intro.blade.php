@@ -170,7 +170,7 @@
                                                 alt="course image" style="width: 400px; height: 215px;">
                                             <!-- Ribbon -->
                                             @if ($course->discount != 0)
-                                                <div class="ribbon mt-3 text-danger">
+                                                <div class="ribbon mt-3 text-danger fs-5">
                                                     <span>{{ $course->discount }}%</span>
                                                 </div>
                                             @endif

@@ -10,6 +10,7 @@ use App\Models\CommentCourse;
 use App\Models\Mentor;
 use App\Models\OwnerCourse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {

@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-                                                        Page Banner START -->
+                                                            Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -26,10 +26,10 @@
         </div>
     </section>
     <!-- =======================
-                                                        Page Banner END -->
+                                                            Page Banner END -->
 
     <!-- =======================
-                                                        Page content START -->
+                                                            Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -55,11 +55,11 @@
                             <table class="table align-middle p-4 mb-0">
                                 <!-- Table head -->
 
-                                    <thead>
-                                        <th>Tên</th>
-                                        <th>Giá được giảm</th>
-                                        <th>Giá sản phẩm</th>
-                                    </thead>
+                                <thead>
+                                    <th>Tên</th>
+                                    <th>Giá được giảm</th>
+                                    <th>Giá sản phẩm</th>
+                                </thead>
 
                                 <!-- Table body START -->
                                 <tbody class="border-top-0">
@@ -93,16 +93,17 @@
 
 
                                             <!-- Action item -->
-                                            <form action="{{ route('client.order.cartRemove', $cart->id) }}" id="remove"
+                                            <form action="{{ route('client.order.cartRemove', $cart->id) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('delete')
+                                                <td>
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger-soft px-2 mb-0"><i
+                                                            class="fas fa-fw fa-times"></i></button>
+                                                </td>
                                             </form>
-                                            <td>
-                                                <button form="remove" type="submit"
-                                                    class="btn btn-sm btn-danger-soft px-2 mb-0"><i
-                                                        class="fas fa-fw fa-times"></i></button>
-                                            </td>
+
                                         </tr>
                                     @empty
                                         <div class="space-x-6 relative py-7 px-6 flex items-center justify-center">
@@ -134,7 +135,8 @@
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Giảm được</span>
-                                <span class="text-danger">{{ number_format($carts->sum('price') - $carts->sum('current_price')) }}đ</span>
+                                <span
+                                    class="text-danger">{{ number_format($carts->sum('price') - $carts->sum('current_price')) }}đ</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h5 mb-0">Kết quả</span>
@@ -158,7 +160,7 @@
         </div>
     </section>
     <!-- =======================
-                                                        Page content END -->
+                                                            Page content END -->
 @endsection
 
 @section('js-links')

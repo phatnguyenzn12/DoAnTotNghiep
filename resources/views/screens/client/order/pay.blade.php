@@ -114,9 +114,9 @@
 
                                                     <h6 class="mb-0"><a href="#">{{ $course->title }}</a></h6>
                                                     <!-- Info -->
-                                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                                    <div class="d-flex align-items-center mt-3">
                                                         <!-- Price -->
-                                                        <span class="text-success">{{ number_format($course->current_Price) }}</span>
+                                                        <span class="text-success">{{ number_format($course->current_Price) }}đ </span> <span class="mx-1">/</span> <del>{{ number_format($course->price) }}đ</del>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,7 +140,7 @@
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Tổng giá</span>
                                 <span
-                                    class="h6 fw-light mb-0 fw-bold">{{ number_format($courses->sum('current_price')) }}đ</span>
+                                    class="h6 fw-light mb-0 fw-bold">{{ number_format($courses->sum('current_price')) }}đ
                                 <input type="text" hidden value="{{ $courses->sum('current_price') }}" total_price>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
@@ -231,11 +231,12 @@
                         js_$('[input-code]').value = js_$("[discountcode]").value
                         js_$('[show_disount]').innerHTML =
                             `Giảm giá: ${res.data.discount == undefined ? '0' : res.data.discount} %`
-                        js_$('[total_discount]').innerHTML = res.data.discount != undefined ? js_$('[total_price]').value -
-                            (js_$('[total_price]').value * (res.data.discount / 100)) + ' đ' : js_$('[total_price]').value +
+                        js_$('[total_discount]').innerHTML = res.data.discount != undefined ? new Intl.NumberFormat('en-US').format(js_$('[total_price]').value -
+                            (js_$('[total_price]').value * (res.data.discount / 100))) + ' đ' :
+                            new Intl.NumberFormat('en-US').format(js_$('[total_price]').value) +
                             ' đ'
+
                         Swal.fire({
-                            position: 'top-end',
                             icon: 'success',
                             title: 'Kiểm tra thành công',
                             showConfirmButton: false,
@@ -245,9 +246,8 @@
                 ).catch(
                     res => {
                         Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'lấy mã không thành công',
+                            icon: 'error',
+                            title: 'Mã không tồn tại hoặc hết hạn',
                             showConfirmButton: false,
                             timer: 1500
                         })

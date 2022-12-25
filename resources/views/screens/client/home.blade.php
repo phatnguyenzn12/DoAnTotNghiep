@@ -120,18 +120,14 @@
                                         <p class="mb-2 text-truncate-2">{{ $course->content }}.</p>
                                         <!-- Rating star -->
                                         <ul class="list-inline mb-0">
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i>
-                                            </li>
-                                            <li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i>
-                                            </li>
+                                            @for ($i = 1; $i <= (int) $course->current_rating; $i++)
+                                                <li class="list-inline-item me-0 small"><i
+                                                        class="fas fa-star text-warning"></i>
+                                                </li>
+                                            @endfor
+
                                             <li class="list-inline-item ms-2 h6 fw-light mb-0">
-                                                4.5/5.0
+                                                {{ $course->current_rating }}/5.0
                                             </li>
                                             <span class="h6 fw-light mb-0"><i
                                                     class="fas fa-table text-orange me-2"></i>{{ $course->lessons()->count() }}
@@ -158,9 +154,14 @@
                                             <div>
                                                 <h5 class="text-success mb-0 item-show">
                                                     {{ number_format($course->price) }}đ</h5>
-                                                <a href="{{ route('client.order.addToCart', $course->id) }}"
-                                                    class="btn btn-sm btn-success-soft item-show-hover"><i
-                                                        class="fas fa-shopping-cart me-1"></i>Thêm vào</a>
+
+                                                <form action="{{ route('client.order.addToCart', $course->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-success-soft item-show-hover"><i
+                                                            class="fas fa-shopping-cart me-1"></i>Thêm vào</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -179,10 +180,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                                                                                                            Popular course END -->
+                                                                                                                                                                                                                                                                                                                Popular course END -->
 
     <!-- =======================
-                                                                                                                                                                                                                                                                                            Action box START -->
+                                                                                                                                                                                                                                                                                                                Action box START -->
     <section class="pt-0 pt-lg-5">
         <div class="container position-relative">
             <!-- SVG decoration START -->
@@ -234,10 +235,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                                                                                                            Action box END -->
+                                                                                                                                                                                                                                                                                                                Action box END -->
 
     <!-- =======================
-                                                                                                                                                                                                                                                                                            Trending courses START -->
+                                                                                                                                                                                                                                                                                                                Trending courses START -->
     <section class="pb-5 pt-0 pt-lg-5">
         <div class="container">
             <!-- Title -->
@@ -255,13 +256,15 @@
                         <!-- Card item START -->
                         @forelse($courses as $course)
                             <div>
+
                                 <div class="card action-trigger-hover border bg-transparent">
                                     <!-- Image -->
                                     <img src="{{ asset('app/' . $course->image) }}" class="card-img-top"
                                         alt="course image" style="width: 400px; height: 215px;">
                                     <!-- Ribbon -->
                                     @if ($course->discount != 0)
-                                        <div class="ribbon mt-3 text-danger"><span>{{ $course->discount }}%</span></div>
+                                        <div class="ribbon mt-3 text-danger  fs-5"><span>{{ $course->discount }}%</span>
+                                        </div>
                                     @endif
                                     <!-- Card body -->
                                     <div class="card-body pb-0">
@@ -279,10 +282,10 @@
                                         <!-- Rating -->
                                         <div class="d-flex justify-content-between mb-2">
                                             <div class="hstack gap-2">
-                                                <p class="text-warning m-0">4.5<i
+                                                <p class="text-warning m-0"> {{ $course->current_rating }}<i
                                                         class="fas fa-star text-warning ms-1"></i>
                                                 </p>
-                                                <span class="small">(3500)</span>
+                                                <span class="small">({{ $course->commentCourses->count() }})</span>
                                             </div>
                                             <div class="hstack gap-2">
                                                 <p class="h6 fw-light mb-0 m-0">{{ $course->order_details->count() }}</p>
@@ -324,8 +327,7 @@
                                                     @csrf
                                                     <button type="submit"
                                                         class="btn btn-sm btn-success-soft item-show-hover"><i
-                                                            class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
-                                                        hàng</button>
+                                                            class="fas fa-shopping-cart me-1"></i>Thêm vào</button>
                                                 </form>
                                             </div>
                                         </div>
