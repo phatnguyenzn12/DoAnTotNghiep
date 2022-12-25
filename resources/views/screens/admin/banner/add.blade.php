@@ -49,8 +49,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Mã giảm giá</label>
-                                            <select name="discount_id" id="select2" class="form-control">
-                                                <option value="{{old('discount_id')}}" >Chọn mã giảm giá</option>
+                                            <select name="discount_code_id" id="select2" class="form-control">
+                                                <option value="{{old('discount_code_id')}}" >Chọn mã giảm giá</option>
                                                 <optgroup label="">
                                                     @foreach ($coupons as $coupon)
                                                         <option value="{{ $coupon->id }}">{{ $coupon->title }}</option>
@@ -58,7 +58,7 @@
                                                 </optgroup>
                                             </select>
                                         </div>
-                                        <p class="text-danger">{{ $errors->first('discount_id') }}</p>
+                                        <p class="text-danger">{{ $errors->first('discount_code_id') }}</p>
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Trạng thái</label>
                                             <div class="col-9 col-form-label">

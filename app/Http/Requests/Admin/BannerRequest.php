@@ -33,14 +33,14 @@ class BannerRequest extends FormRequest
                             "title" => "required|unique:banners",
                             "content" => "required",
                             "image" => "required",
-                            "discount_id" => "required",
+                            "discount_code_id" => "required",
                         ];
                         break;
                     case 'update':
                         $rules = [
                             "title" => "required",
                             "content" => "required",
-                            "discount_id" => "required",
+                            "discount_code_id" => "required",
                         ];
                         break;
                 }
@@ -57,7 +57,7 @@ class BannerRequest extends FormRequest
             'title.unique' => 'Tiêu đề đã tồn tại',
             'content.required' => 'Vui lòng nhập nội dung',
             'image.required' => 'Vui lòng nhập hình ảnh',
-            'discount_id.required' => 'Vui lòng chọn mã giảm giá',
+            'discount_code_id.required' => 'Vui lòng chọn mã giảm giá',
         ];
     }
 }

@@ -33,8 +33,8 @@ class AuthRequest extends FormRequest
                             "name" => "required|unique:users",
                             "email" => "required|unique:users",
                             "number_phone" => "required|digits:10|numeric",
-                            "password" => "required",
-                            "re_password" => "required",
+                            "password" => "required|min:6|max:12",
+                            "re_password" => "required|min:6|max:12",
                         ];
                         break;
                     case 'handleLogin':
@@ -69,7 +69,11 @@ class AuthRequest extends FormRequest
             'email.required' => 'Vui lòng nhập email',
             'email.unique' => 'Email đã tồn tại',
             'password.required' => 'Vui lòng nhập mật khẩu',
+            'password.min' => 'Mật khẩu tối thiểu 6 ký tự',
+            'password.max' => 'Mật khẩu tối thiểu 12 ký tự',
             're_password.required' => 'Vui lòng nhập lại mật khẩu',
+            're_password.min' => 'Mật khẩu nhập lại tối thiểu 6 ký tự',
+            're_password.max' => 'Mật khẩu nhập lại tối thiểu 12 ký tự',
             'number_phone.required' => 'Vui lòng nhập số điện thoại',
             'number_phone.digits' => 'Vui lòng nhập đủ độ dài 10 số',
             'number_phone.numeric' => 'Vui lòng nhập đúng định dạng số',

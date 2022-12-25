@@ -4,7 +4,7 @@
     <div class="form-group">
         <label>Số tiền rút</label>
         <input type="text" name="money" placeholder="Nhập số tiền rút" class="form-control">
-        <p class="text-danger errors title"></p>
+        <p class="text-danger errors money"></p>
     </div>
     <button type="submit"  class="btn btn-primary font-weight-bold">Rút</button>
 </form>

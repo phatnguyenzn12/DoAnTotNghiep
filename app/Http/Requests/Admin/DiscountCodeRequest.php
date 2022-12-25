@@ -31,9 +31,9 @@ class DiscountCodeRequest extends FormRequest
                     case 'store':
                         $rules = [
                             "title" => "required|unique:discount_codes",
-                            "slug" => "required",
+                            "slug" => "required|not_regex:/^.+@.+$/i",
                             "code" => "required",
-                            "discount" => "required",
+                            "discount" => "required|integer|gt:0|max:100",
                             "start_time" => "required",
                             "end_time" => "required|",
                             "content" => "required",
@@ -44,7 +44,7 @@ class DiscountCodeRequest extends FormRequest
                             "title" => "required",
                             "slug" => "required",
                             "code" => "required",
-                            "discount" => "required",
+                            "discount" => "required|integer|gt:0|max:100",
                             "start_time" => "required",
                             "end_time" => "required|",
                             "content" => "required",
@@ -62,6 +62,10 @@ class DiscountCodeRequest extends FormRequest
         return [
             'required' => 'Vui lòng nhập :attribute',
             'unique' => ':attribute đã tồn tại',
+            'integer' => ':attribute phải là số',
+            'gt' => ':attribute phải lớn hơn 0',
+            'max' => ':attribute không được quá 100%',
+            'digits' => ':attribute không được quá 3 số',
         ];
     }
 }
