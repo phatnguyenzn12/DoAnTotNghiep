@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CheckUser
 {
@@ -16,9 +17,9 @@ class CheckUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->user())
-        {
-            return redirect()->route('auth.login')->with('failed','Bạn cần đăng nhập tài khoản');
+        if (!auth()->user()) {
+            Session::put('backUrl', url()->previous());
+            return redirect()->route('auth.login')->with('failed', 'Bạn cần đăng nhập tài khoản');
         }
         return $next($request);
     }

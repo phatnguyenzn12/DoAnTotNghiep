@@ -36,7 +36,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($array as $order_detail)
+                                        @foreach ($order_details as $order_detail)
                                             <tr>
                                                 <td
                                                     style="border: 1px solid black; border-collapse: collapse;padding: 5px;">
@@ -75,7 +75,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($array as $order_detail)
+                                        @foreach ($order_details as $order_detail)
                                             <tr>
                                                 <td
                                                     style="border: 1px solid black; border-collapse: collapse;padding: 5px;">

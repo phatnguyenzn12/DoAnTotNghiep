@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -29,6 +30,11 @@ class AuthController extends Controller
                 'password' => $request->password
             ])
         ) {
+            if(Session::get('backUrl')){
+                $url = Session::get('backUrl');
+                Session::forget('backUrl');
+                return redirect($url)->with('success', 'bạn đăng nhập thành công');
+            }
             return redirect()->route('client')->with('success', 'bạn đăng nhập thành công');
         } else {
             return redirect()->route('auth.login')->with('failed', 'bạn đăng nhập thất bại');

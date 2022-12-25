@@ -34,9 +34,6 @@ class OrderController extends Controller
     //ngăn chăn id khóa học đã mua
     public function addToCart(Request $request, Course $course)
     {
-        if (!auth()->user()) {
-            return redirect()->route('auth.login');
-        }
         $carts = auth()->user()->load('carts')->carts;
         if ($carts->contains('id', $course->id)) {
             return back()->with('failed', 'Sản phẩm đã tồn tại trong giỏ');
@@ -89,7 +86,7 @@ class OrderController extends Controller
             ->get()
             ->map(
                 function ($val) {
-                    $course['price'] = $val->price - ($val->price * ($_GET['discount'] / 100));
+                    $course['price'] = $val->current_price - ($val->current_price * ($_GET['discount'] / 100));
                     $course['course_id'] = $val->id;
                     $course['percentage_pay'] = $val->percentage_pay;
                     return $course;
@@ -98,18 +95,10 @@ class OrderController extends Controller
 
         $course_id = $courses->pluck('course_id')->toArray();
 
-        // $array = [];
-        // $order = Order::orderBy('id', 'desc')->first();
-        // $order_details = OrderDetail::where('order_id',$order->id)->groupBy('course_id')->get();
-        // foreach($order_details as $order_detail){
-        //     $array[] = Mentor::where('id',$order_detail->course->mentor_id)->first();
-        // }
-        // dd($array);
-
         $order = Order::create([
             'code' => $_GET['vnp_TxnRef'],
             'user_id' => auth()->user()->id,
-            'total_price' => $_GET['vnp_Amount'],
+            'total_price' => (int) $courses->sum('price'),
             'status' => 1
         ]);
 
@@ -142,18 +131,15 @@ class OrderController extends Controller
 
         Cart::destroy($cart_id);
 
-        $array = [];
-        $order = Order::orderBy('id', 'desc')->first();
-        foreach($order->order_details as $order_detail){
-            $array[] = $order_detail;
-        }
+        $order_details = $order->order_details()->get();
+
         $admin = Admin::first();
-        Mail::send('screens.email.user.bill-course', compact('admin','order','array'), function ($email) use ($admin) {
+        Mail::send('screens.email.user.bill-course', compact('admin','order','order_details'), function ($email) use ($admin) {
             $email->subject('Hóa đơn khóa học');
             $email->to($admin->email, $admin->name);
         });
         $user = User::findOrFail(auth()->user()->id);
-        Mail::send('screens.email.user.bill-course', compact('user','order','array'), function ($email) use ($user) {
+        Mail::send('screens.email.user.bill-course', compact('user','order','order_details'), function ($email) use ($user) {
             $email->subject('Hóa đơn khóa học');
             $email->to($user->email, $user->name);
         });
