@@ -11,6 +11,7 @@ class HistoryWithdrawal extends BaseModel
     protected $fillable = [
         'mentor_id',
         'money',
+        'code',
         'time',
     ];
 

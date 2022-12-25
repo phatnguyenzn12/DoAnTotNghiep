@@ -33,20 +33,21 @@
                                 <span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" name="price"  value="{{ $course->price }}" placeholder="Giá khóa học">
                         </div>
+                        <p class="text-danger">{{ $errors->first('price') }}</p>
                         <div class="form-group">
                             <label>Giảm giá
                                 <span class="text-danger">*</span></label>
-                            <input value="{{ $course->discount }}" type="number" name="discount" class="form-control" max="100"
+                            <input value="{{ $course->discount }}" type="number" name="discount" class="form-control"
                                 placeholder="Video demo">
                         </div>
-
+                        <p class="text-danger">{{ $errors->first('discount') }}</p>
                         <div class="form-group">
                             <label>Phần trăm tiền mà giáo viên nhận được
                                 <span class="text-danger">*</span></label>
-                            <input value="{{ $course->percentage_pay }}" type="number" name="percentage_pay" class="form-control" max="100"
+                            <input value="{{ $course->percentage_pay }}" type="number" name="percentage_pay" class="form-control"
                                 placeholder="Video demo">
                         </div>
-
+                        <p class="text-danger">{{ $errors->first('percentage_pay') }}</p>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                         </div>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('mentor_id');
             $table->integer('money');
+            $table->string('code');
             $table->dateTime('time');
             $table->timestamps();
         });

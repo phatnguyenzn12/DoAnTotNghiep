@@ -34,7 +34,7 @@ class MentorRequest extends FormRequest
                             "email" => "required|unique:mentors",
                             "number_phone" => "required|digits:10|numeric",
                             "address" => "required",
-                            "years_in_experience" => "required",
+                            "years_in_experience" => "required|gt:0|max:100",
                             "educations" => "required",
                             "cate_course_id" => "required",
                             "specializations" => "required",
@@ -44,7 +44,7 @@ class MentorRequest extends FormRequest
                         $rules = [
                             "number_phone" => "required|digits:10|numeric",
                             "address" => "required",
-                            "years_in_experience" => "required",
+                            "years_in_experience" => "required|gt:0|max:100",
                             "cate_course_id" => "required",
                             "specializations" => "required",
                         ];
@@ -57,7 +57,7 @@ class MentorRequest extends FormRequest
                         $rules = [
                             "number_phone" => "required|digits:10|numeric",
                             "address" => "required",
-                            "years_in_experience" => "required",
+                            "years_in_experience" => "required|gt:0|max:100",
                             "cate_course_id" => "required",
                             "specializations" => "required",
                         ];
@@ -81,6 +81,8 @@ class MentorRequest extends FormRequest
             'address.required' => 'Vui lòng nhập địa chỉ',
             'educations.required' => 'Vui lòng nhập giáo dục',
             'years_in_experience.required' => 'Vui lòng nhập kinh nghiệm',
+            'years_in_experience.gt' => 'Vui lòng nhập năm kinh nghiệm phải lớn hơn 0',
+            'years_in_experience.max' => 'Số năm kinh nghiệm tối đa là 100',
             'cate_course_id.required' => 'Vui lòng chọn danh mục khóa học',
             'specializations.required' => 'Vui lòng nhập chuyên môn',
         ];

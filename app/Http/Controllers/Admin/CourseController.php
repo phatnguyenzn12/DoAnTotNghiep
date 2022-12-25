@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CourseValidateRequest;
 use App\Models\CateCourse;
 use App\Models\Certificate;
 use App\Models\Chapter;
@@ -124,7 +125,7 @@ class CourseController extends Controller
         return view('screens.admin.course.edit-course', compact('course', 'cateCourses', 'id', 'skills'));
     }
 
-    public function update(Request $request, Course $course)
+    public function update(CourseValidateRequest $request, Course $course)
     {
         if (!$course->mentor) {
             return redirect()->back()->with('failed', 'Khóa học chưa có giảng viên');
