@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CheckAuthLesson
 {
@@ -21,7 +22,8 @@ class CheckAuthLesson
             return $next($request);
         }
         else{
-            return redirect()->route('auth.login');
+            Session::put('backUrl', url()->previous());
+            return redirect()->route('auth.login')->with('failed', 'Bạn cần đăng nhập tài khoản');
         }
 
     }

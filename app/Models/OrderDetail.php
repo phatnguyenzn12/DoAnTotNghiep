@@ -17,6 +17,7 @@ class OrderDetail extends BaseModel
         'price',
     ];
 
+    public $timestamps = true;
     public function course()
     {
         return $this->belongsTo(Course::class,'course_id');

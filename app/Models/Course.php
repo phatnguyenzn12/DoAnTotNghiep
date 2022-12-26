@@ -152,14 +152,14 @@ class Course extends BaseModel
 
     public function getProgressAttribute()
     {
-        if (!auth()->user()) return null;
-        if (!auth()->user()->courses->contains($this->id)) return null;
-        $totalLesson = $this->lessons()->count();
-        $totalHistory = LessonUser::where('course_id', $this->id)
-            ->where('user_id', auth()->user()->id)
-            ->count();
-        $progress = ($totalLesson > 0) ? ($totalHistory / $totalLesson) * 100 : 0;
-        return round($progress, 2, PHP_ROUND_HALF_DOWN);
+            if (!auth()->user()) return null;
+            if (!auth()->user()->courses->contains($this->id)) return null;
+            $totalLesson = $this->lessons()->count();
+            $totalHistory = LessonUser::where('course_id', $this->id)
+                ->where('user_id', auth()->user()->id)
+                ->count();
+            $progress = ($totalLesson > 0) ? ($totalHistory / $totalLesson) * 100 : 0;
+            return round($progress, 2, PHP_ROUND_HALF_DOWN);
     }
 
     public function getNumberLessonsCompleteAttribute()
@@ -186,7 +186,9 @@ class Course extends BaseModel
 
     public function getCurrentRatingAttribute()
     {
-
+        if (!$this->commentCourses) {
+            return 0;
+        }
         return round($this->commentCourses->avg('vote'));
     }
 }

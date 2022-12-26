@@ -17,7 +17,7 @@ class Order extends BaseModel
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class,OrderDetail::class);
+        return $this->belongsToMany(Course::class,OrderDetail::class)->withTimestamps();
     }
 
     public function users()

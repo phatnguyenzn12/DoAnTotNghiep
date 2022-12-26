@@ -57,7 +57,7 @@
 
                         <!-- Form START -->
                         <form method="POST" action="{{ route('mentor.handleLogin') }}">
-                            @include('_alert')
+
                             @csrf
                             <!-- Email -->
                             <div class="mb-4">

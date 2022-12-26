@@ -23,12 +23,13 @@ class OrderController extends Controller
     public function cartList()
     {
         if (auth()->user()) {
-            $carts = auth()->user()->load('carts')->carts;
+            $carts = auth()->user()->load('cart')->cart;
+            $carts_total = auth()->user()->load('carts')->carts;
         } else {
             $carts = [];
         }
 
-        return view('screens.client.order.cart', compact('carts'));
+        return view('screens.client.order.cart', compact('carts','carts_total'));
     }
 
     //ngăn chăn id khóa học đã mua

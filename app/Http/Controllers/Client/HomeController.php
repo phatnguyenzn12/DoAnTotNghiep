@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $cate = CateCourse::all();
 
-        $coursesAll = Course::select('*')->where('status', 2)->get();
+        $coursesAll = Course::select('*')->with('users')->where('status', 2)->get();
 
         $mentorAll = Mentor::select('*')->role('lead')->get();
 
@@ -26,15 +26,14 @@ class HomeController extends Controller
 
         $courses =  Course::select('*')->where('status', 2);
         if (auth()->user()) {
-
             $courses_id = auth()->user()->load('courses')->courses->pluck('id')->toArray();
             $courses = $courses->whereNotIn('id', $courses_id);
-
         }
       //  dd($courses->get());
         $courses =  $courses->orderBy('id', 'DESC')->paginate(8);
-        //  dd($courses);
 
+        // $courses_top = $courses;
+        // dd($courses_top);
         $certificateAll = $coursesAll->filter(
             function ($val) {
                 return $val->certificate()->first();
