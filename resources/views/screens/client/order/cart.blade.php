@@ -126,16 +126,16 @@
                         <ul class="list-group list-group-borderless mb-2">
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Tổng giá</span>
-                                <span class="h6 fw-light mb-0 fw-bold">{{ number_format($carts->sum('price')) }}đ</span>
+                                <span class="h6 fw-light mb-0 fw-bold">{{ number_format($carts_total->sum('price')) }}đ</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h6 fw-light mb-0">Giảm được</span>
                                 <span
-                                    class="text-danger">{{ number_format($carts->sum('price') - $carts->sum('current_price')) }}đ</span>
+                                    class="text-danger">{{ number_format($carts_total->sum('price') - $carts_total->sum('current_price')) }}đ</span>
                             </li>
                             <li class="list-group-item px-0 d-flex justify-content-between">
                                 <span class="h5 mb-0">Kết quả</span>
-                                <span class="h5 mb-0">{{ number_format($carts->sum('current_price')) }}đ</span>
+                                <span class="h5 mb-0">{{ number_format($carts_total->sum('current_price')) }}đ</span>
                             </li>
                         </ul>
 

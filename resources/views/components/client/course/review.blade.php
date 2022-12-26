@@ -39,16 +39,16 @@
                          <?php $s = count($result_vote);
                          count($start5);
                          $a = round(count($start5) / $s, 1) * 100;
-                         
+
                          count($start4);
                          $b = round(count($start4) / $s, 1) * 100;
-                         
+
                          count($start3);
                          $c = round(count($start3) / $s, 1) * 100;
-                         
+
                          count($start2);
                          $d = round(count($start2) / $s, 1) * 100;
-                         
+
                          count($start1);
                          $e = round(count($start1) / $s, 1) * 100;
                          ?>
@@ -222,7 +222,6 @@
  @endif
 
  <!-- Student review END -->
-
  <!-- Leave Review START -->
  <div class="mt-2">
      @if (auth()->user())
