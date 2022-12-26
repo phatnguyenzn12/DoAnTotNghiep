@@ -23,7 +23,7 @@ class OrderController extends Controller
     public function cartList()
     {
         if (auth()->user()) {
-            $carts = auth()->user()->load('carts')->carts;
+            $carts = auth()->user()->load('cart')->cart;
         } else {
             $carts = [];
         }

@@ -70,6 +70,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class,Cart::class);
     }
 
+    public function cart() {
+        return $this->hasMany(Cart::class);
+    }
+
     public function lesson_user(){
         return $this->belongsToMany(Lesson::class,LessonUser::class);
     }

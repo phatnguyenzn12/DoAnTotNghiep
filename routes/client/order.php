@@ -8,7 +8,7 @@ Route::prefix('order')->name('client.order.')->middleware('check-user')->control
     function () {
         Route::get('cart-list', 'cartList')->name('cartList');
         Route::post('add-to-cart/{course}', 'addToCart')->name('addToCart');
-        Route::delete('cart-remove/{id}', 'removeCart')->name('cartRemove');
+        Route::get('cart-remove/{id}', 'removeCart')->name('cartRemove');
         Route::get('payment', 'pay')->name('pay')->middleware('check-out');
         Route::post('check-code', 'checkCode')->name('checkCode')->middleware('check-out');
         Route::post('payment', 'handlePay')->name('handlePay')->middleware('check-out');
