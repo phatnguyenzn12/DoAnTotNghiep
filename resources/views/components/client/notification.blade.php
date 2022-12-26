@@ -4,8 +4,11 @@
         data-bs-auto-close="outside">
         <i class="bi bi-bell fa-fw"></i>
     </a>
-    <!-- Notification dote -->
-    <span class="notif-badge animation-blink"></span>
+    @if ($notifications != null)
+        <!-- Notification dote -->
+        <span class="notif-badge animation-blink"></span>
+    @endif
+
 
     <!-- Notification dropdown menu START -->
     <div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
@@ -17,12 +20,12 @@
 
                         <a class="  small" href="#">Đọc hết</a>
             </div>
-            <div class="card-body p-0" style="overflow: scroll;max-height: 400px;">
+            <div class="card-body p-0" style="overflow-y: scroll;max-height: 400px;">
                 <ul class="list-group list-unstyled list-group-flush overflow-y">
                     <!-- Notif item -->
                     @forelse ($notifications as $notification)
                         <li>
-                            <a href="{{ route('client.lesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}"
+                            <a href=""
                                 class="list-group-item-action border-0 border-bottom d-flex p-3">
 
                                 <div class="me-3">
@@ -34,14 +37,20 @@
 
                                 <div>
                                     <p class="text-body small m-0">
-                                        <b>{{ $notification->data['name'] }} ({{ $notification->data['role']}})</b>
+                                        <b>{{ $notification->data['name'] }} ({{ $notification->data['role'] }})</b>
                                         Đã trả lời
-                                    <p>{{ $notification->data['content'] }}</p>
-                                    <p>{{ $notification->created_at }}</p>
+                                        <br>
+                                    {{ $notification->data['content'] }}
+                                    <br>
+                                    {{ $notification->created_at }}
                                     </p>
 
 
-                                    <u class="small">Xem chi tiết </u>
+                                    <form action="{{ route('client.lesson.show', ['course' => $notification->data['course_id'], 'lesson' => $notification->data['lesson_id']]) }}" method="get">
+                                        <input type="text" hidden>
+                                        <button type="submit" class="btn btn-sm btn-danger-soft px-2 mb-0   " class="small">Xem chi tiết </button>
+                                    </form>
+
                                 </div>
 
                             </a>

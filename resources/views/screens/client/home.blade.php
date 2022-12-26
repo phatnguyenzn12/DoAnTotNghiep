@@ -88,7 +88,7 @@
             <!-- Title -->
             <div class="row mb-4">
                 <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="fs-1">Các khóa học phổ biến nhất</h2>
+                    <h2 class="fs-1">Khoá học mới nhất</h2>
                     <p class="mb-0">Chọn từ hàng trăm khóa học từ các tổ chức chuyên gia</p>
                 </div>
             </div>
@@ -106,6 +106,10 @@
                                     <!-- Image -->
                                     <img src="{{ asset('app/' . $course->image) }}" class="card-img-top" alt="course image"
                                         style="width: 300px; height: 160px;">
+                                    @if ($course->discount != 0)
+                                        <div class="ribbon mt-3 text-danger  fs-5"><span>{{ $course->discount }}%</span>
+                                        </div>
+                                    @endif
                                     <!-- Card body -->
                                     <div class="card-body pb-0">
                                         <!-- Badge and favorite -->
@@ -180,10 +184,10 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                                                                                                                                Popular course END -->
+                                                                                                                                                                                                                                                                                                                    Popular course END -->
 
     <!-- =======================
-                                                                                                                                                                                                                                                                                                                Action box START -->
+                                                                                                                                                                                                                                                                                                                    Action box START -->
     <section class="pt-0 pt-lg-5">
         <div class="container position-relative">
             <!-- SVG decoration START -->
@@ -235,16 +239,16 @@
         </div>
     </section>
     <!-- =======================
-                                                                                                                                                                                                                                                                                                                Action box END -->
+                                                                                                                                                                                                                                                                                                                    Action box END -->
 
     <!-- =======================
-                                                                                                                                                                                                                                                                                                                Trending courses START -->
+                                                                                                                                                                                                                                                                                                                    Trending courses START -->
     <section class="pb-5 pt-0 pt-lg-5">
         <div class="container">
             <!-- Title -->
             <div class="row mb-4">
                 <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="fs-1">Các khóa học thịnh hành của chúng tôi</h2>
+                    <h2 class="fs-1">Các khóa được mua nhiều nhất</h2>
                     <p class="mb-0">Xem hầu hết 🔥 các khóa học trên thị trường</p>
                 </div>
             </div>
@@ -288,7 +292,7 @@
                                                 <span class="small">({{ $course->commentCourses->count() }})</span>
                                             </div>
                                             <div class="hstack gap-2">
-                                                <p class="h6 fw-light mb-0 m-0">{{ $course->order_details->count() }}</p>
+                                                <p class="h6 fw-light mb-0 m-0">{{ $course->users->count() }}</p>
                                                 <span class="small">(Lượt mua)</span>
                                             </div>
                                         </div>

@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- =======================
-                                                            Page Banner START -->
+                                                                    Page Banner START -->
     <section class="py-0">
         <div class="container">
             <div class="row">
@@ -26,10 +26,10 @@
         </div>
     </section>
     <!-- =======================
-                                                            Page Banner END -->
+                                                                    Page Banner END -->
 
     <!-- =======================
-                                                            Page content START -->
+                                                                    Page content START -->
     <section class="pt-5">
         <div class="container">
 
@@ -70,12 +70,12 @@
                                                 <div class="d-lg-flex align-items-center">
                                                     <!-- Image -->
                                                     <div class="w-100px w-md-80px mb-2 mb-md-0">
-                                                        <img src="{{ asset('app/' . $cart->image) }}" class="rounded"
+                                                        <img src="{{ asset('app/' . $cart->course->image) }}" class="rounded"
                                                             alt="">
                                                     </div>
                                                     <!-- Title -->
                                                     <h6 class="mb-0 ms-lg-3 mt-2 mt-lg-0">
-                                                        <a href="#">{{ $cart->title }}</a>
+                                                        <a href="#">{{ $cart->course->title }}</a>
                                                     </h6>
                                                 </div>
                                             </td>
@@ -83,26 +83,21 @@
                                             <!-- Amount item -->
                                             <td class="text-center">
                                                 <h5 class="text-success mb-0">
-                                                    {{ number_format($cart->current_price) }} đ</h5>
+                                                    {{ number_format($cart->course->current_price) }} đ</h5>
                                             </td>
 
                                             <td class="text-center">
                                                 <h5 class="text-success mb-0">
-                                                    {{ number_format($cart->price) }} đ</h5>
+                                                    {{ number_format($cart->course->price) }} đ</h5>
                                             </td>
 
 
                                             <!-- Action item -->
-                                            <form action="{{ route('client.order.cartRemove', $cart->id) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <td>
-                                                    <button type="submit"
-                                                        class="btn btn-sm btn-danger-soft px-2 mb-0"><i
-                                                            class="fas fa-fw fa-times"></i></button>
-                                                </td>
-                                            </form>
+                                            <td>
+                                                <a href="{{ route('client.order.cartRemove', $cart->id) }}"
+                                                    class="btn btn-sm btn-danger-soft px-2 mb-0 button-delete"><i
+                                                        class="fas fa-fw fa-times"></i></a>
+                                            </td>
 
                                         </tr>
                                     @empty
@@ -160,7 +155,7 @@
         </div>
     </section>
     <!-- =======================
-                                                            Page content END -->
+                                                                    Page content END -->
 @endsection
 
 @section('js-links')
@@ -169,4 +164,48 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 @push('js-handles')
+    <script>
+        $(document).on('click', '.button-delete', function(e) {
+            e.preventDefault();
+            console.log(e)
+            let _action = $(this).attr('href');
+            let _method = 'GET'
+            Swal.fire({
+                title: 'Bạn muốn xóa?',
+                text: "Nếu bạn xóa sẽ mất dữ liệu này!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'không xóa',
+                confirmButtonText: 'Đúng, tôi muốn xóa nó!'
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: _action,
+                        method: _method,
+                        success: function(res) {
+                            console.log(res);
+                            Swal.fire(
+                                'xóa thành công!',
+                                'Bạn đã xóa thành công .',
+                                'success'
+                            ).then(function() {
+                                window.location.href = ''
+                            });
+                        },
+                        error: function(error) {
+                            console.log(error);
+                            Swal.fire(
+                                'Không xóa được',
+                                'xóa đã bị lỗi',
+                                'error'
+                            )
+                        }
+                    })
+                }
+
+            })
+        })
+    </script>
 @endpush

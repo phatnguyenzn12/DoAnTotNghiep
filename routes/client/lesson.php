@@ -6,7 +6,7 @@ use App\Http\Controllers\Client\LessonController;
 use App\Http\Controllers\Client\MentorLessonController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('lesson')->name('client.lesson.')->middleware(['check-auth-lesson','check-client'])->controller(LessonController::class)->group(
+Route::prefix('lesson')->name('client.lesson.')->middleware(['check-auth-lesson'])->controller(LessonController::class)->group(
     function () {
         Route::get('exercise/{course}', 'index')->name('index');
         Route::get('exercise-lesson/{course}/{lesson}', 'show')->name('show');
@@ -29,7 +29,7 @@ Route::prefix('lesson')->name('client.lesson.')->middleware(['check-auth-lesson'
 //     }
 // );
 
-Route::prefix('lesson')->name('client.certificate.')->middleware(['check-user','check-client'])->controller(CertificateController::class)->group(
+Route::prefix('lesson')->name('client.certificate.')->middleware(['check-user'])->controller(CertificateController::class)->group(
     function () {
         Route::post('course/{course}/get-certificate', 'getCertificate')->middleware(['check-lesson-user'])->name('getCertificate');
         Route::get('course/{certificate}/certificate', 'index')->name('index');

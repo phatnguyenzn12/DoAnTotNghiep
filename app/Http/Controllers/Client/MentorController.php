@@ -65,14 +65,14 @@ class MentorController extends Controller
         ->sortdata($request)
         ->search($request)
         ->paginate($request->record);
-        
+
         $html = view('components.client.mentor.list-mentor' ,compact('mentors'))->render();
         return response()->json($html,200);
     }
 
     public function show(Mentor $mentor)
     {
-        $mentorRelated = Mentor::where('specializations',$mentor->specializations)->get();
+        $mentorRelated = Mentor::role('teacher')->where('specializations',$mentor->specializations)->get();
         return view('screens.client.mentor.intro',compact('mentor','mentorRelated'));
     }
 

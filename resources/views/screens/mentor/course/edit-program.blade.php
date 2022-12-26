@@ -250,7 +250,7 @@
             e.preventDefault();
             console.log(e)
             let _action = $(this).attr('href');
-            let _method = 'DELETE'
+            let _method = 'POST'
             Swal.fire({
                 title: 'Bạn muốn xóa?',
                 text: "Nếu bạn xóa sẽ mất dữ liệu này!",

@@ -164,8 +164,18 @@
                                                 <!-- Title -->
                                                 <div class="d-flex justify-content-between">
                                                     <h6 class="m-0">{{ $cart->title }} </h6>
-                                                    <a href="#" class="small text-primary-hover"><i
-                                                            class="bi bi-x-lg"></i></a>
+                                                    <!-- Action item -->
+                                                    <form action="{{ route('client.order.cartRemove', $cart->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <td>
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-danger-soft px-2 mb-0"><i
+                                                                    class="bi bi-x-lg"></i></button>
+                                                        </td>
+                                                    </form>
+
                                                 </div>
                                                 <!-- Select item -->
                                                 <span>
